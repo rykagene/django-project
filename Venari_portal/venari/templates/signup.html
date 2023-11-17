@@ -1,0 +1,40 @@
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div>
+        <label>First name</label>
+        <input type="text" id="first_name" name="First_name" placeholder="Enter First Name" required>
+    </div>
+    <div>
+        <label>Last name</label>
+        <input type="text" id="last_name" name="Last_name" placeholder="Enter Last Name" required>
+    </div>
+    <div>
+        <label>Username</label>
+        <input type="text" id="Username" name="username" placeholder="Enter Username" required>
+    </div>
+    <div>
+        <label>gender</label>
+        <input type="text" id="gender" name="Gender" placeholder="Enter gender" required>
+    </div>
+    <div>
+        <label>Contact Number</label>
+        <input type="text" id="phone_number" name="Phone_number" placeholder="Contact Number" required>
+    </div>
+    <div>
+        <label>Email</label>
+        <input type="text" id="Email" name="email" placeholder="Enter Email" required>
+    </div>
+    <div>
+        <label>Password</label>
+        <input type="text" id="password" name="Password" placeholder="Enter password" required>
+    </div>
+    <div>
+        <label>Confirm Password</label>
+        <input type="text" id="confirm_password" name="Confirm_password" placeholder="Confirm password" required>
+    </div>
+    <div>
+        <label>Profile pcture</label>
+        <input type="file" id = "profile_picture" name="Profile_picture" accept=".png, .jpeg .jpg" required>
+    </div>
+    <input type="submit" value="Submit">
+</form>
