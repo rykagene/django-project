@@ -1,13 +1,15 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from . models import *
 
+def index(request):
+    return render(request, "index.html")
+
 def user_login(request):
     if request.user.is_authenticated:
-        messages.error(request, "Already logged in.")
-        return redirect("/")
+        return redirect("/login")
     else:
         if request.method == "POST":
             username = request.POST.get('username')
@@ -34,7 +36,7 @@ def user_login(request):
                     user1 = company.objects.get(user=user)    
                 if user1.user_type == "applicant" and user1.status=="Activate":
                     login(request, user)
-                    return redirect("/login")  
+                    return redirect("/user_homepage")  
                 elif user1.user_type == "applicant" and user1.status=="Deactivate":
                     messages.error(request, "Account is deactivated. Please contact the admin.")
                     return redirect('/login')
@@ -49,15 +51,15 @@ def user_login(request):
 
 def user_signup(request):
     if request.method=="POST":   
-        username = request.POST['Username']
-        email = request.POST['Username']
-        first_name=request.POST['First_name']
-        last_name=request.POST['Last_name']
-        password = request.POST['Password']
-        cpass = request.POST['Confirm_password']
-        phone = request.POST['Phone_number']
-        gender = request.POST['Gender']
-        #image = "none"
+        username = request.POST['username']
+        email = request.POST['email']
+        first_name=request.POST['first_name']
+        last_name=request.POST['last_name']
+        password = request.POST['password']
+        cpass = request.POST['confirm_password']
+        phone = request.POST['phone_number']
+        profile_picture = request.FILES['profile_picture']
+        gender = request.POST['gender']
         uniqueemail = User.objects.filter(email=email)
         uniqueuser = User.objects.filter(username=username)
         if uniqueemail:
@@ -70,14 +72,23 @@ def user_signup(request):
             messages.error(request, "Password doesn't match.")
             return redirect('/login')
 
-        user = User.objects.create_user(first_name=first_name, last_name=last_name, email=email, username=email, password=password)
-        applicants = job_seeker.objects.create(user=user, email=email, phone_number=phone, password=password, gender=gender, user_type="applicant", status="Activate")
+        user = User.objects.create_user(first_name=first_name, last_name=last_name, email=email, username=username, password=password)
+        applicants = job_seeker.objects.create(user=user, email=email, phone_number=phone, password=password, gender=gender, profile_image=profile_picture, user_type="applicant", status="Activate")
         user.save()
         applicants.save()
-        #logout(request)
         return render(request, "login.html")
     return render(request, "signup.html")
 
+def user_homepage(request):
+    username = request.user.username
+    context = {'username': username}
+    return render(request, 'user_homepage.html', context)
+
+def Logout(request):
+    logout(request)
+    return redirect('/')
+
+#Company side
 def company_signup(request):
     if request.method=="POST":   
         username = request.POST['username']
@@ -154,6 +165,9 @@ def company_login(request):
                 return redirect('/company_login')                         
     return render(request, "company_login.html")
 
+
+
+#Admin Side
 def admin_login(request):
     if request.user.is_authenticated:
         messages.error(request, "Already logged in.")

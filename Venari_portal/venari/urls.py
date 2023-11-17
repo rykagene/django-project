@@ -1,12 +1,17 @@
 from django.urls import path
-from . import views
+from . import views 
 from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
+
+    path('', views.index, name="landing page"), 
     #job seeker
-    path("", views.user_login, name="login"), #change this if landing page is finish
+    path('login/', views.user_login, name="login"), 
     path("signup/", views.user_signup, name="signup"),
+    path("user_homepage/", views.user_homepage, name="homepage"),
+    path('logout/', views.Logout, name='logout'),
+
 
     #admin
     path("admin_login/", views.admin_login, name="admin login"),
