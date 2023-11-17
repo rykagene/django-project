@@ -32,6 +32,7 @@
                             <option value="all" {% if status_filter == 'all' %}selected{% endif %}>All</option>
                             <option value="Pending" {% if status_filter == 'Pending' %}selected{% endif %}>Pending</option>
                             <option value="Accepted" {% if status_filter == 'Accepted' %}selected{% endif %}>Accepted</option>
+                            <option value="Rejected" {% if status_filter == 'Rejected' %}selected{% endif %}>Rejected</option>
                         </select>
                     </div>
                 </div>
@@ -58,7 +59,7 @@
                                             <td>{{forloop.counter}}</td>
                                             <td>{{company.user.get_full_name}}</td>
                                             <td>{{company.user.email}}</td>
-                                            <td>{{company.phone}}</td>
+                                            <td>{{company.phone_number}}</td>
                                             <td>{{company.gender}}</td>
                                             <td>{{company.company_name}}</td>
                                             <td><img src="{{company.company_logo.url}}" class="user-avatar"></td>
