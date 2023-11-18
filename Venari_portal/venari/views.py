@@ -48,7 +48,7 @@ def user_login(request):
                     user1 = company.objects.get(user=user)    
                 if user1.user_type == "applicant" and user1.status=="Activate":
                     login(request, user)
-                    return redirect("/user_homepage")  
+                    return redirect("/job_hiring")  
                 elif user1.user_type == "applicant" and user1.status=="Deactivate":
                     messages.error(request, "Account is deactivated. Please contact the admin.")
                     return redirect('/login')
@@ -99,6 +99,15 @@ def user_homepage(request):
 def Logout(request):
     logout(request)
     return redirect('/')
+
+def job_hiring(request):
+    jobs = post_jobs.objects.all().order_by('-start_date')
+    applicant = job_seeker.objects.get(user=request.user)
+    apply = apply_job.objects.filter(applicant=applicant)
+    data = []
+    for i in apply:
+        data.append(i.job.id)
+    return render(request, "job_hiring.html", {'jobs':jobs, 'data':data})
 
 #Company side
 def company_signup(request):
@@ -200,7 +209,7 @@ def company_post_job(request):
                 'New Job Offer',  # subject
                 ('Company ' + str(Company.company_name) + ' posted a new ' + str(jobtype) + ' job that will open at ' + str(start_date) + ' and ends at ' + str(end_date) + '. With a monthly salary of ' + str(salary) + ' pesos. That requires ' + str(experience) + ' year/s of experience with the skill of ' + str(skills) + '.'),
                 'ecsoriano.truckings@gmail.com',  # from_email
-                [email, "billy.andrade.l@bulsu.edu.ph"],  # list of recipient email addresses
+                [email],  # list of recipient email addresses
             )
         alert = True
         return render(request, "company_post_job.html", {'alert':alert})
@@ -210,29 +219,25 @@ def company_post_job(request):
 
 #Admin Side
 def admin_login(request):
-    if request.user.is_authenticated:
-        messages.error(request, "Already logged in.")
-        return redirect("/")
-    else:
-        if request.method == "POST":
-            username = request.POST.get('username')
-            password = request.POST.get('password')
-            try:
-                user = authenticate(username=User.objects.get(email=username), password=password)
-            except:
+    if request.method == "POST":
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        try:
+            user = authenticate(username=User.objects.get(email=username), password=password)
+        except:
                 user = authenticate(username=username, password=password)
-            if user is None:
-                messages.error(request, "Please enter a valid username or password.")
-                return redirect('/admin_login')
-            elif user.is_superuser:
-                login(request, user)
-                return redirect("/companies_list")
-            elif user.is_superuser == False:
-                messages.error(request, "Please enter a valid username or password.")
-                return redirect('/admin_login')
-            else:
-                messages.error(request, "Please enter a valid username or password.")
-                return redirect('/admin_login')
+        if user is None:
+            messages.error(request, "Please enter a valid username or password.")
+            return redirect('/admin_login')
+        elif user.is_superuser:
+            login(request, user)
+            return redirect("/companies_list")
+        elif user.is_superuser == False:
+            messages.error(request, "Please enter a valid username or password.")
+            return redirect('/admin_login')
+        else:
+            messages.error(request, "Please enter a valid username or password.")
+            return redirect('/admin_login')
     return render(request, "login.html")   
  
 def all_companies(request):
@@ -267,3 +272,29 @@ def delete_company(request, myid):
     company.delete()
     messages.success(request, "Successfully deleted.")
     return redirect("/companies_list")
+
+def delete_user(request, myid):
+    if not request.user.is_authenticated:
+        return redirect("/admin_view_jobseeker")
+    applicant = job_seeker.objects.filter(id=myid)
+    applicant.delete()
+    messages.success(request, "Successfully deleted.")
+    return redirect("/admin_view_jobseeker")
+
+def view_jobseeker(request):
+    if not request.user.is_authenticated:
+        return redirect("/admin_login")
+    applicants = job_seeker.objects.all()
+    return render(request, "admin_view_jobseeker.html", {'applicants':applicants})
+
+def change_status_jobseeker(request, myid):
+    if not request.user.is_authenticated:
+        return redirect("/admin_login")
+    applicant = job_seeker.objects.get(id=myid)
+    if request.method == "POST":
+        status = request.POST['status']
+        applicant.status=status
+        applicant.save()
+        messages.success(request, "Status changed successfully.")
+        return redirect("/admin_view_jobseeker")
+    return render(request, "jobseeker_change_status.html", {'applicant':applicant})

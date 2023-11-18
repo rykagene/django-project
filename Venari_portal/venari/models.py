@@ -49,3 +49,13 @@ class post_jobs(models.Model):
     def __str__ (self):
         return self.title
     
+class apply_job(models.Model):
+    company = models.CharField(max_length=200, default="")
+    email = models.CharField(max_length=100, null=True)
+    job = models.ForeignKey(post_jobs, on_delete=models.CASCADE)
+    jobtype = models.CharField(max_length=50, null = True)
+    applicant = models.ForeignKey(job_seeker, on_delete=models.CASCADE)
+    resume = models.ImageField(upload_to="")
+    apply_date = models.DateField()
+    def __str__ (self):
+        return str(self.applicant)

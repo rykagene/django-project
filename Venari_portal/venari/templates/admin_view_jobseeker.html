@@ -1,0 +1,110 @@
+<div class="container mt-4">
+        <div class="alert alert-success" id="msg" role="alert">
+        </div>
+<table class="table table-hover" id="view_applicants">
+    <thead>
+        <tr>
+            <th>Sr.No</th>
+            <th>Full Name</th>
+            <th>Email</th>
+            <th>Contact</th>
+            <th>Gender</th>
+            <th>Status</th>
+            <th>Image</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for applicant in applicants %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{applicant.user.get_full_name}}</td>
+            <td>{{applicant.user.email}}</td>
+            <td>{{applicant.phone}}</td>
+            <td>{{applicant.gender}}</td>
+            <td>{{applicant.status}}</td>
+            <td><img src="{{applicant.profile_image.url}}" class="rounded-circle" width="90px" height="70px"></td>
+            <td>
+            {% if applicant.status != "Activate" %}
+                <a href="/delete_user/{{applicant.user.id}}/" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this applicant?')">Delete</a>
+            {% endif %}  
+            <a href="/jobseeker_change_status/{{applicant.id}}/" class="btn btn-warning">Change Status</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</div>
+<script>
+    $(document).ready(function () {
+      $('#view_applicants').DataTable({
+        order: [
+            [0, 'asc']
+        ],
+        dom: 'Bfrtip',
+        buttons: [
+        'copyHtml5',
+        'excelHtml5',
+        'csvHtml5',
+        'pdfHtml5'
+        ],
+        columnDefs: [{
+            'targets': [0, 4, 5, 6, 7],
+            'orderable': false,
+        }],
+        orderCellsTop: true,
+        initComplete: function() {
+
+            var table = this.api();
+
+            // Add filtering
+            table.columns(4).every(function() {
+                var column = this;
+
+                var select = $(
+                        '<select class="datatableselect"><option value="">Gender</option></select>'
+                    )
+                    .appendTo($("thead tr:eq(0) th").eq(this.index()))
+                    .on('change', function() {
+                        var val = $.fn.dataTable.util.escapeRegex(
+                            $(this).val()
+                        );
+
+                        column
+                            .search(val ? '^' + val + '$' : '', true, false)
+                            .draw();
+                    });
+
+                column.data().unique().sort().each(function(d, j) {
+                    select.append('<option value="' + d + '">' + d +
+                        '</option>')
+                });
+
+            });
+            table.columns(5).every(function() {
+                var column = this;
+
+                var select = $(
+                        '<select class="datatableselect"><option value="">Status</option></select>'
+                    )
+                    .appendTo($("thead tr:eq(0) th").eq(this.index()))
+                    .on('change', function() {
+                        var val = $.fn.dataTable.util.escapeRegex(
+                            $(this).val()
+                        );
+
+                        column
+                            .search(val ? '^' + val + '$' : '', true, false)
+                            .draw();
+                    });
+
+                column.data().unique().sort().each(function(d, j) {
+                    select.append('<option value="' + d + '">' + d +
+                        '</option>')
+                });
+
+            });
+        }
+      })
+    });
+</script>
