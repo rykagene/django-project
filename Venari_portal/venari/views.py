@@ -10,55 +10,51 @@ def index(request):
     return render(request, "index.html")
 
 def user_login(request):
-    if request.user.is_authenticated:
-        return redirect("/login")
-    else:
-        if request.method == "POST":
-            username = request.POST.get('username')
-            password = request.POST.get('password')
-            is_email = '@' in username
-            try:
+    if request.method == "POST":
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        is_email = '@' in username
+        try:
                #account exist
-                if is_email:
-                    try:
-                        user = authenticate(username=job_seeker.objects.get(email=username).user.username, password=password)
-                    except job_seeker.DoesNotExist:
-                        user = None
-                else:
-                    try:
-                        user = authenticate(username=User.objects.get(username=username), password=password)
-                    except User.DoesNotExist:
-                        user = None
-            except User.DoesNotExist:
-                #account didnt exist
-                user = None
-            #invalid username/password
-            if user is None:
-                messages.error(request, "Please enter a valid username or password.")
-                return redirect('/login')
-            elif user.is_superuser:
-                messages.error(request, "Please enter a valid username or password.")
-                return redirect('/login')
-            
-            else:
-                #check for login if it activate or not
+            if is_email:
                 try:
-                    user1 = job_seeker.objects.get(user=user)
-                except:
-                    user1 = company.objects.get(user=user)    
-                if user1.user_type == "applicant" and user1.status=="Activate":
-                    login(request, user)
-                    return redirect("/job_hiring")  
-                elif user1.user_type == "applicant" and user1.status=="Deactivate":
-                    messages.error(request, "Account is deactivated. Please contact the admin.")
-                    return redirect('/login')
-                elif user1.user_type == "company":
-                    messages.error(request, "Please enter a valid username or password.")
-                    return redirect('/login')
-                else:
-                    messages.error(request, "Please enter a valid username or password.")
-                    return redirect('/login')      
-
+                    user = authenticate(username=job_seeker.objects.get(email=username).user.username, password=password)
+                except job_seeker.DoesNotExist:
+                        user = None
+            else:
+                try:
+                    user = authenticate(username=User.objects.get(username=username), password=password)
+                except User.DoesNotExist:
+                        user = None
+        except User.DoesNotExist:
+                #account didnt exist
+            user = None
+            #invalid username/password
+        if user is None:
+            messages.error(request, "Please enter a valid username or password.")
+            return redirect('/login')
+        elif user.is_superuser:
+            messages.error(request, "Please enter a valid username or password.")
+            return redirect('/login')
+            
+        else:
+                #check for login if it activate or not
+            try:
+             user1 = job_seeker.objects.get(user=user)
+            except:
+                 user1 = company.objects.get(user=user)    
+            if user1.user_type == "applicant" and user1.status=="Activate":
+                login(request, user)
+                return redirect("/job_hiring")  
+            elif user1.user_type == "applicant" and user1.status=="Deactivate":
+                messages.error(request, "Account is deactivated. Please contact the admin.")
+                return redirect('/login')
+            elif user1.user_type == "company":
+                messages.error(request, "Please enter a valid username or password.")
+                return redirect('/login')
+            else:
+                messages.error(request, "Please enter a valid username or password.")
+                return redirect('/login')      
     return render(request, "login.html")
 
 def user_signup(request):
@@ -91,10 +87,52 @@ def user_signup(request):
         return render(request, "login.html")
     return render(request, "signup.html")
 
-def user_homepage(request):
-    username = request.user.username
-    context = {'username': username}
-    return render(request, 'user_homepage.html', context)
+def jobseeker_profile(request):
+    if not request.user.is_authenticated:
+        return redirect('/user_login/')
+    applicant = job_seeker.objects.get(user=request.user)
+    if request.method=="POST":   
+        username = request.POST['username']
+        email = request.POST['email']
+        first_name=request.POST['first_name']
+        last_name=request.POST['last_name']
+        phone = request.POST['phone']
+        gender = request.POST['gender']
+        status = request.POST['status']
+        hidden_username = request.POST['hidden_username']
+        hidden_email = request.POST['hidden_email']
+        hidden_phone = request.POST['hidden_phone']
+        uniqueemail = User.objects.filter(email=email)
+        uniqueuser = User.objects.filter(username=username)
+        if uniqueemail and email != hidden_email:
+            messages.error(request, "Email exists.")
+            return redirect('/jobseeker_profile')
+        elif uniqueuser and username != hidden_username:
+            messages.error(request, "Username exists.")
+            return redirect('/jobseeker_profile')
+        elif (job_seeker.objects.filter(phone=phone).exists() or company.objects.filter(phone_number=phone).exists()) and phone != hidden_phone:
+            messages.error(request, "Phone number exists.")
+            return redirect('/jobseeker_profile')
+        else:
+            applicant.user.username = username
+            applicant.user.email = email
+            applicant.user.first_name = first_name
+            applicant.user.last_name = last_name
+            applicant.phone_number = phone
+            applicant.gender = gender
+            applicant.status = status
+            applicant.save()
+            applicant.user.save()
+
+            try:
+                image = request.FILES['image']
+                applicant.profile_image = image
+                applicant.save()
+            except:
+                pass
+            alert = True
+            return render(request, "jobseeker_profile.html", {'alert':alert})
+    return render(request, "jobseeker_profile.html", {'applicant':applicant})
 
 def Logout(request):
     logout(request)

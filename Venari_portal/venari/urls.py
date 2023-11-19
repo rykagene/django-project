@@ -9,8 +9,8 @@ urlpatterns = [
     #job seeker
     path('login/', views.user_login, name="login"), 
     path("signup/", views.user_signup, name="signup"),
-    path("user_homepage/", views.user_homepage, name="homepage"),
     path("job_hiring/", views.job_hiring, name="posted jobs"),
+    path("jobseeker_profile/", views.jobseeker_profile, name="job seeker profile"),
     path('logout/', views.Logout, name='logout'),
 
 
