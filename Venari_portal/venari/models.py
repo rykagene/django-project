@@ -26,6 +26,9 @@ class company(models.Model):
     gender = models.CharField(max_length=10, null=True)
     user_type = models.CharField(max_length=30)
     company_name = models.CharField(max_length=100)
+    company_ceo = models.CharField(max_length=100)
+    company_established = models.DateField()
+    company_location = models.CharField(max_length=100)
     status = models.CharField(max_length=50, null = True)
 
     def __str__(self):

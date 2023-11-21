@@ -152,6 +152,9 @@ def company_signup(request):
     if request.method=="POST":   
         username = request.POST['username']
         company_name = request.POST['company_name']
+        company_ceo = request.POST['company_ceo']
+        company_established = request.POST['company_established']
+        company_location = request.POST['company_location']
         email = request.POST['email']
         first_name=request.POST['first_name']
         last_name=request.POST['last_name']
@@ -180,7 +183,7 @@ def company_signup(request):
             return redirect('/company_login')
 
         user = User.objects.create_user(first_name=first_name, last_name=last_name, email=email, username=username, password=password)
-        company_user = company.objects.create(user=user, email=email, phone_number=phone, password=password, company_name=company_name, company_logo=company_logo, gender=gender, user_type="company", status="Pending")
+        company_user = company.objects.create(user=user, email=email, phone_number=phone, password=password, company_name=company_name, company_ceo=company_ceo, company_established=company_established, company_location=company_location,company_logo=company_logo, gender=gender, user_type="company", status="Pending")
         user.save()
         company_user.save()
         #logout(request)
