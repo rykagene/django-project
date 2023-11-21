@@ -30,7 +30,7 @@ urlpatterns = [
     path("company_login/", views.company_login, name="company login"),
     path("companies_list/", views.all_companies, name="companies list"),
     path("company_post_job/", views.company_post_job, name="companies list"),
-    path("company_profile/", views.company_profile, name="companies list"),
+    path("company_profile/", views.company_profile, name="company profile"),
 
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

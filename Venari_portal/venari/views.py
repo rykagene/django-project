@@ -157,7 +157,7 @@ def company_signup(request):
         company_location = request.POST['company_location']
         email = request.POST['email']
         first_name=request.POST['first_name']
-        last_name=request.POST['last_name']
+        last_name = request.POST['last_name']
         password = request.POST['password']
         cpass = request.POST['confirm_password']
         phone = request.POST['phone_number']
@@ -212,7 +212,7 @@ def company_login(request):
             if user1.user_type == "company" and user1.status == "Accepted":
                 login(request, user)
                 #change to main_page
-                return redirect("/company_post_job")
+                return redirect("/company_profile")
             elif user1.user_type == "company" and user1.status == "Pending":
                 messages.error(request, "Account is still pending. Please contact the admin.")
                 return redirect('/company_login')
@@ -230,7 +230,7 @@ def company_login(request):
 def company_profile(request):
     if not request.user.is_authenticated:
         return redirect("/company_login")
-    company = company.objects.get(user=request.user)
+    company_user = company.objects.get(user=request.user)
     if request.method=="POST":   
         username = request.POST['username']
         email = request.POST['email']
@@ -245,32 +245,32 @@ def company_profile(request):
         uniqueuser = User.objects.filter(username=username)
         if uniqueemail and email != hidden_email:
             messages.error(request, "Email exists.")
-            return redirect('/company_homepage')
+            return redirect('/company_profile')
         elif uniqueuser and username != hidden_username:
             messages.error(request, "Username exists.")
-            return redirect('/company_homepage')
+            return redirect('/company_profile')
         elif (job_seeker.objects.filter(phone=phone_number).exists() or company.objects.filter(phone=phone_number).exists()) and phone_number != hidden_phone:
             messages.error(request, "Phone number exists.")
-            return redirect('/company_homepage')
+            return redirect('/company_profile')
         else:
-            company.user.username = username
-            company.email = email
-            company.user.first_name = first_name
-            company.user.last_name = last_name
-            company.phone_number = phone_number
-            company.gender = gender
-            company.save()
-            company.user.save()
+            company_user.user.username = username
+            company_user.email = email
+            company_user.user.first_name = first_name
+            company_user.user.last_name = last_name
+            company_user.phone_number = phone_number
+            company_user.gender = gender
+            company_user.user.save()
+            company_user.save()
 
             try:
                 image = request.FILES['image']
-                company.image = image
-                company.save()
+                company_user.company_logo = image
+                company_user.save()
             except:
                 pass
             alert = True
-            return render(request, "company_homepage.html", {'alert':alert})
-    return render(request, "company_profile.html", {'company':company})
+            return render(request, "company_profile.html", {'alert':alert})
+    return render(request, "company_profile.html", {'company':company_user})
 
 
 def company_post_job(request):
