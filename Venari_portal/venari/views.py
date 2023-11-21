@@ -336,3 +336,64 @@ def change_status_jobseeker(request, myid):
         messages.success(request, "Status changed successfully.")
         return redirect("/admin_view_jobseeker")
     return render(request, "jobseeker_change_status.html", {'applicant':applicant})
+
+
+def admin_job_list(request):
+    if not request.user.is_authenticated:
+        return redirect("/admin_login")
+    jobs = post_jobs.objects.all()
+    return render(request, "admin_joblist.html", {'jobs':jobs})
+
+
+def admin_changejob_status(request, myid):
+    if not request.user.is_authenticated:
+        return redirect("/admin_login")
+    job = post_jobs.objects.get(id=myid)
+    if request.method == "POST":
+        status = request.POST['status']
+        job.status=status
+        job.save()
+        messages.success(request, "Status changed successfully.")
+        return redirect("/admin_joblist")
+    return render(request, "admin_changejob_status.html", {'job':job})
+
+def edit_job_admin(request, myid):
+    if not request.user.is_authenticated:
+        return redirect("/admin_login")
+    job = post_jobs.objects.get(id=myid)
+    if request.method == "POST":
+        title = request.POST['job_title']
+        start_date = request.POST['start_date']
+        end_date = request.POST['end_date']
+        salary = request.POST['salary']
+        experience = request.POST['experience']
+        location = request.POST['location']
+        skills = request.POST['skills']
+        description = request.POST['description']
+        jobtype = request.POST['jobtype']
+        job.title = title
+        job.salary = salary
+        job.experience = experience
+        job.location = location
+        job.jobtype = jobtype
+        job.skills = skills
+        job.description = description
+
+        job.save()
+        if start_date:
+            job.start_date = start_date
+            job.save()
+        if end_date:
+            job.end_date = end_date
+            job.save()
+        alert = True
+        return render(request, "admin_edit_jobpost.html", {'alert':alert})
+    return render(request, "admin_edit_jobpost.html", {'job':job})
+
+def admin_delete_postjob(request, myid):
+    if not request.user.is_authenticated:
+        return redirect("/company_login")
+    jobs = post_jobs.objects.get(id=myid)
+    jobs.delete()
+    messages.success(request, "Successfully deleted.")
+    return redirect("/admin_joblist")

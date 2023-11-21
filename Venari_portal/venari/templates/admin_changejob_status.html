@@ -1,0 +1,26 @@
+<form method="POST"> {% csrf_token %}
+    <div class="container mt-5">
+        <div class="mb-3">
+            <label for="username" class="form-label"><i style="font-weight: bold;">Company Name</i></label>
+            <input type="text" class="form-control" id="company_name" name="company_name" value="{{job.company}}" readonly>
+        </div>
+        <div class="mb-3">
+            <label for="username" class="form-label"><i style="font-weight: bold;">Job Title</i></label>
+            <input type="text" class="form-control" id="company_name" name="company_name" value="{{job.title}}" readonly>
+        </div>
+        <div class="mb-3">
+            <label for="username" class="form-label"><i style="font-weight: bold;">Job Title</i></label>
+            <input type="text" class="form-control" id="company_name" name="company_name" value="{{job.jobtype}}" readonly>
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label"><i style="font-weight: bold;">Status</i></label>
+            <select name="status" id="status" class="form-control" required>
+                <option value="Activate">Activate</option>
+                <option value="Deactivate">Deactivate</option>
+            </select>
+        </div>
+        <br>
+        <input type="submit" value="Submit" class="btn" style="background-color: #4f868c; color: white;font-size: larger; width: 8rem;">
+
+    </div>
+</form>

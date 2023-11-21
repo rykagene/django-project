@@ -20,7 +20,11 @@ urlpatterns = [
     path("company_change_status/<int:myid>/", views.change_status, name="company change status"),
     path("admin_view_jobseeker/", views.view_jobseeker, name="edit jobseeker status"),
     path("jobseeker_change_status/<int:myid>/", views.change_status_jobseeker, name="edit jobseeker status"),
-
+    path("admin_joblist/", views.admin_job_list, name="admin list of posted jobs"),
+    path("admin_edit_jobpost/<int:myid>/", views.edit_job_admin, name="edit posted job"),
+    path("admin_changejob_status/<int:myid>/", views.admin_changejob_status, name="edit posted job status"),
+    path("admin_delete_postjob/<int:myid>/", views.admin_delete_postjob, name="delete posted job status"),
+    
     #company
     path("company_signup/", views.company_signup, name="company signup"),
     path("company_login/", views.company_login, name="company login"),

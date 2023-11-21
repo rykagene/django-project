@@ -1,0 +1,127 @@
+<div class="container mt-4">
+    {% for message in messages %}
+        <div class="alert alert-success" id="msg" role="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
+<table class="table table-hover" id="job_list_admin">
+    <thead>
+        <tr>
+            <th>Job Title</th>
+            <th>Job Type</th>
+            <th>Created On</th>
+            <th>Status</th>
+            <th>Action</th>
+            <th>Change Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for job in jobs %}
+        <tr>
+            <td>{{job.title}}</td>
+            <td>{{job.jobtype}}</td>
+            <td>{{job.creation_date}}</td>
+            <td>{{job.status}}</td>
+            <td><a href="/admin_edit_jobpost/{{job.id}}/" class="btn btn-success" title="Edit">Edit</a><a href="/admin_delete_postjob/{{job.id}}/" class="btn btn-danger" title="Delete">Delete</a></td>
+            <td><a href="/admin_changejob_status/{{job.id}}/" class="btn btn-warning">Change Status</a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</div>
+<script>
+    $(document).ready(function () {
+      $('#job_list_admin').DataTable({
+        order: [
+            [0, 'asc']
+        ],
+        dom: 'Bfrtip',
+        buttons: [
+        'copyHtml5',
+        'excelHtml5',
+        'csvHtml5',
+        'pdfHtml5'
+        ],
+        columnDefs: [{
+            'targets': [0, 1, 2 ,4],
+            'orderable': false,
+        }],
+        orderCellsTop: true,
+        initComplete: function() {
+
+            var table = this.api();
+
+            // Add filtering
+            table.columns(2).every(function() {
+                var column = this;
+
+                var select = $(
+                        '<select class="datatableselect"><option value="">Job Type</option></select>'
+                    )
+                    .appendTo($("thead tr:eq(0) th").eq(this.index()))
+                    .on('change', function() {
+                        var val = $.fn.dataTable.util.escapeRegex(
+                            $(this).val()
+                        );
+
+                        column
+                            .search(val ? '^' + val + '$' : '', true, false)
+                            .draw();
+                    });
+
+                column.data().unique().sort().each(function(d, j) {
+                    select.append('<option value="' + d + '">' + d +
+                        '</option>')
+                });
+
+            });
+            table.columns(1).every(function() {
+                var column = this;
+
+                var select = $(
+                        '<select class="datatableselect"><option value="">Job Title</option></select>'
+                    )
+                    .appendTo($("thead tr:eq(0) th").eq(this.index()))
+                    .on('change', function() {
+                        var val = $.fn.dataTable.util.escapeRegex(
+                            $(this).val()
+                        );
+
+                        column
+                            .search(val ? '^' + val + '$' : '', true, false)
+                            .draw();
+                    });
+
+                column.data().unique().sort().each(function(d, j) {
+                    select.append('<option value="' + d + '">' + d +
+                        '</option>')
+                });
+
+            });
+            table.columns(4).every(function() {
+                var column = this;
+
+                var select = $(
+                        '<select class="datatableselect"><option value="">Status</option></select>'
+                    )
+                    .appendTo($("thead tr:eq(0) th").eq(this.index()))
+                    .on('change', function() {
+                        var val = $.fn.dataTable.util.escapeRegex(
+                            $(this).val()
+                        );
+
+                        column
+                            .search(val ? '^' + val + '$' : '', true, false)
+                            .draw();
+                    });
+
+                column.data().unique().sort().each(function(d, j) {
+                    select.append('<option value="' + d + '">' + d +
+                        '</option>')
+                });
+
+            });
+        }
+      })
+    });
+</script>
