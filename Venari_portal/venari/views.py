@@ -227,6 +227,52 @@ def company_login(request):
                 return redirect('/company_login')                         
     return render(request, "company_login.html")
 
+def company_profile(request):
+    if not request.user.is_authenticated:
+        return redirect("/company_login")
+    company = company.objects.get(user=request.user)
+    if request.method=="POST":   
+        username = request.POST['username']
+        email = request.POST['email']
+        first_name=request.POST['first_name']
+        last_name=request.POST['last_name']
+        phone_number = request.POST['phone_number']
+        gender = request.POST['gender']
+        hidden_username = request.POST['hidden_username']
+        hidden_email = request.POST['hidden_email']
+        hidden_phone = request.POST['hidden_phone']
+        uniqueemail = User.objects.filter(email=email)
+        uniqueuser = User.objects.filter(username=username)
+        if uniqueemail and email != hidden_email:
+            messages.error(request, "Email exists.")
+            return redirect('/company_homepage')
+        elif uniqueuser and username != hidden_username:
+            messages.error(request, "Username exists.")
+            return redirect('/company_homepage')
+        elif (job_seeker.objects.filter(phone=phone_number).exists() or company.objects.filter(phone=phone_number).exists()) and phone_number != hidden_phone:
+            messages.error(request, "Phone number exists.")
+            return redirect('/company_homepage')
+        else:
+            company.user.username = username
+            company.email = email
+            company.user.first_name = first_name
+            company.user.last_name = last_name
+            company.phone_number = phone_number
+            company.gender = gender
+            company.save()
+            company.user.save()
+
+            try:
+                image = request.FILES['image']
+                company.image = image
+                company.save()
+            except:
+                pass
+            alert = True
+            return render(request, "company_homepage.html", {'alert':alert})
+    return render(request, "company_profile.html", {'company':company})
+
+
 def company_post_job(request):
     if not request.user.is_authenticated:
         return redirect("/company_login")

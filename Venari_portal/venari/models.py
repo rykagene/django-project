@@ -21,7 +21,6 @@ class company(models.Model):
     phone_number = models.IntegerField(max_length=20)
     email = models.CharField(max_length=100, null=True)
     password = models.CharField(max_length=100, null= True)
-    phone_number = models.IntegerField(max_length=20)
     company_logo = models.ImageField(upload_to="")
     gender = models.CharField(max_length=10, null=True)
     user_type = models.CharField(max_length=30)
