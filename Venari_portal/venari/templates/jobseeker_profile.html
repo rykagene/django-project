@@ -1,97 +1,399 @@
-<div class="container">
-    <div class="row">
-        {% for message in messages %}
-            <div class="alert alert-danger" id="msg" role="alert" style="margin-top: 10px;">
-                {{ message }}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static "css/jobseeker_profile.css" %}">
+
+
+    <!--     
+    color palette
+    898dff
+    df5aff
+    fb675f
+    e89568
+    122238 -->
+
+
+    <title>Document</title>
+</head>
+
+<body style="font-family: 'Poppins', sans-serif; font-size: 14px;">
+
+    <nav class="navbar navbar-expand-sm navbar-light bg-light">
+          <div class="container">
+            <a class="navbar-brand" href="#">Navbar</a>
+            <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="collapsibleNavId">
+                <ul class="navbar-nav me-auto mt-2 mt-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#" aria-current="page">Home <span class="visually-hidden">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Link</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownId">
+                            <a class="dropdown-item" href="#">Action 1</a>
+                            <a class="dropdown-item" href="#">Action 2</a>
+                        </div>
+                    </li>
+                </ul>
+                <form class="d-flex my-2 my-lg-0">
+                    <input class="form-control me-sm-2" type="text" placeholder="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
             </div>
-        {% endfor %}
-        <div class="col-sm-6">
-            <form class="container mt-4" method="POST" enctype="multipart/form-data">
-                {% csrf_token %}
+      </div>
+    </nav>
+    
 
-                <div class="row" >
-                    <div class="form-group col-md-6">
-                        <label>First Name</label>
-                        <input type="text" class="form-control mt-2" name="first_name" id="first_name"
-                            value="{{applicant.user.first_name}}" required>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label>Last Name</label>
-                        <input type="text" class="form-control mt-2" name="last_name" id="last_name"
-                        value="{{applicant.user.last_name}}" required>
+
+    <div class="container-xl mt-3">
+        <div class="row justify-content-center align-items-start g-3">
+            <div class="col-md-4">
+
+                <div class="card profile-card px-2 vh-100">
+                    <div class="card-body overflow-y-auto">
+
+                        <div class="text-center mb-3 mt-5">
+                            <img class="rounded-circle" src="{{applicant.profile_image.url}}" alt="" height="125px"
+                                width="125px" style="object-fit: cover;">
+                        </div>
+
+                        <div class="text-center">
+                            <h5 class="text-primary my-0">{{applicant.user.first_name}}
+                                {{applicant.user.last_name}}</h5>
+                            <p class="my-0">Occupation Here</p>
+                        </div>
+
+                        <div class="bio my-3 text-center">
+                            Bio Here (150 chars)
+                            Lorem ipsum dolor sit Lorem ipsum dolor sit Lorem ipsum dolor sit Lorem ipsum dolor sit
+                            Lorem ipsum dolor sit
+                            Lorem ipsum dolor sit Lorem ipsum dolor sit Lorem ipsum dolor sit
+                        </div>
+
+                        <div class="text-start mb-3">
+                            <h5>Skills</h5>
+                            <span class="skillsList">User Interface Designing</span>
+                            <span class="skillsList">UI</span>
+                            <span class="skillsList">UX</span>
+                            <span class="skillsList">Figma</span>
+                            <span class="skillsList">Wireframe</span>
+                            <span class="skillsList">Photoshop</span>
+                            <span class="skillsList">Adobe Illustrator</span>
+                            <span class="skillsList">Adobe XD</span>
+                        </div>
+
+                        <div class="notes-container">
+                            <h5>Add Note</h5>
+                            <p>This is a sample note</p>
+                        </div>
+
                     </div>
                 </div>
 
-                <div class="row mt-4">
-                    <div class="form-group col-md-6">
-                        <label>Username</label>
-                        <input type="text" class="form-control mt-2" name="username" id="username"
-                            value="{{applicant.user.username}}" required>
-                        <input type="hidden" class="form-control mt-2" name="hidden_username" id="username"
-                        value="{{applicant.user.username}}">
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label>Email Address</label>
-                        <input type="email" class="form-control mt-2" name="email" id="email" value="{{applicant.user.email}}" required>
-                        <input type="hidden" class="form-control mt-2" name="hidden_email" id="email" value="{{applicant.user.email}}" >
-                    </div>
-                </div>
+            </div>
+            <div class="col-md-8">
 
-                <div class="row mt-4">
-                    <div class="form-group col-md-6">
-                        <label>Contact Number</label>
-                        <input type="text" class="form-control mt-2" name="phone" id="phone" value="{{applicant.phone_number}}" placeholder="Enter Contact Number" minlength="11" maxlength="11" pattern="09[0-9]{9}" title="09(Last 9 Digits)" required>
-                        <input type="hidden" class="form-control mt-2" name="hidden_phone" id="phone" value="{{applicant.phone_number}}" placeholder="Enter Contact Number" minlength="11" maxlength="11" pattern="09[0-9]{9}" title="09(Last 9 Digits)" required>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label>Gender</label>
-                        {% if applicant.gender == "Male" %}
-                        <div class="mt-2" style="border: 1px solid lightgrey; padding: 5px; border-radius: 6px;">
-                            <div class="form-check form-check-inline">
-                                <input type="radio" class="custom-control-input" name="gender" value="Male" checked>
-                                <label for="male" class="custom-control-label">Male</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input type="radio" class="custom-control-input" name="gender"
-                                    value="Female">
-                                <label for="female" class="custom-control-label">Female</label>
+
+                <div class="row row-cols-1 justify-content-center align-items-center g-3">
+
+                    <div class="col-12">
+                        <div class="card profile-card">
+                            <div class="card-body">
+                                <div>
+                                    <h5 class="mb-2">Basic Information</h5>
+                                    <div class="row justify-content-start align-items-center g-2 mb-3">
+                                        <div class="col-lg-3 col-md-6">Age<br>
+                                            <span class="fw-bold">Age Here</span>
+                                        </div>
+                                        <div class="col-lg-3 col-md-6">Phone<br>
+                                            <span class="fw-bold">09123456789</span>
+                                        </div>
+                                        <div class="col-lg-6 col-md">Address<br>
+                                            <span class="fw-bold">Hagonoy, Bulacan</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="row justify-content-start align-items-start g-2 mb-3">
+                                        <div class="col-lg-3 col-md-6 text-truncate">Years of Experience<br>
+                                            <span class="fw-bold">6 Years</span>
+                                        </div>
+                                        <div class="col-lg-3 col-md-6">Sample Criteria<br>
+                                            <span class="fw-bold">Sample Answer</span>
+                                        </div>
+                                        <div class="col-lg-6 col-md">Email Address<br>
+                                            <span class="fw-bold">pauljustine.miguel.a@bulsu.edu.ph</span>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        {% else %}
-                        <div style="border: 1px solid lightgrey; padding: 5px; border-radius: 6px;">
-                            <div class="form-check form-check-inline">
-                                <input type="radio" class="custom-control-input" name="gender" value="Male">
-                                <label for="male" class="custom-control-label">Male</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input type="radio" class="custom-control-input" name="gender"
-                                    value="Female" checked>
-                                <label for="female" class="custom-control-label">Female</label>
+                    </div>
+
+
+                    <div class="col-12">
+                        <div class="card profile-card">
+                            <div class="card-body">
+                                <div>
+                                    <h5 class="mb-2">Work Experiences</h5>
+                                    <div class="row justify-content-start align-items-center g-2 mb-3">
+
+                                        <div class="col-12">
+                                            <div class="card mb-3">
+                                                <div class="row g-0">
+                                                    <div class="col-md-3">
+                                                        <img src="Image Source" class="img-fluid rounded-start"
+                                                            alt="Card title">
+                                                    </div>
+                                                    <div class="col-md-9">
+                                                        <div class="card-body">
+                                                            <h5 class="card-title">Work Name</h5>
+                                                            <p class="card-text">Position Here
+                                                            </p>
+                                                            <p class="card-text">
+                                                                <small class="text-muted">This is the date of work | The Address of the work be here</small></p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12">
+                                            <div class="card mb-3">
+                                                <div class="row g-0">
+                                                    <div class="col-md-3">
+                                                        <img src="Image Source" class="img-fluid rounded-start"
+                                                            alt="Card title">
+                                                    </div>
+                                                    <div class="col-md-9">
+                                                        <div class="card-body">
+                                                            <h5 class="card-title">Work Name</h5>
+                                                            <p class="card-text">Position Here
+                                                            </p>
+                                                            <p class="card-text">
+                                                                <small class="text-muted">This is the date of work | The Address of the work be here</small></p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12">
+                                            <div class="card mb-3">
+                                                <div class="row g-0">
+                                                    <div class="col-md-3">
+                                                        <img src="Image Source" class="img-fluid rounded-start"
+                                                            alt="Card title">
+                                                    </div>
+                                                    <div class="col-md-9">
+                                                        <div class="card-body">
+                                                            <h5 class="card-title">Work Name</h5>
+                                                            <p class="card-text">Position Here
+                                                            </p>
+                                                            <p class="card-text">
+                                                                <small class="text-muted">This is the date of work | The Address of the work be here</small></p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
                             </div>
                         </div>
-                        {% endif %}
                     </div>
+
+
+                     <div class="col-12">
+                        <div class="accordion accordion-flush" id="educationFlush">
+                          <div class="accordion-item">
+                            <h2 class="accordion-header" id="educationFlushHeading">
+                              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#educationFlushCollapse" aria-expanded="true" aria-controls="educationFlushCollapse">
+                                educationFlush
+                              </button>
+                            </h2>
+                            <div id="educationFlushCollapse" class="accordion-collapse collapse" aria-labelledby="educationFlushHeading" data-bs-parent="#educationFlush">
+                              <div class="accordion-body">
+                                This is the first item's accordion body.
+                              </div>
+                            </div>
+                          </div>
+                          
+                        </div>
+                    </div>
+
+
+
                 </div>
 
-                <div class="row mt-4">
-                    <div class="form-group col-md-6">
-                        <label>Profile Photo</label>
-                        <input type="file" class="form-control mt-2" name="image" id="image" accept=".png, .jpeg, .jpg">
-                    </div>
-                    <div class="form-group col-md-6" style="margin-top: 8px;" required>
-                        <label>Activate/Deactivate</label>
-                        <select name="status" id="status" class="form-control">
-                            <option value="Activate">Activate</option>
-                            <option value="Deactivate">Deactivate</option>
-                        </select>
-                    </div>
-                </div>
+            </div>
 
-                <input type="submit" value="Update Profile" class="btn mt-4" accept="image/*" style="background-color: #4f868c; color: white; font-size: larger; width: 10rem;">
-            </form>
-        </div>
-        <div class="col-sm-4 mt-5 text-center">
-            <img src="{{applicant.profile_image.url}}" alt="" width="200px" height="200px">
         </div>
     </div>
-</div>
+
+
+    <!-- Modal trigger button -->
+    <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#modalId">
+        Launch
+    </button>
+
+    <!-- Modal Body -->
+    <!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
+    <div class="modal fade" id="modalId" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog"
+        aria-labelledby="modalTitleId" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTitleId">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="row">
+                            {% for message in messages %}
+                            <div class="alert alert-danger" id="msg" role="alert" style="margin-top: 10px;">
+                                {{ message }}
+                            </div>
+                            {% endfor %}
+                            <div class="col-sm-6">
+                                <form class="container mt-4" method="POST" enctype="multipart/form-data">
+                                    {% csrf_token %}
+
+                                    <div class="row">
+                                        <div class="form-group col-md-6">
+                                            <label>First Name</label>
+                                            <input type="text" class="form-control mt-2" name="first_name"
+                                                id="first_name" value="{{applicant.user.first_name}}" required>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label>Last Name</label>
+                                            <input type="text" class="form-control mt-2" name="last_name" id="last_name"
+                                                value="{{applicant.user.last_name}}" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mt-4">
+                                        <div class="form-group col-md-6">
+                                            <label>Username</label>
+                                            <input type="text" class="form-control mt-2" name="username" id="username"
+                                                value="{{applicant.user.username}}" required>
+                                            <input type="hidden" class="form-control mt-2" name="hidden_username"
+                                                id="username" value="{{applicant.user.username}}">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label>Email Address</label>
+                                            <input type="email" class="form-control mt-2" name="email" id="email"
+                                                value="{{applicant.user.email}}" required>
+                                            <input type="hidden" class="form-control mt-2" name="hidden_email"
+                                                id="email" value="{{applicant.user.email}}">
+                                        </div>
+                                    </div>
+
+                                    <div class="row mt-4">
+                                        <div class="form-group col-md-6">
+                                            <label>Contact Number</label>
+                                            <input type="text" class="form-control mt-2" name="phone" id="phone"
+                                                value="{{applicant.phone_number}}" placeholder="Enter Contact Number"
+                                                minlength="11" maxlength="11" pattern="09[0-9]{9}"
+                                                title="09(Last 9 Digits)" required>
+                                            <input type="hidden" class="form-control mt-2" name="hidden_phone"
+                                                id="phone" value="{{applicant.phone_number}}"
+                                                placeholder="Enter Contact Number" minlength="11" maxlength="11"
+                                                pattern="09[0-9]{9}" title="09(Last 9 Digits)" required>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label>Gender</label>
+                                            {% if applicant.gender == "Male" %}
+                                            <div class="mt-2"
+                                                style="border: 1px solid lightgrey; padding: 5px; border-radius: 6px;">
+                                                <div class="form-check form-check-inline">
+                                                    <input type="radio" class="custom-control-input" name="gender"
+                                                        value="Male" checked>
+                                                    <label for="male" class="custom-control-label">Male</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input type="radio" class="custom-control-input" name="gender"
+                                                        value="Female">
+                                                    <label for="female" class="custom-control-label">Female</label>
+                                                </div>
+                                            </div>
+                                            {% else %}
+                                            <div style="border: 1px solid lightgrey; padding: 5px; border-radius: 6px;">
+                                                <div class="form-check form-check-inline">
+                                                    <input type="radio" class="custom-control-input" name="gender"
+                                                        value="Male">
+                                                    <label for="male" class="custom-control-label">Male</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input type="radio" class="custom-control-input" name="gender"
+                                                        value="Female" checked>
+                                                    <label for="female" class="custom-control-label">Female</label>
+                                                </div>
+                                            </div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+
+                                    <div class="row mt-4">
+                                        <div class="form-group col-md-6">
+                                            <label>Profile Photo</label>
+                                            <input type="file" class="form-control mt-2" name="image" id="image"
+                                                accept=".png, .jpeg, .jpg">
+                                        </div>
+                                        <div class="form-group col-md-6" style="margin-top: 8px;" required>
+                                            <label>Activate/Deactivate</label>
+                                            <select name="status" id="status" class="form-control">
+                                                <option value="Activate">Activate</option>
+                                                <option value="Deactivate">Deactivate</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <input type="submit" value="Update Profile" class="btn mt-4" accept="image/*"
+                                        style="background-color: #4f868c; color: white; font-size: larger; width: 10rem;">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Optional: Place to the bottom of scripts -->
+    <script>
+        const myModal = new bootstrap.Modal(document.getElementById('modalId'), options)
+    </script>
+
+</body>
+
+</html>

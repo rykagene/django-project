@@ -1,0 +1,49 @@
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(45deg, #898dff, #df5aff, #fb675f, #e89568, #122238);
+  border-radius: 8px;
+  border: 3px solid #f1f1f1;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(45deg, #df5aff, #fb675f, #e89568, #122238, #898dff);
+}
+body{
+  background: linear-gradient(45deg, rgba(137, 141, 255, 0.1), rgba(223, 90, 255, 0.1), rgba(251, 103, 95, 0.1), rgba(232, 149, 104, 0.1), rgba(18, 34, 56, 0.1));
+  /* backdrop-filter: 20px; */
+}
+.profile-card{
+  border: 0px;
+  box-shadow: 0px 0px 10px -3px rgba(0,0,0,0.1);
+}
+.card{
+  overflow-y: hidden;
+}
+.card:hover{
+  overflow-y: auto;
+}
+
+.skillsList {
+  display: inline-block;
+  max-width: 100%;
+  /* Occupy the full width of the container */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  border: 1px solid #007bff;
+  padding: 3px 8px;
+  border-radius: 20px;
+  margin: 5px;
+  color: #007bff;
+  margin: 0px;
+}
+
+
+.bio {}
