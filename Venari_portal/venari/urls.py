@@ -24,11 +24,11 @@ urlpatterns = [
     path("admin_edit_jobpost/<int:myid>/", views.edit_job_admin, name="edit posted job"),
     path("admin_changejob_status/<int:myid>/", views.admin_changejob_status, name="edit posted job status"),
     path("admin_delete_postjob/<int:myid>/", views.admin_delete_postjob, name="delete posted job status"),
-    
+    path("companies_list/", views.all_companies, name="companies list"),
+
     #company
     path("company_signup/", views.company_signup, name="company signup"),
     path("company_login/", views.company_login, name="company login"),
-    path("companies_list/", views.all_companies, name="companies list"),
     path("company_post_job/", views.company_post_job, name="companies list"),
     path("company_profile/", views.company_profile, name="company profile"),
 
