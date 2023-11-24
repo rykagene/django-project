@@ -92,13 +92,15 @@
 
                 <div class="card profile-card px-2 vh-100">
                     <div class="card-body overflow-y-auto">
-
+                            
                         <div class="text-center mb-3 mt-5">
                             <img class="rounded-circle" src="{{applicant.profile_image.url}}" alt="" height="125px"
                                 width="125px" style="object-fit: cover;">
                         </div>
 
                         <div class="text-center">
+                            <h5 class="text-primary my-0">{{applicant.user.first_name}}
+                                {{applicant.user.last_name}}</h5>
                             <h5 class="text-primary my-0"></h5>
                             <p class="my-0">Occupation Here</p>
                         </div>
