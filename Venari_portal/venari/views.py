@@ -148,7 +148,7 @@ def job_hiring(request):
     data = []
     for i in apply:
         data.append(i.job.id)
-    return render(request, "job_hiring.html", {'jobs':jobs, 'data':data})
+    return render(request, "job_hiring.html", {'jobs':jobs, 'data':data, 'applicant': applicant})
 
 #Company side
 def company_signup(request):

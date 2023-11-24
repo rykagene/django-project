@@ -151,8 +151,9 @@
                     <div class="h-50 t-50 rounded-top text-center-flex align-items-center justify-content-center">
                         <div class="text-center mt-4">
                           <div class="mt-3">
-                            <img src="userlogo.jpg" alt="User Logo" class="img-fluid rounded-circle" style="max-width: 500px;">
-                            <h1 class="text-name mt-3">John Doe</h1>
+                            <img src="{{applicant.profile_image.url}}" alt="User Logo" class="img-fluid rounded-circle" style="max-width: 500px;">
+                            <h1 class="text-name mt-3">
+                              {{applicant.user.last_name}}</h1>
                             </div>
                             <div class="card text-center mt-3 mb-1" style="width: 70%; margin: auto;">
                               <div class="progress" role="progressbar" aria-label="Example with label" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
@@ -269,12 +270,14 @@
           
     
         <div class="row row-cols-1 row-cols-md-2 mb-3 g-1 py-0 scrollable-container ">
+        {% for job in jobs %}
+          {% if job.status == "Activate" %} 
           <div class="col-md-4 mb-4">
             <div class="card h-100">
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="mt-1 mb-2">
-                          <img src="Jollibee-logo-F5F59B0DCA-seeklogo.com.png" class="img-fluid rounded-circle" alt="Logo" style="width: 90px; height: 90px; object-fit:cover">
+                          <img src="{{job.image.url}}" class="img-fluid rounded-circle" alt="Logo" style="width: 90px; height: 90px; object-fit:cover">
                       </div>
                         <div class = "bookmark-heart mt-0 mb-0">
                           <a href="#" onclick="handleBookmarkClick(event)">
@@ -289,26 +292,27 @@
                         </a>
                         </div>
                     </div>
-                    <h5 class="card-title">McDollibee</h5>
+                    <h5 class="card-title">{{job.title}}</h5>
                     <div class="icons-description mb-2">
                         <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-clock" viewBox="0 0 16 16">
                             <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71z"/>
                             <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0"/>
                         </svg>
                         <span class="post-time">Posted 10 mins ago</span>
+                        <br>
                         <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-geo-alt" viewBox="0 0 16 16">
                             <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10"/>
                             <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
                         </svg>
-                        <span class="post-time">Manila, Philippines</span>
+                        <span class="post-time">{{job.location}}</span>
                     </div>
                     <div class="description">
-                        <p class="card-description-justify-content-left"><strong>Job Type:</strong> Full-time</p>
-                        <p class="card-description-justify-content-left"><strong>Job Skills:</strong> Attentive | Cheerful</p>
-                        <p class="card-description-justify-content-left"><strong>Salary:</strong> 23,000 - 30,000</p>
+                        <p class="card-description-justify-content-left"><strong>Job Type:</strong>{{job.jobtype}}</p>
+                        <p class="card-description-justify-content-left"><strong>Job Skills:</strong>{{job.skill}}</p>
+                        <p class="card-description-justify-content-left"><strong>Salary:</strong>{{job.salary}}</p>
                     </div>
                 <div class="text-card text-justify">
-                    <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam dignissimos accusantium amet similique velit iste.</p>
+                    <p class="card-text">{{job.description}}</p>
                 </div>
                   </div>
                 <div class="mx-4 mb-4 mt-1 d-flex justify-content-left">
@@ -317,204 +321,8 @@
                 </div>
             </div>
         </div>
-        
-
-        <div class="col-md-4 mb-4">
-          <div class="card">
-              <div class="card-body">
-                  <div class="d-flex justify-content-between align-items-center">
-                      <div class="mt-1 mb-2">
-                        <img src="Jollibee-logo-F5F59B0DCA-seeklogo.com.png" class="img-fluid rounded-circle" alt="Logo" style="width: 90px; height: 90px; object-fit:cover">
-                    </div>
-                      <div class = "bookmark-heart mt-0 mb-0">
-                        <a href="#" onclick="handleBookmarkClick(event)">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-bookmark" viewBox="0 0 16 16">
-                          <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1z"/>
-                        </svg>
-                      </a>
-                      <a href="#" onclick="handleBookmarkClick(event)">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
-                          <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
-                        </svg>
-                      </a>
-                      </div>
-                  </div>
-                  <h5 class="card-title">McDollibee</h5>
-                  <div class="icons-description mb-2">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-clock" viewBox="0 0 16 16">
-                          <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71z"/>
-                          <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0"/>
-                      </svg>
-                      <span class="post-time">Posted 10 mins ago</span>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-geo-alt" viewBox="0 0 16 16">
-                          <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10"/>
-                          <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
-                      </svg>
-                      <span class="post-time">Manila, Philippines</span>
-                  </div>
-                  <div class="description">
-                      <p class="card-description-justify-content-left"><strong>Job Type:</strong> Full-time</p>
-                      <p class="card-description-justify-content-left"><strong>Job Skills:</strong> Attentive | Cheerful</p>
-                      <p class="card-description-justify-content-left"><strong>Salary:</strong> 23,000 - 30,000</p>
-                  </div>
-              <div class="text-card text-justify">
-                  <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam dignissimos accusantium amet similique velit iste.</p>
-              </div>
-                </div>
-              <div class="mx-4 mb-4 mt-1 d-flex justify-content-left">
-                <button class="btn btn-primary custom-btn" style="width:300px; margin-right: 10px; margin-top: 0; border-radius: 10px;">Apply Now</button>
-                <button class="btn btn-outline-primary custom-bton" data-bs-toggle="modal" data-bs-target="#applyModal"style="width:300px; margin-top: 0; border-radius:10px;" >See More</button>
-              </div>
-          </div>
-      </div>
-
-      <div class="col-md-4 mb-4">
-        <div class="card">
-            <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div class="mt-1 mb-2">
-                      <img src="Jollibee-logo-F5F59B0DCA-seeklogo.com.png" class="img-fluid rounded-circle" alt="Logo" style="width: 90px; height: 90px; object-fit:cover">
-                  </div>
-                    <div class = "bookmark-heart mt-0 mb-0">
-                      <a href="#" onclick="handleBookmarkClick(event)">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-bookmark" viewBox="0 0 16 16">
-                        <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1z"/>
-                      </svg>
-                    </a>
-                    <a href="#" onclick="handleBookmarkClick(event)">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
-                        <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
-                      </svg>
-                    </a>
-                    </div>
-                </div>
-                <h5 class="card-title">McDollibee</h5>
-                <div class="icons-description mb-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-clock" viewBox="0 0 16 16">
-                        <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71z"/>
-                        <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0"/>
-                    </svg>
-                    <span class="post-time">Posted 10 mins ago</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-geo-alt" viewBox="0 0 16 16">
-                        <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10"/>
-                        <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
-                    </svg>
-                    <span class="post-time">Manila, Philippines</span>
-                </div>
-                <div class="description">
-                    <p class="card-description-justify-content-left"><strong>Job Type:</strong> Full-time</p>
-                    <p class="card-description-justify-content-left"><strong>Job Skills:</strong> Attentive | Cheerful</p>
-                    <p class="card-description-justify-content-left"><strong>Salary:</strong> 23,000 - 30,000</p>
-                </div>
-            <div class="text-card text-justify">
-                <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam dignissimos accusantium amet similique velit iste.</p>
-            </div>
-              </div>
-            <div class="mx-4 mb-4 mt-1 d-flex justify-content-left">
-              <button class="btn btn-primary custom-btn" style="width:300px; margin-right: 10px; margin-top: 0; border-radius: 10px;">Apply Now</button>
-              <button class="btn btn-outline-primary custom-bton" data-bs-toggle="modal" data-bs-target="#applyModal"style="width:300px; margin-top: 0; border-radius:10px;" >See More</button>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4 mb-4">
-      <div class="card">
-          <div class="card-body">
-              <div class="d-flex justify-content-between align-items-center">
-                  <div class="mt-1 mb-2">
-                    <img src="Jollibee-logo-F5F59B0DCA-seeklogo.com.png" class="img-fluid rounded-circle" alt="Logo" style="width: 90px; height: 90px; object-fit:cover">
-                </div>
-                  <div class = "bookmark-heart mt-0 mb-0">
-                    <a href="#" onclick="handleBookmarkClick(event)">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-bookmark" viewBox="0 0 16 16">
-                      <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1z"/>
-                    </svg>
-                  </a>
-                  <a href="#" onclick="handleBookmarkClick(event)">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
-                      <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
-                    </svg>
-                  </a>
-                  </div>
-              </div>
-              <h5 class="card-title">McDollibee</h5>
-              <div class="icons-description mb-2">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-clock" viewBox="0 0 16 16">
-                      <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71z"/>
-                      <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0"/>
-                  </svg>
-                  <span class="post-time">Posted 10 mins ago</span>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-geo-alt" viewBox="0 0 16 16">
-                      <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10"/>
-                      <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
-                  </svg>
-                  <span class="post-time">Manila, Philippines</span>
-              </div>
-              <div class="description">
-                  <p class="card-description-justify-content-left"><strong>Job Type:</strong> Full-time</p>
-                  <p class="card-description-justify-content-left"><strong>Job Skills:</strong> Attentive | Cheerful</p>
-                  <p class="card-description-justify-content-left"><strong>Salary:</strong> 23,000 - 30,000</p>
-              </div>
-          <div class="text-card text-justify">
-              <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam dignissimos accusantium amet similique velit iste.</p>
-          </div>
-            </div>
-          <div class="mx-4 mb-4 mt-1 d-flex justify-content-left">
-            <button class="btn btn-primary custom-btn" style="width:300px; margin-right: 10px; margin-top: 0; border-radius: 10px;">Apply Now</button>
-            <button class="btn btn-outline-primary custom-bton" data-bs-toggle="modal" data-bs-target="#applyModal"style="width:300px; margin-top: 0; border-radius:10px;" >See More</button>
-          </div>
-      </div>
-  </div>
-  <div class="col-md-4 mb-4">
-    <div class="card">
-        <div class="card-body">
-            <div class="d-flex justify-content-between align-items-center">
-                <div class="mt-1 mb-2">
-                  <img src="Jollibee-logo-F5F59B0DCA-seeklogo.com.png" class="img-fluid rounded-circle" alt="Logo" style="width: 90px; height: 90px; object-fit:cover">
-              </div>
-                <div class = "bookmark-heart mt-0 mb-0">
-                  <a href="#" onclick="handleBookmarkClick(event)">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-bookmark" viewBox="0 0 16 16">
-                    <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1z"/>
-                  </svg>
-                </a>
-                <a href="#" onclick="handleBookmarkClick(event)">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
-                    <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
-                  </svg>
-                </a>
-                </div>
-            </div>
-            <h5 class="card-title">McDollibee</h5>
-            <div class="icons-description mb-2">
-                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-clock" viewBox="0 0 16 16">
-                    <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71z"/>
-                    <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0"/>
-                </svg>
-                <span class="post-time">Posted 10 mins ago</span>
-                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-geo-alt" viewBox="0 0 16 16">
-                    <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10"/>
-                    <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
-                </svg>
-                <span class="post-time">Manila, Philippines</span>
-            </div>
-            <div class="description">
-                <p class="card-description-justify-content-left"><strong>Job Type:</strong> Full-time</p>
-                <p class="card-description-justify-content-left"><strong>Job Skills:</strong> Attentive | Cheerful</p>
-                <p class="card-description-justify-content-left"><strong>Salary:</strong> 23,000 - 30,000</p>
-            </div>
-        <div class="text-card text-justify">
-            <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam dignissimos accusantium amet similique velit iste.</p>
-        </div>
-          </div>
-        <div class="mx-4 mb-4 mt-1 d-flex justify-content-left">
-          <button class="btn btn-primary custom-btn" style="width:300px; margin-right: 10px; margin-top: 0; border-radius: 10px;">Apply Now</button>
-          <button class="btn btn-outline-primary custom-bton" data-bs-toggle="modal" data-bs-target="#applyModal"style="width:300px; margin-top: 0; border-radius:10px;" >See More</button>
-        </div>
-    </div>
-</div>
-
-
-        </div>
+        {% endif %}
+        {% endfor %}
     </div>
     <nav aria-label="Page navigation example">
       <ul class="pagination justify-content-center">
