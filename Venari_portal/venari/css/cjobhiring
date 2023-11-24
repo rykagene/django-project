@@ -1,0 +1,253 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+body{
+        background-color: #faf7f9;
+}
+.card-img-top{
+    border-radius: 50px;
+    padding: 20px;
+}
+.card{
+    color: rgb(72, 66, 81);
+    border-radius: 15px;
+    background-color: rgb(255, 255, 255);
+}
+.card-body{
+    padding: 30px;
+    margin-top: -15px;
+    color: rgb(122, 114, 133);
+}
+.btn-outline-primary{
+  font-size: small;
+    border-radius: 50px;
+    width: 120px;
+
+}
+.btn-primary{
+    font-size: 10px;
+    border-radius: 50px;
+    width: 120px;
+}
+.btn-primary:hover{
+    background-color: black;
+    border: none;
+}
+
+h5{
+    font-size: 1.875rem;
+    color: #122238;
+}
+a{
+    color: black;
+}
+.card-text{
+    font-size: small;
+    color: #000000;
+    text-align: justify;
+}
+.description{
+    font-size: 12px;
+    margin: 2px;
+    align-items: center;
+}
+
+h1{
+    font-size: 20px;
+    text-align: center;
+    color: black;
+}
+.input-box {
+    position: relative;
+    height: 50px;
+    max-width: 900px;
+    width: 100%;
+    background: #fff;
+    margin: 0 20px;
+    border-radius: 20px;
+    border-color: black;
+
+  }
+  .input-box i,
+  .input-box .button{
+    size: 10px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  .input-box i {
+    left: 20px;
+    font-size: 30px;
+    color: #ffffff;
+  }
+  .input-box input {
+    height: 100%;
+    width: 100%;
+    font-size: 18px;
+    font-weight: 400;
+    padding: 0 155px 0 65px;
+    background-color: transparent;
+    color: #707070;
+  }
+  .custom-btn:hover{
+    background-color: #122238;
+  }
+  .custom-bton:hover {
+    color: #122238; /* Change the text color on hover */
+    background-color: #ffffff; /* Change the background color on hover */
+    border-color: #122238;
+  }
+  .dropdown{
+    border-radius: 6px;
+  }
+  ::after,
+::before {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    background-size: cover;
+}
+
+h3 {
+    font-size: 1.2375rem;
+    color: #FFF;
+}
+
+a {
+    cursor: pointer;
+    text-decoration: none;
+    font-family: 'Poppins', sans-serif;
+}
+
+li {
+    list-style: none;
+}
+
+/* Layout skeleton */
+
+.wrapper {
+    align-items: stretch;
+    display: flex;
+    width: 100%;
+}
+
+#sidebar {
+    max-width: 264px;
+    min-width: 264px;
+    transition: all 0.35s ease-in-out;
+    z-index: 1111;
+}
+
+/* Sidebar collapse */
+
+#sidebar.collapsed {
+    margin-left: -264px;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    transition: all 0.35s ease-in-out;
+}
+.checkbox-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-check {
+  margin-bottom: 10px; /* Adjust the margin-bottom as needed */
+}
+
+
+.sidebar-nav {
+    padding: 3;
+}
+
+.sidebar-header {
+    color: #000000;
+    font-size: .75rem;
+    padding: 1.5rem 1.5rem .375rem;
+}
+
+a.sidebar-link {
+    padding: .625rem 1.625rem;
+    color: #000000;
+    position: relative;
+    display: block;
+    font-size: 1rem;
+    
+}
+
+/* Responsive */
+.search_bar{
+  display: flex;
+  padding: 10px;
+  justify-content: space-between;
+}
+.search_bar input{
+  width: 50%;
+  padding: 10px;
+  border: 1px solid rgb(190, 190, 190);
+}
+.search_bar input:focus{
+  border: 1px solid blueviolet;
+}
+.search_bar select{
+  border: 1px solid rgb(190, 190, 190);
+  padding: 10px;
+  margin-left: 2rem;
+}
+.search_bar .filter{
+  width: 300px;
+}
+
+.tags_bar{
+  width: 55%;
+  display: flex;
+  padding: 10px;
+  justify-content: space-between;
+}
+.tag{
+  row-gap: 5px;
+  flex-wrap: wrap;
+  background: #DF5AFF;
+  padding: 10px 15px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+  cursor: pointer;
+  color:#ffffff
+}
+.tag i{
+  margin-right: 0.7rem;
+}
+.user-logo {
+  height: 150px;
+  width: 150px;
+}
+.user-logo img {
+  height: 100%;
+  width: 100%;
+  border: 1px double #1f1f1f;
+  border-radius: 50%;
+}
+.span {
+  color: #ffffff;
+}
+.Perecntage{
+  size: 5px;
+}
