@@ -31,6 +31,8 @@ urlpatterns = [
     path("company_login/", views.company_login, name="company login"),
     path("company_post_job/", views.company_post_job, name="companies list"),
     path("company_profile/", views.company_profile, name="company profile"),
+    path("company_dashboard/", views.company_dashboard, name="company dashboard"),
+
 
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

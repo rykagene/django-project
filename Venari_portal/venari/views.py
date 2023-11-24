@@ -215,7 +215,7 @@ def company_login(request):
             if user1.user_type == "company" and user1.status == "Accepted":
                 login(request, user)
                 #change to main_page
-                return redirect("/company_profile")
+                return redirect("/company_dashboard")
             elif user1.user_type == "company" and user1.status == "Pending":
                 messages.error(request, "Account is still pending. Please contact the admin.")
                 return redirect('/company_login')
@@ -229,6 +229,13 @@ def company_login(request):
                 messages.error(request, "Please enter a valid username or password.")
                 return redirect('/company_login')                         
     return render(request, "company_login.html")
+
+def company_dashboard(request):
+    if not request.user.is_authenticated:
+        return redirect("/company_login")
+    companies = company.objects.get(user=request.user)
+    jobs = post_jobs.objects.filter(company=companies)
+    return render(request, "company_dashboard.html", {'jobs':jobs})
 
 def company_profile(request):
     if not request.user.is_authenticated:
