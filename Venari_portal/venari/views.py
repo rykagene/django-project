@@ -5,6 +5,8 @@ from django.contrib import messages
 from . models import *
 from django.core.mail import send_mail
 from datetime import date
+from django.http import JsonResponse
+
 
 def index(request):
     return render(request, "index.html")
@@ -72,20 +74,20 @@ def user_signup(request):
         uniqueuser = User.objects.filter(username=username)
         if uniqueemail:
             messages.error(request, "Email exists.")
-            return redirect('/signup')
+            return redirect('/pre-register')
         elif uniqueuser:
             messages.error(request, "Username exists.")
-            return redirect('/signup')
+            return redirect('/pre-register')
         elif password != cpass:
             messages.error(request, "Password doesn't match.")
-            return redirect('/signup')
+            return redirect('/pre-register')
 
         user = User.objects.create_user(first_name=first_name, last_name=last_name, email=email, username=username, password=password)
         applicants = job_seeker.objects.create(user=user, email=email, phone_number=phone, password=password, gender=gender, profile_image=profile_picture, user_type="applicant", status="Activate")
         user.save()
         applicants.save()
         return render(request, "login.html")
-    return render(request, "signup.html")
+    return render(request, "pre-register.html")
 
 def jobseeker_profile(request):
     if not request.user.is_authenticated:
@@ -96,7 +98,7 @@ def jobseeker_profile(request):
         email = request.POST['email']
         first_name=request.POST['first_name']
         last_name=request.POST['last_name']
-        phone = request.POST['phone']
+        phone_number = request.POST['phone_number']
         gender = request.POST['gender']
         status = request.POST['status']
         hidden_username = request.POST['hidden_username']
@@ -105,33 +107,34 @@ def jobseeker_profile(request):
         uniqueemail = User.objects.filter(email=email)
         uniqueuser = User.objects.filter(username=username)
         if uniqueemail and email != hidden_email:
-            messages.error(request, "Email exists.")
-            return redirect('/jobseeker_profile')
+            error_message = "Email already exists."
+            return JsonResponse({'error': error_message})
         elif uniqueuser and username != hidden_username:
-            messages.error(request, "Username exists.")
-            return redirect('/jobseeker_profile')
-        elif (job_seeker.objects.filter(phone=phone).exists() or company.objects.filter(phone_number=phone).exists()) and phone != hidden_phone:
-            messages.error(request, "Phone number exists.")
-            return redirect('/jobseeker_profile')
+            error_message = "Username already exist."
+            return JsonResponse({'error': error_message})
+        elif (job_seeker.objects.filter(phone_number=phone_number).exists() or company.objects.filter(phone_number=phone_number).exists()) and phone_number != hidden_phone:
+            error_message = "Phone number already exists."
+            return JsonResponse({'error': error_message})        
         else:
             applicant.user.username = username
             applicant.user.email = email
             applicant.user.first_name = first_name
             applicant.user.last_name = last_name
-            applicant.phone_number = phone
+            applicant.phone_number = phone_number
             applicant.gender = gender
             applicant.status = status
             applicant.save()
             applicant.user.save()
-
             try:
-                image = request.FILES['image']
+                image = request.FILES['profile_image']
                 applicant.profile_image = image
                 applicant.save()
-            except:
+            except Exception as e:
+                print(f"Error during image upload: {e}")
                 pass
-            alert = True
-            return render(request, "jobseeker_profile.html", {'alert':alert})
+                
+            return redirect("/jobseeker_profile/")
+    print(request.FILES)
     return render(request, "jobseeker_profile.html", {'applicant':applicant})
 
 def Logout(request):

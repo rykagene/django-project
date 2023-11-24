@@ -8,9 +8,9 @@ urlpatterns = [
     path('', views.index, name="landing page"), 
     #job seeker
     path('login/', views.user_login, name="login"), 
-    path("signup/", views.user_signup, name="signup"),
+    path("pre-register/", views.user_signup, name="pre-register"),
     path("job_hiring/", views.job_hiring, name="posted jobs"),
-    path("jobseeker_profile/", views.jobseeker_profile, name="job seeker profile"),
+    path("jobseeker_profile/", views.jobseeker_profile, name="jobseeker_Edit_profile"),
     path('logout/', views.Logout, name='logout'),
 
 

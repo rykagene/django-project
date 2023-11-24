@@ -1,0 +1,141 @@
+body {
+  font-family: "Poppins";
+}
+
+.container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: center;
+  justify-content: center;
+}
+
+/* .jobseeker-container {
+    border: solid 2px red;
+    margin: 0 auto;
+    padding: 2rem;
+} */
+
+
+.jobprovider-container,
+.jobseeker-container {
+    border: none;
+    margin: 0 auto;
+    padding: 2rem;
+    border-radius: 30px;
+    animation: gradient 10s linear infinite;
+    background: linear-gradient(
+        45deg,
+        #85d5e757,
+        #7a9ed254,
+        #ba6ac93d,
+        #de54c217,
+        #f86b2d4f
+    );
+    transition: all 0.3s ease;
+}
+
+.jobprovider-container:hover,
+.jobseeker-container:hover {
+    margin: 0 auto;
+    padding: 3em;
+    animation: gradient 10s linear infinite;
+    background: linear-gradient(
+        160deg,
+        #85d5e757,
+        #7a9ed254,
+        #ba6ac93d,
+        #de54c217,
+        #f86b2d4f
+    );
+}
+
+.info-title {
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.info-text {
+  font-size: 1.5rem;
+  font-weight: 500;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+button {
+  background-color: #898dff;
+  border: none;
+  color: white;
+  padding: 1rem 0.5rem;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: .8rem;
+  font-weight: 200;
+  margin: 0 auto;
+  cursor: pointer;
+  border-radius: 20px;
+  display: block;
+}
+
+button:hover {
+    background-color: #898dff;
+    border: none;
+    color: black;
+    padding: 1rem 0.5rem;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: .8rem;
+    font-weight: 200;
+    margin: 0 auto;
+    cursor: pointer;
+    border-radius: 20px;
+    display: block;
+    background: white;
+    transition: all 0.3s ease;
+}
+
+.mid-pic {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 30px;
+  display: flex;
+  /* border: solid 2px red; */
+}
+
+.app-name {
+  display: flex;
+  /* border: solid 2px red; */
+  animation: move 4s linear infinite;
+  background-image: linear-gradient(
+    to right,
+    #898dff,
+    #df5aff,
+    #fb675f,
+    #e89568,
+    #a88ce6
+  );
+  background-size: 200% auto;
+  font: 700 70px/1 Poppins;
+  letter-spacing: 1px;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 8rem;
+  margin-top: 0;
+  margin: 0 auto;
+}
+
+@keyframes move {
+  to {
+    background-position: 200% center;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .column {
+    width: 100%;
+  }
+}
