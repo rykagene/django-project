@@ -6,6 +6,7 @@ from . models import *
 from django.core.mail import send_mail
 from datetime import date
 from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
 
 
 def index(request):
@@ -190,7 +191,46 @@ def jobseeker_introduction(request):
             return redirect("/jobseeker_profile/")
     print(request.FILES)
     return render(request, "jobseeker_profile.html", {'applicant':applicant})
+def jobseeker_changeprofile(request):
+    if not request.user.is_authenticated:
+        return redirect('/user_login/')
+    applicant = job_seeker.objects.get(user=request.user)
+    if request.method=="POST":   
+        image = request.FILES['profile_image']
+        applicant.profile_image = image
+        applicant.save()  
+        return redirect("/jobseeker_profile/")
+    print(request.FILES)
+    return render(request, "jobseeker_profile.html", {'applicant':applicant})
+def jobseeker_uploadresume(request):
+    if not request.user.is_authenticated:
+        return redirect('/user_login/')
+    applicant = job_seeker.objects.get(user=request.user)
+    if request.method=="POST":   
+        resume = request.FILES['resume']
+        applicant.resume = resume
+        applicant.save()  
+        return redirect("/jobseeker_profile/")
+    print(request.FILES)
+    return render(request, "jobseeker_profile.html", {'applicant':applicant})
 
+
+def bookmark_job(request, job_id):
+    if request.method == 'POST':
+        job = get_object_or_404(post_jobs, id=job_id)
+        user = job_seeker.objects.get(user=request.user)
+        # Check if the job is already bookmarked
+        if job.id in user.bookmarks.values_list('id', flat=True):
+            user.bookmarks.remove(job)
+            success = False
+        else:
+            user.bookmarks.add(job)
+            success = True
+
+        return JsonResponse({'success': success})
+    else:
+        return JsonResponse({'success': False, 'error': 'Invalid request method'})
+    
 def Logout(request):
     logout(request)
     return redirect('/')
@@ -199,10 +239,48 @@ def job_hiring(request):
     jobs = post_jobs.objects.all().order_by('-start_date')
     applicant = job_seeker.objects.get(user=request.user)
     apply = apply_job.objects.filter(applicant=applicant)
+    bookmarked_jobs = {applicant.id: applicant.bookmarks.values_list('id', flat=True) for applicant in [applicant]}
     data = []
     for i in apply:
         data.append(i.job.id)
-    return render(request, "job_hiring.html", {'jobs':jobs, 'data':data, 'applicant': applicant})
+    return render(request, "job_hiring.html", {'jobs':jobs, 'data':data, 'applicant': applicant, 'bookmark': bookmarked_jobs})
+def jobseeker_apply(request, myid):
+    if not request.user.is_authenticated:
+        return redirect("/user_login")
+
+    applicant = job_seeker.objects.get(user=request.user)
+    job = post_jobs.objects.get(id=myid)
+    date1 = date.today()
+
+    if job.end_date < date1:
+        return JsonResponse({'success': False, 'error': 'Invalid request method'})
+    elif job.start_date > date1:
+        return JsonResponse({'success': False, 'error': 'Invalid request method'})
+    else:
+        if request.method == "POST":
+            # Check if the job seeker has already applied for this job
+            existing_application = apply_job.objects.filter(job=job, applicant=applicant).exists()
+            
+            if not existing_application:
+                # If not, create a new application
+                apply_job.objects.create(
+                    job=job,
+                    jobtype=job.jobtype,
+                    email=applicant.user.email,
+                    company=job.company,
+                    applicant=applicant,
+                    resume=applicant.resume,
+                    apply_date=date.today()
+                )
+                success = True
+            else:
+                # If an application already exists, return an error
+                success = False
+                return JsonResponse({'success': success, 'error': 'Already applied for this job'})
+
+            return JsonResponse({'success': success})
+
+    return render(request, "job_hiring.html", {'job': job})
 
 #Company side
 def company_signup(request):

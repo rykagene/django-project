@@ -197,9 +197,14 @@
                                     </div>
 
                                     <div class="mb-3">
+                                    <form class="container mt-4" method="POST" Action="{% url 'jobseeker_uploadresume' %}"
+                                        enctype="multipart/form-data" id="profileForm">
+                                        {% csrf_token %}
                                       <label for="" class="form-label">Upload Resume</label>
-                                      <input type="file" class="form-control" name="" id="" placeholder="" aria-describedby="fileHelpId">
-                                      <div id="fileHelpId" class="form-text">Help text</div>
+                                      <input type="file" class="form-control" name="resume" id="resume" placeholder="" aria-describedby="fileHelpId">
+                                      <div id="fileHelpId" class="form-text">{{applicant.resume}} </div>
+                                      <button type="submit">save</button>
+                                    </form>
                                     </div>
 
 
@@ -781,17 +786,21 @@
                     <h5 class="modal-title" id="uploadProfileTitle">Upload Profile Picture</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
+                <form class="container mt-4" method="POST" Action="{% url 'jobseeker_changeprofile' %}"
+                enctype="multipart/form-data" id="profileForm">
+                {% csrf_token %}
                 <div class="modal-body">
                     <div class="mb-3">
                       <label for="" class="form-label">Choose file</label>
-                      <input type="file" class="form-control" name="" id="" placeholder="" accept="image/*" aria-describedby="fileHelpId">
+                      <input type="file" class="form-control" name="profile_image" id="image" placeholder="" accept="image/*" aria-describedby="fileHelpId">
                       <div id="fileHelpId" class="form-text">Help text</div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
                 </div>
+                </form>
             </div>
         </div>
     </div>

@@ -15,6 +15,8 @@ class job_seeker(models.Model):
     age = models.CharField(max_length=15, null=True)
     user_type = models.CharField(max_length=30)
     bio = models.CharField(max_length=100, null=True)
+    bookmarks = models.ManyToManyField('post_jobs', blank=True)
+    resume = models.FileField(upload_to='', null=True)
     def __str__(self):
         return self.user_id.first_name
 
@@ -60,7 +62,7 @@ class apply_job(models.Model):
     job = models.ForeignKey(post_jobs, on_delete=models.CASCADE)
     jobtype = models.CharField(max_length=50, null = True)
     applicant = models.ForeignKey(job_seeker, on_delete=models.CASCADE)
-    resume = models.ImageField(upload_to="")
+    resume = models.FileField(upload_to="")
     apply_date = models.DateField()
     def __str__ (self):
         return str(self.applicant)

@@ -73,26 +73,6 @@
 </head>
 
 <body>
-<div class="modal fade" id="applyModal" tabindex="-1" aria-labelledby="applyModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-      <div class="modal-content">
-          <div class="modal-header">
-              <h5 class="modal-title" id="applyModalLabel">Job Details</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body" style="max-height: 300px; overflow-y: auto;">
-              <p>
-                Looking for a brilliant Art director + Designer who will convert my concepts into a brochure design. Designer should be able to understand the tech industry parlance as well as worked in marketing space. They would need to create original artwork for the planned brochure as well as layout the content. Multiple versions need to be provided. Deadline is short. So people should be able to work under time crunch while producing high quality work. Budget flexibility not a problem for the right candidate.
-                People who apply need to use the word "BRILLIANT" in their response to make sure they read the whole post while applying. They need to provide cases where the client came with a sketch and how they converted into a finished product.
-              </p>
-          </div>
-          <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          </div>
-      </div>
-  </div>
-</div>
-
   <div class="container-h-50">
     <div class="row">
         <div class="col">
@@ -273,6 +253,26 @@
         <div class="row row-cols-1 row-cols-md-2 mb-3 g-1 py-0 scrollable-container ">
         {% for job in jobs %}
           {% if job.status == "Activate" %} 
+          
+          <div class="modal fade" id="applyModal" tabindex="-1" aria-labelledby="applyModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="applyModalLabel">Job Details</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" style="max-height: 300px; overflow-y: auto;">
+                        <p>
+                          {{job.description}}
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+          </div>
+
           <div class="col-md-4 mb-4">
             <div class="card h-100">
                 <div class="card-body">
@@ -281,8 +281,8 @@
                           <img src="{{job.image.url}}" class="img-fluid rounded-circle" alt="Logo" style="width: 90px; height: 90px; object-fit:cover">
                       </div>
                         <div class = "bookmark-heart mt-0 mb-0">
-                          <a href="#" onclick="handleBookmarkClick(event)">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-bookmark" viewBox="0 0 16 16">
+                          <a href="#" onclick="handleBookmarkClick(event, {{ job.id }})">
+                          <svg xmlns="http://www.w3.org/2000/svg" id="bookmarkButton" class="{% if job.id in bookmarked_jobs.applicant.id %} bookmarked {% endif %}" data-job-id="{{ job.id }}" data-applicant-id="{{ applicant.id }}" width="30" height="30" fill="currentColor" class="bi bi-bookmark" viewBox="0 0 16 16">
                             <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1z"/>
                           </svg>
                         </a>
@@ -317,7 +317,7 @@
                 </div>
                   </div>
                 <div class="mx-4 mb-4 mt-1 d-flex justify-content-left">
-                  <button class="btn btn-primary custom-btn" style="width:300px; margin-right: 10px; margin-top: 0; border-radius: 10px;">Apply Now</button>
+                  <button class="btn btn-primary custom-btn" style="width:300px; margin-right: 10px; margin-top: 0; border-radius: 10px;" onclick="jobseeker_apply(event, {{ job.id }})">Apply Now</button>
                   <button class="btn btn-outline-primary custom-bton" data-bs-toggle="modal" data-bs-target="#applyModal"style="width:300px; margin-top: 0; border-radius:10px;" >See More</button>
                 </div>
             </div>
@@ -342,11 +342,80 @@
     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
     crossorigin="anonymous"></script>
 <script src="script.js"></script>
+
 <script>
-    function handleBookmarkClick(event) {
-        event.preventDefault();
-        alert('Bookmark clicked!');
+  function handleBookmarkClick(event, jobId) {
+    event.preventDefault();
+    
+    // You may want to use AJAX to send the data to the backend
+    // Here, I'm using the Fetch API for simplicity
+    fetch(`/bookmark/${jobId}/`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken'),  // Include CSRF token
+        },
+        // You can include additional data in the body if needed
+        body: JSON.stringify({ job_id: jobId }),
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Handle the response as needed
+        if (data.success) {
+            alert('Job bookmarked!');
+        } else {
+            alert('Failed to bookmark job.');
+        }
+    })
+    .catch(error => console.error('Error:', error));
+}
+function jobseeker_apply(event, jobId) {
+  event.preventDefault();
+
+  // You may want to use AJAX to send the data to the backend
+  // Here, I'm using the Fetch API for simplicity
+  fetch(`/jobseeker_apply/${jobId}/`, {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': getCookie('csrftoken'),  // Include CSRF token
+      },
+      // You can include additional data in the body if needed
+      body: JSON.stringify({ job_id: jobId }),
+  })
+  .then(response => response.json())
+  .then(data => {
+      // Handle the response as needed
+      if (data.success) {
+          alert('Apply!');
+      } else {
+          if (data.error === 'Already applied for this job') {
+              alert('You have already applied for this job.');
+          } else {
+              alert('Failed to apply for the job.');
+          }
+      }
+  })
+  .catch(error => console.error('Error:', error));
+}
+
+
+// Helper function to get CSRF token from cookies
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = cookies[i].trim();
+            // Check if this cookie string begins with the name we want
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
     }
+    return cookieValue;
+}
 </script>
         
 </body>
