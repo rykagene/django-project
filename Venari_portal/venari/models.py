@@ -10,8 +10,11 @@ class job_seeker(models.Model):
     phone_number = models.IntegerField(max_length=20)
     profile_image = models.ImageField(upload_to="")
     gender = models.CharField(max_length=10, null=True)
+    address = models.CharField(max_length=100, null=True)
+    occupation = models.CharField(max_length=100, null=True)
+    age = models.CharField(max_length=15, null=True)
     user_type = models.CharField(max_length=30)
-
+    bio = models.CharField(max_length=100, null=True)
     def __str__(self):
         return self.user_id.first_name
 

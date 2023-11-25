@@ -137,6 +137,60 @@ def jobseeker_profile(request):
     print(request.FILES)
     return render(request, "jobseeker_profile.html", {'applicant':applicant})
 
+def jobseeker_basicinformation(request):
+    if not request.user.is_authenticated:
+        return redirect('/user_login/')
+    applicant = job_seeker.objects.get(user=request.user)
+    if request.method=="POST":   
+        email = request.POST['email']
+        age = request.POST['age']
+        home_address = request.POST['home_address']
+        phone_number = request.POST['phone_number']
+        hidden_email = request.POST['hidden_email']
+        hidden_phone = request.POST['hidden_phone']
+        uniqueemail = User.objects.filter(email=email)
+        if uniqueemail and email != hidden_email:
+            error_message = "Email already exists."
+            return JsonResponse({'error': error_message})
+        elif (job_seeker.objects.filter(phone_number=phone_number).exists() or company.objects.filter(phone_number=phone_number).exists()) and phone_number != hidden_phone:
+            error_message = "Phone number already exists."
+            return JsonResponse({'error': error_message})        
+        else:
+            applicant.user.email = email
+            applicant.phone_number = phone_number
+            applicant.age = age
+            applicant.address = home_address
+            applicant.save()
+            applicant.user.save()
+            return redirect("/jobseeker_profile/")
+        
+    print(request.FILES)
+    return render(request, "jobseeker_profile.html", {'applicant':applicant})
+
+def jobseeker_introduction(request):
+    if not request.user.is_authenticated:
+        return redirect('/user_login/')
+    applicant = job_seeker.objects.get(user=request.user)
+    if request.method=="POST":   
+        username = request.POST['username']
+        occupation = request.POST['occupation']
+        bio = request.POST['bio']
+        hidden_username = request.POST['hidden_username']
+        uniqueuser = User.objects.filter(username=username)
+        if uniqueuser and username != hidden_username:
+            error_message = "Username already exist."
+            return JsonResponse({'error': error_message})   
+        else:
+            applicant.user.username = username
+            applicant.occupation = occupation
+            applicant.bio = bio
+            applicant.save()
+            applicant.user.save()
+
+            return redirect("/jobseeker_profile/")
+    print(request.FILES)
+    return render(request, "jobseeker_profile.html", {'applicant':applicant})
+
 def Logout(request):
     logout(request)
     return redirect('/')

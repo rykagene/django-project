@@ -124,14 +124,12 @@
                                     {{applicant.user.last_name}}
                                 </h5>
 
-                                <p class="my-0">Occupation Here</p>
+                                <p class="my-0">{{applicant.occupation}}
+                                </p>
                             </div>
                         </div>
                         <div class="bio my-3 text-center">
-                            Bio Here (150 chars)
-                            Lorem ipsum dolor sit Lorem ipsum dolor sit Lorem ipsum dolor sit Lorem ipsum dolor sit
-                            Lorem ipsum dolor sit
-                            Lorem ipsum dolor sit Lorem ipsum dolor sit Lorem ipsum dolor sit
+                            {{applicant.bio}}
                         </div>
 
                         <div class="text-start mb-3">
@@ -176,13 +174,13 @@
                                     <h5 class="mb-2 card-headers">Basic Information</h5>
                                     <div class="row justify-content-start align-items-center g-2 mb-3">
                                         <div class="col-lg-3 col-md-6">Age<br>
-                                            <span class="fw-medium">Age Here</span>
+                                            <span class="fw-medium">{{applicant.age}}</span>
                                         </div>
                                         <div class="col-lg-3 col-md-6">Phone<br>
                                             <span class="fw-medium">{{applicant.phone_number}}</span>
                                         </div>
                                         <div class="col-lg-6 col-md">Address<br>
-                                            <span class="fw-medium"></span>
+                                            <span class="fw-medium">{{applicant.address}}</span>
                                         </div>
                                     </div>
 
@@ -589,6 +587,10 @@
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md" role="document">
             <div class="modal-content">
+                <form class="container mt-4" method="POST" Action="{% url 'jobseeker_introduction' %}"
+                                    enctype="multipart/form-data" id="profileForm">
+                {% csrf_token %}
+
                 <div class="modal-header">
                     <h5 class="modal-title" id="modalInfoTitle">Edit Introduction</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -596,19 +598,21 @@
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="" class="form-label">Name</label>
-                        <input type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="">
+                        <input type="text" class="form-control" value= {{applicant.user.username}} name="username" id="" aria-describedby="helpId" placeholder="">
                         <small id="" class="form-text text-muted">Help text</small>
+                        <input type="hidden" class="form-control mt-2" name="hidden_username"
+                        id="username" value="{{applicant.user.username}}">
                     </div>
 
                     <div class="mb-3">
                         <label for="" class="form-label">Occupation</label>
-                        <input type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="">
+                        <input type="text" class="form-control" value={{applicant.occupation}} name="occupation" id="" aria-describedby="helpId" placeholder="">
                         <small id="" class="form-text text-muted">Help text</small>
                     </div>
 
                     <div class="mb-3">
                         <label for="" class="form-label">Bio</label>
-                        <textarea class="form-control" name="" id="" rows="3"></textarea>
+                        <textarea class="form-control" name="bio" id="" rows="3">{{applicant.bio}}</textarea>
                         <small id="" class="form-text text-muted">Help text</small>
                     </div>
 
@@ -616,8 +620,9 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
                 </div>
+            </form>
             </div>
         </div>
     </div>
@@ -643,24 +648,32 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-
+                    <form class="container mt-4" method="POST" Action="{% url 'jobseeker_basicInformation' %}"
+                    enctype="multipart/form-data" id="profileForm">
+                    {% csrf_token %}
                     <div class="mb-3">
                         <label for="" class="form-label">Age</label>
-                        <input type="number" class="form-control" name="" id="" aria-describedby="helpId"
-                            placeholder="">
+                        <input type="number" class="form-control" name="age" id="" aria-describedby="helpId"
+                            value =  {{applicant.age}} placeholder="">
                         <small id="" class="form-text text-muted">Help text</small>
                     </div>
 
                     <div class="mb-3">
                         <label for="" class="form-label">Phone</label>
-                        <input type="number" class="form-control" name="" id="" aria-describedby="helpId"
-                            placeholder="">
+                        <input type="number" value = {{applicant.phone_number}} class="form-control" name="phone_number" id="" aria-describedby="helpId"
+                            placeholder="" minlength="11" maxlength="11"
+                            pattern="09[0-9]{9}" title="09(Last 9 Digits)">
+
+                        <input type="hidden" class="form-control mt-2" name="hidden_phone"
+                        id="phone" value="{{applicant.phone_number}}"
+                        placeholder="Enter Contact Number" minlength="11" maxlength="11"
+                        pattern="09[0-9]{9}" title="09(Last 9 Digits)">
                         <small id="" class="form-text text-muted">Help text</small>
                     </div>
 
                     <div class="mb-3">
                         <label for="" class="form-label">Address</label>
-                        <input type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="">
+                        <input type="text" class="form-control" value={{applicant.address}} name="home_address" id="" aria-describedby="helpId" placeholder="">
                         <small id="" class="form-text text-muted">Help text</small>
                     </div>
 
@@ -673,7 +686,9 @@
 
                     <div class="mb-3">
                         <label for="" class="form-label">Email Address</label>
-                        <input type="email" class="form-control" name="" id="" aria-describedby="helpId" placeholder="">
+                        <input type="email" class="form-control" name="email" value = {{applicant.user.email}} id="" aria-describedby="helpId" placeholder="">
+                        <input type="hidden" class="form-control mt-2" name="hidden_email"
+                        id="email" value="{{applicant.user.email}}">
                         <small id="" class="form-text text-muted">Help text</small>
                     </div>
 
@@ -681,8 +696,9 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
                 </div>
+                </form>
             </div>
         </div>
     </div>

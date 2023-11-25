@@ -11,6 +11,8 @@ urlpatterns = [
     path("pre-register/", views.user_signup, name="pre-register"),
     path("job_hiring/", views.job_hiring, name="posted jobs"),
     path("jobseeker_profile/", views.jobseeker_profile, name="jobseeker_Edit_profile"),
+    path("jobseeker_introduction/", views.jobseeker_introduction, name="jobseeker_introduction"),
+    path("jobseeker_basicInformation/", views.jobseeker_basicinformation, name="jobseeker_basicInformation"),
     path('logout/', views.Logout, name='logout'),
 
 
