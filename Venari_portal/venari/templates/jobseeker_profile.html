@@ -107,7 +107,7 @@
                             <div class="ratio ratio-1x1 rounded-circle" style="height: 125px; width: 125px;">
                                 <img class="rounded-circle" id="profilePic" src="{{applicant.profile_image.url}}"
                                     alt="">
-                                <button type="button" id="editPFP" class="btn rounded-circle">
+                                <button type="button" id="editPFP" class="btn rounded-circle" data-bs-toggle="modal" data-bs-target="#uploadProfile">
                                     <i class="bi bi-camera-fill "></i></button>
                             </div>
                         </div>
@@ -195,6 +195,14 @@
                                             <span class="fw-medium">{{applicant.user.email}}</span>
                                         </div>
                                     </div>
+
+                                    <div class="mb-3">
+                                      <label for="" class="form-label">Upload Resume</label>
+                                      <input type="file" class="form-control" name="" id="" placeholder="" aria-describedby="fileHelpId">
+                                      <div id="fileHelpId" class="form-text">Help text</div>
+                                    </div>
+
+
                                 </div>
                             </div>
                         </div>
@@ -763,9 +771,36 @@
     </div>
 
 
+    
+    <!-- Modal Body -->
+    <!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
+    <div class="modal fade" id="uploadProfile" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="uploadProfileTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="uploadProfileTitle">Upload Profile Picture</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                      <label for="" class="form-label">Choose file</label>
+                      <input type="file" class="form-control" name="" id="" placeholder="" accept="image/*" aria-describedby="fileHelpId">
+                      <div id="fileHelpId" class="form-text">Help text</div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
     <!-- Optional: Place to the bottom of scripts -->
     <script>
-        const myModal = new bootstrap.Modal(document.getElementById('modalWorkExp'), options)
+        const myModal = new bootstrap.Modal(document.getElementById('uploadProfile'), options)
+    
     </script>
 
     <!-- ========== End Section Work Experience Modal ========== -->
