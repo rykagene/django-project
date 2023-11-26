@@ -282,6 +282,7 @@ def jobseeker_apply(request, myid):
 
     return render(request, "job_hiring.html", {'job': job})
 
+
 #Company side
 def company_signup(request):
     if request.method=="POST":   
@@ -367,7 +368,10 @@ def company_dashboard(request):
         return redirect("/company_login")
     companies = company.objects.get(user=request.user)
     jobs = post_jobs.objects.filter(company=companies)
-    return render(request, "company_dashboard.html", {'jobs':jobs})
+    applicant = apply_job.objects.filter(company=companies)
+    return render(request, "company_dashboard.html", {'jobs':jobs, 'company':companies, 'applicants': applicant})
+
+
 
 def company_profile(request):
     if not request.user.is_authenticated:
@@ -444,8 +448,48 @@ def company_post_job(request):
         return render(request, "company_post_job.html", {'alert':alert})
     return render(request, "company_post_job.html")
 
+def company_accept_applicant(request, myid):
+    if not request.user.is_authenticated:
+        return redirect("/compnay_login")
+    application = apply_job.objects.get(id=myid)
+    applicant = job_seeker.objects.get(id=application.applicant_id)
+    post = post_jobs.objects.get(id=application.job_id)
+    Company = company.objects.get(id=post.company_id)
 
-
+    if request.method == "POST":
+        status = request.POST['status']
+        if status == 'hire':
+            application.status=status
+            application.save()
+            send_mail(
+                'Invitation for Final Interview',  # subject
+                f'Hi {applicant.user.last_name},\n\n'
+                f'We are delighted to inform you that {application.company} has reviewed your application for the {application.jobtype} position. '
+                f'Based on our initial assessment, we would like to invite you for a final interview to discuss your qualifications and explore the opportunity to work together.\n\n'
+                f'Details of the job opening:\n'
+                f'- Company Name: {application.company}\n'
+                f'- Job Type: {application.jobtype}\n'
+                f'- Start Date: {post.start_date}\n'
+                f'- End Date: {post.end_date}\n'
+                f'- Monthly Salary: {post.salary} pesos\n'
+                f'- Experience Required: {post.experience} year/s\n'
+                f'- Required Skills: {post.skills}\n\n'
+                f'Please let us know your availability for the final interview, and we will schedule a suitable time. If you have any questions or need further information, feel free to reach out.\n\n'
+                f'Thank you for your continued interest in joining {application.company}. We look forward to meeting you!\n\n'
+                f'Best regards,\n'
+                f'{application.company}\n'
+                f'{Company.phone_number}',
+                'venaricompany@gmail.com',  # from_email
+                [application.email],  # list of recipient email addresses
+            )
+            messages.success(request, "Status changed successfully.")
+            return redirect("/company_dashboard")
+        else:
+            applicant = apply_job.objects.filter(id=myid)
+            applicant.delete()
+            messages.success(request, "Successfully deleted.")
+            return redirect("/company_dashboard")
+    return render(request, "company_dashboard.html", {'accept':application})
 #Admin Side
 def admin_login(request):
     if request.method == "POST":

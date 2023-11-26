@@ -38,6 +38,7 @@ urlpatterns = [
     path("company_post_job/", views.company_post_job, name="companies list"),
     path("company_profile/", views.company_profile, name="company profile"),
     path("company_dashboard/", views.company_dashboard, name="company dashboard"),
+    path("company_accept_applicant/<int:myid>/", views.company_accept_applicant, name="company_accept_applicant"),
 
 
 

@@ -64,5 +64,6 @@ class apply_job(models.Model):
     applicant = models.ForeignKey(job_seeker, on_delete=models.CASCADE)
     resume = models.FileField(upload_to="")
     apply_date = models.DateField()
+    status = models.CharField(max_length=50, null = True)
     def __str__ (self):
         return str(self.applicant)
