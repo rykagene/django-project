@@ -107,7 +107,8 @@
                             <div class="ratio ratio-1x1 rounded-circle" style="height: 125px; width: 125px;">
                                 <img class="rounded-circle" id="profilePic" src="{{applicant.profile_image.url}}"
                                     alt="">
-                                <button type="button" id="editPFP" class="btn rounded-circle" data-bs-toggle="modal" data-bs-target="#uploadProfile">
+                                <button type="button" id="editPFP" class="btn rounded-circle" data-bs-toggle="modal"
+                                    data-bs-target="#uploadProfile">
                                     <i class="bi bi-camera-fill "></i></button>
                             </div>
                         </div>
@@ -132,24 +133,46 @@
                             {{applicant.bio}}
                         </div>
 
-                        <div class="text-start mb-3">
-                            <h5 id="skills-list" class="card-headers">Skills</h5>
-                            <span class="skills-item">User Interface Designing</span>
-                            <span class="skills-item">UI</span>
-                            <span class="skills-item">UX</span>
-                            <span class="skills-item">Figma</span>
-                            <span class="skills-item">Wireframe</span>
-                            <span class="skills-item">Photoshop</span>
-                            <span class="skills-item">Adobe Illustrator</span>
-                            <span class="skills-item">Adobe XD</span>
 
+                        <div class="card border-0">
+                            <button type="button" id="editSkills" class="btn position-absolute ">
+                                <i class="bi bi-pencil-fill" data-bs-toggle="modal" data-bs-toggle="modal"
+                                    data-bs-target="#modalEditSkills"></i>
+                            </button>
+                            <div class="card-body">
 
-                            <span class="skills-item">&nbsp;+&nbsp;</span>
+                                <div class="text-start mb-3">
+
+                                    <h5 id="skills-list" class="card-headers">Skills</h5>
+                                    <span class="skills-item">User Interface Designing</span>
+                                    <span class="skills-item">UI</span>
+                                    <span class="skills-item">UX</span>
+                                    <span class="skills-item">Figma</span>
+                                    <span class="skills-item">Wireframe</span>
+                                    <span class="skills-item">Photoshop</span>
+                                    <span class="skills-item">Adobe Illustrator</span>
+                                    <span class="skills-item">Adobe XD</span>
+
+                                </div>
+
+                            </div>
                         </div>
 
-                        <div class="notes-container">
-                            <h5 class="card-headers">Add Note</h5>
-                            <p>This is a sample note</p>
+                        <div class="card border-0">
+
+                            <button type="button" id="editNotes" class="btn position-absolute ">
+                                <i class="bi bi-pencil-fill" data-bs-toggle="modal" data-bs-toggle="modal"
+                                    data-bs-target="#modalEditSkills"></i>
+                            </button>
+
+                            <div class="card-body">
+
+                                <div class="notes-container">
+                                    <h5 class="card-headers">Add Note</h5>
+                                    <p>This is a sample note</p>
+                                </div>
+
+                            </div>
                         </div>
 
                     </div>
@@ -197,14 +220,15 @@
                                     </div>
 
                                     <div class="mb-3">
-                                    <form class="container mt-4" method="POST" Action="{% url 'jobseeker_uploadresume' %}"
-                                        enctype="multipart/form-data" id="profileForm">
-                                        {% csrf_token %}
-                                      <label for="" class="form-label">Upload Resume</label>
-                                      <input type="file" class="form-control" name="resume" id="resume" placeholder="" aria-describedby="fileHelpId">
-                                      <div id="fileHelpId" class="form-text">{{applicant.resume}} </div>
-                                      <button type="submit">save</button>
-                                    </form>
+
+                                        <div class="btn-group" role="group" aria-label="Default button group">
+                                            <button type="button" class="btn btn-outline-primary btn-sm">Download Resume
+                                                &nbsp; <i class="bi bi-download"></i></button>
+                                            <button type="button" class="btn btn-outline-primary btn-sm"
+                                                data-bs-toggle="modal" data-bs-target="#modalUploadResume"><i
+                                                    class="bi bi-upload"></i></button>
+                                        </div>
+
                                     </div>
 
 
@@ -213,12 +237,13 @@
                         </div>
                     </div>
 
-
+                    <!-- 
                     <div class="col-12">
                         <div class="card profile-card">
 
                             <button type="button" id="editWork" class="btn mb-4">
-                                <i class="bi bi-pencil-fill" data-bs-toggle="modal" data-bs-target="#modalWorkExp"></i></button>
+                                <i class="bi bi-pencil-fill" data-bs-toggle="modal"
+                                    data-bs-target="#modalWorkExp"></i></button>
 
                             <div class="card-body">
                                 <div>
@@ -301,168 +326,131 @@
                             </div>
                         </div>
 
-                    </div>
+                    </div> -->
 
 
-                    <div class="col-12">
-                        <div class="accordion accordion-flush" id="educationFlush">
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="educationFlushHeading">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#educationFlushCollapse" aria-expanded="true"
-                                        aria-controls="educationFlushCollapse">
-                                        Education
-                                    </button>
-                                </h2>
-                                <div id="educationFlushCollapse" class="accordion-collapse collapse"
-                                    aria-labelledby="educationFlushHeading" data-bs-parent="#educationFlush">
-                                    <div class="accordion-body">
+                    <div class="col-12 mb-3">
+                        <div class="card profile-card">
+
+                            <button type="button" id="editBasicInfo" class="btn position-absolute "
+                                data-bs-toggle="modal" data-bs-target="#educationModal">
+                                <i class="bi bi-plus-lg"></i>
+                            </button>
+
+                            <div class="card-body">
+
+                                <div>
 
 
+                                    <h5 class="mb-3 card-headers">Education</h5>
+                                    <div class="row justify-content-start align-items-center g-2 mb-1">
 
-                                        <div>
+                                        <div class="row justify-content-start align-items-start g-2">
+                                            <div class="col-12">
+                                                <div class="row justify-content-center align-items-start g-2">
+                                                    <div class="col">
 
-                                            <div class="row justify-content-start align-items-start g-2 mb-3">
-                                                <div class="col-3 fw-medium">College<br>
-                                                </div>
-                                                <div class="col-9">
-                                                    <span class="">Bulacan State University</span><br>
-                                                    <span class="">Guinhawa, City of Malolos, Bulacan</span><br>
-                                                    <span class="">2020 - 2024</span>
-                                                </div>
-                                            </div>
+                                                        <span class="">Bachelor of Science in Information
+                                                            Technology</span><br>
+                                                        <span class="">Bulacan State University</span><br>
+                                                        <span class="">Guinhawa, City of Malolos, Bulacan</span><br>
+                                                        <span class="">2020 - 2024</span>
+                                                    </div>
+                                                    <div class="col-1">
 
-                                            <div class="row justify-content-start align-items-start g-2 mb-3">
-                                                <div class="col-3 fw-medium">Senior High School<br>
-                                                </div>
-                                                <div class="col-9">
-                                                    <span class="">St. Amatiel Technological Institute
-                                                        (Malolos)</span><br>
-                                                    <span class="">San Vicente, City of Malolos, Bulacan</span><br>
-                                                    <span class="">2017 - 2019</span>
+                                                        <button type="button" id="editWork" class="btn mb-4">
+                                                            <i class="bi bi-pencil-fill" data-bs-toggle="modal"
+                                                                data-bs-target="#educationModal"></i></button>
+                                                    </div>
                                                 </div>
                                             </div>
-
-                                            <div class="row justify-content-start align-items-start g-2 mb-3">
-                                                <div class="col-3 fw-medium">Junior High School<br>
-                                                </div>
-                                                <div class="col-9">
-                                                    <span class="">San Pedro National High School</span><br>
-                                                    <span class="">San Pedro, Hagonoy, Bulacan</span><br>
-                                                    <span class="">2013 - 2017</span>
-                                                </div>
-                                            </div>
-
-                                            <div class="row justify-content-start align-items-start g-2 mb-3">
-                                                <div class="col-3 fw-medium">Elementary<br>
-                                                </div>
-                                                <div class="col-9">
-                                                    <span class="">Tibaguin Elementary School</span><br>
-                                                    <span class="">Tibaguin, Hagonoy, Bulacan</span><br>
-                                                    <span class="">2007 – 2013 </span>
-                                                </div>
-                                            </div>
-
                                         </div>
 
+                                        <div class="row justify-content-start align-items-start g-2">
+                                            <div class="col-12">
+                                                <div class="row justify-content-center align-items-start g-2">
+                                                    <div class="col">
+
+                                                        <span class="">Bachelor of Industrial Technology in Mechanical
+                                                            Technology</span><br>
+                                                        <span class="">Bulacan State University</span><br>
+                                                        <span class="">Guinhawa, City of Malolos, Bulacan</span><br>
+                                                        <span class="">2019 - 2020</span>
+                                                    </div>
+                                                    <div class="col-1">
+
+                                                        <button type="button" id="editWork" class="btn mb-4">
+                                                            <i class="bi bi-pencil-fill" data-bs-toggle="modal"
+                                                                data-bs-target="#educationModal"></i></button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row justify-content-start align-items-start g-2">
+                                            <div class="col-12">
+                                                <div class="row justify-content-center align-items-start g-2">
+                                                    <div class="col">
+
+                                                        <span class="">
+                                                            Senior High School
+                                                        </span>
+                                                        <br>
+                                                        <span class="">St. Amatiel Technological Institure</span><br>
+                                                        <span class="">San Vicente, City of Malolos, Bulacan</span><br>
+                                                        <span class="">2017 - 2019</span>
+                                                    </div>
+                                                    <div class="col-1">
+
+                                                        <button type="button" id="editWork" class="btn mb-4">
+                                                            <i class="bi bi-pencil-fill" data-bs-toggle="modal"
+                                                                data-bs-target="#educationModal"></i></button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+
+
                                     </div>
+
+                                    <hr>
+                                    <div class="col-12 mt-3">
+                                        <a name="" id="" class="btn btn-sm" href="#" role="button">See More &nbsp;<i
+                                                class="bi bi-arrow-right"></i></a>
+                                    </div>
+
+
                                 </div>
+
                             </div>
 
                         </div>
+
+
+
+
+
+
+
                     </div>
-
-
-                    <div class="col-12">
-                        <div class="accordion accordion-flush" id="accomplishments-flush">
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="accomplishments-flush-heading">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#accomplishments-flush-collapse" aria-expanded="true"
-                                        aria-controls="accomplishments-flush-collapse">
-                                        Accomplishments
-                                    </button>
-                                </h2>
-                                <div id="accomplishments-flush-collapse" class="accordion-collapse collapse"
-                                    aria-labelledby="accomplishments-flush-heading"
-                                    data-bs-parent="#accomplishments-flush">
-                                    <div class="accordion-body">
-
-                                        <div>
-
-                                            <div class="row justify-content-start align-items-start g-2 mb-3">
-                                                <div class="col-3 fw-medium">Certification Title Here<br>
-                                                </div>
-                                                <div class="col-9">
-                                                    <span class="">Description</span><br>
-                                                    <span class="">2020 - 2024</span>
-                                                </div>
-                                            </div>
-
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
-
-
-                    <div class="col-12">
-                        <div class="accordion accordion-flush" id="certifications-flush">
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="certifications-flush-heading">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#certifications-flush-collapse" aria-expanded="true"
-                                        aria-controls="certifications-flush-collapse">
-                                        Certifications
-                                    </button>
-                                </h2>
-                                <div id="certifications-flush-collapse" class="accordion-collapse collapse"
-                                    aria-labelledby="certifications-flush-heading"
-                                    data-bs-parent="#certifications-flush">
-                                    <div class="accordion-body">
-
-                                        <div>
-
-                                            <div class="row justify-content-start align-items-start g-2 mb-3">
-                                                <div class="col-3 fw-medium">Accomplishment Title Here<br>
-                                                </div>
-                                                <div class="col-9">
-                                                    <span class="">Description</span><br>
-                                                    <span class="">2020 - 2024</span>
-                                                </div>
-                                            </div>
-
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
-
 
                 </div>
 
             </div>
-
         </div>
-    </div>
 
 
-    <!-- Modal trigger button -->
-    <!-- <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#modalId">
+        <!-- Modal trigger button -->
+        <!-- <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#modalId">
         Launch
     </button> -->
 
-    <!-- Modal Body -->
-    <!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
-    <!-- <div class="modal fade" id="modalId" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog"
+        <!-- Modal Body -->
+        <!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
+        <!-- <div class="modal fade" id="modalId" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog"
         aria-labelledby="modalTitleId" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
             <div class="modal-content">
@@ -589,272 +577,447 @@
     </div> -->
 
 
-    <!-- ========== Start Section Left Profile Modal========== -->
+        <!-- ========== Start Section Left Profile Modal========== -->
 
-    <!-- Modal trigger button -->
-
-
-    <!-- Modal Body -->
-    <!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
-    <div class="modal fade" id="modalInfo" tabindex="-1" role="dialog" aria-labelledby="modalInfoTitle"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md" role="document">
-            <div class="modal-content">
-                <form class="container mt-4" method="POST" Action="{% url 'jobseeker_introduction' %}"
-                                    enctype="multipart/form-data" id="profileForm">
-                {% csrf_token %}
-
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalInfoTitle">Edit Introduction</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="mb-3">
-                        <label for="" class="form-label">Name</label>
-                        <input type="text" class="form-control" value= {{applicant.user.username}} name="username" id="" aria-describedby="helpId" placeholder="">
-                        <small id="" class="form-text text-muted">Help text</small>
-                        <input type="hidden" class="form-control mt-2" name="hidden_username"
-                        id="username" value="{{applicant.user.username}}">
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="" class="form-label">Occupation</label>
-                        <input type="text" class="form-control" value={{applicant.occupation}} name="occupation" id="" aria-describedby="helpId" placeholder="">
-                        <small id="" class="form-text text-muted">Help text</small>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="" class="form-label">Bio</label>
-                        <textarea class="form-control" name="bio" id="" rows="3">{{applicant.bio}}</textarea>
-                        <small id="" class="form-text text-muted">Help text</small>
-                    </div>
+        <!-- Modal trigger button -->
 
 
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save</button>
-                </div>
-            </form>
-            </div>
-        </div>
-    </div>
+        <!-- Modal Body -->
+        <!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
+        <div class="modal fade" id="modalInfo" tabindex="-1" role="dialog" aria-labelledby="modalInfoTitle"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md" role="document">
+                <div class="modal-content">
+                    <form class="container" method="POST" Action="{% url 'jobseeker_introduction' %}"
+                        enctype="multipart/form-data" id="profileForm">
+                        {% csrf_token %}
+
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalInfoTitle">Edit Introduction</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label for="" class="form-label">Name</label>
+                                <input type="text" class="form-control" value={{applicant.user.username}}
+                                    name="username" id="" aria-describedby="helpId" placeholder="">
+                                <small id="" class="form-text text-muted">Help text</small>
+                                <input type="hidden" class="form-control mt-2" name="hidden_username" id="username"
+                                    value="{{applicant.user.username}}">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="" class="form-label">Occupation</label>
+                                <input type="text" class="form-control" value={{applicant.occupation}} name="occupation"
+                                    id="" aria-describedby="helpId" placeholder="">
+                                <small id="" class="form-text text-muted">Help text</small>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="" class="form-label">Bio</label>
+                                <textarea class="form-control" name="bio" id="" rows="3">{{applicant.bio}}</textarea>
+                                <small id="" class="form-text text-muted">Help text</small>
+                            </div>
 
 
-    <!-- ========== End Section Left Profile Modal========== -->
-
-
-
-
-
-    <!-- ========== Start Section Basic Info modal ========== -->
-
-
-    <!-- Modal Body -->
-    <!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
-    <div class="modal fade" id="modalBasicInfo" tabindex="-1" role="dialog" aria-labelledby="basicInfoTitle"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="basicInfoTitle">Edit Basic Info</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form class="container mt-4" method="POST" Action="{% url 'jobseeker_basicInformation' %}"
-                    enctype="multipart/form-data" id="profileForm">
-                    {% csrf_token %}
-                    <div class="mb-3">
-                        <label for="" class="form-label">Age</label>
-                        <input type="number" class="form-control" name="age" id="" aria-describedby="helpId"
-                            value =  {{applicant.age}} placeholder="">
-                        <small id="" class="form-text text-muted">Help text</small>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="" class="form-label">Phone</label>
-                        <input type="number" value = {{applicant.phone_number}} class="form-control" name="phone_number" id="" aria-describedby="helpId"
-                            placeholder="" minlength="11" maxlength="11"
-                            pattern="09[0-9]{9}" title="09(Last 9 Digits)">
-
-                        <input type="hidden" class="form-control mt-2" name="hidden_phone"
-                        id="phone" value="{{applicant.phone_number}}"
-                        placeholder="Enter Contact Number" minlength="11" maxlength="11"
-                        pattern="09[0-9]{9}" title="09(Last 9 Digits)">
-                        <small id="" class="form-text text-muted">Help text</small>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="" class="form-label">Address</label>
-                        <input type="text" class="form-control" value={{applicant.address}} name="home_address" id="" aria-describedby="helpId" placeholder="">
-                        <small id="" class="form-text text-muted">Help text</small>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="" class="form-label">Years of Experience</label>
-                        <input type="number" class="form-control" name="" id="" aria-describedby="helpId"
-                            placeholder="">
-                        <small id="" class="form-text text-muted">Help text</small>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="" class="form-label">Email Address</label>
-                        <input type="email" class="form-control" name="email" value = {{applicant.user.email}} id="" aria-describedby="helpId" placeholder="">
-                        <input type="hidden" class="form-control mt-2" name="hidden_email"
-                        id="email" value="{{applicant.user.email}}">
-                        <small id="" class="form-text text-muted">Help text</small>
-                    </div>
-
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save</button>
-                </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <!-- ========== End Section Basic Info modal ========== -->
-
-
-
-    <!-- ========== Start Section Work Experience Modal ========== -->
-
-
-    <!-- Modal Body -->
-    <!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
-    <div class="modal fade" id="modalWorkExp" tabindex="-1" role="dialog" aria-labelledby="modalWorkExpTitle"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalWorkExpTitle">Edit Experience</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-
-                    <div class="mb-3">
-                        <label for="" class="form-label">Company Name</label>
-                        <input type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="">
-                        <small id="" class="form-text text-muted">Help text</small>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="" class="form-label">Position</label>
-                        <input type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="">
-                        <small id="" class="form-text text-muted">Help text</small>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="" class="form-label">Start Date</label>
-                        <input type="date" class="form-control" name="" id="" aria-describedby="helpId" placeholder="">
-                        <small id="" class="form-text text-muted">Help text</small>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="" class="form-label">End Date</label>
-                        <input type="date" class="form-control" name="" id="" aria-describedby="helpId" placeholder="">
-                        <small id="" class="form-text text-muted">Help text</small>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="" class="form-label">Work Address</label>
-                        <input type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="">
-                        <small id="" class="form-text text-muted">Help text</small>
-                    </div>
-
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save</button>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
-    </div>
 
 
-    
-    <!-- Modal Body -->
-    <!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
-    <div class="modal fade" id="uploadProfile" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="uploadProfileTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="uploadProfileTitle">Upload Profile Picture</h5>
+        <!-- ========== End Section Left Profile Modal========== -->
+
+
+        <!-- ========== Start Section Edit Skills ========== -->
+
+
+        <!-- Modal Body -->
+        <!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
+        <div class="modal fade" id="modalEditSkills" tabindex="-1" role="dialog" aria-labelledby="ediSkillsTitle"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="ediSkillsTitle">Edit Skills</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <form class="container mt-4" method="POST" Action="{% url 'jobseeker_changeprofile' %}"
-                enctype="multipart/form-data" id="profileForm">
-                {% csrf_token %}
-                <div class="modal-body">
-                    <div class="mb-3">
-                      <label for="" class="form-label">Choose file</label>
-                      <input type="file" class="form-control" name="profile_image" id="image" placeholder="" accept="image/*" aria-describedby="fileHelpId">
-                      <div id="fileHelpId" class="form-text">Help text</div>
+                    </div>
+                    <div class="modal-body">
+
+                        <h5 id="skills-list" class="card-headers">Skills</h5>
+                        <span class="skills-item">User Interface Designing &nbsp;<i class="bi bi-x-lg"></i></span>
+                        <span class="skills-item">UI &nbsp;<i class="bi bi-x-lg"></i></span>
+                        <span class="skills-item">UX &nbsp;<i class="bi bi-x-lg"></i></span>
+                        <span class="skills-item">Figma &nbsp;<i class="bi bi-x-lg"></i></span>
+                        <span class="skills-item">Wireframe &nbsp;<i class="bi bi-x-lg"></i></span>
+                        <span class="skills-item">Photoshop &nbsp;<i class="bi bi-x-lg"></i></span>
+                        <span class="skills-item">Adobe Illustrator &nbsp;<i class="bi bi-x-lg"></i></span>
+                        <span class="skills-item">Adobe XD &nbsp;<i class="bi bi-x-lg"></i></span>
+
+                        <!-- lilitaw lang pag niclick yung button -->
+                        <div>
+                            <form action="">
+                                <div class="mt-3">
+                                    <input type="text" class="form-control" name="" id="" aria-describedby="helpId"
+                                        placeholder="lilitaw lang dapat ito after maclick ang add skill">
+                                </div>
+                            </form>
+
+                            <button type="button" class="btn btn-sm"><i class="bi bi-plus-lg"></i> &nbsp;Add
+                                Skills</button>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save</button>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save</button>
-                </div>
-                </form>
             </div>
         </div>
-    </div>
-    
-    
-    <!-- Optional: Place to the bottom of scripts -->
-    <script>
-        const myModal = new bootstrap.Modal(document.getElementById('uploadProfile'), options)
-    
-    </script>
-
-    <!-- ========== End Section Work Experience Modal ========== -->
 
 
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+        <!-- ========== End Section Edit Skills ========== -->
+
+
+        <!-- ========== Start Section Basic Info modal ========== -->
+
+
+        <!-- Modal Body -->
+        <!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
+        <div class="modal fade" id="modalBasicInfo" tabindex="-1" role="dialog" aria-labelledby="basicInfoTitle"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="basicInfoTitle">Edit Basic Info</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form class="container mt-4" method="POST" Action="{% url 'jobseeker_basicInformation' %}"
+                            enctype="multipart/form-data" id="profileForm">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <label for="" class="form-label">Age</label>
+                                <input type="number" class="form-control" name="age" id="" aria-describedby="helpId"
+                                    value={{applicant.age}} placeholder="">
+                                <small id="" class="form-text text-muted">Help text</small>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="" class="form-label">Phone</label>
+                                <input type="number" value={{applicant.phone_number}} class="form-control"
+                                    name="phone_number" id="" aria-describedby="helpId" placeholder="" minlength="11"
+                                    maxlength="11" pattern="09[0-9]{9}" title="09(Last 9 Digits)">
+
+                                <input type="hidden" class="form-control mt-2" name="hidden_phone" id="phone"
+                                    value="{{applicant.phone_number}}" placeholder="Enter Contact Number" minlength="11"
+                                    maxlength="11" pattern="09[0-9]{9}" title="09(Last 9 Digits)">
+                                <small id="" class="form-text text-muted">Help text</small>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="" class="form-label">Address</label>
+                                <input type="text" class="form-control" value={{applicant.address}} name="home_address"
+                                    id="" aria-describedby="helpId" placeholder="">
+                                <small id="" class="form-text text-muted">Help text</small>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="" class="form-label">Years of Experience</label>
+                                <input type="number" class="form-control" name="" id="" aria-describedby="helpId"
+                                    placeholder="">
+                                <small id="" class="form-text text-muted">Help text</small>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="" class="form-label">Email Address</label>
+                                <input type="email" class="form-control" name="email" value={{applicant.user.email}}
+                                    id="" aria-describedby="helpId" placeholder="">
+                                <input type="hidden" class="form-control mt-2" name="hidden_email" id="email"
+                                    value="{{applicant.user.email}}">
+                                <small id="" class="form-text text-muted">Help text</small>
+                            </div>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== End Section Basic Info modal ========== -->
+
+
+        <!-- ========== Start Section Modal Upload Resume ========== -->
+
+
+        <!-- Modal Body -->
+        <!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
+        <div class="modal fade" id="modalUploadResume" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
+            role="dialog" aria-labelledby="modalUploadResumeTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered " role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalUploadResumeTitle">Upload Resume</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+                    <form class="container mt-4" method="POST" Action="{% url 'jobseeker_uploadresume' %}"
+                        enctype="multipart/form-data" id="profileForm">
+
+                        <div class="modal-body">
+
+                            {% csrf_token %}
+                            <label for="" class="form-label">Upload Resume</label>
+                            <input type="file" class="form-control" name="resume" id="resume" placeholder=""
+                                aria-describedby="fileHelpId">
+                            <div id="fileHelpId" class="form-text">{{applicant.resume}} </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </div>
+                    </form>
+
+
+                </div>
+            </div>
+        </div>
+
+
+        <!-- ========== End Section Modal Upload Resume ========== -->
+
+
+        <!-- ========== Start Section Work Experience Modal ========== -->
+
+
+        <!-- Modal Body -->
+        <!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
+        <!-- <div class="modal fade" id="modalWorkExp" tabindex="-1" role="dialog" aria-labelledby="modalWorkExpTitle"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalWorkExpTitle">Edit Experience</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="mb-3">
+                            <label for="" class="form-label">Company Name</label>
+                            <input type="text" class="form-control" name="" id="" aria-describedby="helpId"
+                                placeholder="">
+                            <small id="" class="form-text text-muted">Help text</small>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="" class="form-label">Position</label>
+                            <input type="text" class="form-control" name="" id="" aria-describedby="helpId"
+                                placeholder="">
+                            <small id="" class="form-text text-muted">Help text</small>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="" class="form-label">Start Date</label>
+                            <input type="date" class="form-control" name="" id="" aria-describedby="helpId"
+                                placeholder="">
+                            <small id="" class="form-text text-muted">Help text</small>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="" class="form-label">End Date</label>
+                            <input type="date" class="form-control" name="" id="" aria-describedby="helpId"
+                                placeholder="">
+                            <small id="" class="form-text text-muted">Help text</small>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="" class="form-label">Work Address</label>
+                            <input type="text" class="form-control" name="" id="" aria-describedby="helpId"
+                                placeholder="">
+                            <small id="" class="form-text text-muted">Help text</small>
+                        </div>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+
+
+        <!-- ========== End Section Work Experience Modal ========== -->
+
+
+        <!-- Modal Body -->
+        <!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
+        <div class="modal fade" id="uploadProfile" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
+            role="dialog" aria-labelledby="uploadProfileTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="uploadProfileTitle">Upload Profile Picture</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form class="container mt-4" method="POST" Action="{% url 'jobseeker_changeprofile' %}"
+                        enctype="multipart/form-data" id="profileForm">
+                        {% csrf_token %}
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label for="" class="form-label">Choose file</label>
+                                <input type="file" class="form-control" name="profile_image" id="image" placeholder=""
+                                    accept="image/*" aria-describedby="fileHelpId">
+                                <div id="fileHelpId" class="form-text">Help text</div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
 
 
 
 
-    <script>
-        function closeErrorModal() {
-            $('#errorModal').modal('hide');
-        }
-        $(document).ready(function () {
-            $('#profileForm').submit(function (e) {
-                e.preventDefault();
+        <!-- ========== Start Section Education Modal ========== -->
 
-                // Create FormData object
-                var formData = new FormData(this);
 
-                // Perform form submission using AJAX
-                $.ajax({
-                    type: 'POST',
-                    url: $(this).attr('action'),
-                    data: formData,
-                    processData: false, // Important! Tell jQuery not to process the data
-                    contentType: false, // Important! Tell jQuery not to set contentType
-                    success: function (response) {
-                        if (response.error) {
-                            // Display error message in the modal
-                            $('#errorMessage').text(response.error);
-                            $('#errorModal').modal('show');
-                        } else {
-                            // If no error, reload the page or redirect as needed
-                            window.location.reload();
+        <!-- Modal Body -->
+        <!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
+        <div class="modal fade" id="educationModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
+            role="dialog" aria-labelledby="educationModalTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered " role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="educationModalTitle">Edit Education</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+
+                        <h6>Education</h6>
+
+                        <form action="">
+
+                            <div class="">
+                                <label for="" class="form-label">School</label>
+                                <input type="text" class="form-control" name="" id="" aria-describedby="helpId"
+                                    placeholder="">
+                                <small id="helpId" class="form-text text-muted">Help text</small>
+                            </div>
+
+                            <div class="">
+                                <label for="" class="form-label">Degree</label>
+                                <input type="text" class="form-control" name="" id="" aria-describedby="helpId"
+                                    placeholder="">
+                                <small id="helpId" class="form-text text-muted">Help text</small>
+                            </div>
+
+                            <div class="">
+                                <label for="" class="form-label">Field of Study</label>
+                                <input type="text" class="form-control" name="" id="" aria-describedby="helpId"
+                                    placeholder="">
+                                <small id="helpId" class="form-text text-muted">Help text</small>
+                            </div>
+
+                            <div class="">
+                                <label for="" class="form-label">Address</label>
+                                <input type="text" class="form-control" name="" id="" aria-describedby="helpId"
+                                    placeholder="">
+                                <small id="helpId" class="form-text text-muted">Help text</small>
+                            </div>
+
+                            <div class="">
+                                <label for="" class="form-label">Start Date</label>
+                                <input type="date" class="form-control" name="" id="" aria-describedby="helpId"
+                                    placeholder="">
+                                <small id="helpId" class="form-text text-muted">Help text</small>
+                            </div>
+
+                            <div class="">
+                                <label for="" class="form-label">End Date</label>
+                                <input type="date" class="form-control" name="" id="" aria-describedby="helpId"
+                                    placeholder="">
+                                <small id="helpId" class="form-text text-muted">Help text</small>
+                            </div>
+
+                            <div class="">
+                                <label for="" class="form-label">Description</label>
+                                <textarea class="form-control" name="" id="" rows="3"></textarea>
+                                <small id="helpId" class="form-text text-muted">Help text</small>
+                            </div>
+                        </form>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== End Section Education Modal ========== -->
+
+
+
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+
+
+
+        <script>
+            function closeErrorModal() {
+                $('#errorModal').modal('hide');
+            }
+            $(document).ready(function () {
+                $('#profileForm').submit(function (e) {
+                    e.preventDefault();
+
+                    // Create FormData object
+                    var formData = new FormData(this);
+
+                    // Perform form submission using AJAX
+                    $.ajax({
+                        type: 'POST',
+                        url: $(this).attr('action'),
+                        data: formData,
+                        processData: false, // Important! Tell jQuery not to process the data
+                        contentType: false, // Important! Tell jQuery not to set contentType
+                        success: function (response) {
+                            if (response.error) {
+                                // Display error message in the modal
+                                $('#errorMessage').text(response.error);
+                                $('#errorModal').modal('show');
+                            } else {
+                                // If no error, reload the page or redirect as needed
+                                window.location.reload();
+                            }
+                        },
+                        error: function () {
+                            // Handle AJAX error if needed
                         }
-                    },
-                    error: function () {
-                        // Handle AJAX error if needed
-                    }
+                    });
                 });
             });
-        });
-    </script>
+        </script>
 
 </body>
 
