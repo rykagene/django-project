@@ -95,93 +95,121 @@
 
 
     <div class="container-xl mt-3">
-        <div class="row justify-content-center align-items-start g-3">
+        <div class="row justify-content-center align-items-start g-2">
             <div class="col-md-4">
 
-                <div class="card profile-card px-2 sticky-md-top">
 
 
-                    <div class="card-body overflow-y-auto">
-
-                        <div class="text-center mb-3 mt-5 d-flex justify-content-center">
-                            <div class="ratio ratio-1x1 rounded-circle" style="height: 125px; width: 125px;">
-                                <img class="rounded-circle" id="profilePic" src="{{applicant.profile_image.url}}"
-                                    alt="">
-                                <button type="button" id="editPFP" class="btn rounded-circle" data-bs-toggle="modal"
-                                    data-bs-target="#uploadProfile">
-                                    <i class="bi bi-camera-fill "></i></button>
-                            </div>
-                        </div>
+                <div class="row g-2">
+                    <div class="col-12">
+                        <div class="card profile-card px-2 sticky-md-top">
 
 
-                        <div>
-                            <div class="text-end">
-                                <button type="button" class="btn rounded-circle" height="40px" width="40px"><i
-                                        class="bi bi-pencil-fill" id="editIntro" data-bs-toggle="modal"
-                                        data-bs-target="#modalInfo"></i></button>
-                            </div>
-                            <div class="text-center">
-                                <h5 id="introName" class=" my-0">{{applicant.user.first_name}}
-                                    {{applicant.user.last_name}}
-                                </h5>
+                            <div class="card-body overflow-y-auto">
 
-                                <p class="my-0">{{applicant.occupation}}
-                                </p>
-                            </div>
-                        </div>
-                        <div class="bio my-3 text-center">
-                            {{applicant.bio}}
-                        </div>
+                                <div class="text-center mb-3 mt-5 d-flex justify-content-center">
+                                    <div class="ratio ratio-1x1 rounded-circle" style="height: 125px; width: 125px;">
+                                        <img class="rounded-circle" id="profilePic"
+                                            src="{{applicant.profile_image.url}}" alt="">
+                                        <button type="button" id="editPFP" class="btn rounded-circle"
+                                            data-bs-toggle="modal" data-bs-target="#uploadProfile">
+                                            <i class="bi bi-camera-fill "></i></button>
+                                    </div>
+                                </div>
 
 
-                        <div class="card border-0">
-                            <button type="button" id="editSkills" class="btn position-absolute ">
-                                <i class="bi bi-pencil-fill" data-bs-toggle="modal" data-bs-toggle="modal"
-                                    data-bs-target="#modalEditSkills"></i>
-                            </button>
-                            <div class="card-body">
+                                <div>
+                                    <div class="text-end">
+                                        <button type="button" class="btn rounded-circle" height="40px" width="40px"><i
+                                                class="bi bi-pencil-fill" id="editIntro" data-bs-toggle="modal"
+                                                data-bs-target="#modalInfo"></i></button>
+                                    </div>
+                                    <div class="text-center">
+                                        <h5 id="introName" class=" my-0">{{applicant.user.first_name}}
+                                            {{applicant.user.last_name}}
+                                        </h5>
 
-                                <div class="text-start mb-3">
+                                        <p class="my-0">{{applicant.occupation}}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="bio my-3 text-center">
+                                    {{applicant.bio}}
+                                </div>
 
-                                    <h5 id="skills-list" class="card-headers">Skills</h5>
-                                    <span class="skills-item">User Interface Designing</span>
-                                    <span class="skills-item">UI</span>
-                                    <span class="skills-item">UX</span>
-                                    <span class="skills-item">Figma</span>
-                                    <span class="skills-item">Wireframe</span>
-                                    <span class="skills-item">Photoshop</span>
-                                    <span class="skills-item">Adobe Illustrator</span>
-                                    <span class="skills-item">Adobe XD</span>
 
+                                <div class="card border-0">
+                                    <button type="button" id="editSkills" class="btn position-absolute ">
+                                        <i class="bi bi-pencil-fill" data-bs-toggle="modal" data-bs-toggle="modal"
+                                            data-bs-target="#modalEditSkills"></i>
+                                    </button>
+                                    <div class="card-body">
+
+                                        <div class="text-start mb-3">
+
+                                            <h5 id="skills-list" class="card-headers">Skills</h5>
+                                            <span class="skills-item">User Interface Designing</span>
+                                            <span class="skills-item">UI</span>
+                                            <span class="skills-item">UX</span>
+                                            <span class="skills-item">Figma</span>
+                                            <span class="skills-item">Wireframe</span>
+                                            <span class="skills-item">Photoshop</span>
+                                            <span class="skills-item">Adobe Illustrator</span>
+                                            <span class="skills-item">Adobe XD</span>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="card border-0">
+
+                                    <button type="button" id="editNotes" class="btn position-absolute ">
+                                        <i class="bi bi-pencil-fill" data-bs-toggle="modal" data-bs-toggle="modal"
+                                            data-bs-target="#modalEditSkills"></i>
+                                    </button>
+
+                                    <div class="card-body">
+
+                                        <div class="notes-container">
+                                            <h5 class="card-headers">Add Note</h5>
+                                            <p>This is a sample note</p>
+                                        </div>
+
+                                    </div>
                                 </div>
 
                             </div>
                         </div>
-
-                        <div class="card border-0">
-
-                            <button type="button" id="editNotes" class="btn position-absolute ">
-                                <i class="bi bi-pencil-fill" data-bs-toggle="modal" data-bs-toggle="modal"
-                                    data-bs-target="#modalEditSkills"></i>
-                            </button>
-
-                            <div class="card-body">
-
-                                <div class="notes-container">
-                                    <h5 class="card-headers">Add Note</h5>
-                                    <p>This is a sample note</p>
-                                </div>
-
-                            </div>
-                        </div>
-
                     </div>
+
+
+
+                    <div class="col-12">
+                        <div class="card border-0">
+                            <div class="card-body">
+                                <h4 class="card-title">Delete Account</h4>
+
+                                <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
+                                    data-bs-target="#modalDeleteAccount"><i class="bi bi-trash-fill"></i>&nbsp; Delete
+                                    Account</button>
+
+                            </div>
+                        </div>
+                    </div>
+
+
                 </div>
+
+
+
+
 
             </div>
 
+
             <div class="col-md-8">
-                <div class="row row-cols-1 justify-content-center align-items-center g-3">
+                <div class="row row-cols-1 justify-content-center align-items-center g-2">
 
                     <div class="col-12">
                         <div class="card profile-card">
@@ -237,71 +265,31 @@
                         </div>
                     </div>
 
-                    <!-- 
+
                     <div class="col-12">
                         <div class="card profile-card">
 
-                            <button type="button" id="editWork" class="btn mb-4">
-                                <i class="bi bi-pencil-fill" data-bs-toggle="modal"
-                                    data-bs-target="#modalWorkExp"></i></button>
+                            <button type="button" id="editWork" class="btn mb-4" data-bs-toggle="modal"
+                                data-bs-target="#modalWorkExp">
+                                <i class="bi bi-plus-lg"></i></button>
 
-                            <div class="card-body">
+                            <div class="card-body ">
                                 <div>
                                     <h5 class="mb-3 card-headers">Work Experiences</h5>
                                     <div class="row justify-content-start align-items-center g-2 mb-3">
 
-                                        <div class="col-12">
-                                            <div class="card mb-3">
-                                                <div class="row g-0">
-                                                    <div class="col-md-3">
-                                                        <img src="Image Source" class="img-fluid rounded-start"
-                                                            alt="Card title">
-                                                    </div>
-                                                    <div class="col-md-9">
-                                                        <div class="card-body">
-                                                            <h5 class="card-title">Work Name</h5>
-                                                            <p class="card-text">Position Here
-                                                            </p>
-                                                            <p class="card-text">
-                                                                <small class="text-muted">This is the date of work |
-                                                                    The
-                                                                    Address of the work be here</small></p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
 
-                                        <div class="col-12">
-                                            <div class="card mb-3">
-                                                <div class="row g-0">
-                                                    <div class="col-md-3">
-                                                        <img src="Image Source" class="img-fluid rounded-start"
-                                                            alt="Card title">
-                                                    </div>
-                                                    <div class="col-md-9">
-                                                        <div class="card-body">
-                                                            <h5 class="card-title">Work Name</h5>
-                                                            <p class="card-text">Position Here
-                                                            </p>
-                                                            <p class="card-text">
-                                                                <small class="text-muted">This is the date of work |
-                                                                    The
-                                                                    Address of the work be here</small></p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        <!-- ========== Start Section Card of Work Exp Item========== -->
 
-                                        <div class="col-12">
-                                            <div class="card mb-3">
+
+                                        <div class="col-12 mx-0 px-0">
+                                            <div class="card px-0 mx-0 mb-3 border-0">
                                                 <div class="row g-0">
-                                                    <div class="col-md-3">
+                                                    <div class="col-md-2">
                                                         <img src="Image Source" class="img-fluid rounded-start"
                                                             alt="Card title">
                                                     </div>
-                                                    <div class="col-md-9">
+                                                    <div class="col-11 col-md-9">
                                                         <div class="card-body">
                                                             <h5 class="card-title">Work Name</h5>
                                                             <p class="card-text">Position Here
@@ -312,9 +300,18 @@
                                                                     Address of the work be here</small></p>
                                                         </div>
                                                     </div>
+
+                                                    <div class="col-1 d-flex align-items-start justify-content-end">
+                                                        <button type="button" id="editWorkItem" class="btn mb-4"
+                                                            data-bs-toggle="modal" data-bs-target="#modalWorkExp">
+                                                            <i class="bi bi-pencil-fill"></i></button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
+                                        <!-- ========== End Section Card of Work Exp Item========== -->
+
+
 
                                         <div class="col-12 d-flex justify-content-center">
                                             <a href="#">See More</a>
@@ -326,10 +323,57 @@
                             </div>
                         </div>
 
-                    </div> -->
+                    </div>
 
 
-                    <div class="col-12 mb-3">
+
+                    <div class="col-12">
+                        <div class="card profile-card">
+
+                            <div class="card-body ">
+                                <div>
+                                    <h5 class="mb-3 card-headers">Change Passowrd</h5>
+                                    <div class="row justify-content-start align-items-center g-2 mb-3">
+
+
+                                        <!-- ========== Start Section Card of Change Pass ========== -->
+                                        <form action="">
+                                            <div class="">
+                                                <label for="" class="form-label">Current Password</label>
+                                                <input type="password" class="form-control" name="" id=""
+                                                    aria-describedby="helpId" placeholder="">
+                                                <small id="" class="form-text text-muted d-none">Help text</small>
+                                            </div>
+                                            <div class="">
+                                                <label for="" class="form-label">New Password</label>
+                                                <input type="password" class="form-control" name="" id=""
+                                                    aria-describedby="helpId" placeholder="">
+                                                <small id="" class="form-text text-muted d-none">Help text</small>
+                                            </div>
+                                            <div class="">
+                                                <label for="" class="form-label">Confirm New Password</label>
+                                                <input type="password" class="form-control" name="" id=""
+                                                    aria-describedby="helpId" placeholder="">
+                                                <small id="" class="form-text text-muted d-none">Help text</small>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary mt-3">Submit</button>
+                                        </form>
+
+                                        <!-- ========== End Section Card of Change Pss========== -->
+
+
+
+
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- <div class="col-12 mb-3">
                         <div class="card profile-card">
 
                             <button type="button" id="editBasicInfo" class="btn position-absolute "
@@ -429,13 +473,12 @@
 
                         </div>
 
+                    </div> -->
 
 
 
 
 
-
-                    </div>
 
                 </div>
 
@@ -685,6 +728,46 @@
         <!-- ========== End Section Edit Skills ========== -->
 
 
+
+
+        <!-- Modal Body -->
+        <!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
+        <div class="modal fade" id="modalDeleteAccount" tabindex="-1" role="dialog"
+            aria-labelledby="modalDeleteAccountTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered " role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalDeleteAccountTitle">Delete Account</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="mb-3">
+                            <label for="" class="form-label">By typing "delete" your account will be deleting your
+                                account</label>
+                            <input type="text" class="form-control" name="" id="" aria-describedby="helpId"
+                                placeholder="">
+                            <small id="helpId" class="form-text text-muted">Help text</small>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Optional: Place to the bottom of scripts -->
+        <script>
+            const myModal = new bootstrap.Modal(document.getElementById('modalDeleteAccount'), options)
+        </script>
+
+
+
+
         <!-- ========== Start Section Basic Info modal ========== -->
 
 
@@ -763,8 +846,8 @@
 
         <!-- Modal Body -->
         <!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
-        <div class="modal fade" id="modalUploadResume" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
-            role="dialog" aria-labelledby="modalUploadResumeTitle" aria-hidden="true">
+        <div class="modal fade" id="modalUploadResume" tabindex="-1" role="dialog"
+            aria-labelledby="modalUploadResumeTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered " role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -804,7 +887,7 @@
 
         <!-- Modal Body -->
         <!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
-        <!-- <div class="modal fade" id="modalWorkExp" tabindex="-1" role="dialog" aria-labelledby="modalWorkExpTitle"
+        <div class="modal fade" id="modalWorkExp" tabindex="-1" role="dialog" aria-labelledby="modalWorkExpTitle"
             aria-hidden="true">
             <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md" role="document">
                 <div class="modal-content">
@@ -812,52 +895,53 @@
                         <h5 class="modal-title" id="modalWorkExpTitle">Edit Experience</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body">
+                    <form action="">
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label for="" class="form-label">Company Name</label>
+                                <input type="text" class="form-control" name="" id="" aria-describedby="helpId"
+                                    placeholder="">
+                                <small id="" class="form-text text-muted">Help text</small>
+                            </div>
 
-                        <div class="mb-3">
-                            <label for="" class="form-label">Company Name</label>
-                            <input type="text" class="form-control" name="" id="" aria-describedby="helpId"
-                                placeholder="">
-                            <small id="" class="form-text text-muted">Help text</small>
+                            <div class="mb-3">
+                                <label for="" class="form-label">Position</label>
+                                <input type="text" class="form-control" name="" id="" aria-describedby="helpId"
+                                    placeholder="">
+                                <small id="" class="form-text text-muted">Help text</small>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="" class="form-label">Start Date</label>
+                                <input type="date" class="form-control" name="" id="" aria-describedby="helpId"
+                                    placeholder="">
+                                <small id="" class="form-text text-muted">Help text</small>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="" class="form-label">End Date</label>
+                                <input type="date" class="form-control" name="" id="" aria-describedby="helpId"
+                                    placeholder="">
+                                <small id="" class="form-text text-muted">Help text</small>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="" class="form-label">Work Address</label>
+                                <input type="text" class="form-control" name="" id="" aria-describedby="helpId"
+                                    placeholder="">
+                                <small id="" class="form-text text-muted">Help text</small>
+                            </div>
+
+
                         </div>
-
-                        <div class="mb-3">
-                            <label for="" class="form-label">Position</label>
-                            <input type="text" class="form-control" name="" id="" aria-describedby="helpId"
-                                placeholder="">
-                            <small id="" class="form-text text-muted">Help text</small>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save</button>
                         </div>
-
-                        <div class="mb-3">
-                            <label for="" class="form-label">Start Date</label>
-                            <input type="date" class="form-control" name="" id="" aria-describedby="helpId"
-                                placeholder="">
-                            <small id="" class="form-text text-muted">Help text</small>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="" class="form-label">End Date</label>
-                            <input type="date" class="form-control" name="" id="" aria-describedby="helpId"
-                                placeholder="">
-                            <small id="" class="form-text text-muted">Help text</small>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="" class="form-label">Work Address</label>
-                            <input type="text" class="form-control" name="" id="" aria-describedby="helpId"
-                                placeholder="">
-                            <small id="" class="form-text text-muted">Help text</small>
-                        </div>
-
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save</button>
-                    </div>
+                    </form>
                 </div>
             </div>
-        </div> -->
+        </div>
 
 
         <!-- ========== End Section Work Experience Modal ========== -->
