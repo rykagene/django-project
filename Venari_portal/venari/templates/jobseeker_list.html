@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Applicants Management</title>
+    <style>
+        /* Basic styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: linear-gradient(45deg, rgba(137, 141, 255, 0.1), rgba(223, 90, 255, 0.1), rgba(251, 103, 95, 0.1), rgba(232, 149, 104, 0.1), rgba(18, 34, 56, 0.1));
+
+            color: rgb(8, 0, 0);
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 2px solid #E89568;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #898DFF;
+        }
+        tr:hover {
+            background-color: #DF5AFF;
+        }
+        .action-btns {
+            margin-bottom: 10px;
+        }
+        .action-btns button {
+            margin-right: 10px;
+            margin-bottom: 10px;
+            padding: 8px 12px;
+            background-color: #898DFF;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .action-btns button:hover {
+            background-color: #E89568;
+        }
+        .action-btns button:active {
+            background-color: #DF5AFF;
+        }
+        .activated {
+            background-color: #DFF0D8 !important; /* Color for activated row */
+        }
+        .deactivated {
+            background-color: #F8D7DA !important; /* Color for deactivated row */
+        }
+        
+        /* Modal styles */
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 1; 
+            left: 0;
+            top: 0;
+            width: 100%; 
+            height: 100%;
+            overflow: auto; 
+            background-color: rgba(0,0,0,0.7);
+        }
+        .modal-content {
+            background-color: #122238;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #E89568;
+            width: 50%;
+            border-radius: 8px;
+        }
+        .close {
+            color: #fff;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close:hover,
+        .close:focus {
+            color: #E89568;
+            text-decoration: none;
+        }
+        .position-details {
+            color: #fff;
+            margin-top: 20px;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+
+<h1><center>Applicants Management</center></h1>
+
+<!-- Modal -->
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <div class="position-details">
+            <h2>Position Details</h2>
+            <p>Position: Software Engineer</p>
+            <p>Company: Microsoft</p>
+            <!-- Add more position details as needed -->
+        </div>
+    </div>
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone Number</th>
+            <th>Position Applied</th>
+            <th>Resume</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr id="applicant1">
+            <td>1</td>
+            <td><img src="path/to/applicant1-image.jpg" alt="Applicant Image" width="50px"></td>
+            <td>John Doe</td>
+            <td>john@example.com</td>
+            <td>123-456-7890</td>
+            <td>
+                <button onclick="openModal('applicant1')">View Position</button>
+            </td>
+            <td><a href="/path/to/resume.pdf" target="_blank">View Resume</a></td>
+            <td>
+            <div class="action-btns">
+                <button onclick="activateApplicant('applicant1')" onmousedown="this.classList.add('clicked')" onmouseup="this.classList.remove('clicked')">Activate</button>
+                <button onclick="deactivateApplicant('applicant1')" onmousedown="this.classList.add('clicked')" onmouseup="this.classList.remove('clicked')">Deactivate</button>
+            </div>
+            </td>
+        </tr>
+        <!-- Add more rows for each applicant -->
+    </tbody>
+</table>
+
+<script>
+    function activateSelected() {
+        // Logic to activate selected applicants
+        console.log('Activate selected applicants');
+    }
+
+    function deactivateSelected() {
+        // Logic to deactivate selected applicants
+        console.log('Deactivate selected applicants');
+    }
+
+    function activateApplicant(id) {
+        var row = document.getElementById(id);
+        row.classList.remove('deactivated');
+        row.classList.add('activated');
+    }
+
+    function deactivateApplicant(id) {
+        var row = document.getElementById(id);
+        row.classList.remove('activated');
+        row.classList.add('deactivated');
+    }
+
+    function openModal(applicantId) {
+        var modal = document.getElementById('myModal');
+        modal.style.display = 'block';
+        // Add logic to display position details based on applicantId
+        // For demonstration purposes, just updating the modal content
+        var modalContent = document.querySelector('.modal-content .position-details');
+        modalContent.innerHTML = `
+            <h2>Position Details</h2>
+            <p>Position: Software Engineer</p>
+            <p>Company: Engineering</p>
+            <!-- Add more position details as needed -->
+        `;
+    }
+
+    function closeModal() {
+        var modal = document.getElementById('myModal');
+        modal.style.display = 'none';
+    }
+
+    // Close the modal if clicked outside the modal content
+    window.onclick = function(event) {
+        var modal = document.getElementById('myModal');
+        if (event.target === modal) {
+            modal.style.display = 'none';
+        }
+    }
+</script>
+
+</body>
+</html>
