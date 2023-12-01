@@ -1,0 +1,185 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'css/register-user.css' %}" />
+    <title>User Registration</title>
+  </head>
+  <body>
+    <div id="wrapper">
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <h1 class="text-center">CREATE YOUR PROFILE</h1>
+        <p class="lead text-center">
+          Welcome to Venari: Crafting Futures, Connecting Paths. A place with
+          wide selection of jobs suited for your skills and talents.
+        </p>
+        <div class="row justify-content-between">
+          <div class="form-group firstname col-lg-6">
+            <label for="firstName">First Name:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="firstName"
+              placeholder="Type your first name"
+              name="first_name"
+            />
+          </div>
+          <div class="form-group lastname col-lg-6">
+            <label for="lastName">Last Name:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="lastName"
+              placeholder="Type your last name"
+              name = "last_name"
+            />
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col-lg-6">
+            <label for="userName">Username:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="userName"
+              placeholder="Pick a username"
+              name="username"
+            />
+          </div>
+          <div class="form-group col-lg-6">
+            <label for="suEmail">Email address:</label>
+            <input
+              type="email"
+              class="form-control"
+              id="suEmail"
+              aria-describedby="emailHelp"
+              placeholder="Enter email"
+              name="email"
+            />
+          </div>
+        </div>
+        <div class="form-group container row d-block text-center">
+          <label for="profilePic" class="d-block"
+            >Upload a Profile Picture</label
+          >
+          <div class="color-block">
+            <img
+            id="profileImage"
+            src="https://cdn0.iconfinder.com/data/icons/small-n-flat/24/678099-profile-filled-128.png"
+            alt="Profile Image"
+            class="img-fluid d-inline-block"
+            style="width: 100px; height: 100px;" 
+          />
+          
+          </div>
+          <input
+            type="file"
+            class="form-control-file"
+            id="profilePic"
+            aria-describedby="fileHelp"
+            name="profile_picture"
+          />
+          <small id="fileHelp" class="form-text text-muted"
+            >File must be no larger than 12MB.</small
+          >
+        </div>
+        <div class="form-group">
+          <label for="psw">Create a Password:</label>
+          <input
+            type="password"
+            class="form-control"
+            id="psw"
+            placeholder="Password"
+            name="password"
+            pattern=".{8}"
+            title="Must contain at least 8 characters"
+            required
+          />
+          <div id="message">
+            <h3 id="length" class="invalid">
+              Password must contain a minimum of 8 characters!
+            </h3>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="CPassword">Confirm Password:</label>
+          <input
+            type="password"
+            class="form-control"
+            id="CPassword"
+            placeholder="Please re-type password"
+            name="confirm_password"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="portfolioUpload">Upload your resume/portfolio:</label>
+          <input
+            type="file"
+            class="form-control-file"
+            id="portfolioUpload"
+            aria-describedby="fileHelp"
+            name="profile_picture"
+          />
+          <small id="fileHelp" class="portfolio-small form-text text-muted"
+            >File must be no larger than 12MB.</small
+          >
+        </div>
+
+        <!-- HELLO DITO PAKILAGAY NA LANG YUNG NA KAY NORENE NA SELECTION -->
+        <div class="form-group">
+          <label for="exampleSelect1">Select your field/skills:</label>
+          <select class="form-control" id="exampleSelect1" name="skills">
+            <option>Programming</option>
+            <option>DevOps</option>
+            <option>Front-end</option>
+            <option>Back-end</option>
+            <option>UI/UX</option>
+            <option>Dance</option>
+            <option>Dance</option>
+          </select>
+        </div>
+
+        <div class="form-check form-check-inline">
+          <label class="form-check-label">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="inlineCheckbox1"
+              value="option1"
+            />
+            I have read and accept the terms and conditions.*
+          </label>
+        </div>
+
+        <div class="row-btn">
+          <button type="submit" class="btn btn-lg" id="submit-btn">
+            CREATE ACCOUNT
+          </button>
+        </div>
+      </form>
+    </div>
+    <script src="register-user.js"></script>
+    <script>
+      document.getElementById('profilePic').addEventListener('change', function (event) {
+        var input = event.target;
+        var image = document.getElementById('profileImage');
+    
+        if (input.files && input.files[0]) {
+          var reader = new FileReader();
+    
+          reader.onload = function (e) {
+            image.src = e.target.result;
+          };
+    
+          reader.readAsDataURL(input.files[0]);
+        }
+      });
+    </script>
+    
+  </body>
+</html>

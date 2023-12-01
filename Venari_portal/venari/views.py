@@ -60,6 +60,8 @@ def user_login(request):
                 return redirect('/login')      
     return render(request, "login.html")
 
+def pre_register(request):
+    return render(request, "pre-register.html")
 def user_signup(request):
     if request.method=="POST":   
         username = request.POST['username']
@@ -71,24 +73,25 @@ def user_signup(request):
         phone = request.POST['phone_number']
         profile_picture = request.FILES['profile_picture']
         gender = request.POST['gender']
+        skills = request.POST['skills']
         uniqueemail = User.objects.filter(email=email)
         uniqueuser = User.objects.filter(username=username)
         if uniqueemail:
             messages.error(request, "Email exists.")
-            return redirect('/pre-register')
+            return redirect('/register-user')
         elif uniqueuser:
             messages.error(request, "Username exists.")
-            return redirect('/pre-register')
+            return redirect('/register-user')
         elif password != cpass:
             messages.error(request, "Password doesn't match.")
-            return redirect('/pre-register')
+            return redirect('/register-user')
 
         user = User.objects.create_user(first_name=first_name, last_name=last_name, email=email, username=username, password=password)
-        applicants = job_seeker.objects.create(user=user, email=email, phone_number=phone, password=password, gender=gender, profile_image=profile_picture, user_type="applicant", status="Activate")
+        applicants = job_seeker.objects.create(user=user, email=email, phone_number=phone, password=password, gender=gender, profile_image=profile_picture, skills=skills, user_type="applicant", status="Activate")
         user.save()
         applicants.save()
         return render(request, "login.html")
-    return render(request, "pre-register.html")
+    return render(request, "register-user.html")
 
 def jobseeker_profile(request):
     if not request.user.is_authenticated:
@@ -304,19 +307,19 @@ def company_signup(request):
         
         if uniqueemail:
             messages.error(request, "Email exists.")
-            return redirect('/company_login')
+            return redirect('/register-company')
         elif uniqueuser:
             messages.error(request, "Username exists.")
-            return redirect('/company_login')
+            return redirect('/register-company')
         elif password != cpass:
             messages.error(request, "Password doesn't match.")
-            return redirect('/company_login')
+            return redirect('/register-company')
         elif company.objects.filter(phone_number=phone).exists() or job_seeker.objects.filter(phone_number=phone).exists():
             messages.error(request, "Phone number already exist.")
-            return redirect('/company_login')
+            return redirect('/register-company')
         elif company.objects.filter(company_name=company_name).exists():
             messages.error(request, "Company name already exist.")
-            return redirect('/company_login')
+            return redirect('/register-company')
 
         user = User.objects.create_user(first_name=first_name, last_name=last_name, email=email, username=username, password=password)
         company_user = company.objects.create(user=user, email=email, phone_number=phone, password=password, company_name=company_name, company_ceo=company_ceo, company_established=company_established, company_location=company_location,company_logo=company_logo, gender=gender, user_type="company", status="Pending")
@@ -324,7 +327,7 @@ def company_signup(request):
         company_user.save()
         #logout(request)
         return render(request, "company_login.html")
-    return render(request, "company_signup.html")
+    return render(request, "register-company.html")
 
 def company_login(request):
     if request.method == "POST":

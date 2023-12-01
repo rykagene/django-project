@@ -17,6 +17,7 @@ class job_seeker(models.Model):
     bio = models.CharField(max_length=100, null=True)
     bookmarks = models.ManyToManyField('post_jobs', blank=True)
     resume = models.FileField(upload_to='', null=True)
+    skills = models.CharField(max_length=100, null=True)
     def __str__(self):
         return self.user_id.first_name
 

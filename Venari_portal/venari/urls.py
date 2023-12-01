@@ -8,7 +8,8 @@ urlpatterns = [
     path('', views.index, name="landing page"), 
     #job seeker
     path('login/', views.user_login, name="login"), 
-    path("pre-register/", views.user_signup, name="pre-register"),
+    path("pre-register/",views.pre_register ,name="pre-register"),
+    path("register-user/", views.user_signup, name="user_signup"),
     path("job_hiring/", views.job_hiring, name="posted jobs"),
     path("jobseeker_profile/", views.jobseeker_profile, name="jobseeker_Edit_profile"),
     path("jobseeker_introduction/", views.jobseeker_introduction, name="jobseeker_introduction"),
@@ -33,7 +34,7 @@ urlpatterns = [
     path("companies_list/", views.all_companies, name="companies list"),
 
     #company
-    path("company_signup/", views.company_signup, name="company signup"),
+    path("register-company/", views.company_signup, name="company signup"),
     path("company_login/", views.company_login, name="company login"),
     path("company_post_job/", views.company_post_job, name="companies list"),
     path("company_profile/", views.company_profile, name="company profile"),

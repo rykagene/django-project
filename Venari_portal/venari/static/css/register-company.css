@@ -1,0 +1,199 @@
+body {
+  background: radial-gradient(ellipse at 150% -50%, #aab9d8, #fff);
+}
+
+form {
+  width: 70%;
+  margin: 30px auto;
+  padding: 30px 30px;
+  border-radius: 10px;
+  background-color: #f2f4f6;
+  color: #000;
+  font-family: "Poppins", sans-serif;
+  align-items: center;
+  box-shadow: 0px 5px 10px rgba(2, 128, 144, 0.2);
+}
+
+div {
+  padding: 5px;
+}
+
+h1 {
+  border-bottom: 1px solid gray;
+  padding-bottom: 6px;
+  margin: 0 auto 19px auto;
+  text-align: center;
+  animation: move 4s linear infinite;
+  background-image: linear-gradient(
+    to right,
+    #898dff,
+    #df5aff,
+    #fb675f,
+    #e89568,
+    #a88ce6
+  );
+  background-size: 200% auto;
+  font: 700 70px/1 Poppins;
+  letter-spacing: 1px;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 3rem;
+}
+
+@keyframes move {
+  to {
+    background-position: 200% center;
+  }
+}
+
+.text-center {
+  text-align: center;
+}
+
+#message {
+  display: none;
+  background: #f1f1f1;
+  color: #000;
+  position: relative;
+  padding: 20px;
+  margin-top: 10px;
+}
+
+#message p {
+  padding: 10px 35px;
+  font-size: 10px;
+}
+
+#message h3 {
+  font-size: 10px;
+}
+
+/* Add a green text color and a checkmark when the requirements are right */
+.valid {
+  color: green;
+}
+
+.valid:before {
+  position: relative;
+  left: -35px;
+  content: "&#10004;";
+}
+
+/* Add a red text color and an "x" icon when the requirements are wrong */
+.invalid {
+  color: red;
+}
+
+.invalid:before {
+  position: relative;
+  left: -35px;
+  content: "&#10006;";
+}
+
+.btn {
+  align-items: center;
+  cursor: pointer;
+  color: #fff;
+  font-size: 16px;
+  width: 300px;
+  border: 0;
+  padding: 10px 0;
+  margin-left: -5px;
+  border-radius: 40px;
+  background-color: #aab9d8;
+  transition: 250ms ease all;
+}
+
+.row-btn {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -15px;
+  justify-content: center;
+}
+
+.btn:hover {
+  background-color: #777bff;
+  width: 350px;
+}
+
+.form-control-file {
+  margin: 15px 35%;
+}
+
+.color-block {
+  background-color: #aab9d8;
+  width: 20%;
+  padding: 30px 0 0 0;
+  margin: 0 auto;
+  border-radius: 10px;
+}
+
+.portfolio-small {
+  text-align: center;
+}
+
+.lead {
+  font-size: 16px;
+}
+
+input {
+  border-radius: 50px;
+}
+
+.form-group,
+.lastname,
+.col-lg-6 {
+  margin: 0 auto;
+  width: 70%;
+  display: block;
+}
+
+.lastname,
+.col-lg-6 {
+  margin: 0 auto;
+  width: 70%;
+  display: inline;
+  display: block;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+#show-pass {
+  margin: 0 auto;
+  padding: 0;
+}
+
+.exampleSelect1 {
+  margin: 0 auto;
+  width: 100%;
+  padding: 10px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+#exampleSelect1 {
+    width: 30%;
+    padding: 10px;
+    margin: 8px 0;
+    margin-left: 15px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    border-radius: 1rem;
+}
+
+/* .file, .d-block {
+    margin: 0 auto;
+    width: 70%;
+    display: block;
+  } */
