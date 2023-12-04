@@ -253,6 +253,7 @@ def jobseeker_apply(request, myid):
 
     applicant = job_seeker.objects.get(user=request.user)
     job = post_jobs.objects.get(id=myid)
+    Company = company.objects.get(id=job.company_id)
     date1 = date.today()
 
     if job.end_date < date1:
@@ -270,7 +271,7 @@ def jobseeker_apply(request, myid):
                     job=job,
                     jobtype=job.jobtype,
                     email=applicant.user.email,
-                    company=job.company,
+                    company=Company.company_name,
                     applicant=applicant,
                     resume=applicant.resume,
                     apply_date=date.today()
@@ -518,16 +519,29 @@ def admin_login(request):
  
 def all_companies(request):
     status_filter = request.GET.get('status', 'all')
+    
     if status_filter == 'all':
         companies = company.objects.all()
     else:
         companies = company.objects.filter(status=status_filter)
+        
+    accepted_companies_count = companies.filter(status='Accepted').count()
+
+    for Companies in companies:
+        posted_jobs = post_jobs.objects.filter(company_id=Companies.id)
+        posted_job_count = posted_jobs.count()
+        applicant_count = apply_job.objects.filter(job_id__in=posted_jobs.values_list('id', flat=True)).count()
+        Companies.applicant_count = applicant_count
+        Companies.posted_job_count = posted_job_count
 
     context = {
         'companies': companies,
         'status_filter': status_filter,
+        'all_company': accepted_companies_count
     }
     return render(request, 'companies_list.html', context)
+
+
 
 def change_status(request, myid):
     if not request.user.is_authenticated:

@@ -1,100 +1,3 @@
-    <style>
-        .container {
-            margin-top: 20px;
-        }
-
-        .table th,
-        .table td {
-            text-align: center;
-        }
-
-        .user-avatar {
-            width: 90px;
-            height: 70px;
-            border-radius: 50%;
-        }
-
-        .btn-change-status {
-            color: #fff;
-        }
-    </style>
-    <script>
-        function filterCompanies(status) {
-            window.location.href = '/companies_list/?status=' + status;
-        }
-    </script>
-    <a href="/admin_view_jobseeker/">jobseeker edit status</a>
-    <a href="/admin_joblist/">jobseeker edit status</a>
-
-                {% block body %}
-                <div class="card-header">
-                    <h3 class="card-title">Companies</h3>
-                    <div class="float-right">
-                        <label for="status-filter">Filter by Status:</label>
-                        <select id="status-filter" class="form-control" onchange="filterCompanies(this.value)">
-                            <option value="all" {% if status_filter == 'all' %}selected{% endif %}>All</option>
-                            <option value="Pending" {% if status_filter == 'Pending' %}selected{% endif %}>Pending</option>
-                            <option value="Accepted" {% if status_filter == 'Accepted' %}selected{% endif %}>Accepted</option>
-                            <option value="Rejected" {% if status_filter == 'Rejected' %}selected{% endif %}>Rejected</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-hover" id="example">
-                            <thead>
-                                    <tr>
-                                        <th>Sr.No</th>
-                                        <th>Full Name</th>
-                                        <th>Email Id</th>
-                                        <th>Contact</th>
-                                        <th>Gender</th>
-                                        <th>Company Name</th>
-                                        <th>Company Logo</th>
-                                        <th>Status</th>                                        
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {% for company in companies %}
-                                        <tr>
-                                            <td>{{forloop.counter}}</td>
-                                            <td>{{company.user.get_full_name}}</td>
-                                            <td>{{company.user.email}}</td>
-                                            <td>{{company.phone_number}}</td>
-                                            <td>{{company.gender}}</td>
-                                            <td>{{company.company_name}}</td>
-                                            <td><img src="{{company.company_logo.url}}" class="user-avatar"></td>
-                                            <td>{{company.status}}</td>
-                                            <!--<td><a href="/change_status/{{company.id}}/" class="btn btn-success btn-change-status">Change Status</a></td>-->
-                                            <td>
-                                                {% if company.status == "Accepted" %}
-                                                <a href="/admin_delete_company/{{company.user.id}}/" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this company?')">Delete</a>
-                                                {% else %}
-                                                <div class="btn-group" role="group">
-                                                    <a href="/company_change_status/{{company.id}}/" class="btn btn-danger">Accept</a>
-                                                    <a href="/admin_delete_company/{{company.user.id}}/" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this company?')">Delete</a>
-                                                </div>
-                                            {% endif %}
-                                            </td>
-                                        </tr>
-                                    {% endfor %}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-{% endblock %}
-
-
-
-{% comment %} ================================================================ {% endcomment %}
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -112,7 +15,7 @@
         <div id="sidebar" class="shadow-right w-full sm:w-64 space-y-6 py-7 px-2 flex flex-col h-screen sm:block">
             <div class="flex flex-col h-full py-5">
                 <img src="imgs/dp.png" class="mt-10 w-20 h-20 mx-auto block">        
-                <h2 class="text-2xl font-semibold text-center">John Doe</h2>
+                <h2 class="text-2xl font-semibold text-center">{{user.username}}</h2>
                 <nav class="space-y-1">
                     <a href="#" class="block py-2.5 mt-5 transition duration-200 text-red-600 hover:bg-blue-700 border-b border-red-200 flex items-center space-x-2">
                         <img src="imgs/fb-icon.png" alt="Icon 1" class="w-6 h-6 ml-5">
@@ -151,7 +54,7 @@
         <main class="flex-1 overflow-x-hidden overflow-y-auto bg-pink-100">
             <div class="flex items-center bg-white w-full h-14">
                 <div class="ml-auto text-red-400 mr-10 italic font-semibold">
-                    Welcome, John!
+                    {{user.username}}
                 </div>
             </div>
 
@@ -162,7 +65,7 @@
                 
                 <div class="flex font-light my-2 text-xs sm:text-lg md:text-lg lg:text-lg whitespace-nowrap">
                     <p class="">The current number of companies are</p>
-                    <p class="ml-1">400.</p>
+                    <p class="ml-1">{{ all_company }}</p>
                 </div>
 
                 <div class="flex">
@@ -194,47 +97,23 @@
                             </tr>
                         </thead>
                         <tbody>
+                            {% for company in companies %}
                             <tr>
-                                <td class="border-b border-red-300 pl-2 sm:pl-4 pr-1 sm:pr-2 py-1 sm:py-2"><img src="/imgs/fb-icon.png" alt="Company Logo" class="sm:w-9 sm:h-9  md:w-10 md:h-10     lg:w-11 lg:h-11"></td>
-                                <td class="border-b border-red-300 text-red-600 px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-base">Accenture Philippines</td>
-                                <td class="border-b border-red-300 text-red-600 px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-base">162 Applicants</td>
-                                <td class="border-b border-red-300 text-red-600 px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-base">20 Listings</td>
+                                {% if company.status == 'Accepted' %}
+                                <td class="border-b border-red-300 pl-2 sm:pl-4 pr-1 sm:pr-2 py-1 sm:py-2"><img src="{{company.company_logo.url}}" alt="Company Logo" class="sm:w-9 sm:h-9  md:w-10 md:h-10     lg:w-11 lg:h-11"></td>
+                                <td class="border-b border-red-300 text-red-600 px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-base">{{company.company_name}}</td>
+                                <td class="border-b border-red-300 text-red-600 px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-base">{{ company.applicant_count }}</td>
+                                <td class="border-b border-red-300 text-red-600 px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-base">{{ company.posted_job_count }}</td>
                                 <td class="border-b border-red-300 px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-base">
                                     <div class="border inline-flex bg-white border-purple-500 rounded-lg mr-4 overflow-hidden">
                                         <button class="bg-purple-500 px-4 text-white rounded">View</button>
                                         <button class="bg-white px-4 text-purple-500 rounded">Archive</button>
                                     </div>
-                                    
                                 </td>
+                                {% endif %}
                             </tr>
+                            {% endfor %}
                             <!-- More rows... -->
-                            <tr>
-                                <td class="border-b border-red-300 pl-2 sm:pl-4 pr-1 sm:pr-2 py-1 sm:py-2"><img src="/imgs/fb-icon.png" alt="Company Logo" class="sm:w-9 sm:h-9  md:w-10 md:h-10     lg:w-11 lg:h-11"></td>
-                                <td class="border-b border-red-300 text-red-600 px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-base">Accenture Philippines</td>
-                                <td class="border-b border-red-300 text-red-600 px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-base">162 Applicants</td>
-                                <td class="border-b border-red-300 text-red-600 px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-base">20 Listings</td>
-                                <td class="border-b border-red-300 px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-base">
-                                    <div class="border inline-flex bg-white border-purple-500 rounded-lg mr-4 overflow-hidden">
-                                        <button class="bg-purple-500 px-4 text-white rounded">View</button>
-                                        <button class="bg-white px-4 text-purple-500 rounded">Archive</button>
-                                    </div>
-                                    
-                                </td>
-                            </tr>
-                            <!-- More rows... -->
-                            <tr>
-                                <td class="pl-2 sm:pl-4 pr-1 sm:pr-2 py-1 sm:py-2"><img src="/imgs/fb-icon.png" alt="Company Logo" class="sm:w-9 sm:h-9  md:w-10 md:h-10     lg:w-11 lg:h-11"></td>
-                                <td class="text-red-600 px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-base">Accenture Philippines</td>
-                                <td class="text-red-600 px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-base">162 Applicants</td>
-                                <td class="text-red-600 px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-base">20 Listings</td>
-                                <td class="px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-base">
-                                    <div class="border inline-flex bg-white border-purple-500 rounded-lg mr-4 overflow-hidden">
-                                        <button class="bg-purple-500 px-4 text-white rounded">View</button>
-                                        <button class="bg-white px-4 text-purple-500 rounded">Archive</button>
-                                    </div>
-                                    
-                                </td>
-                            </tr>
                         </tbody>
                     </table>
                 </div><!-- Table -->
