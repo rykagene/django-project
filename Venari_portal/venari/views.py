@@ -7,7 +7,10 @@ from django.core.mail import send_mail
 from datetime import date
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
+import logging
+import os
 
+logger = logging.getLogger('venari')
 
 def index(request):
     return render(request, "index.html")
@@ -508,7 +511,8 @@ def admin_login(request):
             return redirect('/admin_login')
         elif user.is_superuser:
             login(request, user)
-            return redirect("/companies_list")
+            logger.info(f"Admin {username} logged in.")
+            return redirect("/admin_dashboard")
         elif user.is_superuser == False:
             messages.error(request, "Please enter a valid username or password.")
             return redirect('/admin_login')
@@ -649,3 +653,49 @@ def admin_delete_postjob(request, myid):
     jobs.delete()
     messages.success(request, "Successfully deleted.")
     return redirect("/admin_joblist")
+
+def admin_dashboard(request):
+    active_company = company.objects.filter(status='Accepted')
+    active_company_counts = active_company.count()
+    active_jobseeker = job_seeker.objects.filter(status='Activate')
+    active_jobseeker_count = active_jobseeker.count()
+    active_post = post_jobs.objects.filter(status='Activate').count()
+    log_file_path = os.path.join('venari', 'admin_logs', 'logfile.log')
+
+    # Read logs from the file
+    logs = []
+    try:
+        with open(log_file_path, 'r') as log_file:
+            logs = log_file.read().splitlines()
+    except FileNotFoundError:
+        pass  # Handle the case where the log file doesn't exist
+
+    # Process each log entry to extract details
+    formatted_logs = []
+    for log in logs:
+        log_parts = log.split(' ', 5)
+        if len(log_parts) == 6:
+            timestamp = log_parts[0] + ' ' + log_parts[1]
+            log_level = log_parts[2]
+            admin_name = log_parts[3]
+            action = log_parts[4]
+            details = log_parts[5].strip()
+            formatted_log = {
+                'timestamp': timestamp,
+                'log_level': log_level,
+                'admin_name': admin_name,
+                'action': action,
+                'details': details,
+            }
+            formatted_logs.append(formatted_log)
+    context = {
+        'all_companies': active_company,
+        'all_applicants': active_jobseeker,
+        'all_companies_count': active_company_counts,
+        'all_jobseeker_count': active_jobseeker_count,
+        'all_post': active_post,
+        'logs': formatted_logs
+    }
+    return render(request, "admin_dashboard.html", context)
+
+    

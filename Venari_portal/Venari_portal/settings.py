@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
-
+import logging
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -49,6 +49,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'venari.middleware.AdminLogMiddleware',
 ]
 
 ROOT_URLCONF = 'Venari_portal.urls'
@@ -138,3 +139,30 @@ EMAIL_HOST_USER = "venaricompany@gmail.com"
 EMAIL_HOST_PASSWORD = "xgxa qfri xboa forz"
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL =  False
+
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR, 'venari', 'admin_logs', 'logfile.log'),
+            'formatter': 'verbose',
+        },
+    },
+    'loggers': {
+        'venari': {
+            'handlers': ['file'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+    },
+    'formatters': {
+        'verbose': {
+            'format': '{asctime} {levelname} {message}',
+            'style': '{',
+        },
+    },
+}
