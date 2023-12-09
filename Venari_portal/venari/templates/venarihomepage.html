@@ -1,10 +1,11 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Venari</title>
-        <link rel="stylesheet" href="venarihomepage.css">
+        <link rel="stylesheet" href="{% static "css/venarihomepage.css" %}">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;600;700&display=swap" rel="stylesheet">
@@ -78,7 +79,7 @@
     <div class="row">
         <div class="box">
             <h3>Our Community</h3> 
-            <img class= "comm" src="community.png" alt="Job Portal Logo">
+            <img class= "comm" src="{% static "css/images/community.png" %}" alt="Job Portal Logo">
             <p>Engage in a supportive network of professionals, 
                 access valuable career resources, and stay informed 
                 on industry trends. 
@@ -86,7 +87,7 @@
             </div>
         <div class="box">
             <h3>Our Jobs</h3>
-            <img class= "job" src="job.png" alt="Job Portal Logo">
+            <img class= "job" src="{% static "css/images/job.png" %}" alt="Job Portal Logo">
             <p>Our purpose extends beyond job listings; we aim to foster 
                 a supportive community, providing resources and insights 
                 to guide users towards fulfilling careers.
@@ -94,7 +95,7 @@
             </div>
         <div class="box">
             <h3>Our History</h3>
-            <img class= "hist" src="history.png" alt="Job Portal Logo">
+            <img class= "hist" src="{% static "css/images/history.png" %}" alt="Job Portal Logo">
             <p>Established with a vision to 
                 bridge the gap between talent and opportunity, 
                 we've been facilitating connections that fuel 

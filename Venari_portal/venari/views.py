@@ -13,7 +13,7 @@ import os
 logger = logging.getLogger('venari')
 
 def index(request):
-    return render(request, "index.html")
+    return render(request, "venarihomepage.html")
 
 def user_login(request):
     if request.method == "POST":
@@ -456,6 +456,7 @@ def company_post_job(request):
     return render(request, "company_post_job.html")
 
 def company_accept_applicant(request, myid):
+    
     if not request.user.is_authenticated:
         return redirect("/compnay_login")
     application = apply_job.objects.get(id=myid)
@@ -659,18 +660,18 @@ def admin_dashboard(request):
     active_company_counts = active_company.count()
     active_jobseeker = job_seeker.objects.filter(status='Activate')
     active_jobseeker_count = active_jobseeker.count()
-    active_post = post_jobs.objects.filter(status='Activate').count()
+    active_post = post_jobs.objects.filter(status='Activate')
+    active_post_counts = active_post.count()
+    
     log_file_path = os.path.join('venari', 'admin_logs', 'logfile.log')
 
-    # Read logs from the file
     logs = []
     try:
         with open(log_file_path, 'r') as log_file:
             logs = log_file.read().splitlines()
     except FileNotFoundError:
-        pass  # Handle the case where the log file doesn't exist
+        pass  
 
-    # Process each log entry to extract details
     formatted_logs = []
     for log in logs:
         log_parts = log.split(' ', 5)
@@ -694,6 +695,7 @@ def admin_dashboard(request):
         'all_companies_count': active_company_counts,
         'all_jobseeker_count': active_jobseeker_count,
         'all_post': active_post,
+        'all_post_counts': active_post_counts,
         'logs': formatted_logs
     }
     return render(request, "admin_dashboard.html", context)

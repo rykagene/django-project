@@ -149,7 +149,7 @@
                                     </div>
 
                                     <div class="flex-grow-1 text-start">
-                                        <h1 class="card-title mb-0 pb-0">{{ all_post }}</h1>
+                                        <h1 class="card-title mb-0 pb-0">{{ all_post_counts }}</h1>
                                         <p class="text-muted dash-card-label pt-0 pb-0 mb-0">
                                             Active Posts
                                         </p>
@@ -196,24 +196,20 @@
                                             <thead>
                                                 <tr>
                                                     <th scope="col">#</th>
-                                                    <th scope="col">First</th>
-                                                    <th scope="col">Last</th>
-                                                    <th scope="col">Handle</th>
+                                                    <th scope="col">Company</th>
+                                                    <th scope="col">Job Title</th>
+                                                    <th scope="col">Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                                {% for post in all_post %}
                                                 <tr>
-                                                    <th scope="row">1</th>
-                                                    <td>Mark</td>
-                                                    <td>Otto</td>
-                                                    <td>@mdo</td>
+                                                    <th scope="row">{{ forloop.counter }}</th>
+                                                    <td>{{ post.company.company_name }}</td>
+                                                    <td>{{ post.title }}</td>
+                                                    <td>Enable/Disabled</td>
                                                 </tr>
-                                                <tr>
-                                                    <th scope="row">2</th>
-                                                    <td>Jacob</td>
-                                                    <td>Thornton</td>
-                                                    <td>@fat</td>
-                                                </tr>
+                                                {% endfor %}
                                             </tbody>
                                         </table>
                                     </div>
