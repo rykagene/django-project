@@ -124,50 +124,30 @@
         </tr>
     </thead>
     <tbody>
+        {% for applicant in applicants %}
         <tr id="applicant1">
-            <td>1</td>
-            <td><img src="path/to/applicant1-image.jpg" alt="Applicant Image" width="50px"></td>
-            <td>John Doe</td>
-            <td>john@example.com</td>
-            <td>123-456-7890</td>
+            <td>{{forloop.counter}}</td>
+            <td><img src="{{applicant.profile_image.url}}" alt="Applicant Image" width="50px"></td>
+            <td>{{applicant.user.get_full_name}}</td>
+            <td>{{applicant.user.email}}</td>
+            <td>{{applicant.phone_number}}</td>    
             <td>
                 <button onclick="openModal('applicant1')">View Position</button>
             </td>
-            <td><a href="/path/to/resume.pdf" target="_blank">View Resume</a></td>
+            <td><a href="{{applicant.resume.url}}" target="_blank">View Resume</a></td>
             <td>
             <div class="action-btns">
-                <button onclick="activateApplicant('applicant1')" onmousedown="this.classList.add('clicked')" onmouseup="this.classList.remove('clicked')">Activate</button>
-                <button onclick="deactivateApplicant('applicant1')" onmousedown="this.classList.add('clicked')" onmouseup="this.classList.remove('clicked')">Deactivate</button>
+                <button onclick="activateApplicant(' {{applicant.id}}' )" onmousedown="this.classList.add('clicked')" onmouseup="this.classList.remove('clicked')">Activate</button>
+                <button onclick="deactivateApplicant(' {{applicant.id}}')" onmousedown="this.classList.add('clicked')" onmouseup="this.classList.remove('clicked')">Deactivate</button>
             </div>
             </td>
         </tr>
         <!-- Add more rows for each applicant -->
+        {% endfor %}
     </tbody>
 </table>
 
 <script>
-    function activateSelected() {
-        // Logic to activate selected applicants
-        console.log('Activate selected applicants');
-    }
-
-    function deactivateSelected() {
-        // Logic to deactivate selected applicants
-        console.log('Deactivate selected applicants');
-    }
-
-    function activateApplicant(id) {
-        var row = document.getElementById(id);
-        row.classList.remove('deactivated');
-        row.classList.add('activated');
-    }
-
-    function deactivateApplicant(id) {
-        var row = document.getElementById(id);
-        row.classList.remove('activated');
-        row.classList.add('deactivated');
-    }
-
     function openModal(applicantId) {
         var modal = document.getElementById('myModal');
         modal.style.display = 'block';
@@ -193,6 +173,37 @@
         if (event.target === modal) {
             modal.style.display = 'none';
         }
+    }
+    function activateApplicant(applicantId) {
+        // Make an AJAX request to activate the applicant
+        $.ajax({
+            type: 'POST',
+            url: `/jobseeker_change_status/${applicantId}/activate/`,  // Adjust the URL as needed
+            success: function(data) {
+                alert(`Successfully activated applicant with ID: ${applicantId}`);
+                // Add any additional logic or UI updates if needed
+            },
+            error: function(error) {
+                alert(`Failed to activate applicant with ID: ${applicantId}`);
+                // Handle error or display a message to the user
+            }
+        });
+    }
+
+    function deactivateApplicant(applicantId) {
+        // Make an AJAX request to deactivate the applicant
+        $.ajax({
+            type: 'POST',
+            url: `/jobseeker_change_status/${applicantId}/deactivate/`,  // Adjust the URL as needed
+            success: function(data) {
+                alert(`Successfully deactivated applicant with ID: ${applicantId}`);
+                // Add any additional logic or UI updates if needed
+            },
+            error: function(error) {
+                alert(`Failed to deactivate applicant with ID: ${applicantId}`);
+                // Handle error or display a message to the user
+            }
+        });
     }
 </script>
 

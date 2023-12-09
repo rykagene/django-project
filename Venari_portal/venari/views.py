@@ -569,13 +569,13 @@ def delete_user(request, myid):
     applicant = job_seeker.objects.filter(id=myid)
     applicant.delete()
     messages.success(request, "Successfully deleted.")
-    return redirect("/admin_view_jobseeker")
+    return redirect("/jobseeker_list")
 
 def view_jobseeker(request):
     if not request.user.is_authenticated:
         return redirect("/admin_login")
     applicants = job_seeker.objects.all()
-    return render(request, "admin_view_jobseeker.html", {'applicants':applicants})
+    return render(request, "jobseeker_list.html", {'applicants':applicants})
 
 def change_status_jobseeker(request, myid):
     if not request.user.is_authenticated:
@@ -586,7 +586,7 @@ def change_status_jobseeker(request, myid):
         applicant.status=status
         applicant.save()
         messages.success(request, "Status changed successfully.")
-        return redirect("/admin_view_jobseeker")
+        return redirect("/jobseeker_list")
     return render(request, "jobseeker_change_status.html", {'applicant':applicant})
 
 
