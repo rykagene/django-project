@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
+    </script>
+
+    <!-- {% load static %}
+<link rel="stylesheet" type="text/css" href="{% static "css/admin-dashboard.css" %}"> -->
+    <link rel="stylesheet" href="./../static/css/admin-dashboard.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    <div class=" start-0 z-1 d-none d-md-block" id="sidebar">
+        <div>
+            <img src="./../static/css/images/.png" alt="Venari Logo">
+        </div>
+        <a href=""><i class="bi bi-bar-chart-fill"></i> Dashboard</a>
+        <a href=""><i class="bi bi-buildings-fill"></i> Companies List</a>
+        <a href=""><i class="bi bi-briefcase-fill"></i> Job Posts</a>
+        <a href=""><i class="bi bi-person-heart"></i> Applicants</a>
+        <a href=""><i class="bi bi-printer-fill"></i> Reports</a>
+
+    </div>
+
+    <nav class="navbar navbar-expand navbar-light bg-light-subtle">
+        <button class="btn z-2 d-block d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#Id2"
+            aria-controls="Id2">
+            <i class="bi bi-list fs-3"></i>
+        </button>
+        <div class="container justify-content-end">
+            <span>Welcome, admin</span>
+
+        </div>
+    </nav>
+
+
+
+
+    <div class="offcanvas offcanvas-start" data-bs-backdrop="static" tabindex="-1" id="Id2"
+        aria-labelledby="staticBackdropLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="staticBackdropLabel">
+                Offcanvas
+            </h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <div>
+
+
+                <div class=" start-0 z-1" id="sidebar">
+                    <div>
+                        <img src="./../static/css/images/.png" alt="Venari Logo">
+                    </div>
+                    <a href=""><i class="bi bi-bar-chart-fill"></i> Dashboard</a>
+                    <a href=""><i class="bi bi-buildings-fill"></i> Companies List</a>
+                    <a href=""><i class="bi bi-briefcase-fill"></i> Job Posts</a>
+                    <a href=""><i class="bi bi-person-heart"></i> Applicants</a>
+                    <a href=""><i class="bi bi-printer-fill"></i> Reports</a>
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+    <div id="main">
+
+
+        <div class="container mt-3">
+
+
+            <h2>Dashboard</h2>
+
+            <div class="row justify-content-center align-items-center g-lg-3 g-2">
+                <div class="col-xl-3 col-md-6 ">
+                    <div class="card border-0 p-2 p-lg-4 d-flex flex-row align-items-center dash-cards"
+                        style="min-height: 175px;" id="dash-card1">
+                        <div class="row g-0">
+                            <div class="card-body">
+
+                                <div class="d-flex align-items-center">
+                                    <div class="flex-shrink-0 fs-4 me-5 me-md-4 pb-0">
+                                        <i class="bi bi-person"></i>
+                                    </div>
+
+                                    <div class="flex-grow-1 text-start">
+                                        <h2 class="card-title mb-0 pb-0">254123</h2>
+                                        <p class="text-muted dash-card-label pt-0 pb-0 mb-0">
+                                            Active Job Seekers
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-3 col-md-6 ">
+                    <div class="card border-0 p-2 p-lg-4 d-flex flex-row align-items-center dash-cards"
+                        style="min-height: 175px;" id="dash-card2">
+                        <div class="row g-0">
+                            <div class="card-body">
+
+                                <div class="d-flex align-items-center">
+                                    <div class="flex-shrink-0 fs-4 me-5 me-md-4 pb-0">
+                                        <i class="bi bi-person"></i>
+                                    </div>
+
+                                    <div class="flex-grow-1 text-start">
+                                        <h2 class="card-title mb-0 pb-0">254123</h2>
+                                        <p class="text-muted dash-card-label pt-0 pb-0 mb-0">
+                                            Active Companies
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6 ">
+                    <div class="card border-0 p-2 p-lg-4 d-flex flex-row align-items-center dash-cards"
+                        style="height: 175px;" id="dash-card3">
+                        <div class="row g-0">
+                            <div class="card-body">
+
+                                <div class="d-flex align-items-center">
+                                    <div class="flex-shrink-0 fs-4 me-5 me-md-4 pb-0">
+                                        <i class="bi bi-person"></i>
+                                    </div>
+
+                                    <div class="flex-grow-1 text-start">
+                                        <h2 class="card-title mb-0 pb-0">254123</h2>
+                                        <p class="text-muted dash-card-label pt-0 pb-0 mb-0">
+                                            Active Posts
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6">
+                    <div class="card border-0 p-2 align-items-start dash-cards" style="height: 175px;" id="dash-card4">
+                        <div class="text-center w-100 p-2 dash-card-label z-1" id="act-logs-label">
+                            Activities
+                        </div>
+                        <div class="card-body h-100 overflow-x-hidden mt-3">
+
+                            <div class="card px-3 py-2 rounded-4 border-0 dash-act-logs mb-2">
+                                This is a sample activity on activity log
+                            </div>
+
+                            <div class="card px-3 py-2 rounded-4 border-0 dash-act-logs mb-2">
+                                This is a sample activity on activity log
+                            </div>
+
+                            <div class="card px-3 py-2 rounded-4 border-0 dash-act-logs mb-2">
+                                This is a sample activity on activity log
+                            </div>
+
+                            <div class="card px-3 py-2 rounded-4 border-0 dash-act-logs mb-2">
+                                This is a sample activity on activity log
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12">
+
+                    <div class="row justify-content-center g-lg-3 g-2 ">
+                        <div class="col-8 d-flex">
+                            <div class="card border-0 overflow-auto p-2 p-lg-4 flex-grow-1 dash-cards"
+                                style="max-width: 1080px; height: 417px;" id="dash-card5">
+                                <div class="card-body">
+                                    <h5 class="card-title">Manage Posts</h5>
+                                    <div class="">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">#</th>
+                                                    <th scope="col">First</th>
+                                                    <th scope="col">Last</th>
+                                                    <th scope="col">Handle</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row">1</th>
+                                                    <td>Mark</td>
+                                                    <td>Otto</td>
+                                                    <td>@mdo</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">2</th>
+                                                    <td>Jacob</td>
+                                                    <td>Thornton</td>
+                                                    <td>@fat</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="row justify-content-center align-items-center g-lg-3 g-2">
+                                <div class="col-12">
+
+                                    <div class="card border-0 p-0 pt-3 dash-cards" style="height: 200px;"
+                                        id="dash-card6">
+
+                                        <div class="text-center w-100 p-2 dash-card-label z-1" id="company-list-label">
+                                            Company List
+                                        </div>
+
+                                        <div class="card-body">
+
+
+                                            <div class="card px-3 py-2 rounded-4 border-0 mb-2 company-list-card">
+                                                <div class="d-flex align-items-center text-start justify-content-start">
+                                                    <div class="flex-shrink-0">
+                                                        <img src="./../static/css/images/job.png"
+                                                            class="d-none d-lg-block" alt="..." style="height: 30px;">
+                                                    </div>
+
+                                                    <div class="flex-grow-1 ms-3 text-truncate">
+                                                        Company Number 1
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-12">
+
+                                    <div class="card border-0 p-0 pt-3 dash-cards" style="height: 200px;"
+                                        id="dash-card7">
+
+                                        <div class="text-center w-100 p-2 dash-card-label z-1" id="users-list-label">
+                                            User List
+                                        </div>
+
+                                        <div class="card-body">
+
+
+                                            <div class="card px-3 py-2 rounded-4 border-0 mb-2 user-list-card">
+                                                <div class="d-flex align-items-center text-start justify-content-start">
+                                                    <div class="flex-shrink-0">
+                                                        <img src="./../static/css/images/job.png"
+                                                            class="d-none d-lg-block" alt="..." style="height: 30px;">
+                                                    </div>
+
+                                                    <div class="flex-grow-1 ms-3 text-truncate">
+                                                        User Number 1
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+    <!-- <script>
+        var sidebarVisible = true; // Track the state of the sidebar
+
+        function sidebarTrigger() {
+            var sidebar = document.getElementById("sidebar");
+
+            if (sidebarVisible) {
+                sidebar.style.width = "0";
+                document.getElementById("main").style.marginLeft = "0";
+            } else {
+                sidebar.style.width = "250px";
+                document.getElementById("main").style.marginLeft = "250px";
+            }
+
+            sidebarVisible = !sidebarVisible; // Toggle the state
+        }
+    </script> -->
+</body>
+
+</html>
