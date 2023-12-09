@@ -93,18 +93,18 @@
 
             <div class="row justify-content-center align-items-center g-lg-3 g-2">
                 <div class="col-xl-3 col-md-6 ">
-                    <div class="card border-0 p-2 p-lg-4 d-flex flex-row align-items-center dash-cards"
+                    <div class="card border-0 d-flex flex-row align-items-center dash-cards"
                         style="min-height: 175px;" id="dash-card1">
                         <div class="row g-0">
                             <div class="card-body">
 
                                 <div class="d-flex align-items-center">
-                                    <div class="flex-shrink-0 fs-4 me-5 me-md-4 pb-0">
+                                    <div class="flex-shrink-0 fs-4 me-3 pb-0">
                                         <i class="bi bi-person"></i>
                                     </div>
 
                                     <div class="flex-grow-1 text-start">
-                                        <h2 class="card-title mb-0 pb-0">{{ all_jobseeker_count }}</h2>
+                                        <h1 class="card-title mb-0 pb-0">{{ all_jobseeker_count }}</h1>
                                         <p class="text-muted dash-card-label pt-0 pb-0 mb-0">
                                             Active Job Seekers
                                         </p>
@@ -116,18 +116,18 @@
                 </div>
 
                 <div class="col-xl-3 col-md-6 ">
-                    <div class="card border-0 p-2 p-lg-4 d-flex flex-row align-items-center dash-cards"
+                    <div class="card border-0 d-flex flex-row align-items-center dash-cards"
                         style="min-height: 175px;" id="dash-card2">
                         <div class="row g-0">
                             <div class="card-body">
 
                                 <div class="d-flex align-items-center">
-                                    <div class="flex-shrink-0 fs-4 me-5 me-md-4 pb-0">
-                                        <i class="bi bi-person"></i>
+                                    <div class="flex-shrink-0 fs-4 me-3 pb-0">
+                                        <i class="bi bi-buildings"></i>
                                     </div>
 
                                     <div class="flex-grow-1 text-start">
-                                        <h2 class="card-title mb-0 pb-0">{{ all_companies_count }}</h2>
+                                        <h1 class="card-title mb-0 pb-0">{{ all_companies_count }}</h1>
                                         <p class="text-muted dash-card-label pt-0 pb-0 mb-0">
                                             Active Companies
                                         </p>
@@ -138,18 +138,18 @@
                     </div>
                 </div>
                 <div class="col-xl-3 col-md-6 ">
-                    <div class="card border-0 p-2 p-lg-4 d-flex flex-row align-items-center dash-cards"
+                    <div class="card border-0 d-flex flex-row align-items-center dash-cards"
                         style="height: 175px;" id="dash-card3">
                         <div class="row g-0">
                             <div class="card-body">
 
                                 <div class="d-flex align-items-center">
-                                    <div class="flex-shrink-0 fs-4 me-5 me-md-4 pb-0">
-                                        <i class="bi bi-person"></i>
+                                    <div class="flex-shrink-0 fs-4 me-3 pb-0">
+                                        <i class="bi bi-newspaper"></i>
                                     </div>
 
                                     <div class="flex-grow-1 text-start">
-                                        <h2 class="card-title mb-0 pb-0">{{ all_post }}</h2>
+                                        <h1 class="card-title mb-0 pb-0">{{ all_post }}</h1>
                                         <p class="text-muted dash-card-label pt-0 pb-0 mb-0">
                                             Active Posts
                                         </p>
@@ -162,27 +162,31 @@
                 <div class="col-xl-3 col-md-6">
                     <div class="card border-0 p-2 align-items-start dash-cards" style="height: 175px;" id="dash-card4">
                         <div class="text-center w-100 p-2 dash-card-label z-1" id="act-logs-label">
-                            Activities
+                            Activity logs
                         </div>
-                        <div class="card-body h-100 overflow-x-hidden mt-3">
+                        <div class="card-body h-100 w-100 px-2 overflow-x-hidden mt-3 text-wrap">
                             {% for log in logs %}
-                            <div class="card px-3 py-2 rounded-4 border-0 dash-act-logs mb-2">
-                                <p class="mb-1">
-                                    <strong>{{ log.timestamp }}</strong> -
-                                    <span style="color: {% if log.log_level == 'INFO' %}green{% elif log.log_level == 'ERROR' %}red{% endif %};">
-                                        {{ log.log_level }}
+                            <div class="card px-3 py-2 rounded-2 border-0 dash-act-logs mb-2 text-wrap">
+                                <div class="mb-1">
+                                    <i class="time-stamp">{{ log.timestamp }}</i> -
+                                    <span class="log-level"
+                                        style="color: {% if log.log_level == 'INFO' %}green{% elif log.log_level == 'ERROR' %}red{% endif %};">
+                                        {{ log.log_level }} 
                                     </span>
-                                    Admin <strong>{{ log.admin_name }}</strong> {{ log.action }}: {{ log.details }}
-                                </p>
+                                    <div class="text-wrap the-logs text-truncate">
+                                        <strong>{{ log.admin_name }}</strong> {{ log.action }}: {{ log.details }}
+                                    </div>
+                                </div>
                             </div>
-                            {% endfor %}                    
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
+
                 <div class="col-12">
 
                     <div class="row justify-content-center g-lg-3 g-2 ">
-                        <div class="col-8 d-flex">
+                        <div class="col-9 d-flex">
                             <div class="card border-0 overflow-auto p-2 p-lg-4 flex-grow-1 dash-cards"
                                 style="max-width: 1080px; height: 417px;" id="dash-card5">
                                 <div class="card-body">
@@ -217,7 +221,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-3">
                             <div class="row justify-content-center align-items-center g-lg-3 g-2">
                                 <div class="col-12">
 
@@ -225,19 +229,19 @@
                                         id="dash-card6">
 
                                         <div class="text-center w-100 p-2 dash-card-label z-1" id="company-list-label">
-                                            Company List
+                                            List of Companies
                                         </div>
 
-                                        <div class="card-body">
+                                        <div class="card-body px-0">
                                             {% for company in all_companies %}
 
-                                            <div class="card px-3 py-2 rounded-4 border-0 mb-2 company-list-card">
+                                            <div class="card px-3 py-0 rounded-2 border-0 mb-2 m-0 company-list-card">
                                                 <div class="d-flex align-items-center text-start justify-content-start">
-                                                    <div class="flex-shrink-0">
+                                                    <div class="flex-shrink-0 ms-0">
                                                         <img src="./../static/css/images/job.png"
-                                                            class="d-none d-lg-block" alt="..." style="height: 30px;">
+                                                            class="d-none d-lg-block" alt="..." style="height: 20px;">
                                                     </div>
-                                                    <div class="flex-grow-1 ms-3 text-truncate">
+                                                    <div class="flex-grow-1 ms-2 text-truncate company-name">
                                                         {{ company.company_name }}
                                                     </div>
                                                 </div>
@@ -253,20 +257,20 @@
                                         id="dash-card7">
 
                                         <div class="text-center w-100 p-2 dash-card-label z-1" id="users-list-label">
-                                            User List
+                                            List of Users
                                         </div>
 
-                                        <div class="card-body">
+                                        <div class="card-body px-0">
                                             {% for applicants in all_applicants %}
 
-                                            <div class="card px-3 py-2 rounded-4 border-0 mb-2 user-list-card">
+                                            <div class="card px-3 py-0 rounded-4 border-0 mb-2 user-list-card">
                                                 <div class="d-flex align-items-center text-start justify-content-start">
                                                     <div class="flex-shrink-0">
                                                         <img src="./../static/css/images/job.png"
-                                                            class="d-none d-lg-block" alt="..." style="height: 30px;">
+                                                            class="d-none d-lg-block" alt="..." style="height: 20px;">
                                                     </div>
 
-                                                    <div class="flex-grow-1 ms-3 text-truncate">
+                                                    <div class="flex-grow-1 ms-3 text-truncate user-list-name">
                                                         {{ applicants.user.first_name }} {{applicants.user.last_name}}
                                                     </div>
                                                 </div>
