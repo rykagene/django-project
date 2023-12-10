@@ -10,6 +10,7 @@
   <link rel="stylesheet" type="text/css" href="assets/bootstrap/css/bootstrap.min.css" />
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="{% static '/register-user.js' %}"></script>
     <title>User Registration</title>
   </head>
   <body>
@@ -42,6 +43,16 @@
               name = "last_name"
             />
           </div>
+          <div class="form-group gender col-lg-6">
+            <label for="lastName">Gender:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="gender"
+              placeholder="Type your gender"
+              name = "gender"
+            />
+          </div>
         </div>
         <div class="row">
           <div class="form-group col-lg-6">
@@ -71,6 +82,7 @@
               type="number"
               class="form-control"
               id="mobileNo"
+              name="phone_number"
               placeholder="Type your contact number"
             />
           </div>
@@ -79,6 +91,7 @@
             <input
               type="text"
               class="form-control"
+              name="home_address"
               id="homeAdd"
               placeholder="Type your home address"
             />
@@ -559,8 +572,8 @@
         </div>
       </form>
     </div>
-    <script src="register-user.js">
-      document.getElementById('profilePic').addEventListener('change', function (event) {
+    <script>
+    document.getElementById('profilePic').addEventListener('change', function (event) {
         var input = event.target;
         var image = document.getElementById('profileImage');
     

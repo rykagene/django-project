@@ -77,6 +77,7 @@ def user_signup(request):
         profile_picture = request.FILES['profile_picture']
         gender = request.POST['gender']
         skills = request.POST['skills']
+        address = request.POST['home_address']
         uniqueemail = User.objects.filter(email=email)
         uniqueuser = User.objects.filter(username=username)
         if uniqueemail:
@@ -90,7 +91,7 @@ def user_signup(request):
             return redirect('/register-user')
 
         user = User.objects.create_user(first_name=first_name, last_name=last_name, email=email, username=username, password=password)
-        applicants = job_seeker.objects.create(user=user, email=email, phone_number=phone, password=password, gender=gender, profile_image=profile_picture, skills=skills, user_type="applicant", status="Activate")
+        applicants = job_seeker.objects.create(user=user, email=email, phone_number=phone, password=password, gender=gender, profile_image=profile_picture, skills=skills, address = address, user_type="applicant", status="Activate")
         user.save()
         applicants.save()
         return render(request, "login.html")
