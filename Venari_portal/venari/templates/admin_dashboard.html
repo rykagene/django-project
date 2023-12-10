@@ -16,72 +16,53 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Dashboard</title>
 </head>
 
-<body>
+<body style="font-family: Poppins;">
 
+    <div>
 
-    <div class=" start-0 z-1 d-none d-md-block" id="sidebar">
-        <div>
-            <img src="./../static/css/images/.png" alt="Venari Logo">
-        </div>
-        <a href="/admin_dashboard/"><i class="bi bi-bar-chart-fill"></i> Dashboard</a>
-        <a href="/companies_list/"><i class="bi bi-buildings-fill"></i> Manage Companies</a>
-        <a href="/admin_joblist/"><i class="bi bi-briefcase-fill"></i> Job Listings</a>
-        <a href="/jobseeker_list/"><i class="bi bi-person-heart"></i> Job Seekers</a>
-        <a href=""><i class="bi bi-printer-fill"></i> Reports</a>
-
+        {% include 'adminSB_NB.html' %}
     </div>
 
-    <nav class="navbar navbar-expand navbar-light bg-light-subtle">
-        <button class="btn z-2 d-block d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#Id2"
-            aria-controls="Id2">
-            <i class="bi bi-list fs-3"></i>
-        </button>
-        <div class="container justify-content-end">
-            <span>Welcome, admin</span>
-
-        </div>
-    </nav>
-
-
-
-
-    <div class="offcanvas offcanvas-start" data-bs-backdrop="static" tabindex="-1" id="Id2"
-        aria-labelledby="staticBackdropLabel">
-        <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="staticBackdropLabel">
-                Offcanvas
-            </h5>
-            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        </div>
-        <div class="offcanvas-body">
-            <div>
-
-
-                <div class=" start-0 z-1" id="sidebar">
-                    <div>
-                        <img src="./../static/css/images/.png" alt="Venari Logo">
-                    </div>
-                    <a href=""><i class="bi bi-bar-chart-fill"></i> Dashboard</a>
-                    <a href=""><i class="bi bi-buildings-fill"></i> Manage Companies</a>
-                    <a href=""><i class="bi bi-briefcase-fill"></i> Job Listings</a>
-                    <a href=""><i class="bi bi-person-heart"></i> Job Seekers</a>
-                    <a href=""><i class="bi bi-printer-fill"></i> Reports</a>
-
-                </div>
-
-
-            </div>
-        </div>
+    <div class="overlay">
     </div>
 
+    <div id="overlay1">
+        <!--?xml version="1.0" standalone="no"?--> <svg id="sw-js-blob-svg" viewBox="0 0 100 100"
+            xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <linearGradient id="sw-gradient" x1="0" x2="1" y1="1" y2="0">
+                    <stop id="stop1-1" stop-color="rgba(251, 103, 95, 0.5)" offset="0%"></stop>
+                    <stop id="stop2-1" stop-color="rgba(232, 149, 104, 0.1)" offset="100%"></stop>
+                </linearGradient>
+            </defs>
+            <path fill="url(#sw-gradient)"
+                d="M14.2,-21.9C18.5,-19.4,22.2,-15.6,26.3,-10.8C30.5,-6,35.1,-0.1,34.6,5.1C34.1,10.3,28.3,14.9,23.9,21.7C19.6,28.4,16.5,37.2,10.7,41.1C4.8,45.1,-3.9,44,-10.4,40C-16.9,36,-21.2,29,-23.5,22.5C-25.8,16,-26.1,9.9,-27.8,3.5C-29.6,-2.9,-32.6,-9.6,-31.4,-15.2C-30.2,-20.8,-24.7,-25.4,-18.8,-27.1C-12.8,-28.9,-6.4,-28,-0.7,-26.8C5,-25.7,9.9,-24.4,14.2,-21.9Z"
+                width="100%" height="100%" transform="translate(50 50)" stroke-width="0"
+                style="transition: all 0.3s ease 0s;" stroke="url(#sw-gradient)"></path>
+        </svg>
+    </div>
 
-
-
-
-
+    <div id="overlay2">
+        <svg viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <linearGradient id="b">
+                    <stop offset="0%" stop-color="rgba(138, 142, 255, 0.5)" />
+                    <stop offset="100%" stop-color="rgba(223, 149, 255, 0.1)" />
+                </linearGradient>
+                <clipPath id="a">
+                    <path fill="currentColor"
+                        d="M757.5 644Q788 788 644 745t-234-54q-90-11-142.5-101T225 367.5Q235 235 367.5 119T603 148.5Q706 294 716.5 397t41 247Z" />
+                </clipPath>
+            </defs>
+            <g clip-path="url(#a)">
+                <path fill="url(#b)"
+                    d="M757.5 644Q788 788 644 745t-234-54q-90-11-142.5-101T225 367.5Q235 235 367.5 119T603 148.5Q706 294 716.5 397t41 247Z" />
+            </g>
+        </svg>
+    </div>
 
     <div id="main">
 
@@ -89,7 +70,7 @@
         <div class="container mt-3">
 
 
-            <h2>Dashboard</h2>
+            <h2 id="headDash">Dashboard</h2>
 
             <div class="row justify-content-center align-items-center g-lg-3 g-2">
                 <div class="col-xl-3 col-md-6 ">
@@ -192,7 +173,7 @@
                                 <div class="card-body">
                                     <h5 class="card-title">Manage Posts</h5>
                                     <div class="">
-                                        <table class="table">
+                                        <table class="table" id="dash_table">
                                             <thead>
                                                 <tr>
                                                     <th scope="col"></th>
@@ -212,22 +193,24 @@
                                                         Activated
                                                     </td>
                                                     <td>
-                                                        
+
                                                         <!-- ========== Start Activate/Deactivate Button ========== -->
                                                         <div class="row justify-content-center align-items-center g-2">
                                                             <div class="col" title="View">
-                                                                <button class="btn col-12 btn-primary btn-sm" data-bs-toggle="modal"
-                                                                data-bs-target="#activateModal">
+                                                                <button id="activateButton" class="btn col-12 btn-primary btn-sm"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#activateModal">
                                                                     <i class="bi bi-check-lg">
                                                                     </i>
                                                                 </button>
                                                             </div>
 
                                                             <div class="col" title="Archive">
-                                                                <button role="button"
-                                                                    class="btn col-12 btn-danger btn-sm" data-bs-toggle="modal"
+                                                                <button id="deactivateButton" role="button"
+                                                                    class="btn col-12 btn-danger btn-sm"
+                                                                    data-bs-toggle="modal"
                                                                     data-bs-target="#deactivateModal">
-                                                                    <i class="bi bi-x-lg" >
+                                                                    <i class="bi bi-x-lg">
                                                                     </i>
                                                                 </button>
                                                             </div>
@@ -387,6 +370,8 @@
             sidebarVisible = !sidebarVisible; // Toggle the state
         }
     </script> -->
+
+
 </body>
 
 </html>
