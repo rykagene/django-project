@@ -6,251 +6,414 @@
     font-family: "Poppins", sans-serif;
 }
 body{
-        background-color: #faf7f9;
-}
-.card-img-top{
-    border-radius: 50px;
-    padding: 20px;
-}
-.card{
-    color: rgb(72, 66, 81);
-    border-radius: 15px;
-    background-color: rgb(255, 255, 255);
-}
-.card-body{
-    padding: 30px;
-    margin-top: -15px;
-    color: rgb(122, 114, 133);
-}
-.btn-outline-primary{
-  font-size: small;
-    border-radius: 50px;
-    width: 120px;
-
-}
-.btn-primary{
-    font-size: 10px;
-    border-radius: 50px;
-    width: 120px;
-}
-.btn-primary:hover{
-    background-color: black;
-    border: none;
+  background-image: url("Untitled-2.jpg");
+  background-size: cover; /* Adjust as needed */
+  background-repeat: no-repeat; /* Prevent the image from repeating */
+  background-position: center;   
 }
 
-h5{
-    font-size: 1.875rem;
-    color: #122238;
-}
-a{
-    color: black;
-}
-.card-text{
-    font-size: small;
-    color: #000000;
-    text-align: justify;
-}
-.description{
-    font-size: 12px;
-    margin: 2px;
-    align-items: center;
-}
-
-h1{
-    font-size: 20px;
-    text-align: center;
-    color: black;
-}
-.input-box {
-    position: relative;
-    height: 50px;
-    max-width: 900px;
-    width: 100%;
-    background: #fff;
-    margin: 0 20px;
-    border-radius: 20px;
-    border-color: black;
-
-  }
-  .input-box i,
-  .input-box .button{
-    size: 10px;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-  }
-  .input-box i {
-    left: 20px;
-    font-size: 30px;
-    color: #ffffff;
-  }
-  .input-box input {
-    height: 100%;
-    width: 100%;
-    font-size: 18px;
-    font-weight: 400;
-    padding: 0 155px 0 65px;
-    background-color: transparent;
-    color: #707070;
-  }
-  .custom-btn:hover{
-    background-color: #122238;
-  }
-  .custom-bton:hover {
-    color: #122238; /* Change the text color on hover */
-    background-color: #ffffff; /* Change the background color on hover */
-    border-color: #122238;
-  }
-  .dropdown{
-    border-radius: 6px;
-  }
-  ::after,
-::before {
-    box-sizing: border-box;
-}
-
-body {
-    font-family: 'Poppins', sans-serif;
-    margin: 0;
-    background-repeat: no-repeat;
-    background-position: center bottom;
-    background-size: cover;
-}
-
-h3 {
-    font-size: 1.2375rem;
-    color: #FFF;
-}
-
-a {
-    cursor: pointer;
-    text-decoration: none;
-    font-family: 'Poppins', sans-serif;
-}
-
-li {
-    list-style: none;
-}
-
-/* Layout skeleton */
-
-.wrapper {
-    align-items: stretch;
-    display: flex;
-    width: 100%;
-}
-
-#sidebar {
-    max-width: 264px;
-    min-width: 264px;
-    transition: all 0.35s ease-in-out;
-    z-index: 1111;
-}
-
-/* Sidebar collapse */
-
-#sidebar.collapsed {
-    margin-left: -264px;
-}
-
-.main {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    width: 100%;
-    overflow: hidden;
-    transition: all 0.35s ease-in-out;
-}
-.checkbox-container {
+.card-pink {
+  position: relative;
+  top: 100;
+  left: 0;
+  width: 100%;
+  padding: 20px 100px;
+  color: #ffffff;
+  background-size: cover; /* Ensure the background image covers the entire element */
+  background-position: center center; /* Center the background image */
   display: flex;
-  flex-direction: column;
+  background-image: url("7826149.jpg");
+  /*background-image: linear-gradient(to right, rgb(236, 151, 179), rgb(255, 174, 150));*/
+  justify-content: space-between;
   align-items: center;
+  border: none;
+  border-radius: 10px;
+  /*box-shadow: 0px 10px 0px #7275d5;*/
 }
 
-.form-check {
-  margin-bottom: 10px; /* Adjust the margin-bottom as needed */
+  
+/* Add custom CSS for the dropdown button width */
+
+.btn-outline-secondary {
+  width: 100%; /* Set the width as needed */
+  padding: 10px;
+  background: #fff;
+  border-radius: 50px;
+  border: none; /* Add a border */
+  color:#122238;
+  text-align: left;
+}
+.form-control{
+  width: 100%; /* Set the width as needed */
+  padding: 10px;
+  background: #fff;
+  border-radius: 50px;
+  border: 3px; /* Add a border */
+  color: #fb675f; /* Add text color */
+
+}
+.text-center {
+  font-weight: bold;
+  font-size: 50px;
+  /*background: linear-gradient(45deg, #d063ff, #e85ecf);*/
+  color: #fff;
 }
 
-
-.sidebar-nav {
-    padding: 3;
+label {
+  font-size: 12px; /* Change the font size as needed */
+}
+.dropdown-menu {
+  margin-top: 10px;
+  width: 100%; /* Set the width as needed */
+  max-width: 300px; /* Set a maximum width if desired */
+  background: #FFF;
+  border-radius: 10px;
+  border: 1px solid #ffffff; /* Add a border */
+  color: #122238; /* Add text color */
+  box-shadow: 0 10px 20px rgba(28, 27, 50, 0.2); /* Add box shadow */
+}
+.form-check{
+  margin-left: 20px;
+}
+.form-check-input:hover {
+  background-color: #9c98cc; /* Change the background color on hover */
 }
 
-.sidebar-header {
-    color: #000000;
-    font-size: .75rem;
-    padding: 1.5rem 1.5rem .375rem;
+/* Add custom CSS for the search button */
+.col-md-2 button {
+  text-align: center;
+  width: 100%;
+  background: linear-gradient(45deg, #d063ff, #e85ecf);
+  /* Fallback for older browsers */
+  background: -webkit-linear-gradient(45deg, #d063ff, #e85ecf);
+  background: -moz-linear-gradient(45deg, #d063ff, #e85ecf);
+  background: -o-linear-gradient(45deg, #d063ff, #e85ecf);
+  background: -ms-linear-gradient(45deg, #d063ff, #e85ecf);
+  color: #fff; /* Set text color to white */
+  outline: none;
+}
+.col-md-2 button:hover {
+  background: linear-gradient(45deg, #4e0b6b, #d58d53);
+  width: 100%;
+}
+/* Add custom CSS for the dropdown button width */
+#employmentTypeDropdown,
+#listedAnyTimeDropdown,
+#salaryGradeDropdown,
+#featuredJobsDropdown {
+  width: 100%; /* Set the width as needed */
+  max-width: 400%;
+  padding: 10px;
+  background-color: none;
+  border-radius: 50px;
+  border: 1px solid #ffffff; /* Add a border */
+  color: #ffffff; /* Add text color */
 }
 
-a.sidebar-link {
-    padding: .625rem 1.625rem;
-    color: #000000;
-    position: relative;
-    display: block;
-    font-size: 1rem;
-    
+/* Add custom CSS for the dropdown button hover effect */
+#employmentTypeDropdown:hover,
+#listedAnyTimeDropdown:hover,
+#salaryGradeDropdown:hover,
+#featuredJobsDropdown:hover {
+  background: linear-gradient(45deg, #4e0b6b, #d58d53);
+  width: 100%;
+  color: #fff;
+  border: none;
+
 }
 
-/* Responsive */
-.search_bar{
+/* Add custom CSS for the dropdown menu */
+.dropdown-menu {
+  align-items: center;
+  font-size: 12px;
+  margin-top: 10px;
+  width: 200%; /* Set the width as needed */
+  max-width: 300px; /* Set a maximum width if desired */
+  background: #FFF;
+  border-radius: 10px;
+  border: 1px solid #ffffff; /* Add a border */
+  color: #122238; /* Add text color */
+  /*box-shadow: 0 10px 20px rgba(28, 27, 50, 0.2); /* Add box shadow */
+}
+/* Job List*/
+.custom-card {
+  border: 1px solid #ffffff;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.custom-card:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.custom-card-body {
+  padding: 1.25rem;
+}
+
+.custom-card-title {
+  font-size: 30px;
+  margin-bottom: 2px;
+  font-weight: bold;
+  color: #000000;
+}
+.custom-card-description{
+  margin-bottom: 5px;
+  font-size: 20px;
+  color: #8f8f8f;
+}
+
+.custom-icons-description {
+  margin-top: 5px;
   display: flex;
-  padding: 10px;
-  justify-content: space-between;
-}
-.search_bar input{
-  width: 50%;
-  padding: 10px;
-  border: 1px solid rgb(190, 190, 190);
-}
-.search_bar input:focus{
-  border: 1px solid blueviolet;
-}
-.search_bar select{
-  border: 1px solid rgb(190, 190, 190);
-  padding: 10px;
-  margin-left: 2rem;
-}
-.search_bar .filter{
-  width: 300px;
+  align-items: center;
+  gap: 0.5rem;
+  color: #6c757d;
 }
 
-.tags_bar{
-  width: 55%;
-  display: flex;
-  padding: 10px;
-  justify-content: space-between;
+.custom-post-time {
+  font-size: 0.875rem;
 }
-.tag{
-  row-gap: 5px;
+
+.custom-description {
+  margin-top: 1rem;
+}
+
+.custom-card-description-justify-content-left {
+  margin-bottom: 0.25rem;
+}
+
+.custom-text-card {
+  margin-top: 1rem;
+}
+
+.custom-btn{
+  background-color: #fca475;
+  border:none;
+  width: 100%;
+  border-radius: 10px;
+  margin-top: 10px;
+}
+.custom-bton {
+  border-color:#fca475;
+  color:#fca475;
+  width: 100%;
+  border-radius: 10px;
+  margin-top: 10px;
+}
+
+.custom-btn:hover {
+  color:#ffffff;
+  background-color: #9c98cc;
+}
+.custom-bton:hover {
+  border-color:#9c98cc;
+  color:#9c98cc;
+}
+.bi-heart-half,
+.bi-bookmark-plus{
+  color: #fca475;
+}
+.bi-heart-half:hover,
+.bi-bookmark-plus:hover{
+  color: #56188d;
+}
+
+/*Tags*/
+.tags-card-body{
+  background-color: #ffffff;
+  border-radius: 10px;
+  margin-top: 10px;
+}
+.tags_bar {
+  display: flex;
   flex-wrap: wrap;
-  background: #DF5AFF;
-  padding: 10px 15px;
+  margin-top: 10px;
+}
+
+.tag {
+  margin: 5px;
+  padding: 8px;
+  background: linear-gradient(90deg, #ed7bce, #ce8fdb);
   border-radius: 20px;
   display: flex;
   align-items: center;
-  font-size: 13px;
-  cursor: pointer;
-  color:#ffffff
+  color: #fff;
 }
-.tag i{
-  margin-right: 0.7rem;
+
+.tag i {
+  margin-right: 5px;
 }
-.user-logo {
-  height: 150px;
-  width: 150px;
+.text-end{
+  font-size: 15px;
+  color:#4e0b6b;
 }
-.user-logo img {
-  height: 100%;
-  width: 100%;
-  border: 1px double #1f1f1f;
-  border-radius: 50%;
+
+/*
+.page-link {
+  color: #000000;
+  background-color: #fff;
+  border: 1px solid #dee2e6;
 }
-.span {
+
+.page-link:hover {
+  z-index: 2;
   color: #ffffff;
+  text-decoration: none;
+  background-color: #fb675f;
+  border-color: #fb675f;
 }
-.Perecntage{
-  size: 5px;
+
+.page-link:focus {
+  z-index: 2;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
 }
-.bookmarked {
-  fill: #ff0000
+
+.page-item.disabled .page-link {
+  color: #6c757d;
+  pointer-events: none;
+  cursor: not-allowed;
+  background-color: #fff;
+  border-color: #dee2e6;
+}
+
+.pagination-lg .page-link {
+  padding: 0.75rem 1.5rem;
+  font-size: 1.25rem;
+  line-height: 1.5;
+}
+
+.pagination-lg .page-item:first-child .page-link {
+  border-top-left-radius: 0.3rem;
+  border-bottom-left-radius: 0.3rem;
+}
+
+.pagination-lg .page-item:last-child .page-link {
+  border-top-right-radius: 0.3rem;
+  border-bottom-right-radius: 0.3rem;
+}
+
+.pagination-sm .page-link {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.pagination-sm .page-item:first-child .page-link {
+  border-top-left-radius: 0.2rem;
+  border-bottom-left-radius: 0.2rem;
+}
+
+.pagination-sm .page-item:last-child .page-link {
+  border-top-right-radius: 0.2rem;
+  border-bottom-right-radius: 0.2rem;
+}*/
+.scrollable-container {
+  max-height: 500px; /* Adjust the maximum height as needed */
+  overflow-y: auto;
+}
+.content{
+  background-color: transparent;
+  border: none;
+}
+.gotopbtn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: none;
+  font-size: 24px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  padding: 10px;
+  cursor: pointer;
+}
+.container{
+	max-width: 1170px;
+	margin:auto;
+}
+.row{
+	display: flex;
+	flex-wrap: wrap;
+}
+ul{
+	list-style: none;
+}
+.footer{
+  background-image: url("Untitled-1.jpg");
+  background-position: center;
+  background-size: cover;
+    padding: 30px 0;
+    border-radius: 20px;
+}
+.footer-col{
+   width: 25%;
+   padding: 0 15px;
+}
+.footer-col h4{
+	font-size: 18px;
+	color: #ffffff;
+	text-transform: capitalize;
+	margin-bottom: 35px;
+	font-weight: 500;
+	position: relative;
+}
+.footer-col h4::before{
+	content: '';
+	position: absolute;
+	left:0;
+	bottom: -10px;
+	background-color: #ffffff;
+	height: 2px;
+	box-sizing: border-box;
+	width: 50px;
+}
+.footer-col ul li:not(:last-child){
+	margin-bottom: 10px;
+}
+.footer-col ul li a{
+	font-size: 16px;
+	text-transform: capitalize;
+	color: #ffffff;
+	text-decoration: none;
+	font-weight: 300;
+	color: #bbbbbb;
+	display: block;
+	transition: all 0.3s ease;
+}
+.footer-col ul li a:hover{
+	color: #ffffff;
+	padding-left: 8px;
+}
+.footer-col .social-links a{
+	display: inline-block;
+	height: 40px;
+	width: 40px;
+	background-color: rgba(255,255,255,0.2);
+	margin:0 10px 10px 0;
+	text-align: center;
+	line-height: 40px;
+	border-radius: 50%;
+	color: #ffffff;
+	transition: all 0.5s ease;
+}
+.footer-col .social-links a:hover{
+	color: #24262b;
+	background-color: #ffffff;
+}
+
+/*responsive*/
+@media(max-width: 767px){
+  .footer-col{
+    width: 50%;
+    margin-bottom: 30px;
+}
+}
+@media(max-width: 574px){
+  .footer-col{
+    width: 100%;
+}
 }
