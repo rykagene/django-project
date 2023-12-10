@@ -27,9 +27,9 @@
             <img src="./../static/css/images/.png" alt="Venari Logo">
         </div>
         <a href="/admin_dashboard/"><i class="bi bi-bar-chart-fill"></i> Dashboard</a>
-        <a href="/companies_list/"><i class="bi bi-buildings-fill"></i> Companies List</a>
-        <a href="/admin_joblist/"><i class="bi bi-briefcase-fill"></i> Job Posts</a>
-        <a href="/jobseeker_list/"><i class="bi bi-person-heart"></i> Applicants</a>
+        <a href="/companies_list/"><i class="bi bi-buildings-fill"></i> Manage Companies</a>
+        <a href="/admin_joblist/"><i class="bi bi-briefcase-fill"></i> Job Listings</a>
+        <a href="/jobseeker_list/"><i class="bi bi-person-heart"></i> Job Seekers</a>
         <a href=""><i class="bi bi-printer-fill"></i> Reports</a>
 
     </div>
@@ -65,9 +65,9 @@
                         <img src="./../static/css/images/.png" alt="Venari Logo">
                     </div>
                     <a href=""><i class="bi bi-bar-chart-fill"></i> Dashboard</a>
-                    <a href=""><i class="bi bi-buildings-fill"></i> Companies List</a>
-                    <a href=""><i class="bi bi-briefcase-fill"></i> Job Posts</a>
-                    <a href=""><i class="bi bi-person-heart"></i> Applicants</a>
+                    <a href=""><i class="bi bi-buildings-fill"></i> Manage Companies</a>
+                    <a href=""><i class="bi bi-briefcase-fill"></i> Job Listings</a>
+                    <a href=""><i class="bi bi-person-heart"></i> Job Seekers</a>
                     <a href=""><i class="bi bi-printer-fill"></i> Reports</a>
 
                 </div>
@@ -93,8 +93,8 @@
 
             <div class="row justify-content-center align-items-center g-lg-3 g-2">
                 <div class="col-xl-3 col-md-6 ">
-                    <div class="card border-0 d-flex flex-row align-items-center dash-cards"
-                        style="min-height: 175px;" id="dash-card1">
+                    <div class="card border-0 d-flex flex-row align-items-center dash-cards" style="min-height: 175px;"
+                        id="dash-card1">
                         <div class="row g-0">
                             <div class="card-body">
 
@@ -116,8 +116,8 @@
                 </div>
 
                 <div class="col-xl-3 col-md-6 ">
-                    <div class="card border-0 d-flex flex-row align-items-center dash-cards"
-                        style="min-height: 175px;" id="dash-card2">
+                    <div class="card border-0 d-flex flex-row align-items-center dash-cards" style="min-height: 175px;"
+                        id="dash-card2">
                         <div class="row g-0">
                             <div class="card-body">
 
@@ -138,8 +138,8 @@
                     </div>
                 </div>
                 <div class="col-xl-3 col-md-6 ">
-                    <div class="card border-0 d-flex flex-row align-items-center dash-cards"
-                        style="height: 175px;" id="dash-card3">
+                    <div class="card border-0 d-flex flex-row align-items-center dash-cards" style="height: 175px;"
+                        id="dash-card3">
                         <div class="row g-0">
                             <div class="card-body">
 
@@ -171,7 +171,7 @@
                                     <i class="time-stamp">{{ log.timestamp }}</i> -
                                     <span class="log-level"
                                         style="color: {% if log.log_level == 'INFO' %}green{% elif log.log_level == 'ERROR' %}red{% endif %};">
-                                        {{ log.log_level }} 
+                                        {{ log.log_level }}
                                     </span>
                                     <div class="text-wrap the-logs text-truncate">
                                         <strong>{{ log.admin_name }}</strong> {{ log.action }}: {{ log.details }}
@@ -195,9 +195,10 @@
                                         <table class="table">
                                             <thead>
                                                 <tr>
-                                                    <th scope="col">#</th>
+                                                    <th scope="col"></th>
                                                     <th scope="col">Company</th>
                                                     <th scope="col">Job Title</th>
+                                                    <th scope="col">Status</th>
                                                     <th scope="col">Action</th>
                                                 </tr>
                                             </thead>
@@ -207,7 +208,34 @@
                                                     <th scope="row">{{ forloop.counter }}</th>
                                                     <td>{{ post.company.company_name }}</td>
                                                     <td>{{ post.title }}</td>
-                                                    <td>Enable/Disabled</td>
+                                                    <td>
+                                                        Activated
+                                                    </td>
+                                                    <td>
+                                                        
+                                                        <!-- ========== Start Activate/Deactivate Button ========== -->
+                                                        <div class="row justify-content-center align-items-center g-2">
+                                                            <div class="col" title="View">
+                                                                <button class="btn col-12 btn-primary btn-sm" data-bs-toggle="modal"
+                                                                data-bs-target="#activateModal">
+                                                                    <i class="bi bi-check-lg">
+                                                                    </i>
+                                                                </button>
+                                                            </div>
+
+                                                            <div class="col" title="Archive">
+                                                                <button role="button"
+                                                                    class="btn col-12 btn-danger btn-sm" data-bs-toggle="modal"
+                                                                    data-bs-target="#deactivateModal">
+                                                                    <i class="bi bi-x-lg" >
+                                                                    </i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                        <!-- ========== End Activate/Deactivate Button ========== -->
+
+
+                                                    </td>
                                                 </tr>
                                                 {% endfor %}
                                             </tbody>
@@ -289,6 +317,57 @@
         </div>
 
     </div>
+
+
+    <!-- Activate modal -->
+    <div class="modal fade" id="activateModal" tabindex="-1" role="dialog" aria-labelledby="activateModalTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="activateModalTitle">
+                        Activate this post
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Do you want to activate this post?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        No
+                    </button>
+                    <button type="button" id="confirm_activation" class="btn btn-primary">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Deactivate modal -->
+    <div class="modal fade" id="deactivateModal" tabindex="-1" role="dialog" aria-labelledby="deactivateModalTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deactivateModalTitle">
+                        Dectivate this post
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Do you want to deactivate this post?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        No
+                    </button>
+                    <button type="button" id="confirm_deactivation" class="btn btn-primary">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 
 
     <!-- <script>
