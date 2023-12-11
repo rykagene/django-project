@@ -9,6 +9,8 @@ from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 import logging
 import os
+from openpyxl import Workbook
+from django.http import HttpResponse
 
 logger = logging.getLogger('venari')
 
@@ -745,4 +747,22 @@ def admin_dashboard(request):
     }
     return render(request, "admin_dashboard.html", context)
 
-    
+def admin_report_table(request):
+    applicant = job_seeker.objects.all()
+def admin_generate_report(request):
+    data = job_seeker.objects.all()
+    wb = Workbook()
+    ws = wb.active
+
+    header = ['Field 1', 'Field 2']  
+    ws.append(header)
+
+    for item in data:
+        ws.append([item.email, item.password])  
+
+    response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    response['Content-Disposition'] = 'attachment; filename=report.xlsx'
+
+    wb.save(response)
+
+    return response

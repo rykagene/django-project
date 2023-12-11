@@ -34,6 +34,7 @@ urlpatterns = [
     path("admin_delete_postjob/<int:myid>/", views.admin_delete_postjob, name="delete posted job status"),
     path("companies_list/", views.all_companies, name="companies list"),
     path("admin_dashboard/", views.admin_dashboard, name="admin dashboard"),
+    path("admin_report/", views.admin_report, name="admin report"),
 
 
     #company

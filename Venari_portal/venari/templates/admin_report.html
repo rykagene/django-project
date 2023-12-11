@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report</title>
+</head>
+<body>
+    <h1>Report for YourModel Table</h1>
+    
+    <!-- Display data in HTML table -->
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Field 1</th>
+                <th>Field 2</th>
+                <!-- Add more fields as needed -->
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in data %}
+                <tr>
+                    <td>{{ item.first_name }}</td>
+                    <td>{{ item.last_name }}</td>
+                    <!-- Display other fields -->
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Add a link to download Excel file -->
+    <p><a href="{% url 'report' %}">Download Excel</a></p>
+</body>
+</html>
