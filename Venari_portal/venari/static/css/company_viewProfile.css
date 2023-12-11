@@ -1,0 +1,73 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+body{
+    background-image: url("blob1.jpg");
+    background-size: cover; /* Adjust as needed */
+    background-repeat: no-repeat; /* Prevent the image from repeating */
+    background-position: center; 
+  }
+.company-card {
+    width: 80%; /* Adjust the width as needed */
+    max-width: 600px; /* Set a maximum width if needed */
+    margin: 0 auto; /* Center the card */
+    padding: 50px; /* Add padding as needed */
+    border-radius: 30px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid #f1f1f1 !important;
+    background-color: #ce8fdb,
+    transparent;
+    box-shadow: 0 2px 5px #adc5e3;
+}
+
+.company-logo {
+    /* Styles for the company logo image */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 6rem;
+    height: 6rem;
+    /* Add other styles as needed */
+}
+
+.company-details {
+    /* Styles for the company details section */
+    /* Use Bootstrap classes for flexbox and spacing utilities */
+}
+
+.company-details #fName {
+    /* Styles for the company first name */
+    font-weight: bold;
+    font-size: 30px;
+}
+
+.company-details #lName {
+    /* Styles for the company last name */
+    /* Add other styles as needed */
+}
+
+.company-details .text-gray-500 {
+    /* Styles for the gray text details */
+    color: gray;
+    font-size: 0.875rem; /* Adjust the font size as needed */
+    /* Add other styles as needed */
+}
+
+.company-details hr.my-3 {
+    /* Styles for the horizontal rule */
+    border: 1px solid gray;
+    /* Add other styles as needed */
+}
+
+.company-details .font-weight-bold.mb-2.text-2xl {
+    /* Styles for the bold text headings */
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    font-size: 1.5rem; 
+}
+.company-description{
+    font-size: 12px;
+}
