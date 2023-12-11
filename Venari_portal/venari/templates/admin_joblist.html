@@ -41,7 +41,7 @@
                                             </div>
 
                                             <div class="flex-grow-1 text-start">
-                                                <h1 class="card-title mb-0 pb-0">400</h1>
+                                                <h1 class="card-title mb-0 pb-0">{{job.active_pos}}</h1>
                                                 <p class="text-muted dash-card-label pt-0 pb-0 mb-0">
                                                     Active Posts
                                                 </p>
@@ -74,159 +74,96 @@
 
             <!-- Table -->
             <div class="card border-0 overflow-auto p-2 p-lg-4 flex-grow-1 comp-list-cards" style="height: 417px;"
-            id="job-list-table-card">
-                <table class="table-auto w-full text-center">
-                    <thead class="bg-red-500 text-white">
-                        <tr>
-                            <th class="px-4 py-3">Job Title</th>
-                            <th class="px-4 py-3">Company Name</th>
-                            <th class="px-4 py-3">Number of Applicants</th>
-                            <th class="px-4 py-3">Date Posted</th>
-                            <th class="px-4 py-3">Status</th>
-                            <th class="px-4 py-3"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td
-                                class="border-b border-red-300 text-red-600 pl-2 sm:pl-4 pr-1 sm:pr-2 py-1 sm:py-2 text-sm sm:text-base">
-                                Technician II / III</td>
-                            <td
-                                class="border-b border-red-300 text-red-600 px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-base">
-                                Jollibee Hagonoy Branch</td>
-                            <td
-                                class="border-b border-red-300 text-red-600 px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-base">
-                                162 Applicants</td>
-                            <td
-                                class="border-b border-red-300 text-red-600 px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-base">
-                                10-01-22</td>
-                            <td class="border-b border-red-300 px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-base">
-                                <button class="bg-purple-500 px-1 text-white rounded">Completed</button>
-                            </td>
-                            <td class="border-b border-red-300 pl-2 sm:pl-4 pr-1 sm:pr-2 py-1 sm:py-2">
-                                <button class="menuButton flex space-x-1 pr-5">
-                                    <div class="w-1 h-1 bg-gray-500 rounded-full"></div>
-                                    <div class="w-1 h-1 bg-gray-500 rounded-full"></div>
-                                    <div class="w-1 h-1 bg-gray-500 rounded-full"></div>
-                                </button>
+                id="job-list-table-card">
 
-                                <div class="menu absolute bg-white text-gray-700 text-sm rounded shadow-lg hidden">
-                                    <ul>
-                                        <li class="border-b border-gray-300 py-1 px-2">Activate</li>
-                                        <li class="border-b border-gray-300 py-1 px-2">Deactivate</li>
-                                        <li class="border-b border-gray-300 py-1 px-2">Edit</li>
-                                    </ul>
-                                </div>
-                            </td>
-                        </tr>
-                        <!-- More rows... -->
-                        <tr>
-                            <td
-                                class="border-b border-red-300 text-red-600 pl-2 sm:pl-4 pr-1 sm:pr-2 py-1 sm:py-2 text-sm sm:text-base">
-                                Farmer in Canada</td>
-                            <td
-                                class="border-b border-red-300 text-red-600 px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-base">
-                                Canada Republic</td>
-                            <td
-                                class="border-b border-red-300 text-red-600 px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-base">
-                                162 Applicants</td>
-                            <td
-                                class="border-b border-red-300 text-red-600 px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-base">
-                                01-12-23</td>
-                            <td class="border-b border-red-300 px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-base">
-                                <button class="bg-green-500 px-6 text-white rounded">Active</button>
-                            </td>
-                            <td class="border-b border-red-300 pl-2 sm:pl-4 pr-1 sm:pr-2 py-1 sm:py-2">
-                                <button class="menuButton flex space-x-1 pr-5">
-                                    <div class="w-1 h-1 bg-gray-500 rounded-full"></div>
-                                    <div class="w-1 h-1 bg-gray-500 rounded-full"></div>
-                                    <div class="w-1 h-1 bg-gray-500 rounded-full"></div>
-                                </button>
-
-                                <div class="menu absolute bg-white text-gray-700 text-sm rounded shadow-lg hidden">
-                                    <ul>
-                                        <li class="border-b border-gray-300 py-1 px-2">Activate</li>
-                                        <li class="border-b border-gray-300 py-1 px-2">Deactivate</li>
-                                        <li class="border-b border-gray-300 py-1 px-2">Edit</li>
-                                    </ul>
-                                </div>
-                            </td>
-                        </tr>
-                        <!-- More rows... -->
-                        <tr>
-                            <td class="text-red-600 pl-2 sm:pl-4 pr-1 sm:pr-2 py-1 sm:py-2 text-sm sm:text-base">Traffic
-                                Enforcer</td>
-                            <td class="text-red-600 px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-base">SM Mindanao</td>
-                            <td class="text-red-600 px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-base">862 Applicants</td>
-                            <td class="text-red-600 px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-base">12-22-22</td>
-                            <td class="px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-base">
-                                <button class="bg-red-600 px-5 text-white rounded">Inactive</button>
-                            </td>
-                            <td class="pl-2 sm:pl-4 pr-1 sm:pr-2 py-1 sm:py-2">
-                                <button class="menuButton flex space-x-1 pr-5">
-                                    <div class="w-1 h-1 bg-gray-500 rounded-full"></div>
-                                    <div class="w-1 h-1 bg-gray-500 rounded-full"></div>
-                                    <div class="w-1 h-1 bg-gray-500 rounded-full"></div>
-                                </button>
-
-                                <div class="menu absolute bg-white text-gray-700 text-sm rounded shadow-lg hidden">
-                                    <ul>
-                                        <li class="border-b border-gray-300 py-1 px-2">Activate</li>
-                                        <li class="border-b border-gray-300 py-1 px-2">Deactivate</li>
-                                        <li class="border-b border-gray-300 py-1 px-2">Edit</li>
-                                    </ul>
-                                </div>
-                            </td>
-                        </tr>
+                <div class="container mt-4">
+                    {% for message in messages %}
+                    <div class="alert alert-success" id="msg" role="alert">
+                        {{ message }}
+                    </div>
+                    {% endfor %}
+                    <table class="table table-hover" id="job_list_admin">
+                        <thead>
+                            <tr>
+                                <th>Job Title</th>
+                                <th>Company Name</th>
+                                <th>Job Type</th>
+                                <th>Date Created</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                                <th>Change Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for job in jobs %}
+                            <tr>
+                                <td>{{job.title}}</td>
+                                <td>{{job.company.company_name}}</td>
+                                <td>{{job.jobtype}}</td>
+                                <td>{{job.creation_date}}</td>
+                                <td>{{job.status}}</td>
+                                <td>
+                                    <div class="row justify-content-center align-items-center g-2">
+                                        <div class="col">
+                                            <a href="/admin_edit_jobpost/{{job.id}}/" class="btn btn-primary"
+                                                title="Edit"><i class="bi-pencil-fill"></i>
+                                            </a>
+                                        </div>
+                                        <div class="col">
+                                            <a href="/admin_delete_postjob/{{job.id}}/" class="btn btn-danger"
+                                                title="Delete"><i class="bi-trash-fill"></i>
+                                            </a>
+                                        </div>
+                                    </div>
 
 
-                        <script>
-                            var menuButtons = document.querySelectorAll('.menuButton');
-                            menuButtons.forEach(function (button) {
-                                button.addEventListener('click', function () {
-                                    var menu = this.nextElementSibling;
-                                    menu.classList.toggle('hidden');
-                                });
-                            });
-                        </script>
-                    </tbody>
-                </table>
+                                </td>
+
+                                <td>
+                                    <!-- <a href="/admin_changejob_status/{{job.id}}/" class="btn btn-warning">
+                                        <i class="bi-pencil-square"></i>
+                                    </a> -->
+
+                                    <!-- ========== Start Activate/Deactivate Button ========== -->
+                                    <div class="row justify-content-center align-items-center g-2">
+                                        {% if job.status != 'Activate' %}
+                                        <div class="col-6" title="View">
+                                            <button id="activateButton"
+                                                class=" activateButton btn col-12 btn-primary btn-sm"
+                                                data-bs-toggle="modal" data-bs-target="#activateModal"
+                                                data-post-id="{{post.id}}" data-status="Activate">
+                                                <i class="bi bi-check-lg">
+                                                </i>
+                                            </button>
+                                        </div>
+                                        {% endif %}
+                                        {% if job.status == 'Activate' %}
+                                        <div class="col-6" title="Deactivate">
+                                            <button id="deactivateButton" role="button"
+                                                class="btn col-12 btn-danger btn-sm" data-bs-toggle="modal"
+                                                data-bs-target="#deactivateModal" data-post-id="{{post.id}}"
+                                                data-status="Deactivate">
+                                                <i class="bi bi-x-lg">
+                                                </i>
+                                            </button>
+                                        </div>
+                                        {% endif %}
+                                    </div>
+                                    <!-- ========== End Activate/Deactivate Button ========== -->
+                                </td>
+
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
             </div><!-- Table -->
 
-            <div class="container mt-4">
-                {% for message in messages %}
-                <div class="alert alert-success" id="msg" role="alert">
-                    {{ message }}
-                </div>
-                {% endfor %}
-                <table class="table table-hover" id="job_list_admin">
-                    <thead>
-                        <tr>
-                            <th>Job Title</th>
-                            <th>Job Type</th>
-                            <th>Created On</th>
-                            <th>Status</th>
-                            <th>Action</th>
-                            <th>Change Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for job in jobs %}
-                        <tr>
-                            <td>{{job.title}}</td>
-                            <td>{{job.jobtype}}</td>
-                            <td>{{job.creation_date}}</td>
-                            <td>{{job.status}}</td>
-                            <td><a href="/admin_edit_jobpost/{{job.id}}/" class="btn btn-success"
-                                    title="Edit">Edit</a><a href="/admin_delete_postjob/{{job.id}}/"
-                                    class="btn btn-danger" title="Delete">Delete</a></td>
-                            <td><a href="/admin_changejob_status/{{job.id}}/" class="btn btn-warning">Change Status</a>
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
+
+
+
+
             <script>
                 $(document).ready(function () {
                     $('#job_list_admin').DataTable({
@@ -331,27 +268,73 @@
 
             <!-- Pagination -->
             <div class="mt-3">
-                <div class="flex items-center">
-                    <div class="flex mt-5 border border-gray-300 rounded-md">
-                        <button
-                            class="px-4 py-1 text-gray-500 bg-gray-200 rounded-l-md flex-shrink-0 border-r border-gray-300">Previous</button>
-                        <button class="px-2 py-1 text-red-500 rounded-l-md border-r border-gray-300">1</button>
-                        <button class="px-2 py-1 text-red-500 rounded-l-md border-r border-gray-300">2</button>
-                        <button class="px-2 py-1 text-red-500 rounded-l-md border-r border-gray-300">3</button>
-                        <button class="px-4 py-1 text-red-500 rounded-r-md">Next</button>
-                    </div>
-
-                    <div class="ml-auto italic flex text-red-500">
-                        <div>Page</div>
-                        <div class="ml-1">1</div>
-                        <div class="ml-1">of</div>
-                        <div class="ml-1">50</div>
-                    </div>
-                </div>
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-end">
+                        <li class="page-item disabled">
+                            <a class="page-link">Previous</a>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="#">Next</a>
+                        </li>
+                    </ul>
+                </nav>
             </div>
 
         </div>
     </div>
+
+
+        <!-- Activate modal -->
+        <div class="modal fade" id="activateModal" tabindex="-1" role="dialog" aria-labelledby="activateModalTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="activateModalTitle">
+                        Activate this post
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Do you want to activate this post?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        No
+                    </button>
+                    <button type="button" id="confirm_activation" class="btn btn-primary">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Deactivate modal -->
+    <div class="modal fade" id="deactivateModal" tabindex="-1" role="dialog" aria-labelledby="deactivateModalTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deactivateModalTitle">
+                        Dectivate this post
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Do you want to deactivate this post?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        No
+                    </button>
+                    <button type="button" id="confirm_deactivation" class="btn btn-primary">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 
 

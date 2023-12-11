@@ -120,92 +120,36 @@ see more-->
           <div class="col-md-3 mt-4">
             <div class="form-group">
               <div class="dropdown">
-                <button class="btn btn-outline btn-block dropdown-toggle" type="button" id="salaryGradeDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                  Salary Grade
-                </button>
-                <div class="dropdown-menu" aria-labelledby="salaryGradeDropdown">
-                  <ul class="nav nav-tabs" id="salaryTabs" role="tablist">
-                    <li class="nav-item">
-                      <a class="nav-link active" id="hourly-tab" data-bs-toggle="tab" href="#hourly" role="tab" aria-controls="hourly" aria-selected="true">Hourly</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" id="monthly-tab" data-bs-toggle="tab" href="#monthly" role="tab" aria-controls="monthly" aria-selected="false">Monthly</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" id="annual-tab" data-bs-toggle="tab" href="#annual" role="tab" aria-controls="annual" aria-selected="false">Annually</a>
-                    </li>
-                  </ul>
-          
-                  <!-- Tab panes inside dropdown -->
-                  <div class="tab-content" id="salaryTabsContent">
-                    <div class="tab-pane fade show active" id="hourly" role="tabpanel" aria-labelledby="hourly-tab">
-                      <!-- Content for Hourly tab -->
+                  <button class="btn btn-outline btn-block dropdown-toggle" type="button" id="employmentTypeDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                      Salary Grade
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="employmentTypeDropdown">
                       <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="0" id="hourlyCheckbox0">
-                        <label class="form-check-label" for="hourlyCheckbox0">0</label>
+                          <input class="form-check-input" type="radio" name="employmentType" value="Full-Time" id="fullTimeRadio">
+                          <label class="form-check-label" for="fullTimeRadio">350</label>
                       </div>
                       <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="50" id="hourlyCheckbox50">
-                        <label class="form-check-label" for="hourlyCheckbox50">50</label>
+                          <input class="form-check-input" type="radio" name="employmentType" value="Part-Time" id="partTimeRadio">
+                          <label class="form-check-label" for="partTimeRadio">1k</label>
                       </div>
                       <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="100" id="hourlyCheckbox100">
-                        <label class="form-check-label" for="hourlyCheckbox100">100</label>
-                      </div>
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="150" id="hourlyCheckbox150">
-                        <label class="form-check-label" for="hourlyCheckbox150">150</label>
-                      </div>
+                        <input class="form-check-input" type="radio" name="employmentType" value="Part-Time" id="partTimeRadio">
+                        <label class="form-check-label" for="partTimeRadio">5k</label>
                     </div>
-          
-                    <div class="tab-pane fade" id="monthly" role="tabpanel" aria-labelledby="monthly-tab">
-                      <!-- Content for Monthly tab -->
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="1k" id="monthlyCheckbox1k">
-                        <label class="form-check-label" for="monthlyCheckbox1k">1k</label>
-                      </div>
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="5k" id="monthlyCheckbox5k">
-                        <label class="form-check-label" for="monthlyCheckbox5k">5k</label>
-                      </div>
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="10k" id="monthlyCheckbox10k">
-                        <label class="form-check-label" for="monthlyCheckbox10k">10k</label>
-                      </div>
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="20k" id="monthlyCheckbox20k">
-                        <label class="form-check-label" for="monthlyCheckbox20k">20k</label>
-                      </div>
-                    </div>
-          
-                    <div class="tab-pane fade" id="annual" role="tabpanel" aria-labelledby="annual-tab">
-                      <!-- Content for Annual tab -->
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="20k" id="annualCheckbox20k">
-                        <label class="form-check-label" for="annualCheckbox20k">20k</label>
-                      </div>
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="40k" id="annualCheckbox40k">
-                        <label class="form-check-label" for="annualCheckbox40k">40k</label>
-                      </div>
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="50k" id="annualCheckbox50k">
-                        <label class="form-check-label" for="annualCheckbox50k">50k</label>
-                      </div>
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="60k" id="annualCheckbox60k">
-                        <label class="form-check-label" for="annualCheckbox60k">60k</label>
-                      </div>
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="100k" id="annualCheckbox100k">
-                        <label class="form-check-label" for="annualCheckbox100k">100k</label>
-                      </div>
-                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="employmentType" value="Part-Time" id="partTimeRadio">
+                      <label class="form-check-label" for="partTimeRadio">10k</label>
                   </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="employmentType" value="Part-Time" id="partTimeRadio">
+                    <label class="form-check-label" for="partTimeRadio">20k+</label>
                 </div>
+                      <!-- Add your options for Employment Type -->
+                  </div>
               </div>
-            </div>
           </div>
+        </div>
+        
           <div class="col-md-3 mt-4">
             <div class="form-group">
               <div class="dropdown-country">
