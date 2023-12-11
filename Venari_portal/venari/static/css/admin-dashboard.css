@@ -20,8 +20,16 @@
 }
 
 body {
-    background: linear-gradient(to left, rgba(137, 141, 255, 0.1), rgba(223, 90, 255, 0.1));
+    /* background: linear-gradient(to left, rgba(137, 141, 255, 0.1), rgba(223, 90, 255, 0.1)); */
     /* backdrop-filter: 20px; */
+    background-image: url(./../css/images/blobBG.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+  
+
+
     color: #20272F;
     min-height: 100vh;
     font-family: 'Poppins', sans-serif;
@@ -122,14 +130,14 @@ body {
 }
 
 #dash-card2 {
-    background: rgba(137, 141, 255, 0.15);
+    background: rgba(137, 141, 255, 0.1);
     color: rgba(32, 39, 47, 0.75);
 
     border: 1px solid #f1f1f1 !important;
 }
 
 #dash-card3 {
-    background: rgba(251, 103, 95, 0.18);
+    background: rgba(251, 103, 95, 0.1);
     color: rgba(32, 39, 47, 0.75);
 
     border: 1px solid #f1f1f1 !important;
@@ -153,9 +161,10 @@ body {
 #dash-card5 {
     /* background:rgb(32, 39, 47); */
     /* color: rgba(32, 39, 47, 0.75); color:white; */
-    background-color: rgba(255, 255, 255, 0.7);
+    background-color: rgba(255, 255, 255, 0.3);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
+    border: 1px solid #f1f1f1 !important;
 
 }
 
@@ -194,7 +203,7 @@ body {
     position: relative;
     display: inline-block;
     padding: 10px;
-
+    border-radius: 15px !important;
 }
 
 .dash-cards:hover {
@@ -219,6 +228,7 @@ body {
     height: 100%;
     display: block;
 }
+
 #companiesListPicContainer {
     width: 20px;
     height: 20px;
@@ -228,13 +238,14 @@ body {
     justify-content: center;
     align-items: center;
 }
+
 .user-list-card {
     background: transparent !important;
 }
 
 #usersListPicContainer {
     width: 20px;
-    
+
     height: 20px;
     overflow: hidden;
     border-radius: 50%;

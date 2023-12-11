@@ -11,20 +11,20 @@
 
 #overlay1 {
     position: fixed;
-    height: 600px;
-    width: 600px;
+    height: 1000px;
+    width: 1000px;
     z-index: -1;
-    top: -8%;
-    left: 38%;
+    top: 28%;
+    left: 65%;
 }
 
 #overlay2 {
     position: fixed;
-    height: 250px;
-    width: 300px;
+    height: 600px;
+    width: 600px;
     z-index: -1;
     top: 6%;
-    left: 75%;
+    left: 25%;
 }
 
 

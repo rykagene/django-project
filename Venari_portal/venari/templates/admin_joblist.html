@@ -1,352 +1,360 @@
-<div class="container mt-4">
-    {% for message in messages %}
-        <div class="alert alert-success" id="msg" role="alert">
-            {{ message }}
-        </div>
-    {% endfor %}
-<table class="table table-hover" id="job_list_admin">
-    <thead>
-        <tr>
-            <th>Job Title</th>
-            <th>Job Type</th>
-            <th>Created On</th>
-            <th>Status</th>
-            <th>Action</th>
-            <th>Change Status</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for job in jobs %}
-        <tr>
-            <td>{{job.title}}</td>
-            <td>{{job.jobtype}}</td>
-            <td>{{job.creation_date}}</td>
-            <td>{{job.status}}</td>
-            <td><a href="/admin_edit_jobpost/{{job.id}}/" class="btn btn-success" title="Edit">Edit</a><a href="/admin_delete_postjob/{{job.id}}/" class="btn btn-danger" title="Delete">Delete</a></td>
-            <td><a href="/admin_changejob_status/{{job.id}}/" class="btn btn-warning">Change Status</a></td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
-</div>
-<script>
-    $(document).ready(function () {
-      $('#job_list_admin').DataTable({
-        order: [
-            [0, 'asc']
-        ],
-        dom: 'Bfrtip',
-        buttons: [
-        'copyHtml5',
-        'excelHtml5',
-        'csvHtml5',
-        'pdfHtml5'
-        ],
-        columnDefs: [{
-            'targets': [0, 1, 2 ,4],
-            'orderable': false,
-        }],
-        orderCellsTop: true,
-        initComplete: function() {
-
-            var table = this.api();
-
-            // Add filtering
-            table.columns(2).every(function() {
-                var column = this;
-
-                var select = $(
-                        '<select class="datatableselect"><option value="">Job Type</option></select>'
-                    )
-                    .appendTo($("thead tr:eq(0) th").eq(this.index()))
-                    .on('change', function() {
-                        var val = $.fn.dataTable.util.escapeRegex(
-                            $(this).val()
-                        );
-
-                        column
-                            .search(val ? '^' + val + '$' : '', true, false)
-                            .draw();
-                    });
-
-                column.data().unique().sort().each(function(d, j) {
-                    select.append('<option value="' + d + '">' + d +
-                        '</option>')
-                });
-
-            });
-            table.columns(1).every(function() {
-                var column = this;
-
-                var select = $(
-                        '<select class="datatableselect"><option value="">Job Title</option></select>'
-                    )
-                    .appendTo($("thead tr:eq(0) th").eq(this.index()))
-                    .on('change', function() {
-                        var val = $.fn.dataTable.util.escapeRegex(
-                            $(this).val()
-                        );
-
-                        column
-                            .search(val ? '^' + val + '$' : '', true, false)
-                            .draw();
-                    });
-
-                column.data().unique().sort().each(function(d, j) {
-                    select.append('<option value="' + d + '">' + d +
-                        '</option>')
-                });
-
-            });
-            table.columns(4).every(function() {
-                var column = this;
-
-                var select = $(
-                        '<select class="datatableselect"><option value="">Status</option></select>'
-                    )
-                    .appendTo($("thead tr:eq(0) th").eq(this.index()))
-                    .on('change', function() {
-                        var val = $.fn.dataTable.util.escapeRegex(
-                            $(this).val()
-                        );
-
-                        column
-                            .search(val ? '^' + val + '$' : '', true, false)
-                            .draw();
-                    });
-
-                column.data().unique().sort().each(function(d, j) {
-                    select.append('<option value="' + d + '">' + d +
-                        '</option>')
-                });
-
-            });
-        }
-      })
-    });
-</script>
-
-
-
 {% comment %} =========================================================== {% endcomment %}
 
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.1.2/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./../static/css/admin_joblist.css">
 
-    
 </head>
-<body class="flex">
+
+<body class="">
     <!-- Sidebar -->
-    
-    <div class="flex bg-pink-50">
 
-        <div id="sidebar" class="shadow-right w-full sm:w-64 space-y-6 py-7 px-2 flex flex-col h-screen sm:block">
-            <div class="flex flex-col h-full py-5">
-                <img src="imgs/dp.png" class="mt-10 w-20 h-20 mx-auto block">        
-                <h2 class="text-2xl font-semibold text-center">John Doe</h2>
-                <nav class="space-y-1">
-                    <a href="#" class="block py-2.5 mt-5 transition duration-200 text-red-600 hover:bg-blue-700 border-b border-red-200 flex items-center space-x-2">
-                        <img src="imgs/fb-icon.png" alt="Icon 1" class="w-6 h-6 ml-5">
-                        <span>Manage Companies</span>
-                    </a>
-            
-                    <a href="#" class="block py-2.5 transition duration-200 text-red-600 hover:bg-blue-700 border-b border-red-200 flex items-center space-x-2">
-                        <img src="imgs/fb-icon.png" alt="Icon 1" class="w-6 h-6 ml-5">
-                        <span>Job Listings</span>
-                    </a>
-            
-                    <a href="#" class="block py-2.5 transition duration-200 text-red-600 hover:bg-blue-700 border-b border-red-200 flex items-center space-x-2">
-                        <img src="imgs/fb-icon.png" alt="Icon 1" class="w-6 h-6 ml-5">
-                        <span>Job Seekers</span>
-                    </a>
+    <div>
 
-                    <a href="#" class="block py-2.5 transition duration-200 text-red-600 hover:bg-blue-700 border-b border-red-200 flex items-center space-x-2">
-                        <img src="imgs/fb-icon.png" alt="Icon 1" class="w-6 h-6 ml-5">
-                        <span>Report Generation</span>
-                    </a>
+        {% include 'adminSB_NB.html' %}
 
-                </nav>
-            
-                <button class="inline-block text-white font-semibold flex rounded-full bg-red-500 mx-auto mt-auto px-3 py-1 items-center">
-                    Logout
-                    <img src="/imgs/fb-icon.png" alt="Icon 1" class="w-3 h-3 ml-2">
-                </button>
-            </div>
-            
-        </div>
-        
     </div>
 
+    <div id="admin-joblist-main">
 
-    <!-- Main content -->
-    <div class="flex-1 flex flex-col overflow-hidden h-screen">
-        <main class="flex-1 overflow-x-hidden overflow-y-auto bg-pink-100">
-            <div class="flex items-center bg-white w-full h-14">
-                <div class="ml-auto text-red-400 mr-10 italic font-semibold">
-                    Welcome, John!
+
+        <div class="container mx-auto py-1">
+
+            <div class="card job-list-cards" id="head-parent-card">
+                <div class="row justify-content-center align-items-center g-2">
+                    <div class="col-md-4">
+                        <div class="col-12">
+                            <div class="card border-0 d-flex flex-row align-items-center job-list-cards"
+                                style="min-height: 175px;" id="job-list-card1">
+                                <div class="row g-0">
+                                    <div class="card-body">
+
+                                        <div class="d-flex align-items-center">
+                                            <div class="flex-shrink-0 fs-4 me-3 pb-0">
+                                                <i class="bi bi-newspaper"></i>
+                                            </div>
+
+                                            <div class="flex-grow-1 text-start">
+                                                <h1 class="card-title mb-0 pb-0">400</h1>
+                                                <p class="text-muted dash-card-label pt-0 pb-0 mb-0">
+                                                    Active Posts
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8 ps-md-2">
+                        <h3 class="fw-bolder mb-4" id="headJobList">
+                            Job Listings</h3>
+
+
+                        <div class="col-12">
+                            <!-- Search -->
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="" aria-label="Button"
+                                    aria-describedby="" />
+                                <button class="btn btn-secondary" type="button" id="job-list-search-btn">
+                                    <i class="bi bi-search"></i><span class="ms-2 d-none d-md-inline">Search</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
 
+            <!-- Table -->
+            <div class="card border-0 overflow-auto p-2 p-lg-4 flex-grow-1 comp-list-cards" style="height: 417px;"
+            id="job-list-table-card">
+                <table class="table-auto w-full text-center">
+                    <thead class="bg-red-500 text-white">
+                        <tr>
+                            <th class="px-4 py-3">Job Title</th>
+                            <th class="px-4 py-3">Company Name</th>
+                            <th class="px-4 py-3">Number of Applicants</th>
+                            <th class="px-4 py-3">Date Posted</th>
+                            <th class="px-4 py-3">Status</th>
+                            <th class="px-4 py-3"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td
+                                class="border-b border-red-300 text-red-600 pl-2 sm:pl-4 pr-1 sm:pr-2 py-1 sm:py-2 text-sm sm:text-base">
+                                Technician II / III</td>
+                            <td
+                                class="border-b border-red-300 text-red-600 px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-base">
+                                Jollibee Hagonoy Branch</td>
+                            <td
+                                class="border-b border-red-300 text-red-600 px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-base">
+                                162 Applicants</td>
+                            <td
+                                class="border-b border-red-300 text-red-600 px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-base">
+                                10-01-22</td>
+                            <td class="border-b border-red-300 px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-base">
+                                <button class="bg-purple-500 px-1 text-white rounded">Completed</button>
+                            </td>
+                            <td class="border-b border-red-300 pl-2 sm:pl-4 pr-1 sm:pr-2 py-1 sm:py-2">
+                                <button class="menuButton flex space-x-1 pr-5">
+                                    <div class="w-1 h-1 bg-gray-500 rounded-full"></div>
+                                    <div class="w-1 h-1 bg-gray-500 rounded-full"></div>
+                                    <div class="w-1 h-1 bg-gray-500 rounded-full"></div>
+                                </button>
 
-            <div class="container mx-auto px-6 py-8">
-                <h3 class="text-gray-700 text-2xl sm:text-3xl md:text-3xl lg:text-3xl font-semibold">Job Listings</h3>
-                
-                <div class="flex font-light my-2 text-xs sm:text-lg md:text-lg lg:text-lg whitespace-nowrap">
-                    <p class="">The current number of job posted are</p>
-                    <p class="ml-1">400.</p>
-                </div>
+                                <div class="menu absolute bg-white text-gray-700 text-sm rounded shadow-lg hidden">
+                                    <ul>
+                                        <li class="border-b border-gray-300 py-1 px-2">Activate</li>
+                                        <li class="border-b border-gray-300 py-1 px-2">Deactivate</li>
+                                        <li class="border-b border-gray-300 py-1 px-2">Edit</li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                        <!-- More rows... -->
+                        <tr>
+                            <td
+                                class="border-b border-red-300 text-red-600 pl-2 sm:pl-4 pr-1 sm:pr-2 py-1 sm:py-2 text-sm sm:text-base">
+                                Farmer in Canada</td>
+                            <td
+                                class="border-b border-red-300 text-red-600 px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-base">
+                                Canada Republic</td>
+                            <td
+                                class="border-b border-red-300 text-red-600 px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-base">
+                                162 Applicants</td>
+                            <td
+                                class="border-b border-red-300 text-red-600 px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-base">
+                                01-12-23</td>
+                            <td class="border-b border-red-300 px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-base">
+                                <button class="bg-green-500 px-6 text-white rounded">Active</button>
+                            </td>
+                            <td class="border-b border-red-300 pl-2 sm:pl-4 pr-1 sm:pr-2 py-1 sm:py-2">
+                                <button class="menuButton flex space-x-1 pr-5">
+                                    <div class="w-1 h-1 bg-gray-500 rounded-full"></div>
+                                    <div class="w-1 h-1 bg-gray-500 rounded-full"></div>
+                                    <div class="w-1 h-1 bg-gray-500 rounded-full"></div>
+                                </button>
 
-                <div class="flex">
-                    <div class="border border-red-500 rounded-lg flex w-full sm:w-1/2 md:w-2/3 lg:w-2/6 bg-white overflow-hidden">
-                        <input placeholder="Name of Company, Job Title..." class="w-full p-2 focus:outline-none">
-                        <button class="bg-red-500 rounded-lg w-20 flex items-center justify-center">
-                            <img src="imgs/searchIcon.png" alt="Search" class="w-6 h-6">
-                        </button>
-                    </div>
+                                <div class="menu absolute bg-white text-gray-700 text-sm rounded shadow-lg hidden">
+                                    <ul>
+                                        <li class="border-b border-gray-300 py-1 px-2">Activate</li>
+                                        <li class="border-b border-gray-300 py-1 px-2">Deactivate</li>
+                                        <li class="border-b border-gray-300 py-1 px-2">Edit</li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                        <!-- More rows... -->
+                        <tr>
+                            <td class="text-red-600 pl-2 sm:pl-4 pr-1 sm:pr-2 py-1 sm:py-2 text-sm sm:text-base">Traffic
+                                Enforcer</td>
+                            <td class="text-red-600 px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-base">SM Mindanao</td>
+                            <td class="text-red-600 px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-base">862 Applicants</td>
+                            <td class="text-red-600 px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-base">12-22-22</td>
+                            <td class="px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-base">
+                                <button class="bg-red-600 px-5 text-white rounded">Inactive</button>
+                            </td>
+                            <td class="pl-2 sm:pl-4 pr-1 sm:pr-2 py-1 sm:py-2">
+                                <button class="menuButton flex space-x-1 pr-5">
+                                    <div class="w-1 h-1 bg-gray-500 rounded-full"></div>
+                                    <div class="w-1 h-1 bg-gray-500 rounded-full"></div>
+                                    <div class="w-1 h-1 bg-gray-500 rounded-full"></div>
+                                </button>
 
-                    <button class=" ml-3 px-7 py-1 text-white bg-red-500 rounded-md">
-                        Filter
-                    </button>
-                </div>
-
-            
-
-
-                <!-- Table -->
-                <div class="mt-5 rounded-lg overflow-hidden border border-red-500 overflow-x-auto">
-                    <table class="table-auto w-full text-center">
-                        <thead class="bg-red-500 text-white">
-                            <tr>
-                                <th class="px-4 py-3">Job Title</th>
-                                <th class="px-4 py-3">Company Name</th>
-                                <th class="px-4 py-3">Number of Applicants</th>
-                                <th class="px-4 py-3">Date Posted</th>
-                                <th class="px-4 py-3">Status</th>
-                                <th class="px-4 py-3"></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="border-b border-red-300 text-red-600 pl-2 sm:pl-4 pr-1 sm:pr-2 py-1 sm:py-2 text-sm sm:text-base">Technician II / III</td>
-                                <td class="border-b border-red-300 text-red-600 px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-base">Jollibee Hagonoy Branch</td>
-                                <td class="border-b border-red-300 text-red-600 px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-base">162 Applicants</td>
-                                <td class="border-b border-red-300 text-red-600 px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-base">10-01-22</td>
-                                <td class="border-b border-red-300 px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-base">
-                                    <button class="bg-purple-500 px-1 text-white rounded">Completed</button>
-                                </td>
-                                <td class="border-b border-red-300 pl-2 sm:pl-4 pr-1 sm:pr-2 py-1 sm:py-2">
-                                    <button class="menuButton flex space-x-1 pr-5">
-                                        <div class="w-1 h-1 bg-gray-500 rounded-full"></div>
-                                        <div class="w-1 h-1 bg-gray-500 rounded-full"></div>
-                                        <div class="w-1 h-1 bg-gray-500 rounded-full"></div>
-                                    </button>
-
-                                    <div class="menu absolute bg-white text-gray-700 text-sm rounded shadow-lg hidden">
-                                        <ul>
-                                            <li class="border-b border-gray-300 py-1 px-2">Activate</li>
-                                            <li class="border-b border-gray-300 py-1 px-2">Deactivate</li>
-                                            <li class="border-b border-gray-300 py-1 px-2">Edit</li>
-                                        </ul>
-                                    </div>
-                                </td>
-                            </tr>
-                            <!-- More rows... -->
-                            <tr>
-                                <td class="border-b border-red-300 text-red-600 pl-2 sm:pl-4 pr-1 sm:pr-2 py-1 sm:py-2 text-sm sm:text-base">Farmer in Canada</td>
-                                <td class="border-b border-red-300 text-red-600 px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-base">Canada Republic</td>
-                                <td class="border-b border-red-300 text-red-600 px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-base">162 Applicants</td>
-                                <td class="border-b border-red-300 text-red-600 px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-base">01-12-23</td>
-                                <td class="border-b border-red-300 px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-base">
-                                    <button class="bg-green-500 px-6 text-white rounded">Active</button>
-                                </td>
-                                <td class="border-b border-red-300 pl-2 sm:pl-4 pr-1 sm:pr-2 py-1 sm:py-2">
-                                    <button class="menuButton flex space-x-1 pr-5">
-                                        <div class="w-1 h-1 bg-gray-500 rounded-full"></div>
-                                        <div class="w-1 h-1 bg-gray-500 rounded-full"></div>
-                                        <div class="w-1 h-1 bg-gray-500 rounded-full"></div>
-                                    </button>
-
-                                    <div class="menu absolute bg-white text-gray-700 text-sm rounded shadow-lg hidden">
-                                        <ul>
-                                            <li class="border-b border-gray-300 py-1 px-2">Activate</li>
-                                            <li class="border-b border-gray-300 py-1 px-2">Deactivate</li>
-                                            <li class="border-b border-gray-300 py-1 px-2">Edit</li>
-                                        </ul>
-                                    </div>
-                                </td>
-                            </tr>
-                            <!-- More rows... -->
-                            <tr>
-                                <td class="text-red-600 pl-2 sm:pl-4 pr-1 sm:pr-2 py-1 sm:py-2 text-sm sm:text-base">Traffic Enforcer</td>
-                                <td class="text-red-600 px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-base">SM Mindanao</td>
-                                <td class="text-red-600 px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-base">862 Applicants</td>
-                                <td class="text-red-600 px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-base">12-22-22</td>
-                                <td class="px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-base">
-                                    <button class="bg-red-600 px-5 text-white rounded">Inactive</button>
-                                </td>
-                                <td class="pl-2 sm:pl-4 pr-1 sm:pr-2 py-1 sm:py-2">
-                                    <button class="menuButton flex space-x-1 pr-5">
-                                        <div class="w-1 h-1 bg-gray-500 rounded-full"></div>
-                                        <div class="w-1 h-1 bg-gray-500 rounded-full"></div>
-                                        <div class="w-1 h-1 bg-gray-500 rounded-full"></div>
-                                    </button>
-
-                                    <div class="menu absolute bg-white text-gray-700 text-sm rounded shadow-lg hidden">
-                                        <ul>
-                                            <li class="border-b border-gray-300 py-1 px-2">Activate</li>
-                                            <li class="border-b border-gray-300 py-1 px-2">Deactivate</li>
-                                            <li class="border-b border-gray-300 py-1 px-2">Edit</li>
-                                        </ul>
-                                    </div>
-                                </td>
-                            </tr>
+                                <div class="menu absolute bg-white text-gray-700 text-sm rounded shadow-lg hidden">
+                                    <ul>
+                                        <li class="border-b border-gray-300 py-1 px-2">Activate</li>
+                                        <li class="border-b border-gray-300 py-1 px-2">Deactivate</li>
+                                        <li class="border-b border-gray-300 py-1 px-2">Edit</li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
 
 
-                            <script>
-                                var menuButtons = document.querySelectorAll('.menuButton');
-                                menuButtons.forEach(function(button) {
-                                    button.addEventListener('click', function() {
-                                        var menu = this.nextElementSibling;
-                                        menu.classList.toggle('hidden');
-                                    });
+                        <script>
+                            var menuButtons = document.querySelectorAll('.menuButton');
+                            menuButtons.forEach(function (button) {
+                                button.addEventListener('click', function () {
+                                    var menu = this.nextElementSibling;
+                                    menu.classList.toggle('hidden');
                                 });
-                            </script>
-                        </tbody>
-                    </table>
-                </div><!-- Table -->
+                            });
+                        </script>
+                    </tbody>
+                </table>
+            </div><!-- Table -->
+
+            <div class="container mt-4">
+                {% for message in messages %}
+                <div class="alert alert-success" id="msg" role="alert">
+                    {{ message }}
+                </div>
+                {% endfor %}
+                <table class="table table-hover" id="job_list_admin">
+                    <thead>
+                        <tr>
+                            <th>Job Title</th>
+                            <th>Job Type</th>
+                            <th>Created On</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                            <th>Change Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for job in jobs %}
+                        <tr>
+                            <td>{{job.title}}</td>
+                            <td>{{job.jobtype}}</td>
+                            <td>{{job.creation_date}}</td>
+                            <td>{{job.status}}</td>
+                            <td><a href="/admin_edit_jobpost/{{job.id}}/" class="btn btn-success"
+                                    title="Edit">Edit</a><a href="/admin_delete_postjob/{{job.id}}/"
+                                    class="btn btn-danger" title="Delete">Delete</a></td>
+                            <td><a href="/admin_changejob_status/{{job.id}}/" class="btn btn-warning">Change Status</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <script>
+                $(document).ready(function () {
+                    $('#job_list_admin').DataTable({
+                        order: [
+                            [0, 'asc']
+                        ],
+                        dom: 'Bfrtip',
+                        buttons: [
+                            'copyHtml5',
+                            'excelHtml5',
+                            'csvHtml5',
+                            'pdfHtml5'
+                        ],
+                        columnDefs: [{
+                            'targets': [0, 1, 2, 4],
+                            'orderable': false,
+                        }],
+                        orderCellsTop: true,
+                        initComplete: function () {
+
+                            var table = this.api();
+
+                            // Add filtering
+                            table.columns(2).every(function () {
+                                var column = this;
+
+                                var select = $(
+                                        '<select class="datatableselect"><option value="">Job Type</option></select>'
+                                    )
+                                    .appendTo($("thead tr:eq(0) th").eq(this.index()))
+                                    .on('change', function () {
+                                        var val = $.fn.dataTable.util.escapeRegex(
+                                            $(this).val()
+                                        );
+
+                                        column
+                                            .search(val ? '^' + val + '$' : '', true,
+                                                false)
+                                            .draw();
+                                    });
+
+                                column.data().unique().sort().each(function (d, j) {
+                                    select.append('<option value="' + d + '">' + d +
+                                        '</option>')
+                                });
+
+                            });
+                            table.columns(1).every(function () {
+                                var column = this;
+
+                                var select = $(
+                                        '<select class="datatableselect"><option value="">Job Title</option></select>'
+                                    )
+                                    .appendTo($("thead tr:eq(0) th").eq(this.index()))
+                                    .on('change', function () {
+                                        var val = $.fn.dataTable.util.escapeRegex(
+                                            $(this).val()
+                                        );
+
+                                        column
+                                            .search(val ? '^' + val + '$' : '', true,
+                                                false)
+                                            .draw();
+                                    });
+
+                                column.data().unique().sort().each(function (d, j) {
+                                    select.append('<option value="' + d + '">' + d +
+                                        '</option>')
+                                });
+
+                            });
+                            table.columns(4).every(function () {
+                                var column = this;
+
+                                var select = $(
+                                        '<select class="datatableselect"><option value="">Status</option></select>'
+                                    )
+                                    .appendTo($("thead tr:eq(0) th").eq(this.index()))
+                                    .on('change', function () {
+                                        var val = $.fn.dataTable.util.escapeRegex(
+                                            $(this).val()
+                                        );
+
+                                        column
+                                            .search(val ? '^' + val + '$' : '', true,
+                                                false)
+                                            .draw();
+                                    });
+
+                                column.data().unique().sort().each(function (d, j) {
+                                    select.append('<option value="' + d + '">' + d +
+                                        '</option>')
+                                });
+
+                            });
+                        }
+                    })
+                });
+            </script>
 
 
 
-                <!-- Pagination -->
-                <div class="mt-3">
-                    <div class="flex items-center">
-                        <div class="flex mt-5 border border-gray-300 rounded-md">
-                            <button class="px-4 py-1 text-gray-500 bg-gray-200 rounded-l-md flex-shrink-0 border-r border-gray-300">Previous</button>
-                            <button class="px-2 py-1 text-red-500 rounded-l-md border-r border-gray-300">1</button>
-                            <button class="px-2 py-1 text-red-500 rounded-l-md border-r border-gray-300">2</button>
-                            <button class="px-2 py-1 text-red-500 rounded-l-md border-r border-gray-300">3</button>
-                            <button class="px-4 py-1 text-red-500 rounded-r-md">Next</button>
-                        </div>
-                
-                        <div class="ml-auto italic flex text-red-500">
-                            <div>Page</div>
-                            <div class="ml-1">1</div>
-                            <div class="ml-1">of</div>
-                            <div class="ml-1">50</div>
-                        </div>
+            <!-- Pagination -->
+            <div class="mt-3">
+                <div class="flex items-center">
+                    <div class="flex mt-5 border border-gray-300 rounded-md">
+                        <button
+                            class="px-4 py-1 text-gray-500 bg-gray-200 rounded-l-md flex-shrink-0 border-r border-gray-300">Previous</button>
+                        <button class="px-2 py-1 text-red-500 rounded-l-md border-r border-gray-300">1</button>
+                        <button class="px-2 py-1 text-red-500 rounded-l-md border-r border-gray-300">2</button>
+                        <button class="px-2 py-1 text-red-500 rounded-l-md border-r border-gray-300">3</button>
+                        <button class="px-4 py-1 text-red-500 rounded-r-md">Next</button>
+                    </div>
+
+                    <div class="ml-auto italic flex text-red-500">
+                        <div>Page</div>
+                        <div class="ml-1">1</div>
+                        <div class="ml-1">of</div>
+                        <div class="ml-1">50</div>
                     </div>
                 </div>
-                
             </div>
-        </main>
+
+        </div>
     </div>
+
 
 
 </body>
+
 </html>

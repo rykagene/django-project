@@ -1,5 +1,12 @@
 body {
-    background: linear-gradient(to left, rgba(137, 141, 255, 0.1), rgba(223, 90, 255, 0.1));
+    /* background: linear-gradient(to left, rgba(137, 141, 255, 0.1), rgba(223, 90, 255, 0.1)); */
+    background-image: url(./../css/images/blobBG.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+  
+    
     /* backdrop-filter: 20px; */
     color: #20272F;
     min-height: 100vh;
@@ -32,9 +39,10 @@ body {
 #comp-list-table-card {
     /* background:rgb(32, 39, 47); */
     /* color: rgba(32, 39, 47, 0.75); color:white; */
-    background-color: rgba(255, 255, 255, 0.7);
+    background-color: rgba(255, 255, 255, 0.3);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
+    border: 1px solid #f1f1f1 !important;
 
 }
 
@@ -44,13 +52,11 @@ table#comp_list_table td {
 }
 table#comp_list_table thead{
     position: sticky;
-    top: -7%;
-    background-color: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(10px);
+    top: 0;
 }
 
 #comp-list-card1 {
-    background: rgba(137, 141, 255, 0.15) !important;
+    background: rgba(137, 141, 255, 0.1) !important;
     color: rgba(32, 39, 47, 0.75) !important;
 
     border: 1px solid #f1f1f1 !important;
@@ -59,17 +65,18 @@ table#comp_list_table thead{
     overflow: hidden !important;
     box-shadow: rgba(0, 0, 0, 0.1) -4px 9px 25px -6px;
 
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
     /* box-shadow: rgba(0, 0, 0, 0.37) 0px 8px 32px 0; */
     position: relative;
     display: inline-block;
     padding: 10px;
+    border-radius: 15px !important;
 
 }
 
 #head-parent-card{
-    background: rgba(255, 255, 255, 0.15) !important;
+    background: rgba(255, 255, 255, 0.1) !important;
     color: rgba(32, 39, 47, 0.75) !important;
 
     border: 1px solid #f1f1f1 !important;

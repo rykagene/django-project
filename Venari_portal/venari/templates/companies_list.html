@@ -15,7 +15,6 @@
     <div>
 
         {% include 'adminSB_NB.html' %}
-        {% include 'overlayBG.html' %}
 
     </div>
 
@@ -84,13 +83,13 @@
             <!-- Table -->
             <div class="card border-0 overflow-auto p-2 p-lg-4 flex-grow-1 comp-list-cards" style="height: 417px;"
                 id="comp-list-table-card">
-                <table class="table align-middle table-borderless" id="comp_list_table">
+                <table class="table align-middle table-hover" id="comp_list_table">
                     <thead>
                         <tr>
                             <th scope="col"></th>
                             <th scope="col">Name of Company</th>
-                            <th scope="col">Number of Applicants</th>
-                            <th scope="col">Number of Job Postings</th>
+                            <th scope="col" class="text-center">Number of Applicants</th>
+                            <th scope="col" class="text-center">Number of Job Postings</th>
                             <th scope="col">Actions</th>
                         </tr>
                     </thead>
