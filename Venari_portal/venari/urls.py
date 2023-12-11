@@ -19,6 +19,7 @@ urlpatterns = [
     path("jobseeker_changepassword/", views.user_changepassword, name="jobseeker_changepassword"),
     path('bookmark/<int:job_id>/', views.bookmark_job, name='bookmark_job'),
     path("jobseeker_apply/<int:myid>/", views.jobseeker_apply, name="jobseeker_apply"),
+    path("search_job/", views.job_hiring, name="search_job"),
     path('logout/', views.Logout, name='logout'),
 
 

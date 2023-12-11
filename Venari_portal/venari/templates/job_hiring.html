@@ -61,7 +61,7 @@ see more-->
         <!-- Search Button Column -->
         <div class="col-md-2 mt-3">
           <label></label>
-          <button class="btn btn-outline-secondary" type="button">Search</button>
+          <button class="btn btn-outline-secondary" type="button" onclick= "search_job()">Search</button>
         </div>
 
      <div class="col-12">
@@ -273,7 +273,7 @@ see more-->
       </div>
 <hr>
 <!--Job Listings-->
-    <div class="container-xl">
+    <div id="jobListings" class="container-xl">
         <div class="row row-cols-1 row-cols-md-3 mb-2 mt-2 g-3 py-0">
           {% for job in jobs %}
           {% if job.status == "Activate" %} 
@@ -541,6 +541,104 @@ function loadStates() {
     })
     .catch(error => console.error('Error loading countries:', error))
 }
+function getCookie(name) {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop().split(';').shift();
+}
+
+function search_job() {
+  // Get the search query
+  var searchJob = document.getElementById('jobSearch').value;
+
+  // Make an AJAX request to the server
+  fetch('/search_job/', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRFToken': getCookie('csrftoken'),
+    },
+    body: JSON.stringify({ search: searchJob }),
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.json();
+  })
+  .then(data => {
+
+    console.log(data); 
+
+    const jobListings = data.jobs;
+
+    const jobListingsElement = document.getElementById('jobListings');
+
+    jobListingsElement.innerHTML = '';
+
+    jobListings.forEach(job => {
+      jobListingsElement.innerHTML += `
+      <div id="jobListings" class="container-xl">
+        <div class="row row-cols-1 row-cols-md-3 mb-2 mt-2 g-3 py-0">
+          <div class="col-md-4 mb-4">
+            <div class="custom-card">
+              <div class="custom-card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="mt-1 mb-2">
+                    <img src="${job.company_logo_url}" class="img-fluid rounded-circle" alt="Logo" style="width: 90px; height: 90px; object-fit: cover">
+                  </div>
+                  <div class="bookmark-heart mt-0 mb-0">
+                    <a href="#" onclick="handleBookmarkClick(event, ${ job.id })">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-bookmark-plus" viewBox="0 0 20 20">
+                        <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1z"/>
+                        <path d="M8 4a.5.5 0 0 1 .5.5V6H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V7H6a.5.5 0 0 1 0-1h1.5V4.5A.5.5 0 0 1 8 4"/>
+                      </svg>
+                    </a>
+                    <a href="#" onclick="handleBookmarkClick(event)">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-heart-half" viewBox="0 0 20 20">
+                        <path d="M8 2.748v11.047c3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+                <h5 class="custom-card-title">${job.title}</h5>
+                <h5 class="custom-card-description">${job.company_name}</h5>
+                <div class="custom-icons-description mb-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-clock" viewBox="0 0 16 16">
+                    <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71z"/>
+                    <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0"/>
+                  </svg>
+                  <span class="custom-post-time">${job.creation_date}</span>
+                </div>
+                <div class="custom-icons-description mb-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-geo-alt" viewBox="0 0 16 16">
+                    <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10"/>
+                    <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+                  </svg>
+                  <span class="custom-post-time">${job.location}</span>
+                </div>
+                <div class="custom-description">
+                  <p class="card-description-justify-content-left"><strong>Job Type: </strong>${job.jobtype}</p>
+                  <p class="card-description-justify-content-left"><strong>Job Skills: </strong>${job.skills}</p>
+                  <p class="card-description-justify-content-left"><strong>Salary: </strong>${job.salary}</p>
+                </div>
+              </div>
+              <div class="mx-4 mb-4 mt-1 d-flex justify-content-left">
+                <button class="btn btn-primary custom-btn" style="width:300px; margin-right: 10px; margin-top: 0; border-radius: 10px; " onclick="jobseeker_apply(event, ${ job.id })">Apply Now</button>
+                <button class="btn btn-outline custom-bton" data-bs-toggle="modal" data-bs-target="#applyModal" style="width:300px; margin-top: 0; border-radius:10px;" >See More</button>
+              </div>
+            </div>
+         </div>
+    </div>
+    </div>
+</div>`;
+    });
+
+  })
+  .catch(error => console.error('Error searching for jobs:', error));
+}
+
+
 
 
 function loadCities() {

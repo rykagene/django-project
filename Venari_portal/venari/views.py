@@ -11,6 +11,7 @@ import logging
 import os
 from openpyxl import Workbook
 from django.http import HttpResponse
+from django.db.models import Q
 
 logger = logging.getLogger('venari')
 
@@ -265,6 +266,39 @@ def Logout(request):
     return redirect('/')
 
 def job_hiring(request):
+    if not request.user.is_authenticated:
+        return redirect("/login")
+
+    posted_jobs = post_jobs.objects.all()
+    result = None
+
+    if request.method == "POST":
+        try:
+            data = json.loads(request.body.decode('utf-8'))
+            search = data.get('search')
+            print(search)
+            if search is not None:
+                result = posted_jobs.filter(Q(title__icontains=search) | Q(skills__icontains=search) )
+                jobs = []
+                
+                for job in result:
+                    job_data = {
+                        'id': job.id,
+                        'title': job.title,
+                        'company_name': job.company.company_name,
+                        'company_logo_url': job.company.company_logo.url,
+                        'creation_date': job.creation_date,
+                        'location': job.location,
+                        'jobtype': job.jobtype,
+                        'skills': job.skills,
+                        'salary': job.salary
+                    }
+                    jobs.append(job_data)
+
+                return JsonResponse({'jobs': jobs})
+        except json.JSONDecodeError:
+            pass
+
     jobs = post_jobs.objects.all().order_by('-start_date')
     applicant = job_seeker.objects.get(user=request.user)
     apply = apply_job.objects.filter(applicant=applicant)
@@ -272,10 +306,11 @@ def job_hiring(request):
     data = []
     for i in apply:
         data.append(i.job.id)
-    return render(request, "job_hiring.html", {'jobs':jobs, 'data':data, 'applicant': applicant, 'bookmark': bookmarked_jobs})
+
+    return render(request, "job_hiring.html", {'jobs': jobs, 'data': data, 'applicant': applicant, 'bookmark': bookmarked_jobs, 'result': result})
 def jobseeker_apply(request, myid):
     if not request.user.is_authenticated:
-        return redirect("/user_login")
+        return redirect("/login")
 
     applicant = job_seeker.objects.get(user=request.user)
     job = post_jobs.objects.get(id=myid)
@@ -311,6 +346,7 @@ def jobseeker_apply(request, myid):
             return JsonResponse({'success': success})
 
     return render(request, "job_hiring.html", {'job': job})
+
 
 
 #Company side
