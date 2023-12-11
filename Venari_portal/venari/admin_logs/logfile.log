@@ -1150,3 +1150,4 @@
 2023-12-11 11:35:28,686 INFO Admin billy accessed /company_login
 2023-12-11 11:35:28,708 INFO Admin billy accessed /company_login/
 2023-12-11 11:35:40,239 INFO Admin billy accessed /company_login/
+2023-12-11 11:50:35,825 INFO Admin billy accessed /logout/
