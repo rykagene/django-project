@@ -604,7 +604,6 @@ def all_companies(request):
             print(search)
             if search is not None:
                 results = company.objects.filter(company_name__icontains=search)
-                print(search)
                 companies_data = []
                 
                 for company_instance in results:
@@ -665,14 +664,14 @@ def change_status(request, myid):
 
 def delete_company(request, myid):
     if not request.user.is_authenticated:
-        return JsonResponse({'success': False, 'message': 'User not authenticated'})
-
+        return redirect("/admin_login")
     try:
         company_instance = company.objects.get(id=myid)
         post_jobs_instances = post_jobs.objects.filter(company_id=myid)
+        if post_jobs_instances.exists():
+            post_jobs_instances.delete()
 
         company_instance.delete()
-        post_jobs_instances.delete()
 
         messages.success(request, "Successfully deleted.")
         logger.info(f"Company and job postings deleted successfully for company ID {myid}")
