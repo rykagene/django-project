@@ -3,55 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="./css/company_viewProfile.css" rel="stylesheet">
 </head>
 
-<body class="bg-gray-200 flex items-center justify-center min-h-screen overflow-auto py-10">
-    <div class="flex flex-col bg-white px-8 py-10 rounded-lg shadow-lg w-full h-full sm:w-3/5 sm:h-4/5 items-center justify-center ">
-        <img src="imgs/ms.png" class="shadow-lg w-28 h-28 sm:w-36 sm:h-36 md:w-44 md:h-44 lg:w-44 lg:h-44 xl:w-44 xl:h-44 border-2 border-red-800 rounded-full">
-        <div class="flex my-2 items-center justify-center font-bold text-sm sm:text-base md:text-lg lg:text-xl xl:text-4xl">
-            <div id="fName">Microsoft</div>
-            <div id="lName" class="ml-2">PH</div>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="d-flex justify-content-center align-items-center py-5">
+                    <div class="company-card col-md-8">
+                        <img src="Untitled-1.jpg" class="img-fluid rounded-circle mx-auto d-block" style="width: 150px; height: 150px; object-fit: cover;" alt="Company Logo">
+
+                <div class="company-details">
+                    <div id="fName" class="text-center">Microsoft </div>
+                    <div class="text-gray-500 d-flex justify-content-center align-items-center">
+                        <span>Ayala, Philippines</span>
+                        <span class="mx-2">•</span>
+                        <span>108,838,425</span>
+                        <span class="ms-1">followers</span>
+                    </div>
+                    
+                    <hr class="my-3">
+                    <div class="font-weight-bold mb-2 text-2xl">About</div>
+                    <div class="company-description">
+                        <!-- Your company description here -->
+                        Every company has a mission. What's ours? To empower every person and every organization to achieve more.
+                        We believe technology can and should be a force for good and that meaningful innovation contributes to a
+                        brighter world in the future and today. Our culture doesn’t just encourage curiosity; it embraces it. Each
+                        day we make progress together by showing up as our authentic selves. We show up with a learn-it-all mentality.
+                        We show up cheering on others, knowing their success doesn't diminish our own. We show up every day open to
+                        learning our own biases, changing our behavior, and inviting in differences.
+                    </div>
+            </div>
         </div>
-
-        <div class="text-xs sm:text-sm md:text-base flex text-gray-500">
-            <div class="italic">@microsoft</div>
-            <div class="mx-2 text-gray-500">•</div>
-            
-            <div>Ayala, Philippines</div>
-            <div class="mx-2">•</div>
-        
-            <div>108, 838, 425</div>
-            <div class="ml-1">followers</div>
-        </div>
-
-        <hr class="my-3 w-full border-t-1 border-gray-300">
-
-        <div class="font-bold mr-auto mb-2 text-2xl sm:text-3xl md:text-4xl">About</div>
-        <div class="text-xs sm:text-sm md:text-base text-justify">
-            Every company has a mission. What's ours? To empower every person and every organization to achieve more.
-            We believe technology can and should be a force for good and that meaningful innovation contributes to a
-            brighter world in the future and today. Our culture doesn’t just encourage curiosity; it embraces it. Each
-            day we make progress together by showing up as our authentic selves. We show up with a learn-it-all mentality.
-            We show up cheering on others, knowing their success doesn't diminish our own. We show up every day open to
-            learning our own biases, changing our behavior, and inviting in differences.
-        </div>
-
-
-        <div class="font-bold mr-auto my-2 text-2xl sm:text-3xl md:text-4xl">About</div>
-        <div class="text-xs sm:text-sm md:text-base text-justify">
-            Every company has a mission. What's ours? To empower every person and every organization to achieve more.
-            We believe technology can and should be a force for good and that meaningful innovation contributes to a
-            brighter world in the future and today. Our culture doesn’t just encourage curiosity; it embraces it. Each
-            day we make progress together by showing up as our authentic selves. We show up with a learn-it-all mentality.
-            We show up cheering on others, knowing their success doesn't diminish our own. We show up every day open to
-            learning our own biases, changing our behavior, and inviting in differences.
-        </div>
-
-
-
-
-
     </div>
+</div>
+        
+          
+
+    <!-- Bootstrap JS and Popper.js (required for Bootstrap) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
