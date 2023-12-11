@@ -70,59 +70,50 @@ see more-->
           <div class="col-md-3 mt-4">
             <div class="form-group">
               <div class="dropdown">
-                <button class="btn btn-outline btn-block dropdown-toggle" type="button" id="listedAnyTimeDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                  Time Posted
-                </button>
-                <div class="dropdown-menu" aria-labelledby="listedAnyTimeDropdown">
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="fullTime" id="fullTimeCheckbox">
-                    <label class="form-check-label" for="fullTimeCheckbox">Recently Posted</label>
+                  <button class="btn btn-outline btn-block dropdown-toggle" type="button" id="listedAnyTimeDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                      Time Posted
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="listedAnyTimeDropdown">
+                      <div class="form-check">
+                          <input class="form-check-input" type="radio" name="timeOption" value="recentlyPosted" id="recentlyPostedRadio">
+                          <label class="form-check-label" for="recentlyPostedRadio">Recently Posted</label>
+                      </div>
+                      <div class="form-check">
+                          <input class="form-check-input" type="radio" name="timeOption" value="last7Days" id="last7DaysRadio">
+                          <label class="form-check-label" for="last7DaysRadio">Last 7 days</label>
+                      </div>
+                      <div class="form-check">
+                          <input class="form-check-input" type="radio" name="timeOption" value="aWeekAgo" id="aWeekAgoRadio">
+                          <label class="form-check-label" for="aWeekAgoRadio">A week ago</label>
+                      </div>
+                      <!-- Add your options for Listed Any Time -->
                   </div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="partTime" id="partTimeCheckbox">
-                    <label class="form-check-label" for="partTimeCheckbox">Last 7 days</label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="contractual" id="contractualCheckbox">
-                    <label class="form-check-label" for="contractualCheckbox">A week ago</label>
-                  </div>
-                  <!-- Add your options for Listed Any Time -->
-                </div>
               </div>
-            </div>
+          </div>
+          
           </div>
           
           <!-- Search Bar Column -->
           <div class="col-md-3 mt-4">
             <div class="form-group">
               <div class="dropdown">
-                <button class="btn btn-outline btn-block dropdown-toggle" type="button" id="employmentTypeDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                  Employment Type
-                </button>
-                <div class="dropdown-menu" aria-labelledby="employmentTypeDropdown">
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="fullTime" id="fullTimeCheckbox2">
-                    <label class="form-check-label" for="fullTimeCheckbox2">Full-time</label>
+                  <button class="btn btn-outline btn-block dropdown-toggle" type="button" id="employmentTypeDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                      Employment Type
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="employmentTypeDropdown">
+                      <div class="form-check">
+                          <input class="form-check-input" type="radio" name="employmentType" value="fullTime" id="fullTimeRadio">
+                          <label class="form-check-label" for="fullTimeRadio">Full-time</label>
+                      </div>
+                      <div class="form-check">
+                          <input class="form-check-input" type="radio" name="employmentType" value="partTime" id="partTimeRadio">
+                          <label class="form-check-label" for="partTimeRadio">Part-time</label>
+                      </div>
+                      <!-- Add your options for Employment Type -->
                   </div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="partTime" id="partTimeCheckbox2">
-                    <label class="form-check-label" for="partTimeCheckbox2">Part-time</label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="contractual" id="contractualCheckbox2">
-                    <label class="form-check-label" for="contractualCheckbox2">Contractual</label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="freelance" id="freelanceCheckbox2">
-                    <label class="form-check-label" for="freelanceCheckbox2">Freelance</label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="internship" id="internshipCheckbox2">
-                    <label class="form-check-label" for="internshipCheckbox2">Internship</label>
-                  </div>
-                </div>
               </div>
-            </div>
+          </div>
+          
           </div>
           
           <!-- Dropdown for Salary Grade -->
