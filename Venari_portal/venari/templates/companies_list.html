@@ -25,7 +25,7 @@
 
 
 
-        <div class="container mx-auto px-6 py-8">
+        <div class="container mx-auto py-1">
 
 
             <div class="card comp-list-cards" id="head-parent-card">
@@ -60,7 +60,7 @@
 
 
                         <div class="col-12">
-
+                            <!-- Search -->
                             <div class="input-group">
                                 <input type="text" class="form-control" placeholder="" aria-label="Button"
                                     aria-describedby="" />
@@ -112,13 +112,13 @@
                             <td>
                                 <div class="row justify-content-center align-items-center g-1">
                                     <div class="col">
-                                        <button type="button" class="btn btn-primary" id="comp-view-button">
+                                        <button type="button" class="btn btn-primary btn-sm" id="comp-view-button">
                                             <i class="bi bi-eye-fill"></i>
                                         </button>
 
                                     </div>
                                     <div class="col">
-                                        <button type="button" class="btn btn-danger" id="comp-archive-button">
+                                        <button type="button" class="btn btn-danger btn-sm" id="comp-archive-button" data-bs-toggle="modal" data-bs-target="#archiveModal">
                                             <i class="bi bi-archive-fill"></i>
                                         </button>
 
@@ -182,6 +182,35 @@
 
         </div>
     </div>
+
+
+    <!-- ========== Start Section Archive Modal ========== -->
+
+
+
+    <!-- Modal Body -->
+    <!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
+    <div class="modal fade" id="archiveModal" tabindex="-1" role="dialog" aria-labelledby="archiveModalTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="archiveModalTitle">
+                        Archive Company
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">Do you want to archive this company?</div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        No
+                    </button>
+                    <button type="button" class="btn btn-primary">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ========== End Section Archive Modal ========== -->
 
 </body>
 
