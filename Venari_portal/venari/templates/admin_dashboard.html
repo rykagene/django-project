@@ -190,30 +190,36 @@
                                                     <td>{{ post.company.company_name }}</td>
                                                     <td>{{ post.title }}</td>
                                                     <td>
-                                                        Activated
+                                                        {{ post.status }}
                                                     </td>
                                                     <td>
-
                                                         <!-- ========== Start Activate/Deactivate Button ========== -->
                                                         <div class="row justify-content-center align-items-center g-2">
+                                                        {% if post.status != 'Activate' %}
                                                             <div class="col" title="View">
-                                                                <button id="activateButton" class="btn col-12 btn-primary btn-sm"
+                                                                <button id="activateButton" class=" activateButton btn col-12 btn-primary btn-sm"
                                                                     data-bs-toggle="modal"
-                                                                    data-bs-target="#activateModal">
+                                                                    data-bs-target="#activateModal"
+                                                                    data-post-id="{{post.id}}"
+                                                                    data-status="Activate">
                                                                     <i class="bi bi-check-lg">
                                                                     </i>
                                                                 </button>
                                                             </div>
-
+                                                            {% endif %}
+                                                            {% if post.status == 'Activate' %}
                                                             <div class="col" title="Archive">
                                                                 <button id="deactivateButton" role="button"
                                                                     class="btn col-12 btn-danger btn-sm"
                                                                     data-bs-toggle="modal"
-                                                                    data-bs-target="#deactivateModal">
+                                                                    data-bs-target="#deactivateModal"
+                                                                    data-post-id="{{post.id}}"
+                                                                    data-status="Deactivate">
                                                                     <i class="bi bi-x-lg">
                                                                     </i>
                                                                 </button>
                                                             </div>
+                                                            {% endif %}
                                                         </div>
                                                         <!-- ========== End Activate/Deactivate Button ========== -->
 
@@ -245,7 +251,7 @@
                                             <div class="card px-3 py-0 rounded-2 border-0 mb-2 m-0 company-list-card">
                                                 <div class="d-flex align-items-center text-start justify-content-start">
                                                     <div class="flex-shrink-0 ms-0">
-                                                        <img src="./../static/css/images/job.png"
+                                                        <img src="{{company.company_logo.url}}"
                                                             class="d-none d-lg-block" alt="..." style="height: 20px;">
                                                     </div>
                                                     <div class="flex-grow-1 ms-2 text-truncate company-name">
@@ -273,7 +279,7 @@
                                             <div class="card px-3 py-0 rounded-4 border-0 mb-2 user-list-card">
                                                 <div class="d-flex align-items-center text-start justify-content-start">
                                                     <div class="flex-shrink-0">
-                                                        <img src="./../static/css/images/job.png"
+                                                        <img src="{{applicants.profile_image.url}}"
                                                             class="d-none d-lg-block" alt="..." style="height: 20px;">
                                                     </div>
 
@@ -371,7 +377,116 @@
         }
     </script> -->
 
+<!-- Add this script at the end of your HTML file, before the </body> tag -->
 
+<script>
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    
+    document.addEventListener('DOMContentLoaded', function () {
+        var activateButtons = document.querySelectorAll('.activateButton'); 
+        var deactivateButtons = document.querySelectorAll('#deactivateButton');
+        var modalTitle = document.getElementById('activateModalTitle');
+        var modalBody = document.querySelector('#activateModal .modal-body');
+        var confirmActivationButton = document.getElementById('confirm_activation');
+        var confirmDeactivationButton = document.getElementById('confirm_deactivation');
+    
+        activateButtons.forEach(function (button) {
+            button.addEventListener('click', function () {
+                var postId = button.getAttribute('data-post-id');
+                var postStatus = button.getAttribute('data-status');
+                // Customize the modal content based on the post ID
+                modalTitle.innerText = 'Activate Post ' + postId;
+                modalBody.innerHTML = 'Do you want to activate Post ' + postId + '?';
+                confirmActivationButton.dataset.postId = postId; // Set post ID in the Confirm Activation button
+                confirmActivationButton.dataset.status = postStatus; // Set post status
+            });
+        });
+
+        deactivateButtons.forEach(function (button) {
+            button.addEventListener('click', function () {
+                var postId = button.getAttribute('data-post-id');
+                var postStatus = button.getAttribute('data-status');
+                // Customize the modal content based on the post ID
+                modalTitle.innerText = 'Deactivate Post ' + postId;
+                modalBody.innerHTML = 'Do you want to deactivate Post ' + postId + '?';
+                confirmDeactivationButton.dataset.postId = postId; // Set post ID in the Confirm Deactivation button
+                confirmDeactivationButton.dataset.status = postStatus; // Set post status
+
+            });
+        });
+
+        confirmActivationButton.addEventListener('click', function () {
+            var postId = confirmActivationButton.dataset.postId;
+            var postStatus = confirmActivationButton.dataset.status;
+        
+            // Perform actions based on the post ID and status
+            fetch(`/admin_changejob_status/${postId}/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCookie('csrftoken'),  // Include CSRF token
+                },
+                // Include both post_id and status in the request body
+                body: JSON.stringify({ post_id: postId, status: postStatus }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Handle the response as needed
+                if (data.success) {
+                    alert('Post status changed successfully!');
+                    location.reload();
+                    // Optionally, you can update the UI to reflect the new status
+                } else {
+                    alert('Failed to change the post status.');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        });
+
+        confirmDeactivationButton.addEventListener('click', function () {
+            var postId = confirmDeactivationButton.dataset.postId;
+            var postStatus = confirmDeactivationButton.dataset.status;
+        
+            // Perform actions based on the post ID and status
+            fetch(`/admin_changejob_status/${postId}/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCookie('csrftoken'),  // Include CSRF token
+                },
+                // Include both post_id and status in the request body
+                body: JSON.stringify({ post_id: postId, status: postStatus }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Handle the response as needed
+                if (data.success) {
+                    alert('Post status changed successfully!');
+                    location.reload();
+                } else {
+                    alert('Failed to change the post status.');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    });
+</script>
+
+
+    
 </body>
 
 </html>

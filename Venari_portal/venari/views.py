@@ -261,9 +261,9 @@ def jobseeker_apply(request, myid):
     date1 = date.today()
 
     if job.end_date < date1:
-        return JsonResponse({'success': False, 'error': 'Invalid request method'})
+        return JsonResponse({'success': False, 'error': 'The application period is closed.'})
     elif job.start_date > date1:
-        return JsonResponse({'success': False, 'error': 'Invalid request method'})
+        return JsonResponse({'success': False, 'error': 'The application period is closed.'})
     else:
         if request.method == "POST":
             # Check if the job seeker has already applied for this job
@@ -376,8 +376,10 @@ def company_dashboard(request):
         return redirect("/company_login")
     companies = company.objects.get(user=request.user)
     jobs = post_jobs.objects.filter(company=companies)
-    applicant = apply_job.objects.filter(company=companies)
-    return render(request, "company_dashboard.html", {'jobs':jobs, 'company':companies, 'applicants': applicant})
+    jobs_posted_count = jobs.count()
+    applicant = apply_job.objects.filter(company = companies.company_name)
+    applicant_count = applicant.count()
+    return render(request, "company_dashboard.html", {'jobs':jobs, 'company':companies, 'applicants': applicant, 'job_posted_count': jobs_posted_count, 'applicant_count': applicant_count})
 
 
 
@@ -488,8 +490,8 @@ def company_accept_applicant(request, myid):
                 f'Best regards,\n'
                 f'{application.company}\n'
                 f'{Company.phone_number}',
-                'venaricompany@gmail.com',  # from_email
-                [application.email],  # list of recipient email addresses
+                'venaricompany@gmail.com',
+                [application.email],  
             )
             messages.success(request, "Status changed successfully.")
             return redirect("/company_dashboard")
@@ -498,7 +500,9 @@ def company_accept_applicant(request, myid):
             applicant.delete()
             messages.success(request, "Successfully deleted.")
             return redirect("/company_dashboard")
+        
     return render(request, "company_dashboard.html", {'accept':application})
+
 #Admin Side
 def admin_login(request):
     if request.method == "POST":
@@ -513,7 +517,6 @@ def admin_login(request):
             return redirect('/admin_login')
         elif user.is_superuser:
             login(request, user)
-            logger.info(f"Admin {username} logged in.")
             return redirect("/admin_dashboard")
         elif user.is_superuser == False:
             messages.error(request, "Please enter a valid username or password.")
@@ -603,17 +606,36 @@ def admin_job_list(request):
     return render(request, "admin_joblist.html", {'jobs':jobs})
 
 
+import json
+from django.http import JsonResponse
+
 def admin_changejob_status(request, myid):
+    logger.info(f"Received request to change status for job ID: {myid}")
+    
     if not request.user.is_authenticated:
         return redirect("/admin_login")
+
     job = post_jobs.objects.get(id=myid)
+
     if request.method == "POST":
-        status = request.POST['status']
-        job.status=status
-        job.save()
-        messages.success(request, "Status changed successfully.")
-        return redirect("/admin_joblist")
-    return render(request, "admin_changejob_status.html", {'job':job})
+        try:
+            data = json.loads(request.body.decode('utf-8'))
+            status = data.get('status') 
+
+            if status is not None:  
+                old_status = job.status
+                job.status = status
+                job.save()
+                messages.success(request, "Status changed successfully.")
+                logger.info(f"Status changed successfully for job ID {myid}. Old status: {old_status}, New status: {status}")
+                return JsonResponse({'success': True})
+            else:
+                return JsonResponse({'success': False, 'error': 'Invalid status value'})
+
+        except json.JSONDecodeError:
+            return JsonResponse({'success': False, 'error': 'Invalid JSON data'})
+
+    return render(request, "admin_dashboard.html", {'job': job})
 
 def edit_job_admin(request, myid):
     if not request.user.is_authenticated:
@@ -650,18 +672,20 @@ def edit_job_admin(request, myid):
 
 def admin_delete_postjob(request, myid):
     if not request.user.is_authenticated:
-        return redirect("/company_login")
+        return redirect("/admin_login")
     jobs = post_jobs.objects.get(id=myid)
     jobs.delete()
     messages.success(request, "Successfully deleted.")
     return redirect("/admin_joblist")
 
 def admin_dashboard(request):
+    if not request.user.is_authenticated:
+        return redirect("/admin_login")
     active_company = company.objects.filter(status='Accepted')
     active_company_counts = active_company.count()
     active_jobseeker = job_seeker.objects.filter(status='Activate')
     active_jobseeker_count = active_jobseeker.count()
-    active_post = post_jobs.objects.filter(status='Activate')
+    active_post = post_jobs.objects.filter(status__in=['Activate', 'Deactivate'])
     active_post_counts = active_post.count()
     
     log_file_path = os.path.join('venari', 'admin_logs', 'logfile.log')

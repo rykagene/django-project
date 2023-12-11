@@ -134,7 +134,12 @@
             <td>
                 <button onclick="openModal('applicant1')">View Position</button>
             </td>
-            <td><a href="{{applicant.resume.url}}" target="_blank">View Resume</a></td>
+            <td>
+            {% if applicant.resume %}
+            <a href="{{ applicant.resume.url }}" target="_blank">View Resume</a>
+            {% else %}
+            No resume available
+            {% endif %}
             <td>
             <div class="action-btns">
                 <button onclick="activateApplicant(' {{applicant.id}}' )" onmousedown="this.classList.add('clicked')" onmouseup="this.classList.remove('clicked')">Activate</button>
