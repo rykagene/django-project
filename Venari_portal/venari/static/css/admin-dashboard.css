@@ -30,11 +30,13 @@ body {
 }
 
 #headDash {
-    background: linear-gradient(45deg, rgba(0,0,0, 0.4),rgba(0,0,0, 0.4),rgba(185, 185, 185, 0.4),rgba(0,0,0, 0.4),rgba(0,0,0, 0.4),rgba(0,0,0, 0.4),rgba(0,0,0, 0.4));
+    background: linear-gradient(45deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4), rgba(185, 185, 185, 0.4), rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4));
     background-clip: text;
-    -webkit-background-clip: text; /* For Safari/Chrome */
+    -webkit-background-clip: text;
+    /* For Safari/Chrome */
     color: transparent;
-    text-fill-color: transparent; /* For Safari/Chrome */
+    text-fill-color: transparent;
+    /* For Safari/Chrome */
     display: inline-block;
     /* You may add additional styling as needed */
 }
@@ -213,8 +215,37 @@ body {
     background: transparent !important;
 }
 
+#companiesListPic {
+    height: 100%;
+    display: block;
+}
+#companiesListPicContainer {
+    width: 20px;
+    height: 20px;
+    overflow: hidden;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .user-list-card {
     background: transparent !important;
+}
+
+#usersListPicContainer {
+    width: 20px;
+    
+    height: 20px;
+    overflow: hidden;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#usersListPic {
+    height: 100%;
+    display: block;
 }
 
 #act-logs-label {
@@ -273,15 +304,18 @@ table#dash_table td {
     background-color: transparent !important;
 }
 
-#activateButton{
+#activateButton {
     background-color: #8a8eff;
 }
-#activateButton:hover{
+
+#activateButton:hover {
     background-color: rgba(138, 142, 255, 0.8);
 }
-#deactivateButton{
+
+#deactivateButton {
     background-color: #fb6860;
 }
-#deactivateButton:hover{
+
+#deactivateButton:hover {
     background-color: rgba(251, 104, 96, 0.8);
 }
