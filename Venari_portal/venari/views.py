@@ -12,6 +12,7 @@ import os
 from openpyxl import Workbook
 from django.http import HttpResponse
 from django.db.models import Q
+from django.utils import timezone
 
 logger = logging.getLogger('venari')
 
@@ -276,9 +277,21 @@ def job_hiring(request):
         try:
             data = json.loads(request.body.decode('utf-8'))
             search = data.get('search')
+            employment_type = data.get('employment_type')
+            time_option = data.get('time_option') 
             print(search)
             if search is not None:
-                result = posted_jobs.filter(Q(title__icontains=search) | Q(skills__icontains=search) )
+                result = posted_jobs.filter(Q(title__icontains=search) | Q(skills__icontains=search))
+                
+                if employment_type:
+                    result = result.filter(jobtype=employment_type)
+                if time_option == 'recentlyPosted':
+                    result = result.filter(creation_date__gte=timezone.now() - timezone.timedelta(days=1))
+                elif time_option == 'last7Days':
+                    result = result.filter(creation_date__gte=timezone.now() - timezone.timedelta(days=7))
+                elif time_option == 'aWeekAgo':
+                    result = result.filter(creation_date__lte=timezone.now() - timezone.timedelta(days=7))
+                
                 jobs = []
                 
                 for job in result:
