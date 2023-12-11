@@ -102,11 +102,11 @@ see more-->
                   </button>
                   <div class="dropdown-menu" aria-labelledby="employmentTypeDropdown">
                       <div class="form-check">
-                          <input class="form-check-input" type="radio" name="employmentType" value="fullTime" id="fullTimeRadio">
+                          <input class="form-check-input" type="radio" name="employmentType" value="Full-Time" id="fullTimeRadio">
                           <label class="form-check-label" for="fullTimeRadio">Full-time</label>
                       </div>
                       <div class="form-check">
-                          <input class="form-check-input" type="radio" name="employmentType" value="partTime" id="partTimeRadio">
+                          <input class="form-check-input" type="radio" name="employmentType" value="Part-Time" id="partTimeRadio">
                           <label class="form-check-label" for="partTimeRadio">Part-time</label>
                       </div>
                       <!-- Add your options for Employment Type -->
@@ -537,19 +537,33 @@ function getCookie(name) {
   const parts = value.split(`; ${name}=`);
   if (parts.length === 2) return parts.pop().split(';').shift();
 }
+document.querySelectorAll('input[name="employmentType"]').forEach(function(radio) {
+  radio.addEventListener('change', function() {
+    search_job();
+  });
+});
+
+document.querySelectorAll('input[name="timeOption"]').forEach(function(radio) {
+  radio.addEventListener('change', function() {
+      search_job();
+  });
+});
 
 function search_job() {
-  // Get the search query
   var searchJob = document.getElementById('jobSearch').value;
+  var employmentType = document.querySelector('input[name="employmentType"]:checked');
+  var employmentTypeValue = employmentType ? employmentType.value : null;
 
-  // Make an AJAX request to the server
+  var timeOption = document.querySelector('input[name="timeOption"]:checked');
+  var timeOptionValue = timeOption ? timeOption.value : null;
+  alert(timeOptionValue)
   fetch('/search_job/', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       'X-CSRFToken': getCookie('csrftoken'),
     },
-    body: JSON.stringify({ search: searchJob }),
+    body: JSON.stringify({ search: searchJob,  employment_type: employmentTypeValue,  time_option: timeOptionValue }),
   })
   .then(response => {
     if (!response.ok) {
