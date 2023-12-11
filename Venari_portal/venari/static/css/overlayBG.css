@@ -1,0 +1,52 @@
+.overlay {
+    height: 400px;
+    width: 400px;
+    position: fixed;
+    top: 10%;
+    left: 3%;
+    border-radius: 50%;
+    background: linear-gradient(to right, rgba(137, 141, 255, 0.5), rgba(223, 90, 255, 0.1));
+    z-index: -1;
+}
+
+#overlay1 {
+    position: fixed;
+    height: 600px;
+    width: 600px;
+    z-index: -1;
+    top: -8%;
+    left: 38%;
+}
+
+#overlay2 {
+    position: fixed;
+    height: 250px;
+    width: 300px;
+    z-index: -1;
+    top: 6%;
+    left: 75%;
+}
+
+
+@media (max-width: 768px) {
+    .overlay {
+        height: 330px;
+        width: 330px;
+        top: 10%;
+        left: -40%;
+    }
+
+    #overlay1 {
+        height: 600px;
+        width: 600px;
+        top: -8%;
+        left: 38%;
+    }
+
+    #overlay2 {
+        height: 250px;
+        width: 300px;
+        top: 50%;
+        left: 25%;
+    }
+}

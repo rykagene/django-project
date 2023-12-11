@@ -1,149 +1,222 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.1.2/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./../static/css/companies_list.css">
 
-    
 </head>
-<body class="flex">
+
+<body style="font-family: Poppins;">
     <!-- Sidebar -->
-    
-    <div class="flex bg-pink-50">
 
-        <div id="sidebar" class="shadow-right w-full sm:w-64 space-y-6 py-7 px-2 flex flex-col h-screen sm:block">
-            <div class="flex flex-col h-full py-5">
-                <img src="imgs/dp.png" class="mt-10 w-20 h-20 mx-auto block">        
-                <h2 class="text-2xl font-semibold text-center">{{user.username}}</h2>
-                <nav class="space-y-1">
-                    <a href="#" class="block py-2.5 mt-5 transition duration-200 text-red-600 hover:bg-blue-700 border-b border-red-200 flex items-center space-x-2">
-                        <img src="imgs/fb-icon.png" alt="Icon 1" class="w-6 h-6 ml-5">
-                        <span>Manage Companies</span>
-                    </a>
-            
-                    <a href="#" class="block py-2.5 transition duration-200 text-red-600 hover:bg-blue-700 border-b border-red-200 flex items-center space-x-2">
-                        <img src="imgs/fb-icon.png" alt="Icon 1" class="w-6 h-6 ml-5">
-                        <span>Job Listings</span>
-                    </a>
-            
-                    <a href="#" class="block py-2.5 transition duration-200 text-red-600 hover:bg-blue-700 border-b border-red-200 flex items-center space-x-2">
-                        <img src="imgs/fb-icon.png" alt="Icon 1" class="w-6 h-6 ml-5">
-                        <span>Job Seekers</span>
-                    </a>
+    <div>
 
-                    <a href="#" class="block py-2.5 transition duration-200 text-red-600 hover:bg-blue-700 border-b border-red-200 flex items-center space-x-2">
-                        <img src="imgs/fb-icon.png" alt="Icon 1" class="w-6 h-6 ml-5">
-                        <span>Report Generation</span>
-                    </a>
+        {% include 'adminSB_NB.html' %}
+        {% include 'overlayBG.html' %}
 
-                </nav>
-            
-                <button class="inline-block text-white font-semibold flex rounded-full bg-red-500 mx-auto mt-auto px-3 py-1 items-center">
-                    Logout
-                    <img src="/imgs/fb-icon.png" alt="Icon 1" class="w-3 h-3 ml-2">
-                </button>
+    </div>
+
+
+
+    <div id="companies-list-main-container" class="overflow-auto">
+
+
+
+        <div class="container mx-auto px-6 py-8">
+
+
+            <div class="card comp-list-cards" id="head-parent-card">
+                <div class="row justify-content-center align-items-center g-2">
+                    <div class="col-md-4">
+                        <div class="col-12">
+                            <div class="card border-0 d-flex flex-row align-items-center comp-list-cards"
+                                style="min-height: 175px;" id="comp-list-card1">
+                                <div class="row g-0">
+                                    <div class="card-body">
+
+                                        <div class="d-flex align-items-center">
+                                            <div class="flex-shrink-0 fs-4 me-3 pb-0">
+                                                <i class="bi bi-buildings"></i>
+                                            </div>
+
+                                            <div class="flex-grow-1 text-start">
+                                                <h1 class="card-title mb-0 pb-0">{{ all_company }}</h1>
+                                                <p class="text-muted dash-card-label pt-0 pb-0 mb-0">
+                                                    All Companies
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8 ps-md-2">
+                        <h3 class="fw-bolder mb-4" id="headCompList">
+                            Manage Companies</h3>
+
+
+                        <div class="col-12">
+
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="" aria-label="Button"
+                                    aria-describedby="" />
+                                <button class="btn btn-secondary" type="button" id="comp-list-search-btn">
+                                    <i class="bi bi-search"></i><span class="ms-2 d-none d-md-inline">Search</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            
+
+
+
+
+
+
+
+
+
+            <!-- Table -->
+            <div class="card border-0 overflow-auto p-2 p-lg-4 flex-grow-1 comp-list-cards" style="height: 417px;"
+                id="comp-list-table-card">
+                <table class="table align-middle table-borderless" id="comp_list_table">
+                    <thead>
+                        <tr>
+                            <th scope="col"></th>
+                            <th scope="col">Name of Company</th>
+                            <th scope="col">Number of Applicants</th>
+                            <th scope="col">Number of Job Postings</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for company in companies %}
+                        <tr>
+                            {% if company.status == 'Accepted' %}
+
+                            <th scope="row">
+                                <div id="complist-pic-container">
+                                    <img src="{{company.company_logo.url}}" alt="Company Logo" id="complist-table-pic"
+                                        class="">
+                                </div>
+
+                            </th>
+                            <td>{{company.company_name}}</td>
+                            <td class="text-center">{{ company.applicant_count }}</td>
+                            <td class="text-center">{{ company.posted_job_count }}</td>
+                            <td>
+                                <div class="row justify-content-center align-items-center g-1">
+                                    <div class="col">
+                                        <button type="button" class="btn btn-primary" id="comp-view-button">
+                                            <i class="bi bi-eye-fill"></i>
+                                        </button>
+
+                                    </div>
+                                    <div class="col">
+                                        <button type="button" class="btn btn-danger" id="comp-archive-button">
+                                            <i class="bi bi-archive-fill"></i>
+                                        </button>
+
+                                    </div>
+                                </div>
+
+                            </td>
+
+                            {% endif %}
+                        </tr>
+
+                        <tr>
+                            {% if company.status == 'Accepted' %}
+
+                            <th scope="row">
+                                <div id="complist-pic-container">
+                                    <img src="{{company.company_logo.url}}" alt="Company Logo" id="complist-table-pic"
+                                        class="">
+                                </div>
+
+                            </th>
+                            <td>{{company.company_name}}</td>
+                            <td class="text-center">{{ company.applicant_count }}</td>
+                            <td class="text-center">{{ company.posted_job_count }}</td>
+                            <td>
+                                <div class="row justify-content-center align-items-center g-1">
+                                    <div class="col">
+                                        <button type="button" class="btn btn-primary" id="comp-view-button">
+                                            <i class="bi bi-eye-fill"></i>
+                                        </button>
+
+                                    </div>
+                                    <div class="col">
+                                        <button type="button" class="btn btn-danger" id="comp-archive-button">
+                                            <i class="bi bi-archive-fill"></i>
+                                        </button>
+
+                                    </div>
+                                </div>
+
+                            </td>
+
+                            {% endif %}
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- 
+                    <div class="mt-5 rounded-lg overflow-hidden border border-red-500 overflow-x-auto">
+                        <table class="table-auto w-full text-center">
+
+                            <tbody>
+
+                                <tr>
+                                    <td class="border-b border-red-300 pl-2 sm:pl-4 pr-1 sm:pr-2 py-1 sm:py-2">
+                                       </td>
+                                    <td
+                                        class="border-b border-red-300 text-red-600 px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-base">
+                                        {{company.company_name}}</td>
+                                    <td
+                                        class="border-b border-red-300 text-red-600 px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-base">
+                                        {{ company.applicant_count }}</td>
+                                    <td
+                                        class="border-b border-red-300 text-red-600 px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-base">
+                                        {{ company.posted_job_count }}</td>
+                                    <td class="border-b border-red-300 px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-base">
+
+                                    </td>
+                                </tr>
+                                More rows...
+                            </tbody>
+                        </table>
+                    </div>Table -->
+
+
+
+            <!-- Pagination -->
+            <div class="mt-3">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-end">
+                        <li class="page-item disabled">
+                            <a class="page-link">Previous</a>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="#">Next</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+
         </div>
     </div>
 
-
-    <!-- Main content -->
-    <div class="flex-1 flex flex-col overflow-hidden h-screen">
-        <main class="flex-1 overflow-x-hidden overflow-y-auto bg-pink-100">
-            <div class="flex items-center bg-white w-full h-14">
-                <div class="ml-auto text-red-400 mr-10 italic font-semibold">
-                    {{user.username}}
-                </div>
-            </div>
-
-
-
-            <div class="container mx-auto px-6 py-8">
-                <h3 class="text-gray-700 text-2xl sm:text-3xl md:text-3xl lg:text-3xl font-semibold">Manage Companies</h3>
-                
-                <div class="flex font-light my-2 text-xs sm:text-lg md:text-lg lg:text-lg whitespace-nowrap">
-                    <p class="">The current number of companies are</p>
-                    <p class="ml-1">{{ all_company }}</p>
-                </div>
-
-                <div class="flex">
-                    <div class="border border-red-500 rounded-lg flex w-full sm:w-1/2 md:w-1/3 lg:w-1/4 bg-white overflow-hidden">
-                        <input placeholder="Name of Company..." class="w-full p-2 focus:outline-none">
-                        <button class="bg-red-500 rounded-lg w-20 flex items-center justify-center">
-                            <img src="imgs/searchIcon.png" alt="Search" class="w-6 h-6">
-                        </button>
-                    </div>
-
-                    <button class=" ml-3 px-7 py-1 text-white bg-red-500 rounded-md">
-                        Filter
-                    </button>
-                </div>
-
-            
-
-
-                <!-- Table -->
-                <div class="mt-5 rounded-lg overflow-hidden border border-red-500 overflow-x-auto">
-                    <table class="table-auto w-full text-center">
-                        <thead class="bg-red-500 text-white">
-                            <tr>
-                                <th class="px-4 py-3"></th>
-                                <th class="px-4 py-3">Name of Company</th>
-                                <th class="px-4 py-3">Number of Applicants</th>
-                                <th class="px-4 py-3">Number of Job Postings</th>
-                                <th class="px-4 py-3"></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for company in companies %}
-                            <tr>
-                                {% if company.status == 'Accepted' %}
-                                <td class="border-b border-red-300 pl-2 sm:pl-4 pr-1 sm:pr-2 py-1 sm:py-2"><img src="{{company.company_logo.url}}" alt="Company Logo" class="sm:w-9 sm:h-9  md:w-10 md:h-10     lg:w-11 lg:h-11"></td>
-                                <td class="border-b border-red-300 text-red-600 px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-base">{{company.company_name}}</td>
-                                <td class="border-b border-red-300 text-red-600 px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-base">{{ company.applicant_count }}</td>
-                                <td class="border-b border-red-300 text-red-600 px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-base">{{ company.posted_job_count }}</td>
-                                <td class="border-b border-red-300 px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-base">
-                                    <div class="border inline-flex bg-white border-purple-500 rounded-lg mr-4 overflow-hidden">
-                                        <button class="bg-purple-500 px-4 text-white rounded">View</button>
-                                        <button class="bg-white px-4 text-purple-500 rounded">Archive</button>
-                                    </div>
-                                </td>
-                                {% endif %}
-                            </tr>
-                            {% endfor %}
-                            <!-- More rows... -->
-                        </tbody>
-                    </table>
-                </div><!-- Table -->
-
-
-
-                <!-- Pagination -->
-                <div class="mt-3">
-                    <div class="flex items-center">
-                        <div class="flex mt-5 border border-gray-300 rounded-md">
-                            <button class="px-4 py-1 text-gray-500 bg-gray-200 rounded-l-md flex-shrink-0 border-r border-gray-300">Previous</button>
-                            <button class="px-2 py-1 text-red-500 rounded-l-md border-r border-gray-300">1</button>
-                            <button class="px-2 py-1 text-red-500 rounded-l-md border-r border-gray-300">2</button>
-                            <button class="px-2 py-1 text-red-500 rounded-l-md border-r border-gray-300">3</button>
-                            <button class="px-4 py-1 text-red-500 rounded-r-md">Next</button>
-                        </div>
-                
-                        <div class="ml-auto italic flex text-red-500">
-                            <div>Page</div>
-                            <div class="ml-1">1</div>
-                            <div class="ml-1">of</div>
-                            <div class="ml-1">50</div>
-                        </div>
-                    </div>
-                </div>
-                
-            </div>
-        </main>
-    </div>
-
-
 </body>
+
 </html>

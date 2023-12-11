@@ -1,0 +1,116 @@
+body {
+    background: linear-gradient(to left, rgba(137, 141, 255, 0.1), rgba(223, 90, 255, 0.1));
+    /* backdrop-filter: 20px; */
+    color: #20272F;
+    min-height: 100vh;
+    font-family: 'Poppins', sans-serif;
+}
+#headCompList {
+    background: linear-gradient(45deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4), rgba(185, 185, 185, 0.4), rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4));
+    background-clip: text;
+    -webkit-background-clip: text;
+    /* For Safari/Chrome */
+    color: transparent;
+    text-fill-color: transparent;
+    /* For Safari/Chrome */
+    display: inline-block;
+    /* You may add additional styling as needed */
+}
+
+#companies-list-main-container {
+    transition: margin-left .5s;
+    margin-left: 275px;
+}
+
+@media (max-width: 768px) {
+    #companies-list-main-container {
+        transition: margin-left .5s;
+        margin-left: 0px;
+    }
+}
+
+#comp-list-table-card {
+    /* background:rgb(32, 39, 47); */
+    /* color: rgba(32, 39, 47, 0.75); color:white; */
+    background-color: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+}
+
+table#comp_list_table th,
+table#comp_list_table td {
+    background-color: transparent !important;
+}
+table#comp_list_table thead{
+    position: sticky;
+    top: -7%;
+    background-color: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+}
+
+#comp-list-card1 {
+    background: rgba(137, 141, 255, 0.15) !important;
+    color: rgba(32, 39, 47, 0.75) !important;
+
+    border: 1px solid #f1f1f1 !important;
+}
+.comp-list-cards{
+    overflow: hidden !important;
+    box-shadow: rgba(0, 0, 0, 0.1) -4px 9px 25px -6px;
+
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    /* box-shadow: rgba(0, 0, 0, 0.37) 0px 8px 32px 0; */
+    position: relative;
+    display: inline-block;
+    padding: 10px;
+
+}
+
+#head-parent-card{
+    background: rgba(255, 255, 255, 0.15) !important;
+    color: rgba(32, 39, 47, 0.75) !important;
+
+    border: 1px solid #f1f1f1 !important;
+    backdrop-filter: blur(5px) !important;
+    -webkit-backdrop-filter: blur(5px) !important;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#comp-view-button{
+background-color: rgb(137, 141, 255);
+}
+#comp-view-button:hover{
+background-color: rgba(137, 141, 255, 0.8) !important;
+}
+#comp-archive-button{
+    background-color: rgb(251, 103, 95);
+}
+#comp-archive-button:hover{
+    background-color: rgba(251, 103, 95, 0.8) !important;
+}
+
+#comp-list-search-btn{
+    background-color: rgb(137, 141, 255);
+}
+#comp-list-search-btn:hover{
+    background-color: rgba(137, 141, 255, 0.8);
+}
+
+#complist-table-pic
+{
+    height: 30px;
+    display: block;
+}
+#complist-pic-container{
+    
+    width: 30px;
+    height: 30px;
+    overflow: hidden;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
