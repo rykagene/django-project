@@ -556,7 +556,6 @@ function search_job() {
 
   var timeOption = document.querySelector('input[name="timeOption"]:checked');
   var timeOptionValue = timeOption ? timeOption.value : null;
-  alert(timeOptionValue)
   fetch('/search_job/', {
     method: 'POST',
     headers: {
