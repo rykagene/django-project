@@ -129,40 +129,6 @@
 
                             {% endif %}
                         </tr>
-
-                        <tr>
-                            {% if company.status == 'Accepted' %}
-
-                            <th scope="row">
-                                <div id="complist-pic-container">
-                                    <img src="{{company.company_logo.url}}" alt="Company Logo" id="complist-table-pic"
-                                        class="">
-                                </div>
-
-                            </th>
-                            <td>{{company.company_name}}</td>
-                            <td class="text-center">{{ company.applicant_count }}</td>
-                            <td class="text-center">{{ company.posted_job_count }}</td>
-                            <td>
-                                <div class="row justify-content-center align-items-center g-1">
-                                    <div class="col">
-                                        <button type="button" class="btn btn-primary" id="comp-view-button">
-                                            <i class="bi bi-eye-fill"></i>
-                                        </button>
-
-                                    </div>
-                                    <div class="col">
-                                        <button type="button" class="btn btn-danger" id="comp-archive-button">
-                                            <i class="bi bi-archive-fill"></i>
-                                        </button>
-
-                                    </div>
-                                </div>
-
-                            </td>
-
-                            {% endif %}
-                        </tr>
                         {% endfor %}
                     </tbody>
                 </table>
