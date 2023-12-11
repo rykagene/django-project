@@ -337,29 +337,29 @@
 
 
                                         <!-- ========== Start Section Card of Change Pass ========== -->
-                                        <form action="">
+                                        <form method="POST" id="passwordForm" action="/jobseeker_changepassword/">
+                                            {% csrf_token %}
                                             <div class="">
-                                                <label for="" class="form-label">Current Password</label>
-                                                <input type="password" class="form-control" name="" id=""
-                                                    aria-describedby="helpId" placeholder="">
-                                                <small id="" class="form-text text-muted d-none">Help text</small>
+                                                <label for="currentPassword" name="currentPassword" class="form-label">Current Password</label>
+                                                <input type="password" class="form-control" name="currentPassword" id="currentPassword" aria-describedby="helpCurrentPassword" placeholder="">
+                                                <small id="helpCurrentPassword" class="form-text text-muted d-none">Help text</small>
                                             </div>
                                             <div class="">
-                                                <label for="" class="form-label">New Password</label>
-                                                <input type="password" class="form-control" name="" id=""
-                                                    aria-describedby="helpId" placeholder="">
-                                                <small id="" class="form-text text-muted d-none">Help text</small>
+                                                <label for="newPassword" class="form-label">New Password</label>
+                                                <input type="password" class="form-control" name="newPassword" id="newPassword" aria-describedby="helpNewPassword" placeholder="">
+                                                <small id="helpNewPassword" class="form-text text-muted d-none">Help text</small>
                                             </div>
                                             <div class="mb-3">
-                                                <label for="" class="form-label">Confirm New Password</label>
-                                                <input type="password" class="form-control" name="" id=""
-                                                    aria-describedby="helpId" placeholder="">
-                                                <small id="" class="form-text text-muted d-none">Help text</small>
+                                                <label for="confirmNewPassword" class="form-label">Confirm New Password</label>
+                                                <input type="password" class="form-control" name="confirmNewPassword" id="confirmNewPassword" aria-describedby="helpConfirmNewPassword" placeholder="">
+                                                <small id="helpConfirmNewPassword" class="form-text text-muted d-none">Help text</small>
                                             </div>
-                                            <button type="button" class="btn btn-primary"  data-bs-toggle="modal" data-bs-target="#changePassModal">
+                                            <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#changePassModal" id="submitButton" onclick="checkPasswords()" disabled>
                                                 Submit
                                             </button>
-
+                                        
+                                            <!-- Include server-side data in the HTML -->
+                                            <input type="hidden" id="serverCurrentPassword" value="{{applicant.password}}">
                                         </form>
 
                                         <!-- ========== End Section Card of Change Pss========== -->
@@ -1063,46 +1063,7 @@
 
         <!-- ========== End Section Education Modal ========== -->
 
-
-
-        <!-- ========== Start Section ChangePass Modal ========== -->
-
-        <!-- Modal Body -->
-        <!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
-        <div class="modal fade" id="changePassModal" tabindex="-1"
-            role="dialog" aria-labelledby="changePassModalTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="changePassModalTitle">
-                            Change Password
-                        </h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        Are you sure you want to change your password? Click "Yes" to proceed.<br>
-                        <small class="text-muted"></small>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                            No
-                        </button>
-                        <button type="button" class="btn btn-primary">Yes</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-
-        <!-- ========== End Section ChangePass Modal ========== -->
-
-
-
         <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-
-
-
 
         <script>
             function closeErrorModal() {
@@ -1138,6 +1099,37 @@
                     });
                 });
             });
+
+            function checkPasswords() {
+                var currentPassword = document.getElementById("currentPassword").value;
+                var newPassword = document.getElementById("newPassword").value;
+                var confirmNewPassword = document.getElementById("confirmNewPassword").value;
+                var helpTextConfirmNewPassword = document.getElementById("helpConfirmNewPassword");
+                var submitButton = document.getElementById("submitButton");
+                helpTextConfirmNewPassword.classList.add("d-none");
+                // Access the server-side data from the hidden input
+                var serverCurrentPassword = document.getElementById("serverCurrentPassword").value;
+        
+                if (serverCurrentPassword !== currentPassword) {
+                    helpTextConfirmNewPassword.textContent = "Current password is incorrect!";
+                    helpTextConfirmNewPassword.classList.remove("d-none");
+                } else if (newPassword !== confirmNewPassword) {
+                    helpTextConfirmNewPassword.textContent = "Confirm Passwords do not match!";
+                    helpTextConfirmNewPassword.classList.remove("d-none");
+                } else if (newPassword.length < 8 || newPassword.length > 16) {
+                    helpTextConfirmNewPassword.textContent = "Password must be between 8 and 16 characters!";
+                    helpTextConfirmNewPassword.classList.remove("d-none");
+                } else {
+                    // Passwords match and meet length requirements, you can proceed with the form submission
+                    submitButton.disabled = false;
+                }
+            }
+        
+            // Add event listeners for real-time validation
+            document.getElementById("newPassword").addEventListener("input", checkPasswords);
+            document.getElementById("confirmNewPassword").addEventListener("input", checkPasswords);
+
+
         </script>
 
 </body>

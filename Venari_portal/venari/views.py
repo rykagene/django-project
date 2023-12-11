@@ -174,7 +174,27 @@ def jobseeker_basicinformation(request):
         
     print(request.FILES)
     return render(request, "jobseeker_profile.html", {'applicant':applicant})
+def user_changepassword(request):
+    if not request.user.is_authenticated:
+        return redirect('/login/')
 
+    applicant = job_seeker.objects.get(user=request.user)
+
+    if request.method == "POST":
+        new_password = request.POST.get('newPassword')
+
+        # Update the job seeker's password
+        applicant.password = new_password
+        applicant.save()
+
+        # Update the associated User's password
+        user = User.objects.get(username=request.user.username)
+        user.set_password(new_password)
+        user.save()
+
+    return redirect("/jobseeker_profile")
+
+        
 def jobseeker_introduction(request):
     if not request.user.is_authenticated:
         return redirect('/user_login/')
