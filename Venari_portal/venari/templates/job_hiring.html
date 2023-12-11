@@ -45,184 +45,204 @@ see more-->
 
 <!--Header-->
 <div class="container-xl">
-    <div class="col-12">
-      <div class="card card-pink mt-3 ">
-        <div class="row mt-2 justify-content-center">
-          <h5 class="card-title text-center">Jobs you might like</h5>
-          <div class="col-md-10 mt-3">
-            <label for="jobSearch"></label>
-            <div class="input-group mb-0">
-              <input type="text" class="form-control" id="jobSearch" placeholder="Search job here..." aria-label="Search" aria-describedby="basic-addon2">
-            </div>
+  <div class="col-12">
+    <div class="card card-pink mt-3 ">
+      <div class="row mt-2 justify-content-center">
+        <h5 class="card-title text-center">Jobs you might like</h5>
+        <div class="col-md-10 mt-3">
+          <label for="jobSearch"></label>
+          <div class="input-group mb-0">
+            <input type="text" class="form-control" id="jobSearch" placeholder="Search job here..." aria-label="Search" aria-describedby="basic-addon2">
           </div>
-       <!-- Dropdown with Checkbox Buttons Column -->
+        </div>
+     <!-- Dropdown with Checkbox Buttons Column -->
 
 
-          <!-- Search Button Column -->
-          <div class="col-md-2 mt-3">
-            <label></label>
-            <button class="btn btn-outline-secondary" type="button">Search</button>
-          </div>
+        <!-- Search Button Column -->
+        <div class="col-md-2 mt-3">
+          <label></label>
+          <button class="btn btn-outline-secondary" type="button">Search</button>
+        </div>
 
-          <div class="col-12">
-          <div class="row">
-            <!-- Dropdown for Listed Any Time -->
-            <div class="col-md-4 mt-4">
-              <div class="form-group">
-                <div class="dropdown">
-                  <button class="btn btn-ouline btn-block dropdown-toggle" type="button" id="listedAnyTimeDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Time Posted
-                  </button>
-                  <div class="dropdown-menu" aria-labelledby="listedAnyTimeDropdown">
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="fullTime" id="fullTimeCheckbox">
-                      <label class="form-check-label" for="fullTimeCheckbox">Recently Posted</label>
-                    </div>
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="partTime" id="partTimeCheckbox">
-                      <label class="form-check-label" for="partTimeCheckbox">Last 7 days</label>
-                    </div>
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="contractual" id="contractualCheckbox">
-                      <label class="form-check-label" for="contractualCheckbox">A week ago</label>
-                    </div>
-                    <!-- Add your options for Listed Any Time -->
+     <div class="col-12">
+        <div class="row">
+          <!-- Dropdown for Listed Any Time -->
+          <div class="col-md-3 mt-4">
+            <div class="form-group">
+              <div class="dropdown">
+                <button class="btn btn-outline btn-block dropdown-toggle" type="button" id="listedAnyTimeDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                  Time Posted
+                </button>
+                <div class="dropdown-menu" aria-labelledby="listedAnyTimeDropdown">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="fullTime" id="fullTimeCheckbox">
+                    <label class="form-check-label" for="fullTimeCheckbox">Recently Posted</label>
                   </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="partTime" id="partTimeCheckbox">
+                    <label class="form-check-label" for="partTimeCheckbox">Last 7 days</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="contractual" id="contractualCheckbox">
+                    <label class="form-check-label" for="contractualCheckbox">A week ago</label>
+                  </div>
+                  <!-- Add your options for Listed Any Time -->
                 </div>
               </div>
             </div>
-                      <!-- Search Bar Column -->
-          <div class="col-md-4 mt-4">
+          </div>
+          
+          <!-- Search Bar Column -->
+          <div class="col-md-3 mt-4">
             <div class="form-group">
               <div class="dropdown">
-                <button class="btn btn-outline btn-block dropdown-toggle" type="button" id="employmentTypeDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <button class="btn btn-outline btn-block dropdown-toggle" type="button" id="employmentTypeDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                   Employment Type
                 </button>
                 <div class="dropdown-menu" aria-labelledby="employmentTypeDropdown">
                   <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="fullTime" id="fullTimeCheckbox">
-                    <label class="form-check-label" for="fullTimeCheckbox">Full-time</label>
+                    <input class="form-check-input" type="checkbox" value="fullTime" id="fullTimeCheckbox2">
+                    <label class="form-check-label" for="fullTimeCheckbox2">Full-time</label>
                   </div>
                   <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="partTime" id="partTimeCheckbox">
-                    <label class="form-check-label" for="partTimeCheckbox">Part-time</label>
+                    <input class="form-check-input" type="checkbox" value="partTime" id="partTimeCheckbox2">
+                    <label class="form-check-label" for="partTimeCheckbox2">Part-time</label>
                   </div>
                   <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="contractual" id="contractualCheckbox">
-                    <label class="form-check-label" for="contractualCheckbox">Contractual</label>
+                    <input class="form-check-input" type="checkbox" value="contractual" id="contractualCheckbox2">
+                    <label class="form-check-label" for="contractualCheckbox2">Contractual</label>
                   </div>
                   <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="freelance" id="freelanceCheckbox">
-                    <label class="form-check-label" for="freelanceCheckbox">Freelance</label>
+                    <input class="form-check-input" type="checkbox" value="freelance" id="freelanceCheckbox2">
+                    <label class="form-check-label" for="freelanceCheckbox2">Freelance</label>
                   </div>
                   <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="internship" id="internshipCheckbox">
-                    <label class="form-check-label" for="internshipCheckbox">Internship</label>
+                    <input class="form-check-input" type="checkbox" value="internship" id="internshipCheckbox2">
+                    <label class="form-check-label" for="internshipCheckbox2">Internship</label>
                   </div>
                 </div>
               </div>
             </div>
           </div>
           
-            <!-- Dropdown for Salary Grade -->
-            <div class="col-md-4 mt-4">
-              <div class="form-group">
-                <div class="dropdown">
-                  <button class="btn btn-outline btn-block dropdown-toggle" type="button" id="salaryGradeDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Salary Grade
-                  </button>
-                  <div class="dropdown-menu" aria-labelledby="salaryGradeDropdown">
-                    <ul class="nav nav-tabs" id="salaryTabs" role="tablist">
-                      <li class="nav-item">
-                        <a class="nav-link active" id="hourly-tab" data-toggle="tab" href="#hourly" role="tab" aria-controls="hourly" aria-selected="true">Hourly</a>
-                      </li>
-                      <li class="nav-item">
-\
-]                        <a class="nav-link" id="monthly-tab" data-toggle="tab" href="#monthly" role="tab" aria-controls="monthly" aria-selected="false">Monthly</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" id="annual-tab" data-toggle="tab" href="#annual" role="tab" aria-controls="annual" aria-selected="false">Annually</a>
-                      </li>
-                    </ul>
+          <!-- Dropdown for Salary Grade -->
+          <div class="col-md-3 mt-4">
+            <div class="form-group">
+              <div class="dropdown">
+                <button class="btn btn-outline btn-block dropdown-toggle" type="button" id="salaryGradeDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                  Salary Grade
+                </button>
+                <div class="dropdown-menu" aria-labelledby="salaryGradeDropdown">
+                  <ul class="nav nav-tabs" id="salaryTabs" role="tablist">
+                    <li class="nav-item">
+                      <a class="nav-link active" id="hourly-tab" data-bs-toggle="tab" href="#hourly" role="tab" aria-controls="hourly" aria-selected="true">Hourly</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" id="monthly-tab" data-bs-toggle="tab" href="#monthly" role="tab" aria-controls="monthly" aria-selected="false">Monthly</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" id="annual-tab" data-bs-toggle="tab" href="#annual" role="tab" aria-controls="annual" aria-selected="false">Annually</a>
+                    </li>
+                  </ul>
           
-                    <!-- Tab panes inside dropdown -->
-                    <div class="tab-content" id="salaryTabsContent">
-                      <div class="tab-pane fade show active" id="hourly" role="tabpanel" aria-labelledby="hourly-tab">
-                        <!-- Content for Hourly tab -->
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" value="0" id="hourlyCheckbox0">
-                          <label class="form-check-label" for="hourlyCheckbox0">0</label>
-                        </div>
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" value="50" id="hourlyCheckbox50">
-                          <label class="form-check-label" for="hourlyCheckbox50">50</label>
-                        </div>
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" value="100" id="hourlyCheckbox100">
-                          <label class="form-check-label" for="hourlyCheckbox100">100</label>
-                        </div>
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" value="150" id="hourlyCheckbox150">
-                          <label class="form-check-label" for="hourlyCheckbox150">150</label>
-                        </div>
+                  <!-- Tab panes inside dropdown -->
+                  <div class="tab-content" id="salaryTabsContent">
+                    <div class="tab-pane fade show active" id="hourly" role="tabpanel" aria-labelledby="hourly-tab">
+                      <!-- Content for Hourly tab -->
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="0" id="hourlyCheckbox0">
+                        <label class="form-check-label" for="hourlyCheckbox0">0</label>
                       </div>
-          
-                      <div class="tab-pane fade" id="monthly" role="tabpanel" aria-labelledby="monthly-tab">
-                        <!-- Content for Monthly tab -->
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" value="1k" id="monthlyCheckbox1k">
-                          <label class="form-check-label" for="monthlyCheckbox1k">1k</label>
-                        </div>
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" value="5k" id="monthlyCheckbox5k">
-                          <label class="form-check-label" for="monthlyCheckbox5k">5k</label>
-                        </div>
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" value="10k" id="monthlyCheckbox10k">
-                          <label class="form-check-label" for="monthlyCheckbox10k">10k</label>
-                        </div>
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" value="20k" id="monthlyCheckbox20k">
-                          <label class="form-check-label" for="monthlyCheckbox20k">20k</label>
-                        </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="50" id="hourlyCheckbox50">
+                        <label class="form-check-label" for="hourlyCheckbox50">50</label>
                       </div>
-          
-                      <div class="tab-pane fade" id="annual" role="tabpanel" aria-labelledby="annual-tab">
-                        <!-- Content for Annual tab -->
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" value="20k" id="annualCheckbox20k">
-                          <label class="form-check-label" for="annualCheckbox20k">20k</label>
-                        </div>
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" value="40k" id="annualCheckbox40k">
-                          <label class="form-check-label" for="annualCheckbox40k">40k</label>
-                        </div>
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" value="50k" id="annualCheckbox50k">
-                          <label class="form-check-label" for="annualCheckbox50k">50k</label>
-                        </div>
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" value="60k" id="annualCheckbox60k">
-                          <label class="form-check-label" for="annualCheckbox60k">60k</label>
-                        </div>
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" value="100k" id="annualCheckbox100k">
-                          <label class="form-check-label" for="annualCheckbox100k">100k</label>
-                        </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="100" id="hourlyCheckbox100">
+                        <label class="form-check-label" for="hourlyCheckbox100">100</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="150" id="hourlyCheckbox150">
+                        <label class="form-check-label" for="hourlyCheckbox150">150</label>
                       </div>
                     </div>
           
-                    <!-- Add your options for Salary Grade -->
+                    <div class="tab-pane fade" id="monthly" role="tabpanel" aria-labelledby="monthly-tab">
+                      <!-- Content for Monthly tab -->
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="1k" id="monthlyCheckbox1k">
+                        <label class="form-check-label" for="monthlyCheckbox1k">1k</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="5k" id="monthlyCheckbox5k">
+                        <label class="form-check-label" for="monthlyCheckbox5k">5k</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="10k" id="monthlyCheckbox10k">
+                        <label class="form-check-label" for="monthlyCheckbox10k">10k</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="20k" id="monthlyCheckbox20k">
+                        <label class="form-check-label" for="monthlyCheckbox20k">20k</label>
+                      </div>
+                    </div>
+          
+                    <div class="tab-pane fade" id="annual" role="tabpanel" aria-labelledby="annual-tab">
+                      <!-- Content for Annual tab -->
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="20k" id="annualCheckbox20k">
+                        <label class="form-check-label" for="annualCheckbox20k">20k</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="40k" id="annualCheckbox40k">
+                        <label class="form-check-label" for="annualCheckbox40k">40k</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="50k" id="annualCheckbox50k">
+                        <label class="form-check-label" for="annualCheckbox50k">50k</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="60k" id="annualCheckbox60k">
+                        <label class="form-check-label" for="annualCheckbox60k">60k</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="100k" id="annualCheckbox100k">
+                        <label class="form-check-label" for="annualCheckbox100k">100k</label>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
+          </div>
+          <div class="col-md-3 mt-4">
+            <div class="form-group">
+              <div class="dropdown-country">
+                <button class="btn btn-outline btn-block dropdown-toggle" type="button" id="employmentTypeDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                  Employment Type
+                </button>
+                <div class="dropdown-menu" aria-labelledby="employmentTypeDropdown">
+                  <div class="select_option">
+                    <select class="form-select country" aria-label="Default select example" onchange="loadStates()">
+                        <option selected>Select Country</option>
+                    </select>
+                    <select class="form-select state" aria-label="Default select example" onchange="loadCities()">
+                        <option selected>Select State</option>
+                    </select>
+                    <select class="form-select city" aria-label="Default select example">
+                        <option selected>Select City</option>
+                    </select>
+                </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
           
-            <!-- Dropdown for Featured Jobs -->
-          </div>
         </div>
-          </div>
+      </div>
         </div>
+      </div>
       
       
 
@@ -254,7 +274,7 @@ see more-->
 <hr>
 <!--Job Listings-->
     <div class="container-xl">
-        <div class="row row-cols-1 row-cols-md-3 mb-2 mt-2 g-3 py-0 scrollable-container ">
+        <div class="row row-cols-1 row-cols-md-3 mb-2 mt-2 g-3 py-0">
           {% for job in jobs %}
           {% if job.status == "Activate" %} 
           <div class="col-md-4 mb-4">
@@ -295,9 +315,9 @@ see more-->
                   <span class="custom-post-time">{{job.location}}</span>
                 </div>
                 <div class="custom-description">
-                  <p class="card-description-justify-content-left"><strong>Job Type:</strong>{{job.jobtype}}</p>
-                  <p class="card-description-justify-content-left"><strong>Job Skills:</strong>{{job.skills}}</p>
-                  <p class="card-description-justify-content-left"><strong>Salary:</strong>{{job.salary}}</p>
+                  <p class="card-description-justify-content-left"><strong>Job Type: </strong>{{job.jobtype}}</p>
+                  <p class="card-description-justify-content-left"><strong>Job Skills: </strong>{{job.skills}}</p>
+                  <p class="card-description-justify-content-left"><strong>Salary: </strong>{{job.salary}}</p>
                 </div>
               </div>
               <div class="mx-4 mb-4 mt-1 d-flex justify-content-left">
@@ -305,18 +325,15 @@ see more-->
                 <button class="btn btn-outline custom-bton" data-bs-toggle="modal" data-bs-target="#applyModal" style="width:300px; margin-top: 0; border-radius:10px;" >See More</button>
               </div>
             </div>
-          </div>
-          <a class="gotopbtn" href="#">
-            <i class="fas fa-arrow-up"></i>
-          </a>
+         </div>
+             {% endif %}
+        {% endfor %}
     </div>
     </div>
-    {% endif %}
- {% endfor %}
 </div>
 
 <footer class="footer">
-  <div class="container">
+  <div class="container-xl">
     <div class="row">
       <div class="footer-col">
         <h4>Venari</h4>
@@ -366,6 +383,13 @@ see more-->
         </li>
       </ul>
     </nav>-->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJj8iiIbdFJGpqzjE3ccFJS..." crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.0.2/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
     crossorigin="anonymous"></script>
@@ -378,37 +402,6 @@ see more-->
     }
 
 </script>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJj8iiIbdFJGpqzjE3ccFJS..." crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-    crossorigin="anonymous"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <script>
-      $(document).ready(function () {
-        // Show or hide the button based on scroll position
-        $(window).scroll(function () {
-          if ($(this).scrollTop() > 100) {
-            $('.gotopbtn').fadeIn();
-          } else {
-            $('.gotopbtn').fadeOut();
-          }
-        });
-  
-        // Smooth scroll to top when the button is clicked
-        $('.gotopbtn').click(function () {
-          $('html, body').animate({
-            scrollTop: 0
-          }, 800);
-          return false;
-        });
-      });
-    </script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-        crossorigin="anonymous"></script>
-    <script src="script.js"></script>
     
     <script>
       function handleBookmarkClick(event, jobId) {
@@ -484,6 +477,99 @@ see more-->
         return cookieValue;
     }
     </script>
+
+<!--Countries-Cities-->
+<script>
+  var config = {
+    cUrl: 'https://api.countrystatecity.in/v1/countries',
+    ckey: 'NHhvOEcyWk50N2Vna3VFTE00bFp3MjFKR0ZEOUhkZlg4RTk1MlJlaA=='
+}
+
+
+var countrySelect = document.querySelector('.country'),
+    stateSelect = document.querySelector('.state'),
+    citySelect = document.querySelector('.city')
+
+
+function loadCountries() {
+
+    let apiEndPoint = config.cUrl
+
+    fetch(apiEndPoint, {headers: {"X-CSCAPI-KEY": config.ckey}})
+    .then(Response => Response.json())
+    .then(data => {
+        // console.log(data);
+
+        data.forEach(country => {
+            const option = document.createElement('option')
+            option.value = country.iso2
+            option.textContent = country.name 
+            countrySelect.appendChild(option)
+        })
+    })
+    .catch(error => console.error('Error loading countries:', error))
+
+    stateSelect.disabled = true
+    citySelect.disabled = true
+    stateSelect.style.pointerEvents = 'none'
+    citySelect.style.pointerEvents = 'none'
+}
+
+
+function loadStates() {
+    stateSelect.disabled = false
+    citySelect.disabled = true
+    stateSelect.style.pointerEvents = 'auto'
+    citySelect.style.pointerEvents = 'none'
+
+    const selectedCountryCode = countrySelect.value
+    // console.log(selectedCountryCode);
+    stateSelect.innerHTML = '<option value="">Select State</option>' // for clearing the existing states
+    citySelect.innerHTML = '<option value="">Select City</option>' // Clear existing city options
+
+    fetch(`${config.cUrl}/${selectedCountryCode}/states`, {headers: {"X-CSCAPI-KEY": config.ckey}})
+    .then(response => response.json())
+    .then(data => {
+        // console.log(data);
+
+        data.forEach(state => {
+            const option = document.createElement('option')
+            option.value = state.iso2
+            option.textContent = state.name 
+            stateSelect.appendChild(option)
+        })
+    })
+    .catch(error => console.error('Error loading countries:', error))
+}
+
+
+function loadCities() {
+    citySelect.disabled = false
+    citySelect.style.pointerEvents = 'auto'
+
+    const selectedCountryCode = countrySelect.value
+    const selectedStateCode = stateSelect.value
+    // console.log(selectedCountryCode, selectedStateCode);
+
+    citySelect.innerHTML = '<option value="">Select City</option>' // Clear existing city options
+
+    fetch(`${config.cUrl}/${selectedCountryCode}/states/${selectedStateCode}/cities`, {headers: {"X-CSCAPI-KEY": config.ckey}})
+    .then(response => response.json())
+    .then(data => {
+        // console.log(data);
+
+        data.forEach(city => {
+            const option = document.createElement('option')
+            option.value = city.iso2
+            option.textContent = city.name 
+            citySelect.appendChild(option)
+        })
+    })
+}
+
+window.onload = loadCountries
+
+</script>
 </body>
 
 </html>
