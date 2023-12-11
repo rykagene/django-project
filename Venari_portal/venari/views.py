@@ -747,8 +747,7 @@ def admin_dashboard(request):
     }
     return render(request, "admin_dashboard.html", context)
 
-def admin_report_table(request):
-    applicant = job_seeker.objects.all()
+
 def admin_generate_report(request):
     data = job_seeker.objects.all()
     wb = Workbook()
