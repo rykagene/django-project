@@ -13,9 +13,8 @@
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
     </script>
 
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
-
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -162,7 +161,7 @@
                                     </div>
                                 </div>
 
-                                <div class="card border-0">
+                                <!-- <div class="card border-0">
 
                                     <button type="button" id="editNotes" class="btn position-absolute ">
                                         <i class="bi bi-pencil-fill" data-bs-toggle="modal" data-bs-toggle="modal"
@@ -177,7 +176,7 @@
                                         </div>
 
                                     </div>
-                                </div>
+                                </div> -->
 
                             </div>
                         </div>
@@ -305,6 +304,9 @@
                                                         <button type="button" id="editWorkItem" class="btn mb-4"
                                                             data-bs-toggle="modal" data-bs-target="#modalWorkExp">
                                                             <i class="bi bi-pencil-fill"></i></button>
+                                                        <button type="button" id="editWorkItem" class="btn mb-4"
+                                                        data-bs-toggle="modal" data-bs-target="#deleteExpModal">
+                                                            <i class="bi bi-trash-fill"></i></button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -340,26 +342,39 @@
                                         <form method="POST" id="passwordForm" action="/jobseeker_changepassword/">
                                             {% csrf_token %}
                                             <div class="">
-                                                <label for="currentPassword" name="currentPassword" class="form-label">Current Password</label>
-                                                <input type="password" class="form-control" name="currentPassword" id="currentPassword" aria-describedby="helpCurrentPassword" placeholder="">
-                                                <small id="helpCurrentPassword" class="form-text text-muted d-none">Help text</small>
+                                                <label for="currentPassword" name="currentPassword"
+                                                    class="form-label">Current Password</label>
+                                                <input type="password" class="form-control" name="currentPassword"
+                                                    id="currentPassword" aria-describedby="helpCurrentPassword"
+                                                    placeholder="">
+                                                <small id="helpCurrentPassword" class="form-text text-muted d-none">Help
+                                                    text</small>
                                             </div>
                                             <div class="">
                                                 <label for="newPassword" class="form-label">New Password</label>
-                                                <input type="password" class="form-control" name="newPassword" id="newPassword" aria-describedby="helpNewPassword" placeholder="">
-                                                <small id="helpNewPassword" class="form-text text-muted d-none">Help text</small>
+                                                <input type="password" class="form-control" name="newPassword"
+                                                    id="newPassword" aria-describedby="helpNewPassword" placeholder="">
+                                                <small id="helpNewPassword" class="form-text text-muted d-none">Help
+                                                    text</small>
                                             </div>
                                             <div class="mb-3">
-                                                <label for="confirmNewPassword" class="form-label">Confirm New Password</label>
-                                                <input type="password" class="form-control" name="confirmNewPassword" id="confirmNewPassword" aria-describedby="helpConfirmNewPassword" placeholder="">
-                                                <small id="helpConfirmNewPassword" class="form-text text-muted d-none">Help text</small>
+                                                <label for="confirmNewPassword" class="form-label">Confirm New
+                                                    Password</label>
+                                                <input type="password" class="form-control" name="confirmNewPassword"
+                                                    id="confirmNewPassword" aria-describedby="helpConfirmNewPassword"
+                                                    placeholder="">
+                                                <small id="helpConfirmNewPassword"
+                                                    class="form-text text-muted d-none">Help text</small>
                                             </div>
-                                            <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#changePassModal" id="submitButton" onclick="checkPasswords()" disabled>
+                                            <button type="submit" class="btn btn-primary" data-bs-toggle="modal"
+                                                data-bs-target="#changePassModal" id="submitButton"
+                                                onclick="checkPasswords()" disabled>
                                                 Submit
                                             </button>
-                                        
+
                                             <!-- Include server-side data in the HTML -->
-                                            <input type="hidden" id="serverCurrentPassword" value="{{applicant.password}}">
+                                            <input type="hidden" id="serverCurrentPassword"
+                                                value="{{applicant.password}}">
                                         </form>
 
                                         <!-- ========== End Section Card of Change Pss========== -->
@@ -634,22 +649,40 @@
             aria-hidden="true">
             <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md" role="document">
                 <div class="modal-content">
-                    <form class="container" method="POST" Action="{% url 'jobseeker_introduction' %}"
-                        enctype="multipart/form-data" id="profileForm">
-                        {% csrf_token %}
 
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="modalInfoTitle">Edit Introduction</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
+
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalInfoTitle">Edit Introduction</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+                    <div class="modal-body">
+                        <form class="container overflow-y-auto" method="POST"
+                            Action="{% url 'jobseeker_introduction' %}" enctype="multipart/form-data" id="profileForm">
+                            {% csrf_token %}
                             <div class="mb-3">
-                                <label for="" class="form-label">Name</label>
+                                <label for="" class="form-label">Username</label>
                                 <input type="text" class="form-control" value={{applicant.user.username}}
                                     name="username" id="" aria-describedby="helpId" placeholder="">
                                 <small id="" class="form-text text-muted">Help text</small>
                                 <input type="hidden" class="form-control mt-2" name="hidden_username" id="username"
                                     value="{{applicant.user.username}}">
+                            </div>
+                            <div class="mb-3">
+                                <label for="" class="form-label">First Name</label>
+                                <input type="text" class="form-control" value={{applicant.user.first_name}}
+                                    name="username" id="" aria-describedby="helpId" placeholder="">
+                                <small id="" class="form-text text-muted">Help text</small>
+                                <input type="hidden" class="form-control mt-2" name="hidden_username" id="username"
+                                    value="{{applicant.user.firstname}}">
+                            </div>
+                            <div class="mb-3">
+                                <label for="" class="form-label">Last Name</label>
+                                <input type="text" class="form-control" value={{applicant.user.last_name}}
+                                    name="username" id="" aria-describedby="helpId" placeholder="">
+                                <small id="" class="form-text text-muted">Help text</small>
+                                <input type="hidden" class="form-control mt-2" name="hidden_username" id="username"
+                                    value="{{applicant.user.lastname}}">
                             </div>
 
                             <div class="mb-3">
@@ -666,11 +699,11 @@
                             </div>
 
 
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Save</button>
-                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
                     </form>
                 </div>
             </div>
@@ -696,17 +729,27 @@
                     <div class="modal-body">
 
                         <h5 id="skills-list" class="card-headers">Skills</h5>
-                        <span class="skills-item">User Interface Designing &nbsp;<i class="bi bi-x-lg"></i></span>
+                        <!-- <span class="skills-item">User Interface Designing &nbsp;<i class="bi bi-x-lg"></i></span>
                         <span class="skills-item">UI &nbsp;<i class="bi bi-x-lg"></i></span>
                         <span class="skills-item">UX &nbsp;<i class="bi bi-x-lg"></i></span>
                         <span class="skills-item">Figma &nbsp;<i class="bi bi-x-lg"></i></span>
                         <span class="skills-item">Wireframe &nbsp;<i class="bi bi-x-lg"></i></span>
                         <span class="skills-item">Photoshop &nbsp;<i class="bi bi-x-lg"></i></span>
                         <span class="skills-item">Adobe Illustrator &nbsp;<i class="bi bi-x-lg"></i></span>
-                        <span class="skills-item">Adobe XD &nbsp;<i class="bi bi-x-lg"></i></span>
+                        <span class="skills-item">Adobe XD &nbsp;<i class="bi bi-x-lg"></i></span> -->
+
+                        <!-- Search box and checkbox -->
+
+                        <form action="">
+                            <div class="container mt-4">
+                                <input type="text" id="search-input" class="form-control" placeholder="Type to search">
+                                <ul id="suggestions-list" class="list-group mt-2"></ul>
+                                <div id="selected-checkbox-container"></div>
+                            </div>
+                        </form>
 
                         <!-- lilitaw lang pag niclick yung button -->
-                        <div>
+                        <!-- <div>
                             <form action="">
                                 <div class="mt-3">
                                     <input type="text" class="form-control" name="" id="" aria-describedby="helpId"
@@ -716,7 +759,7 @@
 
                             <button type="button" class="btn btn-sm"><i class="bi bi-plus-lg"></i> &nbsp;Add
                                 Skills</button>
-                        </div>
+                        </div> -->
 
                     </div>
                     <div class="modal-footer">
@@ -763,11 +806,6 @@
         </div>
 
 
-        <!-- Optional: Place to the bottom of scripts -->
-        <script>
-            const myModal = new bootstrap.Modal(document.getElementById('modalDeleteAccount'), options)
-        </script>
-
 
 
 
@@ -781,7 +819,7 @@
             <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="basicInfoTitle">Edit Basic Info</h5>
+                        <h5 class="modal-title" id="basicInfoTitle">Edit Basic Information</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -898,8 +936,8 @@
                         <h5 class="modal-title" id="modalWorkExpTitle">Edit Experience</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form action="">
-                        <div class="modal-body">
+                    <div class="modal-body">
+                        <form action="">
                             <div class="mb-3">
                                 <label for="" class="form-label">Company Name</label>
                                 <input type="text" class="form-control" name="" id="" aria-describedby="helpId"
@@ -936,11 +974,11 @@
                             </div>
 
 
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save</button>
-                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save</button>
+                    </div>
                     </form>
                 </div>
             </div>
@@ -948,6 +986,48 @@
 
 
         <!-- ========== End Section Work Experience Modal ========== -->
+
+
+        <!-- ========== Start Section Delete Experience Modal ========== -->
+
+        <!-- Modal trigger button -->
+
+        <!-- Modal Body -->
+        <!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
+        <div class="modal fade" id="deleteExpModal" tabindex="-1"
+            role="dialog" aria-labelledby="deleteExpModalTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteExpModalTitle">
+                            Delete Experience
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Do you want to delete this experience?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            No
+                        </button>
+                        <button type="button" class="btn btn-primary">Yes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Optional: Place to the bottom of scripts -->
+        <script>
+            const myModal = new bootstrap.Modal(
+                document.getElementById("deleteExpModal"),
+                options,
+            );
+        </script>
+
+
+        <!-- ========== End Section Delete Experience Modal ========== -->
+
 
 
         <!-- Modal Body -->
@@ -1109,7 +1189,7 @@
                 helpTextConfirmNewPassword.classList.add("d-none");
                 // Access the server-side data from the hidden input
                 var serverCurrentPassword = document.getElementById("serverCurrentPassword").value;
-        
+
                 if (serverCurrentPassword !== currentPassword) {
                     helpTextConfirmNewPassword.textContent = "Current password is incorrect!";
                     helpTextConfirmNewPassword.classList.remove("d-none");
@@ -1124,13 +1204,141 @@
                     submitButton.disabled = false;
                 }
             }
-        
+
             // Add event listeners for real-time validation
             document.getElementById("newPassword").addEventListener("input", checkPasswords);
             document.getElementById("confirmNewPassword").addEventListener("input", checkPasswords);
-
-
         </script>
+
+
+
+
+
+        <!-- ========== Start Section Edit Skills Javascript ========== -->
+
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js">
+        </script>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const searchInput = document.getElementById('search-input');
+                const suggestionsList = document.getElementById('suggestions-list');
+                const checkboxContainer = document.getElementById('selected-checkbox-container');
+
+                // Dummy data for suggestions
+                let allSuggestions = ['Option 1', 'Option 2', 'Option 3', 'Option 4', 'Option 5', 'Option 6',
+                    'Option 7'
+                ];
+
+                // Event listener for input changes
+                searchInput.addEventListener('input', function () {
+                    const inputText = this.value.toLowerCase();
+                    const filteredSuggestions = inputText ?
+                        allSuggestions.filter(suggestion =>
+                            suggestion.toLowerCase().includes(inputText) && !isChecked(suggestion)
+                        ) : [];
+                    displaySuggestions(filteredSuggestions);
+                });
+
+                // Event listener for suggestion click
+                suggestionsList.addEventListener('click', function (event) {
+                    if (event.target.tagName === 'LI') {
+                        const selectedOption = event.target.textContent;
+                        createCheckbox(selectedOption);
+                        searchInput.value = ''; // Clear the search input
+                        suggestionsList.style.display = 'none';
+                        removeSuggestion(selectedOption);
+                        displaySuggestions([]); // Clear suggestions
+                    }
+                });
+
+                // Event listener for checkbox change
+                checkboxContainer.addEventListener('change', function (event) {
+                    if (event.target.tagName === 'INPUT' && event.target.type === 'checkbox') {
+                        const selectedOption = event.target.value;
+                        if (!event.target.checked) {
+                            removeCheckbox(selectedOption);
+                            addSuggestion(selectedOption);
+                        }
+                    }
+                });
+
+                // Display suggestions in the list
+                function displaySuggestions(suggestions) {
+                    if (suggestions.length > 0) {
+                        suggestions.sort(); // Sort the suggestions array
+                        const html = suggestions.map(suggestion => `<li>${suggestion}</li>`).join('');
+                        suggestionsList.innerHTML = html;
+                        suggestionsList.style.display = 'block';
+                    } else {
+                        suggestionsList.innerHTML = '';
+                        suggestionsList.style.display = 'none';
+                    }
+                }
+
+                // Create and append a checkbox with the selected option
+                function createCheckbox(option) {
+                    const checkbox = document.createElement('input');
+                    checkbox.type = 'checkbox';
+                    checkbox.checked = true;
+                    checkbox.value = option;
+
+                    const label = document.createElement('label');
+                    label.classList.add('form-check-label');
+                    label.appendChild(document.createTextNode(option));
+                    label.setAttribute('for', checkbox.value);
+
+                    const br = document.createElement('br');
+
+                    checkboxContainer.appendChild(checkbox);
+                    checkboxContainer.appendChild(label);
+                    checkboxContainer.appendChild(br);
+
+                    // Add event listener to toggle checkbox state when label is clicked
+                    label.addEventListener('click', function () {
+                        checkbox.checked = !checkbox.checked;
+                        // Manually trigger the 'change' event for the checkbox
+                        const changeEvent = new Event('change', {
+                            bubbles: true
+                        });
+                        checkbox.dispatchEvent(changeEvent);
+                    });
+                }
+
+                // Remove the checkbox with the selected option
+                function removeCheckbox(option) {
+                    const checkboxes = checkboxContainer.querySelectorAll('input[type="checkbox"]');
+                    checkboxes.forEach(checkbox => {
+                        if (checkbox.value === option) {
+                            checkboxContainer.removeChild(checkbox.nextSibling); // Remove label
+                            checkboxContainer.removeChild(checkbox.nextSibling); // Remove line break
+                            checkboxContainer.removeChild(checkbox); // Remove checkbox
+                        }
+                    });
+                }
+
+                // Check if a suggestion is already selected
+                function isChecked(option) {
+                    const checkboxes = checkboxContainer.querySelectorAll('input[type="checkbox"]');
+                    return Array.from(checkboxes).some(checkbox => checkbox.value === option && checkbox
+                        .checked);
+                }
+
+                // Remove a suggestion from the list
+                function removeSuggestion(option) {
+                    allSuggestions = allSuggestions.filter(suggestion => suggestion !== option);
+                }
+
+                // Add a suggestion back to the list
+                function addSuggestion(option) {
+                    allSuggestions.push(option);
+                    displaySuggestions(allSuggestions); // Sort and display suggestions
+                }
+            });
+        </script>
+
+        <!-- ========== End Section Edit Skills Javascript ========== -->
+
 
 </body>
 

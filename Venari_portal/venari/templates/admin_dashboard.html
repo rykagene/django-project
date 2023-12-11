@@ -250,9 +250,9 @@
 
                                             <div class="card px-3 py-0 rounded-2 border-0 mb-2 m-0 company-list-card">
                                                 <div class="d-flex align-items-center text-start justify-content-start">
-                                                    <div class="flex-shrink-0 ms-0">
+                                                    <div class="flex-shrink-0 ms-0" id="companiesListPicContainer">
                                                         <img src="{{company.company_logo.url}}"
-                                                            class="d-none d-lg-block" alt="..." style="height: 20px;">
+                                                            class="d-none d-lg-block" alt="..." id="companiesListPic">
                                                     </div>
                                                     <div class="flex-grow-1 ms-2 text-truncate company-name">
                                                         {{ company.company_name }}
@@ -278,9 +278,9 @@
 
                                             <div class="card px-3 py-0 rounded-4 border-0 mb-2 user-list-card">
                                                 <div class="d-flex align-items-center text-start justify-content-start">
-                                                    <div class="flex-shrink-0">
+                                                    <div class="flex-shrink-0" id="usersListPicContainer">
                                                         <img src="{{applicants.profile_image.url}}"
-                                                            class="d-none d-lg-block" alt="..." style="height: 20px;">
+                                                            class="d-none d-lg-block" alt="..." id="usersListPic">
                                                     </div>
 
                                                     <div class="flex-grow-1 ms-3 text-truncate user-list-name">
