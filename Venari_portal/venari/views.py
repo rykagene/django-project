@@ -13,7 +13,7 @@ from openpyxl import Workbook
 from django.http import HttpResponse
 from django.db.models import Q
 from django.utils import timezone
-
+import json
 logger = logging.getLogger('venari')
 
 def index(request):
@@ -250,7 +250,6 @@ def bookmark_job(request, job_id):
     if request.method == 'POST':
         job = get_object_or_404(post_jobs, id=job_id)
         user = job_seeker.objects.get(user=request.user)
-        # Check if the job is already bookmarked
         if job.id in user.bookmarks.values_list('id', flat=True):
             user.bookmarks.remove(job)
             success = False
@@ -598,6 +597,35 @@ def admin_login(request):
     return render(request, "login.html")   
  
 def all_companies(request):
+    if request.method == "POST":
+        try:
+            data = json.loads(request.body.decode('utf-8'))
+            search = data.get('search')
+            print(search)
+            if search is not None:
+                results = company.objects.filter(company_name__icontains=search)
+                print(search)
+                companies_data = []
+                
+                for company_instance in results:
+                    posted_jobs = post_jobs.objects.filter(company_id=company_instance.id)
+                    applicant_count = apply_job.objects.filter(job_id__in=posted_jobs.values_list('id', flat=True)).count()
+                    posted_job_count = posted_jobs.count()
+                    company_data = {
+                        'company_name': company_instance.company_name,
+                        'applicants': applicant_count,
+                        'posted_jobs': posted_job_count,
+                        'company_status': company_instance.status,
+                        'company_logo': company_instance.company_logo.url,
+                        'company_id': company_instance.id
+                    }
+                    companies_data.append(company_data)
+
+                return JsonResponse({'company': companies_data})
+        except json.JSONDecodeError:
+            pass
+
+        
     status_filter = request.GET.get('status', 'all')
     
     if status_filter == 'all':
@@ -637,11 +665,22 @@ def change_status(request, myid):
 
 def delete_company(request, myid):
     if not request.user.is_authenticated:
-        return redirect("/admin_login")
-    company = User.objects.filter(id=myid)
-    company.delete()
-    messages.success(request, "Successfully deleted.")
-    return redirect("/companies_list")
+        return JsonResponse({'success': False, 'message': 'User not authenticated'})
+
+    try:
+        company_instance = company.objects.get(id=myid)
+        post_jobs_instances = post_jobs.objects.filter(company_id=myid)
+
+        company_instance.delete()
+        post_jobs_instances.delete()
+
+        messages.success(request, "Successfully deleted.")
+        logger.info(f"Company and job postings deleted successfully for company ID {myid}")
+        return JsonResponse({'success': True, 'message': 'Company and job postings deleted successfully'})
+    except company_instance.DoesNotExist:
+        return JsonResponse({'success': False, 'message': 'Company not found'})
+    except Exception as e:
+        return JsonResponse({'success': False, 'message': str(e)})
 
 def delete_user(request, myid):
     if not request.user.is_authenticated:
@@ -675,10 +714,6 @@ def admin_job_list(request):
         return redirect("/admin_login")
     jobs = post_jobs.objects.all()
     return render(request, "admin_joblist.html", {'jobs':jobs})
-
-
-import json
-from django.http import JsonResponse
 
 def admin_changejob_status(request, myid):
     logger.info(f"Received request to change status for job ID: {myid}")
