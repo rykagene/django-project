@@ -88,11 +88,11 @@ body {
 
 }
 
-table#job_list_table th,
-table#job_list_table td {
+table#job_list_admin th,
+table#job_list_admin td {
     background-color: transparent !important;
 }
-table#job_list_table thead{
+table#job_list_admin thead{
     position: sticky;
     top: 0;
 }
