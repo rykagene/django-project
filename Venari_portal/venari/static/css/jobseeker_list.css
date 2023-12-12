@@ -1,0 +1,110 @@
+body {
+    /* background: linear-gradient(to left, rgba(137, 141, 255, 0.1), rgba(223, 90, 255, 0.1)); */
+    background-image: url(./../css/images/blobBG.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+  
+    
+    /* backdrop-filter: 20px; */
+    color: #20272F;
+    min-height: 100vh;
+    font-family: 'Poppins', sans-serif;
+}
+#jobseeker-list-main-container {
+    transition: margin-left .5s;
+    margin-left: 275px;
+}
+
+@media (max-width: 768px) {
+    #jobseeker-list-main-container {
+        transition: margin-left .5s;
+        margin-left: 0px;
+    }
+}
+
+#jobseeker-list-card1 {
+    background: rgba(137, 141, 255, 0.1) !important;
+    color: rgba(32, 39, 47, 0.75) !important;
+
+    border: 1px solid #f1f1f1 !important;
+}
+.jobseeker-list-cards{
+    overflow: hidden !important;
+    box-shadow: rgba(0, 0, 0, 0.1) -4px 9px 25px -6px;
+
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    /* box-shadow: rgba(0, 0, 0, 0.37) 0px 8px 32px 0; */
+    position: relative;
+    display: inline-block;
+    padding: 10px;
+    border-radius: 15px !important;
+
+}
+
+#head-parent-card{
+    background: rgba(255, 255, 255, 0.1) !important;
+    color: rgba(32, 39, 47, 0.75) !important;
+
+    border: 1px solid #f1f1f1 !important;
+    backdrop-filter: blur(5px) !important;
+    -webkit-backdrop-filter: blur(5px) !important;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#jobseeker-view-button{
+background-color: rgb(137, 141, 255);
+}
+#jobseeker-view-button:hover{
+background-color: rgba(137, 141, 255, 0.8) !important;
+}
+#jobseeker-archive-button{
+    background-color: rgb(251, 103, 95);
+}
+#jobseeker-archive-button:hover{
+    background-color: rgba(251, 103, 95, 0.8) !important;
+}
+
+#jobseeker-list-search-btn{
+    background-color: rgb(137, 141, 255);
+}
+#jobseeker-list-search-btn:hover{
+    background-color: rgba(137, 141, 255, 0.8);
+}
+
+#jobseekerlist-table-pic
+{
+    height: 30px;
+    display: block;
+}
+#jobseekerlist-pic-container{
+    
+    width: 30px;
+    height: 30px;
+    overflow: hidden;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+table#jobseeker_list_table th,
+table#jobseeker_list_table td {
+    background-color: transparent !important;
+}
+table#jobseeker_list_table thead{
+    position: sticky;
+    top: 0;
+}
+#jobseeker-list-table-card {
+    /* background:rgb(32, 39, 47); */
+    /* color: rgba(32, 39, 47, 0.75); color:white; */
+    background-color: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid #f1f1f1 !important;
+
+}
