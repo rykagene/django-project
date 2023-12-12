@@ -6,10 +6,12 @@
     font-family: "Poppins", sans-serif;
 }
 body{
-  background-image: url("images/bg.jpg");
-  background-size: cover; /* Adjust as needed */
-  background-repeat: no-repeat; /* Prevent the image from repeating */
-  background-position: center;   
+  margin: 0; /* Remove default margin */
+    height: 100vh; /* Set height to 100% of the viewport height */
+    background-image: url("images/blob1.jpg");
+    background-size: cover;
+    background-repeat: repeat;
+    background-position: center;  
 }
 
 .card-pink {
@@ -137,11 +139,13 @@ label {
 }
 /* Job List*/
 .custom-card {
-  border: 1px solid #ffffff;
-  background-color: #fff;
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: box-shadow 0.3s ease-in-out;
+  border: 1px solid #d7ddff !important;
+  backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(50px);
+    background: linear-gradient(70deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5));
+  box-shadow: 0 2px 5px #adc5e3;
 }
 
 .custom-card:hover {
@@ -222,7 +226,9 @@ label {
 
 /*Tags*/
 .tags-card-body{
-  background-color: #ffffff;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(50px);
+  background: linear-gradient(70deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5));
   border-radius: 20px;
   margin-top: 10px;
 }
@@ -343,7 +349,10 @@ ul{
 	list-style: none;
 }
 .footer{
-  background-image: url("images/Untitled-1.jpg");
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(50px);
+  background: linear-gradient(70deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5));
+  /*background-image: url("images/Untitled-1.jpg");*/
   background-position: center;
   background-size: cover;
     padding: 50px;
