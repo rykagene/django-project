@@ -23,10 +23,9 @@ body {
     /* background: linear-gradient(to left, rgba(137, 141, 255, 0.1), rgba(223, 90, 255, 0.1)); */
     /* backdrop-filter: 20px; */
     background-image: url(./../css/images/blobBG.jpg);
-    background-repeat: no-repeat;
+    background-repeat: repeat;
     background-size: cover;
     background-position: center;
-    background-attachment: fixed;
   
 
 
@@ -329,4 +328,7 @@ table#dash_table td {
 
 #deactivateButton:hover {
     background-color: rgba(251, 104, 96, 0.8);
+}
+#printerButton{
+    background-color: #898dff;
 }
