@@ -23,9 +23,11 @@ body {
     /* background: linear-gradient(to left, rgba(137, 141, 255, 0.1), rgba(223, 90, 255, 0.1)); */
     /* backdrop-filter: 20px; */
     background-image: url(./../css/images/blobBG.jpg);
-    background-repeat: repeat;
+    background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
+    background-attachment: fixed;
+  
   
 
 

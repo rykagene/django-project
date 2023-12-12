@@ -10,7 +10,7 @@ body{
     height: 100vh; /* Set height to 100% of the viewport height */
     background-image: url("images/plain bg.jpg");
     background-size: cover;
-    background-repeat: repeat;
+    background-repeat: no-repeat;
     background-position: center;  
 }
 

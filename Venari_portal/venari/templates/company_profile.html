@@ -1,141 +1,183 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Your Form</title>
-    <link rel="stylesheet" href="django-project\Venari_portal\venari\css\cprofile.css">
+    <link rel="stylesheet" href="./../static/css/cprofile.css">
 </head>
+
 <body>
-<div class="container">
-    <div class="row">
-    {% for message in messages %}
-        <div class="alert alert-danger" id="msg" role="alert" style="margin-top: 10px;">
-            {{ message }}
-        </div>
-    {% endfor %}
-        <div class="col-sm-6">
-            <form class="container mt-4" method="POST" enctype="multipart/form-data">
-                {% csrf_token %}
 
-                <div class="row">
-                    <div class="form-group col-md-6">
-                        <label>First Name</label>
-                        <input type="text" class="form-control" name="first_name" id="first_name"
-                            value="{{company.user.first_name}}" required>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label>Last Name</label>
-                        <input type="text" class="form-control" name="last_name" id="last_name"
-                        value="{{company.user.last_name}}" required>
-                    </div>
-                </div>
+    <div>
+        {% include 'jobseekerSB_NB.html' %}
+    </div>
+    <div id="main">
+        <div class="container justify-content-center d-flex">
+            <div class="card p-3 rounded-4"  id="parent-card">
+                <div class="card-body">
 
-                <div class="row mt-4">
-                    <div class="form-group col-md-12">
-                        <label>Username</label>
-                        <input type="text" class="form-control" name="username" id="username"
-                            value="{{company.user.username}}" required>
-                            <input type="hidden" class="form-control" name="hidden_username" id="username"
-                            value="{{company.user.username}}">
-                    </div>
-                </div>
-
-                <div class="row mt-4">
-                    <div class="form-group col-md-12">
-                        <label>Company Name</label>
-                        <input type="text" class="form-control" name="company_name" id="company_name"
-                            value="{{company.company_name}}" required>
-                    </div>
-                </div>
-
-                <div class="row mt-4">
-                    <div class="form-group col-md-12">
-                        <label>Company CEO</label>
-                        <input type="text" class="form-control" name="company_ceo" id="company_ceo"
-                            value="{{company.company_ceo}}" required>
-                    </div>
-                </div>
-                
-                <div class="row mt-4">
-                    <div class="form-group col-md-12">
-                        <label>Company Established</label>
-                        <input type="text" class="form-control" name="company_established" id="company_established"
-                            value="{{company.company_established}}" required>
-                    </div>
-                </div>
-
-                <div class="row mt-4">
-                    <div class="form-group col-md-12">
-                        <label>Company Location</label>
-                        <input type="text" class="form-control" name="company_location" id="company_location"
-                            value="{{company.company_location}}" required>
-                    </div>
-                </div>
-
-                <div class="row mt-4">
-                    <div class="form-group col-md-12">
-                        <label>Company status</label>
-                        <input type="text" class="form-control" name="status" id="status"
-                            value="{{company.status}}" required>
-                    </div>
-                </div>
-
-                <div class="row mt-4">
-                    <div class="form-group col-md-6">
-                        <label>Email Id</label>
-                        <input type="email" class="form-control" name="email" id="email" value="{{company.email}}" required>
-                        <input type="hidden" class="form-control" name="hidden_email" id="email" value="{{company.email}}">
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label>Contact Number</label>
-                        <input type="text" class="form-control" name="phone" id="phone" value="{{company.phone_number}}" placeholder="Enter Contact Number" minlength="11" maxlength="11" pattern="09[0-9]{9}" title="09(Last 9 Digits)" required>
-                        <input type="hidden" class="form-control" name="hidden_phone" id="phone" value="{{company.phone_number}}" placeholder="Enter Contact Number" minlength="11" maxlength="11" pattern="09[0-9]{9}" title="09(Last 9 Digits)">
-                    </div>
-                </div>
-
-                <div class="row mt-4">
-                    <div class="form-group col-md-6">
-                        <label>Gender</label>
-                        {% if company.gender == "Male" %}
-                        <div style="border: 1px solid lightgrey; padding: 5px; border-radius: 6px;">
-                            <div class="form-check form-check-inline">
-                                <input type="radio" class="custom-control-input" name="gender" value="Male" checked>
-                                <label for="male" class="custom-control-label">Male</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input type="radio" class="custom-control-input" name="gender"
-                                    value="Female">
-                                <label for="female" class="custom-control-label">Female</label>
-                            </div>
+                    <div class="row justify-content-center">
+                        {% for message in messages %}
+                        <div class="alert alert-danger" id="msg" role="alert" style="margin-top: 10px;">
+                            {{ message }}
                         </div>
-                        {% else %}
-                        <div style="border: 1px solid lightgrey; padding: 5px; border-radius: 6px;">
-                            <div class="form-check form-check-inline">
-                                <input type="radio" class="custom-control-input" name="gender" value="Male">
-                                <label for="male" class="custom-control-label">Male</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input type="radio" class="custom-control-input" name="gender"
-                                    value="Female" checked>
-                                <label for="female" class="custom-control-label">Female</label>
-                            </div>
+                        {% endfor %}
+
+                        {% csrf_token %}
+
+                        <div class="col-12 mt-5 text-center">
+                            <img src="{{company.company_logo.url}}" id="pfp" alt="">
                         </div>
-                        {% endif %}
+                        <div class="col-12 text-start">
+                            <form class="container mt-4" method="POST" enctype="multipart/form-data">
+
+                                <div class="card" id="child-card">
+                                    <div class="card-body">
+
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <label>First Name</label>
+                                                <input type="text" class="form-control" name="first_name"
+                                                    id="first_name" value="{{company.user.first_name}}" required>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label>Last Name</label>
+                                                <input type="text" class="form-control" name="last_name" id="last_name"
+                                                    value="{{company.user.last_name}}" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="row mt-1">
+                                            <div class="form-group col-md-12">
+                                                <label>Username</label>
+                                                <input type="text" class="form-control" name="username" id="username"
+                                                    value="{{company.user.username}}" required>
+                                                <input type="hidden" class="form-control" name="hidden_username"
+                                                    id="username" value="{{company.user.username}}">
+                                            </div>
+                                        </div>
+
+                                        <div class="row mt-1">
+                                            <div class="form-group col-md-12">
+                                                <label>Company Name</label>
+                                                <input type="text" class="form-control" name="company_name"
+                                                    id="company_name" value="{{company.company_name}}" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="row mt-4">
+                                            <div class="form-group col-md-12">
+                                                <label>Company CEO</label>
+                                                <input type="text" class="form-control" name="company_ceo"
+                                                    id="company_ceo" value="{{company.company_ceo}}" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="row mt-1">
+                                            <div class="form-group col-md-12">
+                                                <label>Company Established</label>
+                                                <input type="text" class="form-control" name="company_established"
+                                                    id="company_established" value="{{company.company_established}}"
+                                                    required>
+                                            </div>
+                                        </div>
+
+                                        <div class="row mt-1">
+                                            <div class="form-group col-md-12">
+                                                <label>Company Location</label>
+                                                <input type="text" class="form-control" name="company_location"
+                                                    id="company_location" value="{{company.company_location}}" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="row mt-1">
+                                            <div class="form-group col-md-12">
+                                                <label>Company status</label>
+                                                <input type="text" class="form-control" name="status" id="status"
+                                                    value="{{company.status}}" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="row mt-1">
+                                            <div class="form-group col-md-6">
+                                                <label>Email Id</label>
+                                                <input type="email" class="form-control" name="email" id="email"
+                                                    value="{{company.email}}" required>
+                                                <input type="hidden" class="form-control" name="hidden_email" id="email"
+                                                    value="{{company.email}}">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label>Contact Number</label>
+                                                <input type="text" class="form-control" name="phone" id="phone"
+                                                    value="{{company.phone_number}}" placeholder="Enter Contact Number"
+                                                    minlength="11" maxlength="11" pattern="09[0-9]{9}"
+                                                    title="09(Last 9 Digits)" required>
+                                                <input type="hidden" class="form-control" name="hidden_phone" id="phone"
+                                                    value="{{company.phone_number}}" placeholder="Enter Contact Number"
+                                                    minlength="11" maxlength="11" pattern="09[0-9]{9}"
+                                                    title="09(Last 9 Digits)">
+                                            </div>
+                                        </div>
+
+                                        <div class="row mt-1">
+                                            <div class="form-group col-md-6">
+                                                <label>Gender</label>
+                                                {% if company.gender == "Male" %}
+                                                <div
+                                                    style="border: 1px solid lightgrey; padding: 5px; border-radius: 6px;">
+                                                    <div class="form-check form-check-inline">
+                                                        <input type="radio" class="custom-control-input" name="gender"
+                                                            value="Male" checked>
+                                                        <label for="male" class="custom-control-label">Male</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input type="radio" class="custom-control-input" name="gender"
+                                                            value="Female">
+                                                        <label for="female" class="custom-control-label">Female</label>
+                                                    </div>
+                                                </div>
+                                                {% else %}
+                                                <div
+                                                    style="border: 1px solid lightgrey; padding: 5px; border-radius: 6px;">
+                                                    <div class="form-check form-check-inline">
+                                                        <input type="radio" class="custom-control-input" name="gender"
+                                                            value="Male">
+                                                        <label for="male" class="custom-control-label">Male</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input type="radio" class="custom-control-input" name="gender"
+                                                            value="Female" checked>
+                                                        <label for="female" class="custom-control-label">Female</label>
+                                                    </div>
+                                                </div>
+                                                {% endif %}
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label>Logo of the Company</label>
+                                                <input type="file" class="form-control" name="image" id="image"
+                                                    accept=".png, .jpeg, .jpg">
+                                            </div>
+                                        </div>
+
+                                        <input type="submit" value="Submit" class="btn mt-4"
+                                            style="background-color: #4f868c; color: white; font-size: larger; width: 8rem;">
+
+
+                                    </div>
+                                </div>
+
+                            </form>
+
+                        </div>
                     </div>
-                    <div class="form-group col-md-6">
-                        <label>Logo of the Company</label>
-                        <input type="file" class="form-control" name="image" id="image" accept=".png, .jpeg, .jpg">
-                    </div>
+
                 </div>
+            </div>
 
-                <input type="submit" value="Submit" class="btn mt-4" style="background-color: #4f868c; color: white; font-size: larger; width: 8rem;">
-            </form>
 
-        </div>
-        <div class="col-sm-4 mt-5 text-center">
-            <img src="{{company.company_logo.url}}" alt="" width="200px" height="200px">
         </div>
     </div>
-</div>
 
 </body>
+
 </html>

@@ -1,12 +1,42 @@
-<form method="post">
-    {% csrf_token %}
-    <div>
-        <label>Username or email</label>
-        <input type="text" id="Username" name="username" placeholder="Enter email/company name" required>
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">    
+    <link rel="stylesheet" type="text/css" href="{% static "css/login.css" %}">
+    <title>LOGIN</title>
+</head>
+<body>
+    <h1 class="app-name">venari.</h1>
+    <div id="form" class="form">
+        <div id="heading" class="glass glass--gradient glass--heading">
+          
+          <span class="form-header">
+            <span class="form-icon"></span><span class="form-title">Ready to start your career path with Venari?</span> </span>
+          <button class="form-close-button">✕</button>
+        </div>
+        <div id="input" class="glass">
+          <input type="text" id="glass-input" placeholder="Type your request here">
+        </div>
+      </div>
+    <!-- <p class="tagline">Crafting Futures, Connecting Paths</p> -->
+    <!-- <div class="image-container">
+        <img src="picHome.png">
+    </div> -->
+    <div class="login-container">
+        <form class="login" method = "POST">
+          {% csrf_token %}
+            <h1 class="login-title">Login</h1>
+            <input type="text" placeholder="Username" name="username">
+            <input type="password" placeholder="Password" name="password">
+            <button>Log in</button>
+            <a href="#" class="login__forgot">Forgot Password?</a>
+            <!-- <a href="#" class="login__register">New account? Register now.</a> -->
+        </form>
+
     </div>
-    <div>
-        <label>Password</label>
-        <input type="text" id="Password" name="password" placeholder="Enter password" required>
-    </div>
-    <input type="submit" value="Submit">
-</form>
+    <script src="login.js"></script>
+</body>
+</html>
