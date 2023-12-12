@@ -41,7 +41,7 @@
 
 
     <div>
-        {% include 'jobseekerSB_NB.html' %}
+        {% include 'jobseekerSB_NB.html' with email=applicant.email first_name=applicant.user.first_name last_name=applicant.user.last_name image=applicant.profile_image.url %}
     </div>
 
     <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel"

@@ -25,6 +25,13 @@
     <!-- <div class="image-container">
         <img src="picHome.png">
     </div> -->
+    {% if messages %}
+    <div id="alertContainer" class="alert-container">
+        {% for message in messages %}
+            <div class="alert alert-danger">{{ message }}</div>
+        {% endfor %}
+    </div>
+{% endif %}
     <div class="login-container">
         <form class="login" method = "POST">
           {% csrf_token %}
@@ -32,11 +39,25 @@
             <input type="text" placeholder="Username" name="username">
             <input type="password" placeholder="Password" name="password">
             <button>Log in</button>
-            <a href="#" class="login__forgot">Forgot Password?</a>
-            <!-- <a href="#" class="login__register">New account? Register now.</a> -->
+            <a href="/pre-register/" class="login__register">New account? Register now.</a> 
         </form>
 
     </div>
     <script src="login.js"></script>
+    <script>
+      // Display messages as alerts
+      var alertContainer = document.getElementById("alertContainer");
+      var alerts = alertContainer ? alertContainer.getElementsByClassName("alert") : [];
+  
+      for (var i = 0; i < alerts.length; i++) {
+          alert(alerts[i].innerText);
+      }
+  
+      // Clear messages after displaying alerts
+      var messagesContainer = document.getElementById("alertContainer");
+      if (messagesContainer) {
+          messagesContainer.innerHTML = '';
+      }
+  </script>
 </body>
 </html>

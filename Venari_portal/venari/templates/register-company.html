@@ -13,9 +13,33 @@
     <title>Company Registration</title>
   </head>
   <body>
+    {% if messages %}
+    <div id="alertContainer" class="alert-container">
+        {% for message in messages %}
+            <div class="alert alert-danger">{{ message }}</div>
+        {% endfor %}
+    </div>
+{% endif %}
     <div id="wrapper">
       <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
+        {% for message in messages %}
+        <script>
+            // Use JavaScript to create and show the alert dynamically
+            document.addEventListener("DOMContentLoaded", function() {
+                var alertDiv = document.createElement("div");
+                alertDiv.className = "alert alert-danger";
+                alertDiv.textContent = "{{ message }}";
+                alertDiv.id = "msg";
+                document.body.appendChild(alertDiv);
+    
+                // Optional: Add logic to hide the alert after a certain time
+                setTimeout(function() {
+                    alertDiv.style.display = "none";
+                }, 5000);  // Adjust the timeout value as needed
+            });
+        </script>
+    {% endfor %}
         <h1 class="text-center">CREATE YOUR COMPANY PROFILE</h1>
         <p class="lead text-center">
           Welcome to Venari: Crafting Futures, Connecting Paths. A place with
@@ -66,13 +90,13 @@
             <div class="form-group col-lg-6">
             <label for="gender">Gender:</label>
             <div class="switch-field">
-              <input type="radio" id="radio-one" name="switch-gender" value="yes" checked/>
+              <input type="radio" id="radio-one" name="gender" value="Male" checked/>
               <label for="radio-one">Male</label>
-              <input type="radio" id="radio-two" name="switch-gender" value="yes" />
+              <input type="radio" id="radio-two" name="gender" value="Female" />
               <label for="radio-two">Female</label>
-              <input type="radio" id="radio-three" name="switch-gender" value="yes" />
+              <input type="radio" id="radio-three" name="gender" value="Non-binary" />
               <label for="radio-three">Non-binary</label>
-              <input type="radio" id="radio-four" name="switch-gender" value="yes" />
+              <input type="radio" id="radio-four" name="gender" value="Prefer Not to Say" />
               <label for="radio-four">Prefer Not to Say</label>
             </div>
             </div>
@@ -80,7 +104,7 @@
           <div class="form-group col-lg-6">
             <label for="userName">Year Established:</label>
             <input
-              type="number"
+              type="date"
               class="form-control"
               id="yearEst"
               placeholder="Enter a year"
@@ -150,6 +174,7 @@
             id="companyPic"
             aria-describedby="fileHelp"
             name="company_logo"
+            required
           />
           <small id="fileHelp" class="form-text text-muted"
             >File must be no larger than 12MB.</small
@@ -162,7 +187,7 @@
             class="form-control"
             id="psw"
             placeholder="Password"
-            name="psw"
+            name="password"
             pattern=".{8}"
             title="Must contain at least 8 characters"
             required
@@ -180,6 +205,7 @@
             class="form-control"
             id="CPassword"
             placeholder="Please re-type password"
+            name="confirm_password"
           />
         </div>
 
@@ -600,5 +626,20 @@
           <!-- Javascript file -->
   <script src="bootstrap.min.js"></script>
   <script src="popper.min.js"></script>
+  <script>
+    // Display messages as alerts
+    var alertContainer = document.getElementById("alertContainer");
+    var alerts = alertContainer ? alertContainer.getElementsByClassName("alert") : [];
+
+    for (var i = 0; i < alerts.length; i++) {
+        alert(alerts[i].innerText);
+    }
+
+    // Clear messages after displaying alerts
+    var messagesContainer = document.getElementById("alertContainer");
+    if (messagesContainer) {
+        messagesContainer.innerHTML = '';
+    }
+</script>
   </body>
 </html>

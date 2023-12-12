@@ -84,6 +84,7 @@ def user_signup(request):
         gender = request.POST['gender']
         skills = request.POST['skills']
         address = request.POST['home_address']
+        resume = request.POST['resume']
         uniqueemail = User.objects.filter(email=email)
         uniqueuser = User.objects.filter(username=username)
         if uniqueemail:
@@ -97,7 +98,7 @@ def user_signup(request):
             return redirect('/register-user')
 
         user = User.objects.create_user(first_name=first_name, last_name=last_name, email=email, username=username, password=password)
-        applicants = job_seeker.objects.create(user=user, email=email, phone_number=phone, password=password, gender=gender, profile_image=profile_picture, skills=skills, address = address, user_type="applicant", status="Activate")
+        applicants = job_seeker.objects.create(user=user, email=email, phone_number=phone, password=password, gender=gender, profile_image=profile_picture,resume=resume ,skills=skills, address = address, user_type="applicant", status="Activate")
         user.save()
         applicants.save()
         return render(request, "login.html")
@@ -105,7 +106,7 @@ def user_signup(request):
 
 def jobseeker_profile(request):
     if not request.user.is_authenticated:
-        return redirect('/user_login/')
+        return redirect('/login/')
     applicant = job_seeker.objects.get(user=request.user)
     if request.method=="POST":   
         username = request.POST['username']
@@ -153,7 +154,7 @@ def jobseeker_profile(request):
 
 def jobseeker_workexperience(request):
     if not request.user.is_authenticated:
-        return redirect('/user_login/')
+        return redirect('/login/')
     applicant = job_seeker.objects.get(user=request.user)
     if request.method=="POST":   
         company_name = request.POST['company_name']
@@ -174,7 +175,7 @@ def jobseeker_workexperience(request):
     return render(request, "jobseeker_profile.html", {'applicant':applicant})
 def jobseeker_basicinformation(request):
     if not request.user.is_authenticated:
-        return redirect('/user_login/')
+        return redirect('/login/')
     applicant = job_seeker.objects.get(user=request.user)
     if request.method=="POST":   
         email = request.POST['email']
@@ -226,7 +227,7 @@ def user_changepassword(request):
         
 def jobseeker_introduction(request):
     if not request.user.is_authenticated:
-        return redirect('/user_login/')
+        return redirect('/login/')
     applicant = job_seeker.objects.get(user=request.user)
     if request.method=="POST":   
         username = request.POST['username']
@@ -249,7 +250,7 @@ def jobseeker_introduction(request):
     return render(request, "jobseeker_profile.html", {'applicant':applicant})
 def jobseeker_changeprofile(request):
     if not request.user.is_authenticated:
-        return redirect('/user_login/')
+        return redirect('/login/')
     applicant = job_seeker.objects.get(user=request.user)
     if request.method=="POST":   
         image = request.FILES['profile_image']
@@ -260,7 +261,7 @@ def jobseeker_changeprofile(request):
     return render(request, "jobseeker_profile.html", {'applicant':applicant})
 def jobseeker_uploadresume(request):
     if not request.user.is_authenticated:
-        return redirect('/user_login/')
+        return redirect('/login/')
     applicant = job_seeker.objects.get(user=request.user)
     if request.method=="POST":   
         resume = request.FILES['resume']
@@ -337,6 +338,7 @@ def job_hiring(request):
             pass
 
     jobs = post_jobs.objects.all().order_by('-start_date')
+    jobs_count = jobs.count()
     applicant = job_seeker.objects.get(user=request.user)
     apply = apply_job.objects.filter(applicant=applicant)
     bookmarked_jobs = {applicant.id: applicant.bookmarks.values_list('id', flat=True) for applicant in [applicant]}
@@ -344,7 +346,7 @@ def job_hiring(request):
     for i in apply:
         data.append(i.job.id)
 
-    return render(request, "job_hiring.html", {'jobs': jobs, 'data': data, 'applicant': applicant, 'bookmark': bookmarked_jobs, 'result': result})
+    return render(request, "job_hiring.html", {'jobs': jobs, 'data': data, 'applicant': applicant, 'bookmark': bookmarked_jobs, 'result': result, 'count': jobs_count})
 def jobseeker_apply(request, myid):
     if not request.user.is_authenticated:
         return redirect("/login")
