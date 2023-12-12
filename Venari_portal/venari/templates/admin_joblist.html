@@ -41,7 +41,7 @@
                                             </div>
 
                                             <div class="flex-grow-1 text-start">
-                                                <h1 class="card-title mb-0 pb-0">400</h1>
+                                                <h1 class="card-title mb-0 pb-0">{{job.active_pos}}</h1>
                                                 <p class="text-muted dash-card-label pt-0 pb-0 mb-0">
                                                     Active Posts
                                                 </p>
@@ -61,8 +61,8 @@
                             <!-- Search -->
                             <div class="input-group">
                                 <input type="text" class="form-control" placeholder="" aria-label="Button"
-                                    aria-describedby="" />
-                                <button class="btn btn-secondary" type="button" id="job-list-search-btn">
+                                    aria-describedby="" id="jobSearch" name="jobSearch"/>
+                                <button class="btn btn-secondary" type="button" id="job-list-search-btn" onclick="search_job()">
                                     <i class="bi bi-search"></i><span class="ms-2 d-none d-md-inline">Search</span>
                                 </button>
                             </div>
@@ -74,159 +74,98 @@
 
             <!-- Table -->
             <div class="card border-0 overflow-auto p-2 p-lg-4 flex-grow-1 comp-list-cards" style="height: 417px;"
-            id="job-list-table-card">
-                <table class="table-auto w-full text-center">
-                    <thead class="bg-red-500 text-white">
-                        <tr>
-                            <th class="px-4 py-3">Job Title</th>
-                            <th class="px-4 py-3">Company Name</th>
-                            <th class="px-4 py-3">Number of Applicants</th>
-                            <th class="px-4 py-3">Date Posted</th>
-                            <th class="px-4 py-3">Status</th>
-                            <th class="px-4 py-3"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td
-                                class="border-b border-red-300 text-red-600 pl-2 sm:pl-4 pr-1 sm:pr-2 py-1 sm:py-2 text-sm sm:text-base">
-                                Technician II / III</td>
-                            <td
-                                class="border-b border-red-300 text-red-600 px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-base">
-                                Jollibee Hagonoy Branch</td>
-                            <td
-                                class="border-b border-red-300 text-red-600 px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-base">
-                                162 Applicants</td>
-                            <td
-                                class="border-b border-red-300 text-red-600 px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-base">
-                                10-01-22</td>
-                            <td class="border-b border-red-300 px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-base">
-                                <button class="bg-purple-500 px-1 text-white rounded">Completed</button>
-                            </td>
-                            <td class="border-b border-red-300 pl-2 sm:pl-4 pr-1 sm:pr-2 py-1 sm:py-2">
-                                <button class="menuButton flex space-x-1 pr-5">
-                                    <div class="w-1 h-1 bg-gray-500 rounded-full"></div>
-                                    <div class="w-1 h-1 bg-gray-500 rounded-full"></div>
-                                    <div class="w-1 h-1 bg-gray-500 rounded-full"></div>
-                                </button>
+                id="job-list-table-card">
 
-                                <div class="menu absolute bg-white text-gray-700 text-sm rounded shadow-lg hidden">
-                                    <ul>
-                                        <li class="border-b border-gray-300 py-1 px-2">Activate</li>
-                                        <li class="border-b border-gray-300 py-1 px-2">Deactivate</li>
-                                        <li class="border-b border-gray-300 py-1 px-2">Edit</li>
-                                    </ul>
-                                </div>
-                            </td>
-                        </tr>
-                        <!-- More rows... -->
-                        <tr>
-                            <td
-                                class="border-b border-red-300 text-red-600 pl-2 sm:pl-4 pr-1 sm:pr-2 py-1 sm:py-2 text-sm sm:text-base">
-                                Farmer in Canada</td>
-                            <td
-                                class="border-b border-red-300 text-red-600 px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-base">
-                                Canada Republic</td>
-                            <td
-                                class="border-b border-red-300 text-red-600 px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-base">
-                                162 Applicants</td>
-                            <td
-                                class="border-b border-red-300 text-red-600 px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-base">
-                                01-12-23</td>
-                            <td class="border-b border-red-300 px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-base">
-                                <button class="bg-green-500 px-6 text-white rounded">Active</button>
-                            </td>
-                            <td class="border-b border-red-300 pl-2 sm:pl-4 pr-1 sm:pr-2 py-1 sm:py-2">
-                                <button class="menuButton flex space-x-1 pr-5">
-                                    <div class="w-1 h-1 bg-gray-500 rounded-full"></div>
-                                    <div class="w-1 h-1 bg-gray-500 rounded-full"></div>
-                                    <div class="w-1 h-1 bg-gray-500 rounded-full"></div>
-                                </button>
-
-                                <div class="menu absolute bg-white text-gray-700 text-sm rounded shadow-lg hidden">
-                                    <ul>
-                                        <li class="border-b border-gray-300 py-1 px-2">Activate</li>
-                                        <li class="border-b border-gray-300 py-1 px-2">Deactivate</li>
-                                        <li class="border-b border-gray-300 py-1 px-2">Edit</li>
-                                    </ul>
-                                </div>
-                            </td>
-                        </tr>
-                        <!-- More rows... -->
-                        <tr>
-                            <td class="text-red-600 pl-2 sm:pl-4 pr-1 sm:pr-2 py-1 sm:py-2 text-sm sm:text-base">Traffic
-                                Enforcer</td>
-                            <td class="text-red-600 px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-base">SM Mindanao</td>
-                            <td class="text-red-600 px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-base">862 Applicants</td>
-                            <td class="text-red-600 px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-base">12-22-22</td>
-                            <td class="px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-base">
-                                <button class="bg-red-600 px-5 text-white rounded">Inactive</button>
-                            </td>
-                            <td class="pl-2 sm:pl-4 pr-1 sm:pr-2 py-1 sm:py-2">
-                                <button class="menuButton flex space-x-1 pr-5">
-                                    <div class="w-1 h-1 bg-gray-500 rounded-full"></div>
-                                    <div class="w-1 h-1 bg-gray-500 rounded-full"></div>
-                                    <div class="w-1 h-1 bg-gray-500 rounded-full"></div>
-                                </button>
-
-                                <div class="menu absolute bg-white text-gray-700 text-sm rounded shadow-lg hidden">
-                                    <ul>
-                                        <li class="border-b border-gray-300 py-1 px-2">Activate</li>
-                                        <li class="border-b border-gray-300 py-1 px-2">Deactivate</li>
-                                        <li class="border-b border-gray-300 py-1 px-2">Edit</li>
-                                    </ul>
-                                </div>
-                            </td>
-                        </tr>
+                <div class="container mt-4">
+                    {% for message in messages %}
+                    <div class="alert alert-success" id="msg" role="alert">
+                        {{ message }}
+                    </div>
+                    {% endfor %}
+                    <table class="table table-hover" id="job_list_admin">
+                        <thead>
+                            <tr>
+                                <th>Job Title</th>
+                                <th>Company Name</th>
+                                <th>Job Type</th>
+                                <th>Date Created</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                                <th>Change Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for job in jobs %}
+                            <tr>
+                                <td>{{job.title}}</td>
+                                <td>{{job.company.company_name}}</td>
+                                <td>{{job.jobtype}}</td>
+                                <td>{{job.creation_date}}</td>
+                                <td>{{job.status}}</td>
+                                <td>
+                                    <div class="row justify-content-center align-items-center g-2">
+                                        <div class="col">
+                                            <a id="joblistEditButton" class="btn btn-primary"
+                                                title="Edit" data-bs-toggle="modal" data-bs-target="#editJobModal" data-post-id = {{job.id}}
+                                                name="edit"><i
+                                                    class="bi-pencil-fill"></i>
+                                            </a>
+                                        </div>
+                                        <div class="col">
+                                            <a class="btn btn-danger" title="Delete" id="joblistDeleteButton" name="delete" data-bs-toggle="modal"
+                                                data-bs-target="#joblistDeleteModal" data-post-id = {{job.id}}><i class="bi-trash-fill"></i>
+                                            </a>
+                                        </div>
+                                    </div>
 
 
-                        <script>
-                            var menuButtons = document.querySelectorAll('.menuButton');
-                            menuButtons.forEach(function (button) {
-                                button.addEventListener('click', function () {
-                                    var menu = this.nextElementSibling;
-                                    menu.classList.toggle('hidden');
-                                });
-                            });
-                        </script>
-                    </tbody>
-                </table>
+                                </td>
+
+                                <td>
+                                    <!-- <a href="/admin_changejob_status/{{job.id}}/" class="btn btn-warning">
+                                        <i class="bi-pencil-square"></i>
+                                    </a> -->
+
+                                    <!-- ========== Start Activate/Deactivate Button ========== -->
+                                    <div class="row justify-content-center align-items-center g-2">
+                                        {% if job.status != 'Activate' %}
+                                        <div class="col-md-6" title="View">
+                                            <button id="activateButton"
+                                                class=" activateButton btn col-12 btn-primary btn-sm"
+                                                data-bs-toggle="modal" data-bs-target="#activateModal"
+                                                data-post-id="{{job.id}}" data-status="Activate">
+                                                <i class="bi bi-check-lg">
+                                                </i>
+                                            </button>   
+                                        </div>
+                                        {% endif %}
+                                        {% if job.status == 'Activate' %}
+                                        <div class="col-md-6" title="Deactivate">
+                                            <button id="deactivateButton" role="button"
+                                                class="btn col-12 btn-danger btn-sm" data-bs-toggle="modal"
+                                                data-bs-target="#deactivateModal" data-post-id="{{job.id}}"
+                                                data-status="Deactivate">
+                                                <i class="bi bi-x-lg">
+                                                </i>
+                                            </button>
+                                        </div>
+                                        {% endif %}
+                                    </div>
+                                    <!-- ========== End Activate/Deactivate Button ========== -->
+                                </td>
+
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
             </div><!-- Table -->
 
-            <div class="container mt-4">
-                {% for message in messages %}
-                <div class="alert alert-success" id="msg" role="alert">
-                    {{ message }}
-                </div>
-                {% endfor %}
-                <table class="table table-hover" id="job_list_admin">
-                    <thead>
-                        <tr>
-                            <th>Job Title</th>
-                            <th>Job Type</th>
-                            <th>Created On</th>
-                            <th>Status</th>
-                            <th>Action</th>
-                            <th>Change Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for job in jobs %}
-                        <tr>
-                            <td>{{job.title}}</td>
-                            <td>{{job.jobtype}}</td>
-                            <td>{{job.creation_date}}</td>
-                            <td>{{job.status}}</td>
-                            <td><a href="/admin_edit_jobpost/{{job.id}}/" class="btn btn-success"
-                                    title="Edit">Edit</a><a href="/admin_delete_postjob/{{job.id}}/"
-                                    class="btn btn-danger" title="Delete">Delete</a></td>
-                            <td><a href="/admin_changejob_status/{{job.id}}/" class="btn btn-warning">Change Status</a>
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
+
+
+
+
             <script>
                 $(document).ready(function () {
                     $('#job_list_admin').DataTable({
@@ -331,29 +270,518 @@
 
             <!-- Pagination -->
             <div class="mt-3">
-                <div class="flex items-center">
-                    <div class="flex mt-5 border border-gray-300 rounded-md">
-                        <button
-                            class="px-4 py-1 text-gray-500 bg-gray-200 rounded-l-md flex-shrink-0 border-r border-gray-300">Previous</button>
-                        <button class="px-2 py-1 text-red-500 rounded-l-md border-r border-gray-300">1</button>
-                        <button class="px-2 py-1 text-red-500 rounded-l-md border-r border-gray-300">2</button>
-                        <button class="px-2 py-1 text-red-500 rounded-l-md border-r border-gray-300">3</button>
-                        <button class="px-4 py-1 text-red-500 rounded-r-md">Next</button>
-                    </div>
-
-                    <div class="ml-auto italic flex text-red-500">
-                        <div>Page</div>
-                        <div class="ml-1">1</div>
-                        <div class="ml-1">of</div>
-                        <div class="ml-1">50</div>
-                    </div>
-                </div>
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-end">
+                        <li class="page-item disabled">
+                            <a class="page-link">Previous</a>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="#">Next</a>
+                        </li>
+                    </ul>
+                </nav>
             </div>
 
         </div>
     </div>
 
 
+    <!-- ========== Start Section delete modal ========== -->
+    <!-- Modal trigger button -->
+
+    <!-- Modal Body -->
+    <!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
+    <div class="modal fade" id="joblistDeleteModal" tabindex="-1" role="dialog"
+        aria-labelledby="joblistDeleteModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="joblistDeleteModalTitle">
+                        Delete this Job
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Do you want to delete this Job?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        No
+                    </button>
+                    <a type="button" class="btn btn-primary" id="confirm_delete">Yes</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Optional: Place to the bottom of scripts -->
+    <script>
+        const myModal = new bootstrap.Modal(
+            document.getElementById("joblistDeleteModal"),
+            options,
+        );
+    </script>
+
+    <!-- ========== End Section delete modal ========== -->
+
+
+
+    <!-- Activate modal -->
+    <div class="modal fade" id="activateModal" tabindex="-1" role="dialog" aria-labelledby="activateModalTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="activateModalTitle">
+                        Activate this post
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Do you want to activate this post?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        No
+                    </button>
+                    <button type="button" id="confirm_activation" class="btn btn-primary">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Deactivate modal -->
+    <div class="modal fade" id="deactivateModal" tabindex="-1" role="dialog" aria-labelledby="deactivateModalTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deactivateModalTitle">
+                        Dectivate this post
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Do you want to deactivate this post?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        No
+                    </button>
+                    <button type="button" id="confirm_deactivation" class="btn btn-primary">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ========== Start Section admin edit job post modal ========== -->
+
+    <!-- Modal Body -->
+    <!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
+    <div class="modal fade" id="editJobModal" tabindex="-1" role="dialog" aria-labelledby="editJobModalTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editJobModalTitle">
+                        Edit job
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                    <form class="container mt-3" method="POST" enctype="multipart/form-data" id="editJobForm" action="{% url 'admin_edit_jobpost' %}">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                <label>Job Title</label>
+                                <input type="text" class="form-control mt-1" name="job_title" id="job_title"
+                                    value="{{job.title}}" required>
+                                <input type="hidden" class="form-control" name="job_id" id="job_id" value="{{company.id}}">
+                            </div>
+                        </div>
+
+                        <div class="row mt-3">
+                            <div class="form-group col-md-6">
+                                <label>Start Date</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;({{job.start_date}})
+                                <input type="date" class="form-control mt-1" name="start_date" id="start_date">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>End Date</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;({{job.end_date}})
+                                <input type="date" class="form-control mt-1" name="end_date" id="end_date">
+                            </div>
+                        </div>
+
+                        <div class="row mt-3">
+                            <div class="form-group col-md-6">
+                                <label>Experience (in years)</label>
+                                <input type="text" class="form-control mt-1" name="experience" id="experience"
+                                    value="{{job.experience}}" required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Salary (per month)</label>
+                                <input type="tel" class="form-control mt-1" name="salary" id="salary"
+                                    value="{{job.salary}}" required>
+                            </div>
+                        </div>
+
+                        <div class="row mt-3">
+                            <div class="form-group col-md-6">
+                                <label>Skills Required</label>
+                                <input type="text" class="form-control" name="skills" id="skills"
+                                    placeholder="Enter the required skills for the job" value="{{job.skills}}" required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Job Type</label>
+                                <select name="jobtype" id="jobtype" class="form-control" required>
+                                    <option value="Part-Time">Part-Time Job</option>
+                                    <option value="Full-Time">Full-Time Job</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row mt-3">
+                            <div class="form-group col-md-12">
+                                <label>Company Location</label>
+                                <input type="text" class="form-control mt-1" name="location" id="location"
+                                    value="{{job.location}}" required>
+                            </div>
+                        </div>
+
+                        <div class="row mt-3">
+                            <div class="form-group col-md-12">
+                                <label>Job Description</label>
+                                <textarea name="description" id="description" class="form-control mt-1" cols="30"
+                                    rows="4" required>{{job.description}}</textarea>
+                            </div>
+                        </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        Close
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        Submit
+                    </button>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ========== End Section admin edit job post modal ========== -->
+    <script>
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        
+        document.addEventListener('DOMContentLoaded', function () {
+            var editButtons = document.querySelectorAll('[name="edit"]');
+            var editModal = new bootstrap.Modal(document.getElementById("editJobModal"));
+            editButtons.forEach(function (button) {
+                button.addEventListener('click', function () {
+                    var postId = button.getAttribute('data-post-id');
+                    document.getElementById('editJobForm').setAttribute('data-post-id', postId);
+    
+                    fetch(`/get_job_data/${postId}/`)  
+                        .then(response => response.json())
+
+                        .then(data => {
+                            document.getElementById('job_id').value = data.job_id;
+                            document.getElementById('job_title').value = data.title;
+                            document.getElementById('start_date').value = data.start_date ? data.start_date : '';
+                            document.getElementById('end_date').value = data.end_date ? data.end_date : '';
+                            document.getElementById('experience').value = data.experience;
+                            document.getElementById('salary').value = data.salary;
+                            document.getElementById('skills').value = data.skills;
+                            document.getElementById('jobtype').value = data.jobtype;
+                            document.getElementById('location').value = data.location;
+                            document.getElementById('description').value = data.description;
+    
+                            editModal.show();
+                        })
+                        .catch(error => console.error('Error:', error));
+                });
+            });
+    
+            document.getElementById('submitEditJobForm').addEventListener('click', function () {
+                var postId = document.getElementById('editJobForm').getAttribute('data-post-id');
+                
+                console.log('Post ID:', postId);
+                
+
+                editModal.hide();
+            });
+        });
+
+
+
+        function search_job() {
+            var searchJob = document.getElementById('jobSearch').value;
+            fetch('/search_posted/', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCookie('csrftoken'),
+              },
+              body: JSON.stringify({ search: searchJob }),
+            })
+            .then(response => {
+              if (!response.ok) {
+                throw new Error('Network response was not ok');
+              }
+              return response.json();
+            })
+            .then(data => {
+                console.log(data);
+                const jobListing = data.jobs;
+                const jobListingElement = document.getElementById('job-list-table-card');
+                jobListingElement.innerHTML = `<table class="table table-hover" id="job_list_admin">
+                    <thead>
+                        <tr>
+                            <th>Job Title</th>
+                            <th>Company Name</th>
+                            <th>Job Type</th>
+                            <th>Date Created</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                            <th>Change Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>`;
+                if (jobListing.length === 0) {
+                    jobListingElement.innerHTML = '<p>No posted found</p>';
+                } else {
+                    const tbody = jobListingElement.querySelector('tbody');
+                    jobListing.forEach(job => {
+                            tbody.innerHTML += `
+                            <tr>
+                                <td>${job.job_title}</td>
+                                <td>${job.company_name}</td>
+                                <td>${job.job_type}</td>
+                                <td>${job.creation_date}</td>
+                                <td>${job.job_status}</td>
+                                <td>
+                                    <div class="row justify-content-center align-items-center g-2">
+                                        <div class="col">
+                                            <a id="joblistEditButton" class="btn btn-primary"
+                                                title="Edit" data-bs-toggle="modal" data-bs-target="#editJobModal" data-post-id="${job.job_id}"
+                                                name="edit"><i
+                                                    class="bi-pencil-fill"></i>
+                                            </a>
+                                        </div>
+                                        <div class="col">
+                                            <a class="btn btn-danger" title="Delete" id="joblistDeleteButton" data-bs-toggle="modal"
+                                                data-bs-target="#joblistDeleteModal"><i class="bi-trash-fill"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <!-- Activate/Deactivate Button -->
+                                    <div class="row justify-content-center align-items-center g-2">
+                                        ${job.job_status !== 'Activate' ?
+                                            `<div class="col-md-6" title="View">
+                                                <button id="activateButton"
+                                                    class="activateButton btn col-12 btn-primary btn-sm"
+                                                    data-bs-toggle="modal" data-bs-target="#activateModal"
+                                                    data-post-id="${job.job_id}" data-status="Activate">
+                                                    <i class="bi bi-check-lg"></i>
+                                                </button>
+                                            </div>` :
+                                            `<div class="col-md-6" title="Deactivate">
+                                                <button id="deactivateButton" role="button"
+                                                    class="btn col-12 btn-danger btn-sm" data-bs-toggle="modal"
+                                                    data-bs-target="#deactivateModal" data-post-id="${job.job_id}"
+                                                    data-status="Deactivate">
+                                                    <i class="bi bi-x-lg"></i>
+                                                </button>
+                                            </div>`
+                                        }
+                                    </div>
+                                </td>
+                            </tr>`;
+                        
+                    });
+                }
+            })
+            
+            .catch(error => console.error('Error searching for jobs:', error));
+          }
+
+    
+    </script>
+<script>
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    document.addEventListener('DOMContentLoaded', function () {
+        var activateButtons = document.querySelectorAll('.activateButton');
+        var deactivateButtons = document.querySelectorAll('#deactivateButton');
+        var modalTitle = document.getElementById('activateModalTitle');
+        var modalBody = document.querySelector('#activateModal .modal-body');
+        
+        var modalTitle = document.getElementById('deactivateModalTitle');
+        var modalBody = document.querySelector('#deactivateModal .modal-body');
+        var confirmActivationButton = document.getElementById('confirm_activation');
+        var confirmDeactivationButton = document.getElementById('confirm_deactivation');
+
+        activateButtons.forEach(function (button) {
+            button.addEventListener('click', function () {
+                var postId = button.getAttribute('data-post-id');
+                var postStatus = button.getAttribute('data-status');
+                // Customize the modal content based on the post ID
+                modalTitle.innerText = 'Activate Post ' + postId;
+                modalBody.innerHTML = 'Do you want to activate Post ' + postId + '?';
+                confirmActivationButton.dataset.postId =
+                postId; // Set post ID in the Confirm Activation button
+                confirmActivationButton.dataset.status = postStatus; // Set post status
+            });
+        });
+
+        deactivateButtons.forEach(function (button) {
+            button.addEventListener('click', function () {
+                var postId = button.getAttribute('data-post-id');
+                var postStatus = button.getAttribute('data-status');
+                // Customize the modal content based on the post ID
+                modalTitle.innerText = 'Deactivate Post ' + postId;
+                modalBody.innerHTML = 'Do you want to deactivate Post ' + postId + '?';
+                confirmDeactivationButton.dataset.postId =
+                postId; // Set post ID in the Confirm Deactivation button
+                confirmDeactivationButton.dataset.status = postStatus; // Set post status
+            });
+        });
+
+        confirmActivationButton.addEventListener('click', function () {
+            var postId = confirmActivationButton.dataset.postId;
+            var postStatus = confirmActivationButton.dataset.status;
+            // Perform actions based on the post ID and status
+            fetch(`/admin_changejob_status/${postId}/`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': getCookie('csrftoken'), // Include CSRF token
+                    },
+                    // Include both post_id and status in the request body
+                    body: JSON.stringify({
+                        post_id: postId,
+                        status: postStatus
+                    }),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Handle the response as needed
+                    if (data.success) {
+                        alert('Post status changed successfully!');
+                        location.reload();
+                        // Optionally, you can update the UI to reflect the new status
+                    } else {
+                        alert('Failed to change the post status.');
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        });
+
+        confirmDeactivationButton.addEventListener('click', function () {
+            var postId = confirmDeactivationButton.dataset.postId;
+            var postStatus = confirmDeactivationButton.dataset.status;
+            fetch(`/admin_changejob_status/${postId}/`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': getCookie('csrftoken'), // Include CSRF token
+                    },
+                    // Include both post_id and status in the request body
+                    body: JSON.stringify({
+                        post_id: postId,
+                        status: postStatus
+                    }),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Handle the response as needed
+                    if (data.success) {
+                        alert('Post status changed successfully!');
+                        location.reload();
+                    } else {
+                        alert('Failed to change the post status.');
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        var delete_button = document.querySelectorAll('[name="delete"]');
+        var view_button = document.querySelectorAll('.comp-view-button');
+        var modalTitle = document.getElementById('joblistDeleteModalTitle');
+        var modalBody = document.querySelector('#joblistDeleteModal .modal-body');
+        var confirm_delete_button = document.getElementById('confirm_delete');
+
+        delete_button.forEach(function (button) {
+            button.addEventListener('click', function () {
+                var postId = button.getAttribute('data-post-id');
+                modalTitle.innerText = 'Delete Company ';
+                modalBody.innerHTML = 'Do you want to delete this company?';
+                confirm_delete_button.dataset.postId = postId;
+            });
+        });
+
+        confirm_delete_button.addEventListener('click', function () {
+            var postId = confirm_delete_button.dataset.postId;
+            fetch(`/admin_delete_postjob/${postId}/`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': getCookie('csrftoken'),
+                    },
+                    body: JSON.stringify({
+                        post_id: postId
+                    }),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Post Deleted successfully!');
+                        location.reload();
+                    } else {
+                        alert('Failed to delete the company.');
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        });
+    });
+</script>
 
 </body>
 

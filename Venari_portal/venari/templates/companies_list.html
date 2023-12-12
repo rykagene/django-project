@@ -61,9 +61,10 @@
                         <div class="col-12">
                             <!-- Search -->
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="" aria-label="Button"
-                                    aria-describedby="" />
-                                <button class="btn btn-secondary" type="button" id="comp-list-search-btn">
+                                <input type="text" class="form-control" placeholder="" id="companySearch"
+                                    aria-label="Button" aria-describedby="" />
+                                <button class="btn btn-secondary" type="button" id="comp-list-search-btn"
+                                    onclick="search_company()">
                                     <i class="bi bi-search"></i><span class="ms-2 d-none d-md-inline">Search</span>
                                 </button>
                             </div>
@@ -81,9 +82,30 @@
 
 
             <!-- Table -->
-            <div class="card border-0 overflow-auto p-2 p-lg-4 flex-grow-1 comp-list-cards" style="height: 417px;"
+            <div class="card border-0 overflow-auto p-2 p-lg-4 flex-grow-1 comp-list-cards" style="height: 500px;"
                 id="comp-list-table-card">
-                <table class="table align-middle table-hover" id="comp_list_table">
+
+                <div class="flex">
+                    <span class="flex-grow-1" id="acceptedLabel">Accepted Companies</span>
+                    <span class="flex-grow-1" id="pendingLabel">Pending Companies</span>
+
+                    <div class="dropdown flex-shrink-0 p-0 m-0">
+                        <a class="btn btn-primary dropdown-toggle btn-sm" href="#" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false" id="tableSelector">
+                            Tables
+                        </a>
+
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#" data-table="accepted">Accepted Companies</a></li>
+                            <li><a class="dropdown-item" href="#" data-table="pending">Pending Companies</a></li>
+                        </ul>
+
+                    </div>
+                </div>
+
+                <hr class="text-light">
+
+                <table class="table align-middle table-hover" id="comp_list_table" data-table-type="accepted">
                     <thead>
                         <tr>
                             <th scope="col"></th>
@@ -111,14 +133,17 @@
                             <td>
                                 <div class="row justify-content-center align-items-center g-1">
                                     <div class="col">
-                                        <button type="button" class="btn btn-primary btn-sm" id="comp-view-button">
-                                            <i class="bi bi-eye-fill"></i>
+                                        <button type="button" class="btn btn-primary" id="comp-view-button"
+                                            data-bs-toggle="modal" data-bs-target="#editCompanyModal">
+                                            <i class="bi bi-pencil-fill"></i>
                                         </button>
 
                                     </div>
                                     <div class="col">
-                                        <button type="button" class="btn btn-danger btn-sm" id="comp-archive-button" data-bs-toggle="modal" data-bs-target="#archiveModal">
-                                            <i class="bi bi-archive-fill"></i>
+                                        <button type="button" class="btn btn-danger" name="delete"
+                                            id="comp-archive-button" data-bs-toggle="modal"
+                                            data-bs-target="#archiveModal" data-post-id="{{ company.id }}">
+                                            <i class="bi bi-trash-fill"></i>
                                         </button>
 
                                     </div>
@@ -131,6 +156,56 @@
                         {% endfor %}
                     </tbody>
                 </table>
+
+                <!-- table 2 -->
+                <table class="table align-middle" id="comp_list_pending_table" data-table-type="pending">
+                    <thead>
+                        <tr>
+                            <th scope="col"></th>
+                            <th scope="col">Name of Company</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for company in companies %}
+                        <tr>
+                            {% if company.status != 'Accepted' %}
+
+                            <th scope="row">
+                                <div id="complist-pic-container">
+                                    <img src="{{company.company_logo.url}}" alt="Company Logo" id="complist-table-pic"
+                                        class="">
+                                </div>
+
+                            </th>
+                            <td>{{company.company_name}}</td>
+                            <td>
+                                <div class="row justify-content-start align-items-center g-1">
+                                    <div class="col-md-3">
+                                        <button id = "activateButton" type="button" class="activateButton btn btn-primary"
+                                            data-bs-toggle="modal" data-bs-target="#comp-accept-modal" data-post-id="{{company.id}}" data-status="Accepted"
+                                            >
+                                            <i class="bi bi-check-lg"></i>
+                                        </button>
+
+                                    </div>
+                                    <div class="col-md-3">
+                                        <button type="button" class="btn btn-danger" name="reject"
+                                            id="comp-reject-button" data-bs-toggle="modal"  data-bs-target="#comp-reject-modal" data-post-id="{{company.id}}">
+                                            <i class="bi bi-x-lg"></i>
+                                        </button>
+
+                                    </div>
+                                </div>
+
+                            </td>
+
+                            {% endif %}
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
             </div>
 
             <!-- 
@@ -183,7 +258,7 @@
     </div>
 
 
-    <!-- ========== Start Section Archive Modal ========== -->
+    <!-- ========== Start Section Delete Modal ========== -->
 
 
 
@@ -204,13 +279,512 @@
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                         No
                     </button>
-                    <button type="button" class="btn btn-primary">Yes</button>
+                    <button type="button" class="btn btn-primary" id="confirm_delete">Yes</button>
                 </div>
             </div>
         </div>
     </div>
-    <!-- ========== End Section Archive Modal ========== -->
+    <!-- ========== End Section Delete Modal ========== -->
 
+    <!-- ========== Start Section Edit Modal ========== -->
+
+
+    <!-- Modal Body -->
+    <!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
+    <div class="modal fade" id="editCompanyModal" tabindex="-1" role="dialog" aria-labelledby="editCompanyModalTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editCompanyModalTitle">
+                        Edit company
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                    <form action="">
+
+                        <div class="mb-3">
+                            <label for="" class="form-label">Company Name</label>
+                            <input type="text" class="form-control" name="" id="" aria-describedby="helpId"
+                                placeholder="" />
+                        </div>
+
+                        <div class="row justify-content-center align-items-center g-2">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="editFirstName" class="form-label">First Name</label>
+                                    <input type="text" class="form-control" name="editFirstName" id="editFirstName"
+                                        placeholder="Juan" />
+
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="editFirstName" class="form-label">Last Name</label>
+                                    <input type="text" class="form-control" name="editLastName" id="editLastName"
+                                        placeholder="Dela Cruz" />
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="editCeo" class="form-label">CEO/Founder</label>
+                            <input type="text" class="form-control" name="editCeo" id="editCeo" placeholder="" />
+                        </div>
+
+
+                        <div class="mb-3">
+                            Gender<br>
+                            <div class="btn-group btn-group-sm" role="group"
+                                aria-label="Basic checkbox toggle button group">
+                                <input type="radio" class="btn-check" name="btnradio" id="male" autocomplete="off" />
+                                <label class="btn btn-outline-primary" for="btncheck1">Male</label>
+
+                                <input type="radio" class="btn-check" name="btnradio" id="female" autocomplete="off" />
+                                <label class="btn btn-outline-primary" for="btncheck2">Female</label>
+
+                                <input type="radio" class="btn-check" name="btnradio" id="non-binary"
+                                    autocomplete="off" />
+                                <label class="btn btn-outline-primary" for="btncheck3">Non-binary</label>
+
+                                <input type="radio" class="btn-check" name="btnradio" id="not-say" autocomplete="off" />
+                                <label class="btn btn-outline-primary" for="btncheck4">Prefer not to say</label>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="editYearEstablished" class="form-label">Year Established</label>
+                            <input type="date" class="form-control" name="editYearEstablished" id="editYearEstablished"
+                                placeholder="" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="editMobileNumber" class="form-label">Mobile Number</label>
+                            <input type="number" class="form-control" name="editMobileNumber" id="editMobileNumber"
+                                placeholder="" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="editCompanyLocation" class="form-label">Company Location</label>
+                            <input type="text" class="form-control" name="editCompanyLocation" id="editCompanyLocation"
+                                placeholder="" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="editCompanyUsername" class="form-label">Company Username</label>
+                            <input type="text" class="form-control" name="editCompanyUsername" id="editCompanyUsername"
+                                placeholder="" />
+                        </div>
+
+
+
+
+
+
+
+
+
+                    </form>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        Close
+                    </button>
+                    <button type="button" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== End Section Edit Modal ========== -->
+
+
+    <script>
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var delete_button = document.querySelectorAll('[name="delete"]');
+            var view_button = document.querySelectorAll('.comp-view-button');
+            var modalTitle = document.getElementById('archiveModalTitle');
+            var modalBody = document.querySelector('#archiveModal .modal-body');
+            var confirm_delete_button = document.getElementById('confirm_delete');
+            var confirmDeactivationButton = document.getElementById('confirm_deactivation');
+
+            delete_button.forEach(function (button) {
+                button.addEventListener('click', function () {
+                    var postId = button.getAttribute('data-post-id');
+                    modalTitle.innerText = 'Delete Company ';
+                    modalBody.innerHTML = 'Do you want to delete this company?';
+                    confirm_delete_button.dataset.postId = postId;
+                });
+            });
+
+            confirm_delete_button.addEventListener('click', function () {
+                var postId = confirm_delete_button.dataset.postId;
+                fetch(`/admin_delete_company/${postId}/`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRFToken': getCookie('csrftoken'),
+                        },
+                        body: JSON.stringify({
+                            post_id: postId
+                        }),
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            alert('Company Deleted successfully!');
+                            location.reload();
+                        } else {
+                            alert('Failed to delete the company.');
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+            });
+        });
+
+        function search_company() {
+            var searchCompany = document.getElementById('companySearch').value;
+            fetch('/search_company/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': getCookie('csrftoken'),
+                    },
+                    body: JSON.stringify({
+                        search: searchCompany
+                    }),
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+
+                    console.log(data);
+
+                    const companyListing = data.company;
+
+                    const companyListingElement = document.getElementById('comp-list-table-card');
+
+                    companyListingElement.innerHTML = `<table class="table align-middle table-hover" id="comp_list_table">
+                    <thead>
+                        <tr>
+                            <th scope="col"></th>
+                            <th scope="col">Name of Company</th>
+                            <th scope="col" class="text-center">Number of Applicants</th>
+                            <th scope="col" class="text-center">Number of Job Postings</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>`;
+                    if (companyListing.length === 0) {
+                        companyListingElement.innerHTML = '<p>No companies found</p>';
+                    } else {
+                        const tbody = companyListingElement.querySelector('tbody');
+                        companyListing.forEach(company => {
+                            if (company.company_status === 'Accepted') {
+                                tbody.innerHTML += `
+                                    <tr>
+                                        <th scope="row">
+                                            <div id="complist-pic-container">
+                                                <img src="${company.company_logo}" alt="Company Logo" id="complist-table-pic"
+                                                    class="">
+                                            </div>
+
+                                        </th>
+                                        <td>${company.company_name}</td>
+                                        <td class="text-center">${ company.applicants }</td>
+                                        <td class="text-center">${ company.posted_jobs }</td>
+                                        <td>
+                                            <div class="row justify-content-center align-items-center g-1">
+                                                <div class="col">
+                                                    <button type="button" class="btn btn-primary btn-sm" id="comp-view-button">
+                                                        <i class="bi bi-eye-fill"></i>
+                                                    </button>
+
+                                                </div>
+                                                <div class="col">
+                                                    <button type="button" class="btn btn-danger btn-sm" name="delete" id="comp-archive-button" data-bs-toggle="modal" data-bs-target="#archiveModal"
+                                                    data-post-id="${company.company_id}">
+                                                        <i class="bi bi-trash-fill"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>`;
+
+                            }
+                        });
+                    }
+
+                })
+                .catch(error => console.error('Error searching for jobs:', error));
+        }
+    </script>
+
+
+    <!-- ========== Start Section Toggle Tables ========== -->
+    <!-- Include jQuery library -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Get references to the tables
+            var acceptedTable = document.getElementById('comp_list_table');
+            var pendingTable = document.getElementById('comp_list_pending_table');
+            var acceptedLabel = document.getElementById('acceptedLabel');
+            var pendingLabel = document.getElementById('pendingLabel');
+
+            // Add an event listener to the dropdown items
+            var dropdownItems = document.querySelectorAll('.dropdown-item');
+            dropdownItems.forEach(function (item) {
+                item.addEventListener('click', function (event) {
+                    // Prevent the default link behavior
+                    event.preventDefault();
+
+                    // Check the data-table attribute of the clicked option
+                    var selectedTable = item.getAttribute('data-table');
+
+                    // Show/hide tables based on the selected option
+                    if (selectedTable === 'accepted') {
+                        acceptedTable.style.display = 'table';
+                        pendingTable.style.display = 'none';
+                        acceptedLabel.style.display = 'flex';
+                        pendingLabel.style.display = 'none';
+                    } else if (selectedTable === 'pending') {
+                        acceptedTable.style.display = 'none';
+                        pendingTable.style.display = 'table';
+                        acceptedLabel.style.display = 'none';
+                        pendingLabel.style.display = 'flex';
+                    }
+                });
+            });
+        });
+    </script>
+    <!-- ========== End Section Toggle Tables ========== -->
+
+
+    <!-- ========== Start Section Accept Modal ========== -->
+
+    <!-- Modal Body -->
+    <!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
+    <div class="modal fade" id="comp-accept-modal" tabindex="-1" role="dialog" aria-labelledby="comp-accept-modal-title"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="comp-accept-modal-title">
+                        Accept Company
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Do you want to accept this company?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        No
+                    </button>
+                    <button type="button" class="btn btn-primary" id="confirm_activation">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ========== End Section Accept Modal ========== -->
+
+    <!-- ========== Start Section Reject Modal ========== -->
+    <!-- Modal Body -->
+    <!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
+    <div class="modal fade" id="comp-reject-modal" tabindex="-1" role="dialog"
+        aria-labelledby="comp-reject-modal-title" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="comp-reject-modal-title">
+                        Reject Company
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                     Do you want to reject this company?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        No
+                    </button>
+                    <button type="button" class="btn btn-primary" id="confirm_reject" >Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ========== End Section Reject Modal ========== -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var delete_button = document.querySelectorAll('[name="delete"]');
+        var view_button = document.querySelectorAll('.comp-view-button');
+        var modalTitle = document.getElementById('joblistDeleteModalTitle');
+        var modalBody = document.querySelector('#joblistDeleteModal .modal-body');
+        var confirm_delete_button = document.getElementById('confirm_delete');
+
+        delete_button.forEach(function (button) {
+            button.addEventListener('click', function () {
+                var postId = button.getAttribute('data-post-id');
+                modalTitle.innerText = 'Delete Company ';
+                modalBody.innerHTML = 'Do you want to delete this company?';
+                confirm_delete_button.dataset.postId = postId;
+            });
+        });
+
+        confirm_delete_button.addEventListener('click', function () {
+            var postId = confirm_delete_button.dataset.postId;
+            fetch(`/admin_delete_postjob/${postId}/`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': getCookie('csrftoken'),
+                    },
+                    body: JSON.stringify({
+                        post_id: postId
+                    }),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Post Deleted successfully!');
+                        location.reload();
+                    } else {
+                        alert('Failed to delete the company.');
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        });
+    });
+</script>
+
+<script>
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    document.addEventListener('DOMContentLoaded', function () {
+        var activateButtons = document.querySelectorAll('.activateButton');
+        var confirmActivationButton = document.getElementById('confirm_activation');
+
+        activateButtons.forEach(function (button) {
+            button.addEventListener('click', function () {
+                var postId = button.getAttribute('data-post-id');
+                var postStatus = button.getAttribute('data-status');
+                confirmActivationButton.dataset.postId =
+                postId; // Set post ID in the Confirm Activation button
+                confirmActivationButton.dataset.status = postStatus; // Set post status
+            });
+        });
+        confirmActivationButton.addEventListener('click', function () {
+            var postId = confirmActivationButton.dataset.postId;
+            var postStatus = confirmActivationButton.dataset.status;
+            alert
+            // Perform actions based on the post ID and status
+            fetch(`/company_change_status/${postId}/`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': getCookie('csrftoken'), // Include CSRF token
+                    },
+                    // Include both post_id and status in the request body
+                    body: JSON.stringify({
+                        post_id: postId,
+                        status: postStatus
+                    }),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Handle the response as needed
+                    if (data.success) {
+                        alert('Post status changed successfully!');
+                        location.reload();
+                        // Optionally, you can update the UI to reflect the new status
+                    } else {
+                        alert('Failed to change the post status.');
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        });
+
+       
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var delete_button = document.querySelectorAll('[name="reject"]');
+        var confirm_delete_button = document.getElementById('confirm_reject');
+
+        delete_button.forEach(function (button) {
+            button.addEventListener('click', function () {
+                var postId = button.getAttribute('data-post-id');
+                confirm_delete_button.dataset.postId = postId;
+            });
+        });
+
+        confirm_delete_button.addEventListener('click', function () {
+            var postId = confirm_delete_button.dataset.postId;
+            fetch(`/admin_reject_company/${postId}/`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': getCookie('csrftoken'),
+                    },
+                    body: JSON.stringify({
+                        post_id: postId
+                    }),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Post Deleted successfully!');
+                        location.reload();
+                    } else {
+                        alert('Failed to delete the company.');
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        });
+    });
+</script>
 </body>
 
 </html>
