@@ -602,7 +602,7 @@ def all_companies(request):
             data = json.loads(request.body.decode('utf-8'))
             search = data.get('search')
             print(search)
-            if search is not None:
+            if search is not None and search.strip():
                 results = company.objects.filter(company_name__icontains=search)
                 companies_data = []
                 
