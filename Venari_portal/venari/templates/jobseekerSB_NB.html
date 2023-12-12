@@ -14,10 +14,10 @@
 
         <div class="text-center" id="sidebarImageContainer">
             <div class="col-12 justify-content-center">
-                <img src="./../static/css/images/7826149.jpg" alt="pictureSidebar" id="sidebarImage"></div>
+                <img src="{{image}}" alt="pictureSidebar" id="sidebarImage"></div>
             <div class="col-12">
-                <h5 class="text-center" id="sidebarName">Paul Justine Miguel</h5>
-                <h5 class="text-center" id="sidebarEmail">paul******@gmail.com</h5>
+                <h5 class="text-center" id="sidebarName">{{first_name}} {{last_name}}</h5>
+                <h5 class="text-center" id="sidebarEmail">{{email}}</h5>
             </div>
         </div>
 
@@ -39,7 +39,7 @@
         <i class="bi bi-list fs-3"></i>
     </button>
     <div class="container justify-content-end">
-        <span>Welcome, admin</span>
+        <span>Welcome, {{first_name}}</span>
 
     </div>
 </nav>

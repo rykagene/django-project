@@ -21,7 +21,7 @@
 <body>
   
 
-    {% include 'jobseekerSB_NB.html' %}
+    {% include 'jobseekerSB_NB.html' with email=applicant.email first_name=applicant.user.first_name last_name=applicant.user.last_name image=applicant.profile_image.url %}
   <!--modal, 
 <div class="modal fade" id="applyModal" tabindex="-1" aria-labelledby="applyModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -207,7 +207,7 @@ see more-->
       </div>
           
       <div class="text-end mb-3 mt-3">
-        <p>There are more than <span>400</span> Jobs available</p>
+        <p>There are more than <span>{{count}}</span> Jobs available</p>
       </div>
 <hr>
 <!--Job Listings-->
