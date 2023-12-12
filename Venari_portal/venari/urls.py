@@ -35,6 +35,7 @@ urlpatterns = [
     path("get_job_data/<int:job_id>/", views.get_job_data, name="edit posted job"),
     path("admin_changejob_status/<int:myid>/", views.admin_changejob_status, name="changejob_status"),
     path("admin_delete_postjob/<int:myid>/", views.admin_delete_postjob, name="delete posted job status"),
+    path("admin_reject_company/<int:myid>/", views.admin_reject_company, name="delete posted job status"),
     path("companies_list/", views.all_companies, name="companies list"),
     path("search_company/", views.all_companies, name="companies list"),
     path("admin_dashboard/", views.admin_dashboard, name="admin dashboard"),

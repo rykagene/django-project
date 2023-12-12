@@ -658,12 +658,24 @@ def change_status(request, myid):
         return redirect("/admin_login")
     companies = company.objects.get(id=myid)
     if request.method == "POST":
-        status = request.POST['status']
-        companies.status=status
-        companies.save()
-        messages.success(request, "Status changed successfully.")
-        return redirect("/companies_list")
-    return render(request, "company_change_status.html", {'company':companies})
+            try:
+                data = json.loads(request.body.decode('utf-8'))
+                status = data.get('status') 
+                if status is not None:  
+                    old_status = companies.status
+                    companies.status = status
+                    companies.save()
+                    messages.success(request, "Status changed successfully.")
+                    logger.info(f"Status changed successfully for job ID {myid}. Old status: {old_status}, New status: {status}")
+                    return JsonResponse({'success': True})
+                else:
+                    return JsonResponse({'success': False, 'error': 'Invalid status value'})
+
+            except json.JSONDecodeError:
+                return JsonResponse({'success': False, 'error': 'Invalid JSON data'})
+
+    return render(request, "admin_dashboard.html", {'company':companies})
+
 
 def delete_company(request, myid):
     if not request.user.is_authenticated:
@@ -859,7 +871,6 @@ def admin_delete_postjob(request, myid):
     try:
         jobs = post_jobs.objects.get(id=myid)
         jobs.delete()
-
         messages.success(request, "Successfully deleted.")
         logger.info(f"Company and job postings deleted successfully for company ID {myid}")
         return JsonResponse({'success': True, 'message': 'Company and job postings deleted successfully'})
@@ -868,6 +879,19 @@ def admin_delete_postjob(request, myid):
     except Exception as e:
         return JsonResponse({'success': False, 'message': str(e)})
  
+def admin_reject_company(request, myid):
+    if not request.user.is_authenticated:
+        return redirect("/admin_login")
+    try:
+        Company = company.objects.get(id=myid)
+        Company.delete()
+        messages.success(request, "Successfully deleted.")
+        logger.info(f"Company and job postings deleted successfully for company ID {myid}")
+        return JsonResponse({'success': True, 'message': 'Company and job postings deleted successfully'})
+    except Company.DoesNotExist:
+        return JsonResponse({'success': False, 'message': 'Company not found'})
+    except Exception as e:
+        return JsonResponse({'success': False, 'message': str(e)})
   
     
 
