@@ -5,7 +5,7 @@ from django.contrib import messages
 from . models import *
 from django.core.mail import send_mail
 from datetime import date
-from django.http import JsonResponse
+from django.http import JsonResponse, Http404
 from django.shortcuts import get_object_or_404
 import logging
 import os
@@ -714,8 +714,55 @@ def change_status_jobseeker(request, myid):
 def admin_job_list(request):
     if not request.user.is_authenticated:
         return redirect("/admin_login")
+    if request.method == "POST":
+        try:
+            data = json.loads(request.body.decode('utf-8'))
+            search = data.get('search')
+            if search is not None and search.strip() != "":
+                results = post_jobs.objects.filter(title__icontains=search)
+            else:
+                results = post_jobs.objects.all()
+        
+            job_data = []
+                    
+            for job_instance in results:
+
+                job_data.append({
+                    'company_name': job_instance.company.company_name,
+                    'job_title': job_instance.title,
+                    'job_type': job_instance.jobtype,
+                    'creation_date': job_instance.start_date,
+                    'job_status': job_instance.status,
+                    'job_id': job_instance.id
+                })
+
+            return JsonResponse({'jobs': job_data})
+        except json.JSONDecodeError:
+            pass
+        
     jobs = post_jobs.objects.all()
     return render(request, "admin_joblist.html", {'jobs':jobs})
+
+def get_job_data(request, job_id):
+    try:
+        job = post_jobs.objects.get(id=job_id)
+    except post_jobs.DoesNotExist:
+        raise Http404("Job does not exist")
+
+    data = {
+        'title': job.title,
+        'job_id': job_id,
+        'start_date': str(job.start_date),
+        'end_date': str(job.end_date),
+        'experience': job.experience,
+        'salary': job.salary,
+        'skills': job.skills,
+        'jobtype': job.jobtype,
+        'location': job.location,
+        'description': job.description,
+    }
+
+    return JsonResponse(data)
 
 def admin_changejob_status(request, myid):
     logger.info(f"Received request to change status for job ID: {myid}")
@@ -729,6 +776,7 @@ def admin_changejob_status(request, myid):
         try:
             data = json.loads(request.body.decode('utf-8'))
             status = data.get('status') 
+            print(data, status)
 
             if status is not None:  
                 old_status = job.status
@@ -745,6 +793,33 @@ def admin_changejob_status(request, myid):
 
     return render(request, "admin_dashboard.html", {'job': job})
 
+def admin_changejob_status(request, myid):
+    logger.info(f"Received request to change status for job ID: {myid}")
+    
+    if not request.user.is_authenticated:
+        return redirect("/admin_login")
+
+    job = post_jobs.objects.get(id=myid)
+    if request.method == "POST":
+        try:
+            data = json.loads(request.body.decode('utf-8'))
+            status = data.get('status') 
+            print(data, status)
+
+            if status is not None:  
+                old_status = job.status
+                job.status = status
+                job.save()
+                messages.success(request, "Status changed successfully.")
+                logger.info(f"Status changed successfully for job ID {myid}. Old status: {old_status}, New status: {status}")
+                return JsonResponse({'success': True})
+            else:
+                return JsonResponse({'success': False, 'error': 'Invalid status value'})
+
+        except json.JSONDecodeError:
+            return JsonResponse({'success': False, 'error': 'Invalid JSON data'})
+
+    return render(request, "admin_dashboard.html", {'job': job})
 def edit_job_admin(request, myid):
     if not request.user.is_authenticated:
         return redirect("/admin_login")
@@ -781,10 +856,20 @@ def edit_job_admin(request, myid):
 def admin_delete_postjob(request, myid):
     if not request.user.is_authenticated:
         return redirect("/admin_login")
-    jobs = post_jobs.objects.get(id=myid)
-    jobs.delete()
-    messages.success(request, "Successfully deleted.")
-    return redirect("/admin_joblist")
+    try:
+        jobs = post_jobs.objects.get(id=myid)
+        jobs.delete()
+
+        messages.success(request, "Successfully deleted.")
+        logger.info(f"Company and job postings deleted successfully for company ID {myid}")
+        return JsonResponse({'success': True, 'message': 'Company and job postings deleted successfully'})
+    except jobs.DoesNotExist:
+        return JsonResponse({'success': False, 'message': 'Company not found'})
+    except Exception as e:
+        return JsonResponse({'success': False, 'message': str(e)})
+ 
+  
+    
 
 def admin_dashboard(request):
     if not request.user.is_authenticated:
@@ -832,8 +917,6 @@ def admin_dashboard(request):
         'logs': formatted_logs
     }
     return render(request, "admin_dashboard.html", context)
-
-
 def admin_generate_report(request):
     data = job_seeker.objects.all()
     wb = Workbook()
@@ -851,3 +934,33 @@ def admin_generate_report(request):
     wb.save(response)
 
     return response
+
+def admin_edit_jobpost(request):
+    if not request.user.is_authenticated:
+        return redirect("/admin_login")
+    if request.method == "POST":
+        job_id = request.POST['job_id']
+        title = request.POST['job_title']
+        start_date = request.POST['start_date']
+        end_date = request.POST['end_date']
+        salary = request.POST['salary']
+        experience = request.POST['experience']
+        location = request.POST['location']
+        skills = request.POST['skills']
+        jobtype = request.POST['jobtype']
+        description = request.POST['description']
+        
+        job_posted = post_jobs.objects.get(id=job_id)
+        job_posted.title = title
+        job_posted.start_date = start_date
+        job_posted.end_date = end_date
+        job_posted.salary = salary
+        job_posted.experience = experience
+        job_posted.location = location
+        job_posted.skills = skills
+        job_posted.job_type = jobtype
+        job_posted.description = description
+        job_posted.save()
+        return redirect("/admin_joblist")
+    
+    return render(request, "admin_joblist.html")
