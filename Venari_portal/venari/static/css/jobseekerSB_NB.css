@@ -1,0 +1,188 @@
+#sidebar {
+    height: 100%;
+    width: 275px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: white;
+    overflow-x: hidden;
+    transition: 0.5s;box-shadow: 10px 0px 6px -8px rgba(0,0,0,0.1);
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+#sidebar_items {
+    /* margin-top: 50px; */
+}
+
+
+#sidebar a {
+    padding: 10px 8px 10px 20px;
+    text-decoration: none;
+    font-size: 16px;
+    color: rgba(32, 39, 47, 0.7);
+    display: block;
+    transition: 0.2s;
+    white-space: nowrap;
+    margin-left: 5px;
+    border-radius: 5px;
+    margin-right: 5px;
+}
+
+#sidebar a:hover {
+    color: #fb675f;
+    background-color: #f5f5f5;
+
+}
+
+#sidebar a i {
+    margin-right: 10px;
+}
+
+#offCanvasSideBar {}
+
+.active {
+    padding: 15px 8px 15px 20px !important;
+    background-color: rgba(251, 103, 95, .55) !important;
+    color: white !important;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+#sidebarImageContainer{
+    width: 275px;
+    margin-bottom: 20px;
+    justify-content: center;
+}
+
+#sidebarImage{
+    border-radius: 50%;
+    height: 85px;
+    width: 85px;
+    margin-top: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
+
+}
+#sidebarEmail{
+    font-size: 13px;
+    color: rgba(32, 39, 47, 0.5);
+}
+#sidebarName{
+    font-family: Poppins;
+    font-size: 15px;
+    color: rgba(32, 39, 47, 0.6);
+    font-weight: 500;
+    margin: 10px 10px 0px 10px;
+    padding: 0px;
+}
+#sidebarEmail{
+    font-family: Poppins;
+    font-size: 11px;
+    color: rgba(32, 39, 47, 0.5);
+    font-weight: 500;
+    margin: 0px 10px 0px 10px;
+    padding: 0px;
+}
+#sidebarLogout{
+    font-family: Poppins;
+    font-size: 11px;
+    color: rgba(32, 39, 47, 0.5);
+    font-weight: 500;
+    margin: 0px !important;
+    padding: 0px;
+    cursor: pointer;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#sidebar_items {
+    /* margin-top: 50px; */
+}
+
+
+#offCanvasSideBar a {
+    padding: 10px 8px 10px 20px;
+    text-decoration: none;
+    font-size: 16px;
+    color: rgba(32, 39, 47, 0.7);
+    display: block;
+    transition: 0.2s;
+    white-space: nowrap;
+    margin-left: 5px;
+    border-radius: 5px;
+    margin-right: 5px;
+}
+
+#offCanvasSideBar a:hover {
+    color: #fb675f;
+    background-color: #f5f5f5;
+
+}
+
+#offCanvasSideBar a i {
+    margin-right: 10px;
+}
+.active {
+    padding: 15px 8px 15px 20px !important;
+    background-color: rgba(251, 103, 95, .55) !important;
+    color: white !important;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+#offCanvasSidebarImageContainer{
+    width: 275px;
+    margin-bottom: 20px;
+    justify-content: center;
+}
+
+#offCanvasSidebarImage{
+    border-radius: 50%;
+    height: 85px;
+    width: 85px;
+    margin-top: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
+
+}
+#offCanvasSidebarEmail{
+    font-size: 13px;
+    color: rgba(32, 39, 47, 0.5);
+}
+#offCanvasSidebarName{
+    font-family: Poppins;
+    font-size: 15px;
+    color: rgba(32, 39, 47, 0.6);
+    font-weight: 500;
+    margin: 10px 10px 0px 10px;
+    padding: 0px;
+}
+#offCanvasSidebarEmail{
+    font-family: Poppins;
+    font-size: 11px;
+    color: rgba(32, 39, 47, 0.5);
+    font-weight: 500;
+    margin: 0px 10px 0px 10px;
+    padding: 0px;
+}
+#offCanvasSidebarLogout{
+    font-family: Poppins;
+    font-size: 11px;
+    color: rgba(32, 39, 47, 0.5);
+    font-weight: 500;
+    margin: 0px !important;
+    padding: 0px;
+    cursor: pointer;
+}

@@ -1,0 +1,1357 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
+    </script>
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static "css/jobseeker_profile.css" %}">
+
+
+    <!--     
+    color palette
+    #898dff /* RGBA: rgba(137, 141, 255, 1) */
+    df5aff /* RGBA: rgba(223, 90, 255, 1) */
+    fb675f /* RGBA: rgba(251, 103, 95, 1) */
+    e89568 /* RGBA: rgba(232, 149, 104, 1) */
+    #20272F -->
+
+
+    <title>Profile</title>
+</head>
+
+<body style="font-family: 'Poppins', sans-serif; font-size: 14px;">
+
+    <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="errorModalLabel">Error</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                        onclick="closeErrorModal()">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p id="errorMessage"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <nav class="navbar navbar-expand-sm navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="#">Navbar</a>
+            <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="collapsibleNavId">
+                <ul class="navbar-nav me-auto mt-2 mt-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#" aria-current="page">Home <span
+                                class="visually-hidden">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Link</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownId">
+                            <a class="dropdown-item" href="#">Action 1</a>
+                            <a class="dropdown-item" href="#">Action 2</a>
+                        </div>
+                    </li>
+                </ul>
+                <form class="d-flex my-2 my-lg-0">
+                    <input class="form-control me-sm-2" type="text" placeholder="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+
+
+    <div class="container-xl mt-3">
+        <div class="row justify-content-center align-items-start g-2">
+            <div class="col-md-4">
+
+
+
+                <div class="row g-2">
+                    <div class="col-12">
+                        <div class="card profile-card px-2 sticky-md-top">
+
+
+                            <div class="card-body overflow-y-auto">
+
+                                <div class="text-center mb-3 mt-5 d-flex justify-content-center">
+                                    <div class="ratio ratio-1x1 rounded-circle" style="height: 125px; width: 125px;">
+                                        <img class="rounded-circle" id="profilePic"
+                                            src="{{applicant.profile_image.url}}" alt="">
+                                        <button type="button" id="editPFP" class="btn rounded-circle"
+                                            data-bs-toggle="modal" data-bs-target="#uploadProfile">
+                                            <i class="bi bi-camera-fill "></i></button>
+                                    </div>
+                                </div>
+
+
+                                <div>
+                                    <div class="text-end">
+                                        <button type="button" class="btn rounded-circle" height="40px" width="40px"><i
+                                                class="bi bi-pencil-fill" id="editIntro" data-bs-toggle="modal"
+                                                data-bs-target="#modalInfo"></i></button>
+                                    </div>
+                                    <div class="text-center">
+                                        <h5 id="introName" class=" my-0">{{applicant.user.first_name}}
+                                            {{applicant.user.last_name}}
+                                        </h5>
+
+                                        <p class="my-0">{{applicant.occupation}}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="bio my-3 text-center">
+                                    {{applicant.bio}}
+                                </div>
+
+
+                                <div class="card border-0">
+                                    <button type="button" id="editSkills" class="btn position-absolute ">
+                                        <i class="bi bi-pencil-fill" data-bs-toggle="modal" data-bs-toggle="modal"
+                                            data-bs-target="#modalEditSkills"></i>
+                                    </button>
+                                    <div class="card-body">
+
+                                        <div class="text-start mb-3">
+
+                                            <h5 id="skills-list" class="card-headers">Skills</h5>
+                                            <span class="skills-item">User Interface Designing</span>
+                                            <span class="skills-item">UI</span>
+                                            <span class="skills-item">UX</span>
+                                            <span class="skills-item">Figma</span>
+                                            <span class="skills-item">Wireframe</span>
+                                            <span class="skills-item">Photoshop</span>
+                                            <span class="skills-item">Adobe Illustrator</span>
+                                            <span class="skills-item">Adobe XD</span>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <!-- <div class="card border-0">
+
+                                    <button type="button" id="editNotes" class="btn position-absolute ">
+                                        <i class="bi bi-pencil-fill" data-bs-toggle="modal" data-bs-toggle="modal"
+                                            data-bs-target="#modalEditSkills"></i>
+                                    </button>
+
+                                    <div class="card-body">
+
+                                        <div class="notes-container">
+                                            <h5 class="card-headers">Add Note</h5>
+                                            <p>This is a sample note</p>
+                                        </div>
+
+                                    </div>
+                                </div> -->
+
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="col-12">
+                        <div class="card border-0">
+                            <div class="card-body">
+                                <h4 class="card-title">Delete Account</h4>
+
+                                <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
+                                    data-bs-target="#modalDeleteAccount"><i class="bi bi-trash-fill"></i>&nbsp; Delete
+                                    Account</button>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+
+
+
+
+            </div>
+
+
+            <div class="col-md-8">
+                <div class="row row-cols-1 justify-content-center align-items-center g-2">
+
+                    <div class="col-12">
+                        <div class="card profile-card">
+
+
+                            <button type="button" id="editBasicInfo" class="btn position-absolute ">
+                                <i class="bi bi-pencil-fill" data-bs-toggle="modal"
+                                    data-bs-target="#modalBasicInfo"></i>
+                            </button>
+
+                            <div class="card-body">
+                                <div>
+                                    <h5 class="mb-2 card-headers">Basic Information</h5>
+                                    <div class="row justify-content-start align-items-center g-2 mb-3">
+                                        <div class="col-lg-3 col-md-6">Age<br>
+                                            <span class="fw-medium">{{applicant.age}}</span>
+                                        </div>
+                                        <div class="col-lg-3 col-md-6">Phone<br>
+                                            <span class="fw-medium">{{applicant.phone_number}}</span>
+                                        </div>
+                                        <div class="col-lg-6 col-md">Address<br>
+                                            <span class="fw-medium">{{applicant.address}}</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="row justify-content-start align-items-start g-2 mb-3">
+                                        <div class="col-lg-3 col-md-6 text-truncate">Years of Experience<br>
+                                            <span class="fw-medium">{{applicant.years_experience}} Years</span>
+                                        </div>
+                                        <div class="col-lg-3 col-md-6">Sample Criteria<br>
+                                            <span class="fw-medium">Sample Answer</span>
+                                        </div>
+                                        <div class="col-lg-6 col-md">Email Address<br>
+                                            <span class="fw-medium">{{applicant.user.email}}</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3">
+
+                                        <div class="btn-group" role="group" aria-label="Default button group">
+                                            <button type="button" class="btn btn-outline-primary btn-sm">Download Resume
+                                                &nbsp; <i class="bi bi-download"></i></button>
+                                            <button type="button" class="btn btn-outline-primary btn-sm"
+                                                data-bs-toggle="modal" data-bs-target="#modalUploadResume"><i
+                                                    class="bi bi-upload"></i></button>
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-12">
+                        <div class="card profile-card">
+
+                            <button type="button" id="editWork" class="btn mb-4" data-bs-toggle="modal"
+                                data-bs-target="#modalWorkExp">
+                                <i class="bi bi-plus-lg"></i></button>
+
+                            <div class="card-body ">
+                                <div>
+                                    <h5 class="mb-3 card-headers">Work Experiences</h5>
+                                    <div class="row justify-content-start align-items-center g-2 mb-3">
+
+
+                                        <!-- ========== Start Section Card of Work Exp Item========== -->
+
+
+                                        <div class="col-12 mx-0 px-0">
+                                            <div class="card px-0 mx-0 mb-3 border-0">
+                                                <div class="row g-0">
+                                                    <div class="col-md-2">
+                                                        <img src="Image Source" class="img-fluid rounded-start"
+                                                            alt="Card title">
+                                                    </div>
+                                                    <div class="col-11 col-md-9">
+                                                        <div class="card-body">
+                                                            <h5 class="card-title">{{applicant.company_name}}</h5>
+                                                            <p class="card-text">{{applicant.position}}
+                                                            </p>
+                                                            <p class="card-text">
+                                                                <small class="text-muted">{{applicant.start_date}} |
+                                                                    
+                                                                    {{applicant.company_address}}</small></p>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-1 d-flex align-items-start justify-content-end">
+                                                        <button type="button" id="editWorkItem" class="btn mb-4"
+                                                            data-bs-toggle="modal" data-bs-target="#modalWorkExp">
+                                                            <i class="bi bi-pencil-fill"></i></button>
+                                                        <button type="button" id="editWorkItem" class="btn mb-4"
+                                                        data-bs-toggle="modal" data-bs-target="#deleteExpModal">
+                                                            <i class="bi bi-trash-fill"></i></button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- ========== End Section Card of Work Exp Item========== -->
+
+
+
+                                        <div class="col-12 d-flex justify-content-center">
+                                            <a href="#">See More</a>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="col-12">
+                        <div class="card profile-card">
+
+                            <div class="card-body ">
+                                <div>
+                                    <h5 class="mb-3 card-headers">Change Passowrd</h5>
+                                    <div class="row justify-content-start align-items-center g-2 mb-3">
+
+
+                                        <!-- ========== Start Section Card of Change Pass ========== -->
+                                        <form method="POST" id="passwordForm" action="/jobseeker_changepassword/">
+                                            {% csrf_token %}
+                                            <div class="">
+                                                <label for="currentPassword" name="currentPassword"
+                                                    class="form-label">Current Password</label>
+                                                <input type="password" class="form-control" name="currentPassword"
+                                                    id="currentPassword" aria-describedby="helpCurrentPassword"
+                                                    placeholder="">
+                                                <small id="helpCurrentPassword" class="form-text text-muted d-none">Help
+                                                    text</small>
+                                            </div>
+                                            <div class="">
+                                                <label for="newPassword" class="form-label">New Password</label>
+                                                <input type="password" class="form-control" name="newPassword"
+                                                    id="newPassword" aria-describedby="helpNewPassword" placeholder="">
+                                                <small id="helpNewPassword" class="form-text text-muted d-none">Help
+                                                    text</small>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="confirmNewPassword" class="form-label">Confirm New
+                                                    Password</label>
+                                                <input type="password" class="form-control" name="confirmNewPassword"
+                                                    id="confirmNewPassword" aria-describedby="helpConfirmNewPassword"
+                                                    placeholder="">
+                                                <small id="helpConfirmNewPassword"
+                                                    class="form-text text-muted d-none">Help text</small>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary" data-bs-toggle="modal"
+                                                data-bs-target="#changePassModal" id="submitButton"
+                                                onclick="checkPasswords()" disabled>
+                                                Submit
+                                            </button>
+
+                                            <!-- Include server-side data in the HTML -->
+                                            <input type="hidden" id="serverCurrentPassword"
+                                                value="{{applicant.password}}">
+                                        </form>
+
+                                        <!-- ========== End Section Card of Change Pss========== -->
+
+
+
+
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- <div class="col-12 mb-3">
+                        <div class="card profile-card">
+
+                            <button type="button" id="editBasicInfo" class="btn position-absolute "
+                                data-bs-toggle="modal" data-bs-target="#educationModal">
+                                <i class="bi bi-plus-lg"></i>
+                            </button>
+
+                            <div class="card-body">
+
+                                <div>
+
+
+                                    <h5 class="mb-3 card-headers">Education</h5>
+                                    <div class="row justify-content-start align-items-center g-2 mb-1">
+
+                                        <div class="row justify-content-start align-items-start g-2">
+                                            <div class="col-12">
+                                                <div class="row justify-content-center align-items-start g-2">
+                                                    <div class="col">
+
+                                                        <span class="">Bachelor of Science in Information
+                                                            Technology</span><br>
+                                                        <span class="">Bulacan State University</span><br>
+                                                        <span class="">Guinhawa, City of Malolos, Bulacan</span><br>
+                                                        <span class="">2020 - 2024</span>
+                                                    </div>
+                                                    <div class="col-1">
+
+                                                        <button type="button" id="editWork" class="btn mb-4">
+                                                            <i class="bi bi-pencil-fill" data-bs-toggle="modal"
+                                                                data-bs-target="#educationModal"></i></button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row justify-content-start align-items-start g-2">
+                                            <div class="col-12">
+                                                <div class="row justify-content-center align-items-start g-2">
+                                                    <div class="col">
+
+                                                        <span class="">Bachelor of Industrial Technology in Mechanical
+                                                            Technology</span><br>
+                                                        <span class="">Bulacan State University</span><br>
+                                                        <span class="">Guinhawa, City of Malolos, Bulacan</span><br>
+                                                        <span class="">2019 - 2020</span>
+                                                    </div>
+                                                    <div class="col-1">
+
+                                                        <button type="button" id="editWork" class="btn mb-4">
+                                                            <i class="bi bi-pencil-fill" data-bs-toggle="modal"
+                                                                data-bs-target="#educationModal"></i></button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row justify-content-start align-items-start g-2">
+                                            <div class="col-12">
+                                                <div class="row justify-content-center align-items-start g-2">
+                                                    <div class="col">
+
+                                                        <span class="">
+                                                            Senior High School
+                                                        </span>
+                                                        <br>
+                                                        <span class="">St. Amatiel Technological Institure</span><br>
+                                                        <span class="">San Vicente, City of Malolos, Bulacan</span><br>
+                                                        <span class="">2017 - 2019</span>
+                                                    </div>
+                                                    <div class="col-1">
+
+                                                        <button type="button" id="editWork" class="btn mb-4">
+                                                            <i class="bi bi-pencil-fill" data-bs-toggle="modal"
+                                                                data-bs-target="#educationModal"></i></button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+
+
+                                    </div>
+
+                                    <hr>
+                                    <div class="col-12 mt-3">
+                                        <a name="" id="" class="btn btn-sm" href="#" role="button">See More &nbsp;<i
+                                                class="bi bi-arrow-right"></i></a>
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div> -->
+
+
+
+
+
+
+                </div>
+
+            </div>
+        </div>
+
+
+        <!-- Modal trigger button -->
+        <!-- <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#modalId">
+        Launch
+    </button> -->
+
+        <!-- Modal Body -->
+        <!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
+        <!-- <div class="modal fade" id="modalId" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog"
+        aria-labelledby="modalTitleId" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTitleId">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="row">
+                            {% for message in messages %}
+                            <div class="alert alert-danger" id="msg" role="alert" style="margin-top: 10px;">
+                                {{ message }}
+                            </div>
+                            {% endfor %}
+                            <div class="col-sm-6">
+                                <form class="container mt-4" method="POST" Action="{% url 'jobseeker_Edit_profile' %}"
+                                    enctype="multipart/form-data" id="profileForm">
+                                    {% csrf_token %}
+
+                                    <div class="row">
+                                        <div class="form-group col-md-6">
+                                            <label>First Name</label>
+                                            <input type="text" class="form-control mt-2" name="first_name"
+                                                id="first_name" value="{{applicant.user.first_name}}" required>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label>Last Name</label>
+                                            <input type="text" class="form-control mt-2" name="last_name" id="last_name"
+                                                value="{{applicant.user.last_name}}" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mt-4">
+                                        <div class="form-group col-md-6">
+                                            <label>Username</label>
+                                            <input type="text" class="form-control mt-2" name="username" id="username"
+                                                value="{{applicant.user.username}}" required>
+                                            <input type="hidden" class="form-control mt-2" name="hidden_username"
+                                                id="username" value="{{applicant.user.username}}">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label>Email Address</label>
+                                            <input type="email" class="form-control mt-2" name="email" id="email"
+                                                value="{{applicant.user.email}}" required>
+                                            <input type="hidden" class="form-control mt-2" name="hidden_email"
+                                                id="email" value="{{applicant.user.email}}">
+                                        </div>
+                                    </div>
+
+                                    <div class="row mt-4">
+                                        <div class="form-group col-md-6">
+                                            <label>Contact Number</label>
+                                            <input type="text" class="form-control mt-2" name="phone_number" id="phone"
+                                                value="0{{applicant.phone_number}}" placeholder="Enter Contact Number"
+                                                minlength="11" maxlength="11" pattern="09[0-9]{9}"
+                                                title="09(Last 9 Digits)">
+                                            <input type="hidden" class="form-control mt-2" name="hidden_phone"
+                                                id="phone" value="{{applicant.phone_number}}"
+                                                placeholder="Enter Contact Number" minlength="11" maxlength="11"
+                                                pattern="09[0-9]{9}" title="09(Last 9 Digits)">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label>Gender</label>
+                                            {% if applicant.gender == "Male" %}
+                                            <div class="mt-2"
+                                                style="border: 1px solid lightgrey; padding: 5px; border-radius: 6px;">
+                                                <div class="form-check form-check-inline">
+                                                    <input type="radio" class="custom-control-input" name="gender"
+                                                        value="Male" checked>
+                                                    <label for="male" class="custom-control-label">Male</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input type="radio" class="custom-control-input" name="gender"
+                                                        value="Female">
+                                                    <label for="female" class="custom-control-label">Female</label>
+                                                </div>
+                                            </div>
+                                            {% else %}
+                                            <div style="border: 1px solid lightgrey; padding: 5px; border-radius: 6px;">
+                                                <div class="form-check form-check-inline">
+                                                    <input type="radio" class="custom-control-input" name="gender"
+                                                        value="Male">
+                                                    <label for="male" class="custom-control-label">Male</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input type="radio" class="custom-control-input" name="gender"
+                                                        value="Female" checked>
+                                                    <label for="female" class="custom-control-label">Female</label>
+                                                </div>
+                                            </div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+
+                                    <div class="row mt-4">
+                                        <div class="form-group col-md-6">
+                                            <label>Profile Photo</label>
+                                            <input type="file" class="form-control mt-2" name="profile_image" id="image"
+                                                accept=".png, .jpeg, .jpg">
+                                        </div>
+                                        <div class="form-group col-md-6" style="margin-top: 8px;" required>
+                                            <label>Activate/Deactivate</label>
+                                            <select name="status" id="status" class="form-control">
+                                                <option value="Activate">Activate</option>
+                                                <option value="Deactivate">Deactivate</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <input type="hidden" id="errorInput" name="error_message" value="">
+                                    <input type="submit" value="Update Profile" class="btn mt-4" accept="image/*"
+                                        style="background-color: #4f868c; color: white; font-size: larger; width: 10rem;">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+
+        <!-- ========== Start Section Left Profile Modal========== -->
+
+        <!-- Modal trigger button -->
+
+
+        <!-- Modal Body -->
+        <!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
+        <div class="modal fade" id="modalInfo" tabindex="-1" role="dialog" aria-labelledby="modalInfoTitle"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md" role="document">
+                <div class="modal-content">
+
+
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalInfoTitle">Edit Introduction</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+                    <div class="modal-body">
+                        <form class="container overflow-y-auto" method="POST"
+                            Action="{% url 'jobseeker_introduction' %}" enctype="multipart/form-data" id="profileForm">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <label for="" class="form-label">Username</label>
+                                <input type="text" class="form-control" value={{applicant.user.username}}
+                                    name="username" id="" aria-describedby="helpId" placeholder="">
+                                <small id="" class="form-text text-muted">Help text</small>
+                                <input type="hidden" class="form-control mt-2" name="hidden_username" id="username"
+                                    value="{{applicant.user.username}}">
+                            </div>
+                            <div class="mb-3">
+                                <label for="" class="form-label">First Name</label>
+                                <input type="text" class="form-control" value={{applicant.user.first_name}}
+                                    name="username" id="" aria-describedby="helpId" placeholder="">
+                                <small id="" class="form-text text-muted">Help text</small>
+                                <input type="hidden" class="form-control mt-2" name="hidden_username" id="username"
+                                    value="{{applicant.user.firstname}}">
+                            </div>
+                            <div class="mb-3">
+                                <label for="" class="form-label">Last Name</label>
+                                <input type="text" class="form-control" value={{applicant.user.last_name}}
+                                    name="username" id="" aria-describedby="helpId" placeholder="">
+                                <small id="" class="form-text text-muted">Help text</small>
+                                <input type="hidden" class="form-control mt-2" name="hidden_username" id="username"
+                                    value="{{applicant.user.lastname}}">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="" class="form-label">Occupation</label>
+                                <input type="text" class="form-control" value={{applicant.occupation}} name="occupation"
+                                    id="" aria-describedby="helpId" placeholder="">
+                                <small id="" class="form-text text-muted">Help text</small>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="" class="form-label">Bio</label>
+                                <textarea class="form-control" name="bio" id="" rows="3">{{applicant.bio}}</textarea>
+                                <small id="" class="form-text text-muted">Help text</small>
+                            </div>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- ========== End Section Left Profile Modal========== -->
+
+
+        <!-- ========== Start Section Edit Skills ========== -->
+
+
+        <!-- Modal Body -->
+        <!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
+        <div class="modal fade" id="modalEditSkills" tabindex="-1" role="dialog" aria-labelledby="ediSkillsTitle"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="ediSkillsTitle">Edit Skills</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+
+                        <h5 id="skills-list" class="card-headers">Skills</h5>
+                        <!-- <span class="skills-item">User Interface Designing &nbsp;<i class="bi bi-x-lg"></i></span>
+                        <span class="skills-item">UI &nbsp;<i class="bi bi-x-lg"></i></span>
+                        <span class="skills-item">UX &nbsp;<i class="bi bi-x-lg"></i></span>
+                        <span class="skills-item">Figma &nbsp;<i class="bi bi-x-lg"></i></span>
+                        <span class="skills-item">Wireframe &nbsp;<i class="bi bi-x-lg"></i></span>
+                        <span class="skills-item">Photoshop &nbsp;<i class="bi bi-x-lg"></i></span>
+                        <span class="skills-item">Adobe Illustrator &nbsp;<i class="bi bi-x-lg"></i></span>
+                        <span class="skills-item">Adobe XD &nbsp;<i class="bi bi-x-lg"></i></span> -->
+
+                        <!-- Search box and checkbox -->
+
+                        <form action="">
+                            <div class="container mt-4">
+                                <input type="text" id="search-input" class="form-control" placeholder="Type to search">
+                                <ul id="suggestions-list" class="list-group mt-2"></ul>
+                                <div id="selected-checkbox-container"></div>
+                            </div>
+                        </form>
+
+                        <!-- lilitaw lang pag niclick yung button -->
+                        <!-- <div>
+                            <form action="">
+                                <div class="mt-3">
+                                    <input type="text" class="form-control" name="" id="" aria-describedby="helpId"
+                                        placeholder="lilitaw lang dapat ito after maclick ang add skill">
+                                </div>
+                            </form>
+
+                            <button type="button" class="btn btn-sm"><i class="bi bi-plus-lg"></i> &nbsp;Add
+                                Skills</button>
+                        </div> -->
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- ========== End Section Edit Skills ========== -->
+
+
+
+
+        <!-- Modal Body -->
+        <!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
+        <div class="modal fade" id="modalDeleteAccount" tabindex="-1" role="dialog"
+        aria-labelledby="modalDeleteAccountTitle" aria-hidden="true">
+        <form method="POST" action="{% url 'jobseeker_delete_account' applicant.id %}">
+            {% csrf_token %}
+            <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered " role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalDeleteAccountTitle">Delete Account</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="deleteInput" class="form-label">By typing "delete" your account will be deleting
+                                your account</label>
+                            <input type="text" class="form-control" name="deleteInput" id="deleteInput"
+                                aria-describedby="helpId" placeholder="">
+                            <small id="helpId" class="form-text text-muted">Help text</small>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" id="saveButton" disabled>Save</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var deleteInput = document.getElementById('deleteInput');
+        var saveButton = document.getElementById('saveButton');
+    
+        deleteInput.addEventListener('input', function () {
+            // Enable or disable the "Save" button based on the input value
+            saveButton.disabled = deleteInput.value.toLowerCase() !== 'delete';
+        });
+    });
+</script>    
+
+
+
+
+        <!-- ========== Start Section Basic Info modal ========== -->
+
+
+        <!-- Modal Body -->
+        <!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
+        <div class="modal fade" id="modalBasicInfo" tabindex="-1" role="dialog" aria-labelledby="basicInfoTitle"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="basicInfoTitle">Edit Basic Information</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form class="container mt-4" method="POST" Action="{% url 'jobseeker_basicInformation' %}"
+                            enctype="multipart/form-data" id="profileForm">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <label for="" class="form-label">Age</label>
+                                <input type="number" class="form-control" name="age" id="" aria-describedby="helpId"
+                                    value={{applicant.age}} placeholder="">
+                                <small id="" class="form-text text-muted">Help text</small>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="" class="form-label">Phone</label>
+                                <input type="number" value={{applicant.phone_number}} class="form-control"
+                                    name="phone_number" id="" aria-describedby="helpId" placeholder="" minlength="11"
+                                    maxlength="11" pattern="09[0-9]{9}" title="09(Last 9 Digits)">
+
+                                <input type="hidden" class="form-control mt-2" name="hidden_phone" id="phone"
+                                    value="{{applicant.phone_number}}" placeholder="Enter Contact Number" minlength="11"
+                                    maxlength="11" pattern="09[0-9]{9}" title="09(Last 9 Digits)">
+                                <small id="" class="form-text text-muted">Help text</small>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="" class="form-label">Address</label>
+                                <input type="text" class="form-control" value={{applicant.address}} name="home_address"
+                                    id="" aria-describedby="helpId" placeholder="">
+                                <small id="" class="form-text text-muted">Help text</small>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="" class="form-label">Years of Experience</label>
+                                <input type="number" class="form-control" name="experience" id="" aria-describedby="helpId"
+                                    placeholder="" value={{applicant.years_experience}}>
+                                <small id="" class="form-text text-muted">Help text</small>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="" class="form-label">Email Address</label>
+                                <input type="email" class="form-control" name="email" value={{applicant.user.email}}
+                                    id="" aria-describedby="helpId" placeholder="">
+                                <input type="hidden" class="form-control mt-2" name="hidden_email" id="email"
+                                    value="{{applicant.user.email}}">
+                                <small id="" class="form-text text-muted">Help text</small>
+                            </div>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== End Section Basic Info modal ========== -->
+
+
+        <!-- ========== Start Section Modal Upload Resume ========== -->
+
+
+        <!-- Modal Body -->
+        <!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
+        <div class="modal fade" id="modalUploadResume" tabindex="-1" role="dialog"
+            aria-labelledby="modalUploadResumeTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered " role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalUploadResumeTitle">Upload Resume</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+                    <form class="container mt-4" method="POST" Action="{% url 'jobseeker_uploadresume' %}"
+                        enctype="multipart/form-data" id="profileForm">
+
+                        <div class="modal-body">
+
+                            {% csrf_token %}
+                            <label for="" class="form-label">Upload Resume</label>
+                            <input type="file" class="form-control" name="resume" id="resume" placeholder=""
+                                aria-describedby="fileHelpId">
+                            <div id="fileHelpId" class="form-text">{{applicant.resume}} </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </div>
+                    </form>
+
+
+                </div>
+            </div>
+        </div>
+
+
+        <!-- ========== End Section Modal Upload Resume ========== -->
+
+
+        <!-- ========== Start Section Work Experience Modal ========== -->
+
+
+        <!-- Modal Body -->
+        <!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
+        <div class="modal fade" id="modalWorkExp" tabindex="-1" role="dialog" aria-labelledby="modalWorkExpTitle"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalWorkExpTitle">Edit Experience</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="POST" Action="{% url 'jobseeker_workexperience' %}">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <label for="" class="form-label">Company Name</label>
+                                <input type="text" class="form-control" name="company_name" id="" aria-describedby="helpId"
+                                    placeholder="" value={{applicant.company_name}}>
+                                <small id="" class="form-text text-muted">Help text</small>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="" class="form-label">Position</label>
+                                <input type="text" class="form-control" name="position" id="" aria-describedby="helpId"
+                                    placeholder="" value={{applicant.position}}>
+                                <small id="" class="form-text text-muted">Help text</small>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="" class="form-label">Start Date</label>
+                                <input type="date" class="form-control" name="start_date" id="" aria-describedby="helpId"
+                                    placeholder="" value={{applicant.start_date}}>
+                                <small id="" class="form-text text-muted">Help text</small>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="" class="form-label">End Date</label>
+                                <input type="date" class="form-control" name="end_date" id="" aria-describedby="helpId"
+                                    placeholder="" value={{applicant.end_date}}>
+                                <small id="" class="form-text text-muted">Help text</small>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="" class="form-label">Work Address</label>
+                                <input type="text" class="form-control" name="company_address" id="" aria-describedby="helpId"
+                                    placeholder="" value={{applicant.company_address}}>
+                                <small id="" class="form-text text-muted">Help text</small>
+                            </div>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- ========== End Section Work Experience Modal ========== -->
+
+
+        <!-- ========== Start Section Delete Experience Modal ========== -->
+
+        <!-- Modal trigger button -->
+
+        <!-- Modal Body -->
+        <!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
+        <div class="modal fade" id="deleteExpModal" tabindex="-1"
+            role="dialog" aria-labelledby="deleteExpModalTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteExpModalTitle">
+                            Delete Experience
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Do you want to delete this experience?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            No
+                        </button>
+                        <button type="button" class="btn btn-primary">Yes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Optional: Place to the bottom of scripts -->
+        <script>
+            const myModal = new bootstrap.Modal(
+                document.getElementById("deleteExpModal"),
+                options,
+            );
+        </script>
+
+
+        <!-- ========== End Section Delete Experience Modal ========== -->
+
+
+
+        <!-- Modal Body -->
+        <!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
+        <div class="modal fade" id="uploadProfile" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
+            role="dialog" aria-labelledby="uploadProfileTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="uploadProfileTitle">Upload Profile Picture</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form class="container mt-4" method="POST" Action="{% url 'jobseeker_changeprofile' %}"
+                        enctype="multipart/form-data" id="profileForm">
+                        {% csrf_token %}
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label for="" class="form-label">Choose file</label>
+                                <input type="file" class="form-control" name="profile_image" id="image" placeholder=""
+                                    accept="image/*" aria-describedby="fileHelpId">
+                                <div id="fileHelpId" class="form-text">Help text</div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <!-- ========== Start Section Education Modal ========== -->
+
+
+        <!-- Modal Body -->
+        <!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
+        <div class="modal fade" id="educationModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
+            role="dialog" aria-labelledby="educationModalTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered " role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="educationModalTitle">Edit Education</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+
+                        <h6>Education</h6>
+
+                        <form action="">
+
+                            <div class="">
+                                <label for="" class="form-label">School</label>
+                                <input type="text" class="form-control" name="" id="" aria-describedby="helpId"
+                                    placeholder="">
+                                <small id="helpId" class="form-text text-muted">Help text</small>
+                            </div>
+
+                            <div class="">
+                                <label for="" class="form-label">Degree</label>
+                                <input type="text" class="form-control" name="" id="" aria-describedby="helpId"
+                                    placeholder="">
+                                <small id="helpId" class="form-text text-muted">Help text</small>
+                            </div>
+
+                            <div class="">
+                                <label for="" class="form-label">Field of Study</label>
+                                <input type="text" class="form-control" name="" id="" aria-describedby="helpId"
+                                    placeholder="">
+                                <small id="helpId" class="form-text text-muted">Help text</small>
+                            </div>
+
+                            <div class="">
+                                <label for="" class="form-label">Address</label>
+                                <input type="text" class="form-control" name="" id="" aria-describedby="helpId"
+                                    placeholder="">
+                                <small id="helpId" class="form-text text-muted">Help text</small>
+                            </div>
+
+                            <div class="">
+                                <label for="" class="form-label">Start Date</label>
+                                <input type="date" class="form-control" name="" id="" aria-describedby="helpId"
+                                    placeholder="">
+                                <small id="helpId" class="form-text text-muted">Help text</small>
+                            </div>
+
+                            <div class="">
+                                <label for="" class="form-label">End Date</label>
+                                <input type="date" class="form-control" name="" id="" aria-describedby="helpId"
+                                    placeholder="">
+                                <small id="helpId" class="form-text text-muted">Help text</small>
+                            </div>
+
+                            <div class="">
+                                <label for="" class="form-label">Description</label>
+                                <textarea class="form-control" name="" id="" rows="3"></textarea>
+                                <small id="helpId" class="form-text text-muted">Help text</small>
+                            </div>
+                        </form>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== End Section Education Modal ========== -->
+
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+        <script>
+            function closeErrorModal() {
+                $('#errorModal').modal('hide');
+            }
+            $(document).ready(function () {
+                $('#profileForm').submit(function (e) {
+                    e.preventDefault();
+
+                    // Create FormData object
+                    var formData = new FormData(this);
+
+                    // Perform form submission using AJAX
+                    $.ajax({
+                        type: 'POST',
+                        url: $(this).attr('action'),
+                        data: formData,
+                        processData: false, // Important! Tell jQuery not to process the data
+                        contentType: false, // Important! Tell jQuery not to set contentType
+                        success: function (response) {
+                            if (response.error) {
+                                // Display error message in the modal
+                                $('#errorMessage').text(response.error);
+                                $('#errorModal').modal('show');
+                            } else {
+                                // If no error, reload the page or redirect as needed
+                                window.location.reload();
+                            }
+                        },
+                        error: function () {
+                            // Handle AJAX error if needed
+                        }
+                    });
+                });
+            });
+
+            function checkPasswords() {
+                var currentPassword = document.getElementById("currentPassword").value;
+                var newPassword = document.getElementById("newPassword").value;
+                var confirmNewPassword = document.getElementById("confirmNewPassword").value;
+                var helpTextConfirmNewPassword = document.getElementById("helpConfirmNewPassword");
+                var submitButton = document.getElementById("submitButton");
+                helpTextConfirmNewPassword.classList.add("d-none");
+                // Access the server-side data from the hidden input
+                var serverCurrentPassword = document.getElementById("serverCurrentPassword").value;
+
+                if (serverCurrentPassword !== currentPassword) {
+                    helpTextConfirmNewPassword.textContent = "Current password is incorrect!";
+                    helpTextConfirmNewPassword.classList.remove("d-none");
+                } else if (newPassword !== confirmNewPassword) {
+                    helpTextConfirmNewPassword.textContent = "Confirm Passwords do not match!";
+                    helpTextConfirmNewPassword.classList.remove("d-none");
+                } else if (newPassword.length < 8 || newPassword.length > 16) {
+                    helpTextConfirmNewPassword.textContent = "Password must be between 8 and 16 characters!";
+                    helpTextConfirmNewPassword.classList.remove("d-none");
+                } else {
+                    // Passwords match and meet length requirements, you can proceed with the form submission
+                    submitButton.disabled = false;
+                }
+            }
+
+            // Add event listeners for real-time validation
+            document.getElementById("newPassword").addEventListener("input", checkPasswords);
+            document.getElementById("confirmNewPassword").addEventListener("input", checkPasswords);
+        </script>
+
+
+
+
+
+        <!-- ========== Start Section Edit Skills Javascript ========== -->
+
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js">
+        </script>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const searchInput = document.getElementById('search-input');
+                const suggestionsList = document.getElementById('suggestions-list');
+                const checkboxContainer = document.getElementById('selected-checkbox-container');
+
+                // Dummy data for suggestions
+                let allSuggestions = ['Option 1', 'Option 2', 'Option 3', 'Option 4', 'Option 5', 'Option 6',
+                    'Option 7'
+                ];
+
+                // Event listener for input changes
+                searchInput.addEventListener('input', function () {
+                    const inputText = this.value.toLowerCase();
+                    const filteredSuggestions = inputText ?
+                        allSuggestions.filter(suggestion =>
+                            suggestion.toLowerCase().includes(inputText) && !isChecked(suggestion)
+                        ) : [];
+                    displaySuggestions(filteredSuggestions);
+                });
+
+                // Event listener for suggestion click
+                suggestionsList.addEventListener('click', function (event) {
+                    if (event.target.tagName === 'LI') {
+                        const selectedOption = event.target.textContent;
+                        createCheckbox(selectedOption);
+                        searchInput.value = ''; // Clear the search input
+                        suggestionsList.style.display = 'none';
+                        removeSuggestion(selectedOption);
+                        displaySuggestions([]); // Clear suggestions
+                    }
+                });
+
+                // Event listener for checkbox change
+                checkboxContainer.addEventListener('change', function (event) {
+                    if (event.target.tagName === 'INPUT' && event.target.type === 'checkbox') {
+                        const selectedOption = event.target.value;
+                        if (!event.target.checked) {
+                            removeCheckbox(selectedOption);
+                            addSuggestion(selectedOption);
+                        }
+                    }
+                });
+
+                // Display suggestions in the list
+                function displaySuggestions(suggestions) {
+                    if (suggestions.length > 0) {
+                        suggestions.sort(); // Sort the suggestions array
+                        const html = suggestions.map(suggestion => `<li>${suggestion}</li>`).join('');
+                        suggestionsList.innerHTML = html;
+                        suggestionsList.style.display = 'block';
+                    } else {
+                        suggestionsList.innerHTML = '';
+                        suggestionsList.style.display = 'none';
+                    }
+                }
+
+                // Create and append a checkbox with the selected option
+                function createCheckbox(option) {
+                    const checkbox = document.createElement('input');
+                    checkbox.type = 'checkbox';
+                    checkbox.checked = true;
+                    checkbox.value = option;
+
+                    const label = document.createElement('label');
+                    label.classList.add('form-check-label');
+                    label.appendChild(document.createTextNode(option));
+                    label.setAttribute('for', checkbox.value);
+
+                    const br = document.createElement('br');
+
+                    checkboxContainer.appendChild(checkbox);
+                    checkboxContainer.appendChild(label);
+                    checkboxContainer.appendChild(br);
+
+                    // Add event listener to toggle checkbox state when label is clicked
+                    label.addEventListener('click', function () {
+                        checkbox.checked = !checkbox.checked;
+                        // Manually trigger the 'change' event for the checkbox
+                        const changeEvent = new Event('change', {
+                            bubbles: true
+                        });
+                        checkbox.dispatchEvent(changeEvent);
+                    });
+                }
+
+                // Remove the checkbox with the selected option
+                function removeCheckbox(option) {
+                    const checkboxes = checkboxContainer.querySelectorAll('input[type="checkbox"]');
+                    checkboxes.forEach(checkbox => {
+                        if (checkbox.value === option) {
+                            checkboxContainer.removeChild(checkbox.nextSibling); // Remove label
+                            checkboxContainer.removeChild(checkbox.nextSibling); // Remove line break
+                            checkboxContainer.removeChild(checkbox); // Remove checkbox
+                        }
+                    });
+                }
+
+                // Check if a suggestion is already selected
+                function isChecked(option) {
+                    const checkboxes = checkboxContainer.querySelectorAll('input[type="checkbox"]');
+                    return Array.from(checkboxes).some(checkbox => checkbox.value === option && checkbox
+                        .checked);
+                }
+
+                // Remove a suggestion from the list
+                function removeSuggestion(option) {
+                    allSuggestions = allSuggestions.filter(suggestion => suggestion !== option);
+                }
+
+                // Add a suggestion back to the list
+                function addSuggestion(option) {
+                    allSuggestions.push(option);
+                    displaySuggestions(allSuggestions); // Sort and display suggestions
+                }
+            });
+        </script>
+
+        <!-- ========== End Section Edit Skills Javascript ========== -->
+
+
+</body>
+
+</html>
