@@ -50,16 +50,16 @@
                     </div>
                     <div class="col-md-8 ps-md-2">
                         <h3 class="fw-bolder mb-4" id="headJobseekerList">
-                            Manage Companies</h3>
+                            Manage Jobseekers</h3>
 
 
                         <div class="col-12">
                             <!-- Search -->
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="" id="jobseekerSearch"
+                                <input type="text" class="form-control" placeholder="" id="applicantSearch"
                                     aria-label="Button" aria-describedby="" />
                                 <button class="btn btn-secondary" type="button" id="jobseeker-list-search-btn"
-                                    onclick="search_company()">
+                                    onclick="search_applicant()">
                                     <i class="bi bi-search"></i><span class="ms-2 d-none d-md-inline">Search</span>
                                 </button>
                             </div>
@@ -67,7 +67,113 @@
                     </div>
                 </div>
             </div>
-
+            <script>
+                function search_applicant() {
+                    var searchCompany = document.getElementById('applicantSearch').value;
+                    fetch('/search_applicant/', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRFToken': getCookie('csrftoken'),
+                            },
+                            body: JSON.stringify({
+                                search: searchCompany
+                            }),
+                        })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok');
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+        
+                            console.log(data);
+        
+                            const applicantListing = data.applicant;
+        
+                            const applicantListingElement = document.getElementById('jobseeker-list-table-card');
+        
+                            applicantListingElement.innerHTML = `<div class="card border-0 overflow-auto p-2 p-lg-4 flex-grow-1 comp-list-cards" style="height: 417px;"
+                            id="jobseeker-list-table-card">
+        
+                            <div class="container mt-4">
+                                <table class="table" id="jobseeker_list_table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col"></th>
+                                            <th scope="col">Image</th>
+                                            <th scope="col">First Name</th>
+                                            <th scope="col">Last Name</th>
+                                            <th scope="col">Number</th>
+                                            <th scope="col">Status</th>
+                                            <th scope="col">Activation</th>
+                                            <th scope="col">Actions</th>
+                                        </tr>
+                                    </thead>
+                                <tbody>
+                            </tbody>
+                        </table>`;
+                            if (applicantListing.length === 0) {
+                                applicantListingElement.innerHTML = '<p>No applicant found</p>';
+                            } else {
+                                const tbody = applicantListingElement.querySelector('tbody');
+                                applicantListing.forEach(applicants => {
+                                        tbody.innerHTML += `
+                                        <tr id="applicant1">
+                                            <td>{{forloop.counter}}</td>
+                                            <td><img src="${applicants.image}" alt="Applicant Image" width="50px"></td>
+                                            <td>${applicants.first_name} ${applicants.last_name}</td>
+                                            <td>${applicants.email}</td>
+                                            <td>${applicants.contact}</td>
+                                            <td>${applicants.status}</td>
+                                            <td>
+                                                <!-- activate deactivate buttons -->
+                                                <div class="row justify-content-center align-items-center g-2">
+                                                    {% if applicant.status != 'Activate' %}
+                                                    <div class="col">
+                                                        <button type="button" id="activeButton" class="btn btn-primary" data-bs-toggle="modal"
+                                                            data-bs-target="#jobseeker-activate-modal" data-post-id=${applicants.applicant_id} data-status="Activate">
+                                                            <i class="bi bi-check-lg"></i>
+                                                        </button>
+                                                    </div>
+                                                    {% else %}
+                                                    <div class="col">
+                                                        <button type="button" id="deactivateButton" class="btn btn-danger" data-bs-toggle="modal"
+                                                            data-bs-target="#jobseeker-deactivate-modal" data-post-id=${applicants.applicant_id} data-status="Deactivate">
+                                                            <i class="bi bi-x-lg"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                <!-- edit info and edit view application -->
+                                                <div class="row justify-content-center align-items-center g-2">
+                                                    <div class="col">
+                                                        <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                                                            data-bs-target="#jobseeker-editinfo-modal" name="edit" data-post-id=${applicants.applicant_id}>
+                                                            <i class="bi bi-pencil-fill"></i>
+                                                        </button>
+                                                    </div>
+                                                    <div class="col">
+                                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" name="apply"
+                                                            data-bs-target="#viewApplicationModal" data-post-id=${applicants.applicant_id}>
+                                                            <i class="bi bi-eye-fill"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+            
+                                            </td>
+                                        </tr>`        
+                                    
+                                });
+                            }
+        
+                        })
+                        .catch(error => console.error('Error searching for jobs:', error));
+                }
+            </script>
 
 
 
@@ -97,37 +203,39 @@
                                 <td>{{applicant.user.get_full_name}}</td>
                                 <td>{{applicant.user.email}}</td>
                                 <td>{{applicant.phone_number}}</td>
-                                <td>Activate</td>
+                                <td>{{applicant.status}}</td>
                                 <td>
                                     <!-- activate deactivate buttons -->
                                     <div class="row justify-content-center align-items-center g-2">
+                                        {% if applicant.status != 'Activate' %}
                                         <div class="col">
-                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                                data-bs-target="#jobseeker-activate-modal">
+                                            <button type="button" id="activeButton" class="btn btn-primary" data-bs-toggle="modal"
+                                                data-bs-target="#jobseeker-activate-modal" data-post-id={{applicant.id}} data-status="Activate">
                                                 <i class="bi bi-check-lg"></i>
                                             </button>
                                         </div>
+                                        {% else %}
                                         <div class="col">
-                                            <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                                data-bs-target="#jobseeker-deactivate-modal">
+                                            <button type="button" id="deactivateButton" class="btn btn-danger" data-bs-toggle="modal"
+                                                data-bs-target="#jobseeker-deactivate-modal" data-post-id={{applicant.id}} data-status="Deactivate">
                                                 <i class="bi bi-x-lg"></i>
                                             </button>
                                         </div>
                                     </div>
-
+                                    {% endif %}
                                 </td>
                                 <td>
                                     <!-- edit info and edit view application -->
                                     <div class="row justify-content-center align-items-center g-2">
                                         <div class="col">
                                             <button type="button" class="btn btn-success" data-bs-toggle="modal"
-                                                data-bs-target="#jobseeker-editinfo-modal">
+                                                data-bs-target="#jobseeker-editinfo-modal" name="edit" data-post-id={{applicant.id}}>
                                                 <i class="bi bi-pencil-fill"></i>
                                             </button>
                                         </div>
                                         <div class="col">
-                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                                data-bs-target="#viewApplicationModal">
+                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" name="apply"
+                                                data-bs-target="#viewApplicationModal" data-post-id={{applicant.id}}>
                                                 <i class="bi bi-eye-fill"></i>
                                             </button>
                                         </div>
@@ -151,7 +259,7 @@
     <!-- Modal Body -->
     <!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
     <div class="modal fade" id="jobseeker-activate-modal" tabindex="-1" role="dialog"
-        aria-labelledby="jobseeker-activate-modal-title aria-hidden=" true">
+        aria-labelledby="jobseeker-activate-modal-title" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -167,7 +275,7 @@
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                         No
                     </button>
-                    <button type="button" class="btn btn-primary">Yes</button>
+                    <button type="button" class="btn btn-primary" id="confirm_activation">Yes</button>
                 </div>
             </div>
         </div>
@@ -176,15 +284,13 @@
 
     <!-- ========== End Section Activate Modal ========== -->
 
-
-
     <!-- ========== Start Section Deactivate Modal ========== -->
 
 
     <!-- Modal Body -->
     <!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
     <div class="modal fade" id="jobseeker-deactivate-modal" tabindex="-1" role="dialog"
-        aria-labelledby="jobseeker-deactivate-modal-title aria-hidden=" true">
+        aria-labelledby="jobseeker-deactivate-modal-title" aria-hidden=" true">
         <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -200,7 +306,7 @@
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                         No
                     </button>
-                    <button type="button" class="btn btn-primary">Yes</button>
+                    <button type="button" class="btn btn-primary" id="confirm_deactivation">Yes</button>
                 </div>
             </div>
         </div>
@@ -208,6 +314,110 @@
 
     <!-- ========== End Section DeActivate Modal ========== -->
 
+    <script>
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var activateButtons = document.querySelectorAll('#activeButton');
+            var deactivateButtons = document.querySelectorAll('#deactivateButton');
+            var confirmActivationButton = document.getElementById('confirm_activation');
+            var confirmDeactivationButton = document.getElementById('confirm_deactivation');
+
+            activateButtons.forEach(function (button) {
+                button.addEventListener('click', function () {
+                    var postId = button.getAttribute('data-post-id');
+                    var postStatus = button.getAttribute('data-status');
+                    confirmActivationButton.dataset.postId =
+                    postId; // Set post ID in the Confirm Activation button
+                    confirmActivationButton.dataset.status = postStatus; // Set post status
+                });
+            });
+
+            deactivateButtons.forEach(function (button) {
+                button.addEventListener('click', function () {
+                    var postId = button.getAttribute('data-post-id');
+                    var postStatus = button.getAttribute('data-status');
+                    // Customize the modal content based on the post ID
+                    confirmDeactivationButton.dataset.postId =
+                    postId; // Set post ID in the Confirm Deactivation button
+                    confirmDeactivationButton.dataset.status = postStatus; // Set post status
+
+                });
+            });
+
+            confirmActivationButton.addEventListener('click', function () {
+                var postId = confirmActivationButton.dataset.postId;
+                var postStatus = confirmActivationButton.dataset.status;
+                fetch(`/change_status_jobseeker/${postId}/`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRFToken': getCookie('csrftoken'), // Include CSRF token
+                        },
+                        // Include both post_id and status in the request body
+                        body: JSON.stringify({
+                            post_id: postId,
+                            status: postStatus
+                        }),
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        // Handle the response as needed
+                        if (data.success) {
+                            alert('Post status changed successfully!');
+                            location.reload();
+                            // Optionally, you can update the UI to reflect the new status
+                        } else {
+                            alert('Failed to change the post status.');
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+            });
+
+            confirmDeactivationButton.addEventListener('click', function () {
+                var postId = confirmDeactivationButton.dataset.postId;
+                var postStatus = confirmDeactivationButton.dataset.status;
+
+                // Perform actions based on the post ID and status
+                fetch(`/change_status_jobseeker/${postId}/`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRFToken': getCookie('csrftoken'), // Include CSRF token
+                        },
+                        // Include both post_id and status in the request body
+                        body: JSON.stringify({
+                            post_id: postId,
+                            status: postStatus
+                        }),
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        // Handle the response as needed
+                        if (data.success) {
+                            alert('Applicant status changed successfully!');
+                            location.reload();
+                        } else {
+                            alert('Failed to change the applicant status.');
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+            });
+        });
+    </script>
     <!-- ========== Start Section Edit Modal ========== -->
 
 
@@ -225,20 +435,21 @@
                 </div>
                 <div class="modal-body">
 
-                    <form action="">
+                    <form method = "POST" action="{% url 'admin_edit_jobseeker' %}" id="editJobForm">
+                        {% csrf_token %}
                         <div class="row justify-content-center align-items-center g-2">
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="editFirstName" class="form-label">First Name</label>
-                                    <input type="text" class="form-control" name="editFirstName" id="editFirstName"
+                                    <input type="text" class="form-control" name="first_name" id="first_name"
                                         placeholder="" />
-
+                                    <input type="hidden" class="form-control" name="applicant_id" id="applicant_id" value="{{applicant.id}}">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="editFirstName" class="form-label">Last Name</label>
-                                    <input type="text" class="form-control" name="editLastName" id="editLastName"
+                                    <input type="text" class="form-control" name="last_name" id="last_name"
                                         placeholder="" />
 
                                 </div>
@@ -247,70 +458,124 @@
 
                         <div class="mb-3">
                             Gender<br>
-                            <div class="btn-group btn-group-sm" role="group"
-                                aria-label="Basic checkbox toggle button group">
-                                <input type="radio" class="btn-check" name="btnradio" id="male" autocomplete="off" />
-                                <label class="btn btn-outline-primary" for="male">Male</label>
-
-                                <input type="radio" class="btn-check" name="btnradio" id="female" autocomplete="off" />
-                                <label class="btn btn-outline-primary" for="female">Female</label>
-
-                                <input type="radio" class="btn-check" name="btnradio" id="non-binary"
-                                    autocomplete="off" />
-                                <label class="btn btn-outline-primary" for="non-binary">Non-binary</label>
-
-                                <input type="radio" class="btn-check" name="btnradio" id="not-say" autocomplete="off" />
-                                <label class="btn btn-outline-primary" for="not-say">Prefer not to say</label>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="gender" id="male" value="Male">
+                                <label class="form-check-label" for="male">Male</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="gender" id="female" value="Female">
+                                <label class="form-check-label" for="female">Female</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="gender" id="non-binary" value="Non-binary">
+                                <label class="form-check-label" for="non-binary">Non-binary</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="gender" id="not-say" value="Prefer not to say">
+                                <label class="form-check-label" for="not-say">Prefer not to say</label>
                             </div>
                         </div>
 
 
                         <div class="mb-3">
                             <label for="editUsername" class="form-label">Username</label>
-                            <input type="text" class="form-control" name="editUsername" id="editCompanyUsername"
+                            <input type="text" class="form-control" name="username" id="username"
                                 placeholder="" />
                         </div>
 
                         <div class="mb-3">
                             <label for="editEmail" class="form-label">Email</label>
-                            <input type="email" class="form-control" name="editEmail" id="editYearEstablished"
+                            <input type="email" class="form-control" name="email" id="email"
                                 placeholder="" />
                         </div>
 
                         <div class="mb-3">
                             <label for="editMobileNumber" class="form-label">Contact Number</label>
-                            <input type="number" class="form-control" name="editMobileNumber" id="editMobileNumber"
+                            <input type="number" class="form-control" name="contact" id="contact"
                                 placeholder="" />
                         </div>
 
                         <div class="mb-3">
                             <label for="editAddress" class="form-label">Address</label>
-                            <input type="text" class="form-control" name="editAddress" id="editCompanyLocation"
+                            <input type="text" class="form-control" name="address" id="address"
                                 placeholder="" />
                         </div>
 
-                        <div class="mb-3">
-                            <label for="uploadResume" class="form-label">Resume</label>
-                            <input type="file" class="form-control" name="uploadResume" id="uploadResume"
-                                placeholder="" />
-                        </div>
-
-
-                    </form>
 
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                         Close
                     </button>
-                    <button type="button" class="btn btn-primary">Save</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </form>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- ========== End Section Edit Modal ========== -->
+<script>
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    
+    document.addEventListener('DOMContentLoaded', function () {
+        var editButtons = document.querySelectorAll('[name="edit"]');
+        var editModal = new bootstrap.Modal(document.getElementById("jobseeker-editinfo-modal"));
+        editButtons.forEach(function (button) {
+            button.addEventListener('click', function () {
+                var postId = button.getAttribute('data-post-id');
+                document.getElementById('editJobForm').setAttribute('data-post-id', postId);
 
+                fetch(`/get_applicant_data/${postId}/`)  
+                    .then(response => response.json())
+
+                    .then(data => {
+                        document.getElementById('applicant_id').value = data.applicant_id;
+                        document.getElementById('first_name').value = data.first_name;
+                        document.getElementById('last_name').value = data.last_name;
+
+                        if (data.gender === 'Male') {
+                            document.getElementById('male').checked = true;
+                        } else if (data.gender === 'female') {
+                            document.getElementById('Female').checked = true;
+                        } else if (data.gender === 'Non-binary') {
+                            document.getElementById('non-binary').checked = true;
+                        } else if (data.gender === 'Prefer not to say') {
+                            document.getElementById('not-say').checked = true;
+                        }
+                        document.getElementById('username').value = data.username;
+                        document.getElementById('email').value = data.email;
+                        document.getElementById('contact').value = data.contact;
+                        document.getElementById('address').value = data.address;
+                        editModal.show();
+                    })
+                    .catch(error => console.error('Error:', error));
+            });
+        });
+
+        document.getElementById('submitEditJobForm').addEventListener('click', function () {
+            var postId = document.getElementById('editJobForm').getAttribute('data-post-id');
+            
+            console.log('Post ID:', postId);
+            
+
+            editModal.hide();
+        });
+    });
+</script>
     <!-- ========== Start Section View Application ========== -->
 
     <!-- Modal Body -->
@@ -331,12 +596,12 @@
                        
                             <div class="card p-3">
                                 <div class="card-body">
-                                    <h5 class="card-title mb-2">Job Title: Software Engineer</h5>
-                                    <h6 class="card-subtitle mb-2 text-muted">Company: ABC Corporation</h6>
-                                    <div class="mb-1">Job Type: Full-time</div>
-                                    <div class="mb-1">Applicant: John Doe</div>
+                                    <h5 class="card-title mb-2" id="job_title">Job Title: Software Engineer</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted" id="company">Company: ABC Corporation</h6>
+                                    <div class="mb-1" id="jobtype">Job Type: Full-time</div>
+                                    <div class="mb-1" id="applicant">Applicant: John Doe</div>
                                     <div class="mb-1">
-                                        <a href="/path/to/resume.pdf" download class="btn btn-primary">Download Resume</a>
+                                        <a href="" download class="btn btn-primary" id="resume">Download Resume</a>
                                     </div>
                                 </div>
                             </div>
@@ -356,8 +621,57 @@
     </div>
 
     <!-- ========== End Section View Application ========== -->
-
-
+    <script>
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+    
+        document.addEventListener('DOMContentLoaded', function () {
+            var applyButtons = document.querySelectorAll('[name="apply"]');
+            var viewApplicationModal = new bootstrap.Modal(document.getElementById("viewApplicationModal"));
+    
+            applyButtons.forEach(function (button) {
+                button.addEventListener('click', function () {
+                    var postId = button.getAttribute('data-post-id');
+                    document.getElementById('viewApplicationModalTitle').setAttribute('data-post-id', postId);
+    
+                    fetch(`/get_apply_data/${postId}/`)
+                        .then(response => response.json())
+                        .then(data => {
+                            document.getElementById('job_title').innerText = 'Job Title: ' + data.title;
+                            document.getElementById('company').innerText = 'Company: ' + data.company;
+                            document.getElementById('jobtype').innerText = 'Job Type: ' + data.job_type;
+                            document.getElementById('applicant').innerText = 'Applicant: ' + data.applicant_first + ' ' + data.applicant_last;
+                            var resumeLink = document.getElementById('resume');
+                            resumeLink.href = data.resume_url || '#';  // Set to '#' if resume_url is null
+                            resumeLink.style.display = data.resume_url ? 'block' : 'none'; 
+                        })
+                        .catch(error => console.error('Error:', error));
+    
+                    viewApplicationModal.show();
+                });
+            });
+    
+            document.getElementById('submitEditJobForm').addEventListener('click', function () {
+                var postId = document.getElementById('viewApplicationModalTitle').getAttribute('data-post-id');
+                console.log('Post ID:', postId);
+                // Additional logic for handling the form submission or closing the modal
+                viewApplicationModal.hide();
+            });
+        });
+    </script>
+    
 
 </body>
 

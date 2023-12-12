@@ -30,18 +30,22 @@ urlpatterns = [
     path("admin_delete_company/<int:myid>/", views.delete_company, name="admin login"),
     path("company_change_status/<int:myid>/", views.change_status, name="company change status"),
     path("jobseeker_list/", views.view_jobseeker, name="edit jobseeker status"),
-    path("jobseeker_change_status/<int:myid>/", views.change_status_jobseeker, name="edit jobseeker status"),
     path("admin_joblist/", views.admin_job_list, name="admin list of posted jobs"),
     path("search_posted/", views.admin_job_list, name="search_posted"),
     path("admin_edit_jobpost/", views.admin_edit_jobpost, name="admin_edit_jobpost"),
     path("get_job_data/<int:job_id>/", views.get_job_data, name="edit posted job"),
+    path("get_applicant_data/<int:job_id>/", views.get_applicant_data, name="edit posted job"),
+    path("get_apply_data/<int:job_id>/", views.get_apply_data, name="get_apply_data"),
     path("admin_changejob_status/<int:myid>/", views.admin_changejob_status, name="changejob_status"),
     path("admin_delete_postjob/<int:myid>/", views.admin_delete_postjob, name="delete posted job status"),
     path("admin_reject_company/<int:myid>/", views.admin_reject_company, name="delete posted job status"),
     path("companies_list/", views.all_companies, name="companies list"),
     path("search_company/", views.all_companies, name="companies list"),
+    path("search_applicant/", views.view_jobseeker, name="search_applicant"),
     path("admin_dashboard/", views.admin_dashboard, name="admin dashboard"),
+    path("change_status_jobseeker/<int:myid>/", views.change_status_jobseeker, name="change_status_jobseeker"),
     path("admin_report/", views.admin_generate_report, name="admin report"),
+    path("admin_edit_jobseeker/", views.admin_edit_applicant, name="admin_edit_jobseeker"),
 
 
     #company

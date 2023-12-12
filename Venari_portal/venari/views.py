@@ -14,6 +14,8 @@ from django.http import HttpResponse
 from django.db.models import Q
 from django.utils import timezone
 import json
+from django.core.serializers.json import DjangoJSONEncoder
+
 logger = logging.getLogger('venari')
 
 def index(request):
@@ -706,6 +708,27 @@ def change_status(request, myid):
 
     return render(request, "admin_dashboard.html", {'company':companies})
 
+def change_status_jobseeker(request, myid):
+    if not request.user.is_authenticated:
+        return redirect("/admin_login")
+    applicant = job_seeker.objects.get(id=myid)
+    if request.method == "POST":
+        try:
+            data = json.loads(request.body.decode('utf-8'))
+            status = data.get('status') 
+            if status is not None:  
+                old_status = applicant.status
+                applicant.status = status
+                applicant.save()
+                messages.success(request, "Status changed successfully.")
+                logger.info(f"Status changed successfully for job ID {myid}. Old status: {old_status}, New status: {status}")
+                return JsonResponse({'success': True})
+            else:
+                return JsonResponse({'success': False, 'error': 'Invalid status value'})
+        except json.JSONDecodeError:
+            return JsonResponse({'success': False, 'error': 'Invalid JSON data'})
+
+    return render(request, "admin_dashboard.html", {'applicant':applicant})
 
 def delete_company(request, myid):
     if not request.user.is_authenticated:
@@ -737,20 +760,35 @@ def delete_user(request, myid):
 def view_jobseeker(request):
     if not request.user.is_authenticated:
         return redirect("/admin_login")
+    if request.method == "POST":
+        try:
+            data = json.loads(request.body.decode('utf-8'))
+            search = data.get('search')
+            print(search)
+            if search is not None and search.strip() != "":
+                results = job_seeker.objects.filter(user__first_name__icontains=search)
+            else:
+                results = job_seeker.objects.all()
+    
+            companies_data = []
+                
+            for applicant_instance in results:
+                company_data = {
+                    'first_name': applicant_instance.user.first_name,
+                    'last_name': applicant_instance.user.last_name,
+                    'email': applicant_instance.email,
+                    'contact': applicant_instance.phone_number,
+                    'status': applicant_instance.status,
+                    'image': applicant_instance.profile_image.url,
+                    'applicant_id': applicant_instance.id
+                }
+                companies_data.append(company_data)
+
+            return JsonResponse({'applicant': companies_data})
+        except json.JSONDecodeError:
+            pass
     applicants = job_seeker.objects.all()
     return render(request, "jobseeker_list.html", {'applicants':applicants})
-
-def change_status_jobseeker(request, myid):
-    if not request.user.is_authenticated:
-        return redirect("/admin_login")
-    applicant = job_seeker.objects.get(id=myid)
-    if request.method == "POST":
-        status = request.POST['status']
-        applicant.status=status
-        applicant.save()
-        messages.success(request, "Status changed successfully.")
-        return redirect("/jobseeker_list")
-    return render(request, "jobseeker_change_status.html", {'applicant':applicant})
 
 
 def admin_job_list(request):
@@ -804,6 +842,47 @@ def get_job_data(request, job_id):
         'description': job.description,
     }
 
+    return JsonResponse(data)
+
+def get_apply_data(request, job_id):
+    try:
+        apply = apply_job.objects.get(job_id=job_id)
+        post = post_jobs.objects.get(id=apply.job_id)
+        applicant = job_seeker.objects.get(id=apply.applicant_id)
+    except apply_job.DoesNotExist:
+        raise Http404("Apply job does not exist")
+    except post_jobs.DoesNotExist:
+        raise Http404("Post job does not exist")
+    except job_seeker.DoesNotExist:
+        raise Http404("Job seeker does not exist")
+    data = {
+        'title': post.title,
+        'company': apply.company,
+        'job_type': apply.jobtype,
+        'applicant_first': applicant.user.first_name,
+        'applicant_last': applicant.user.last_name,
+        'resume_url': apply.resume.url if apply.resume else None,
+    }
+
+    return JsonResponse(data, encoder=DjangoJSONEncoder)
+
+def get_applicant_data(request, job_id):
+    try:
+        applicant = job_seeker.objects.get(id=job_id)
+    except job_seeker.DoesNotExist:
+        raise Http404("Applicant does not exist")
+    resume_url = applicant.resume.url if applicant.resume else None
+
+    data = {
+        'applicant_id': applicant.id,
+        'first_name': applicant.user.first_name,
+        'last_name': applicant.user.last_name,
+        'gender': applicant.gender,
+        'username': applicant.user.username,
+        'email': applicant.email,
+        'contact': applicant.phone_number,
+        'address': applicant.address,
+    }
     return JsonResponse(data)
 
 def admin_changejob_status(request, myid):
@@ -1018,3 +1097,29 @@ def admin_edit_jobpost(request):
         return redirect("/admin_joblist")
     
     return render(request, "admin_joblist.html")
+
+def admin_edit_applicant(request):
+    if not request.user.is_authenticated:
+        return redirect("/admin_login")
+    if request.method == "POST":
+        applicant_id = request.POST['applicant_id']
+        first_name = request.POST['first_name']
+        last_name = request.POST['last_name']
+        gender = request.POST['gender']
+        username = request.POST['username']
+        email = request.POST['email']
+        contact = request.POST['contact']
+        address = request.POST['address']
+        
+        applicant = job_seeker.objects.get(id=applicant_id)
+        applicant.user.first_name=first_name
+        applicant.user.last_name=last_name
+        applicant.gender=gender
+        applicant.user.username=username
+        applicant.email = email
+        applicant.phone_number=contact
+        applicant.address=address
+        applicant.save()
+        return redirect("/jobseeker_list")
+    
+    return render(request, "jobseeker_list.html")
