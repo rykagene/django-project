@@ -555,7 +555,7 @@ def company_post_job(request):
             send_mail(
                 'New Job Offer',  # subject
                 ('Company ' + str(Company.company_name) + ' posted a new ' + str(jobtype) + ' job that will open at ' + str(start_date) + ' and ends at ' + str(end_date) + '. With a monthly salary of ' + str(salary) + ' pesos. That requires ' + str(experience) + ' year/s of experience with the skill of ' + str(skills) + '.'),
-                'ecsoriano.truckings@gmail.com',  # from_email
+                'venaricompany@gmail.com',  # from_email
                 [email],  # list of recipient email addresses
             )
         alert = True
