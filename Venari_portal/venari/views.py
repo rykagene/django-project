@@ -602,25 +602,28 @@ def all_companies(request):
             data = json.loads(request.body.decode('utf-8'))
             search = data.get('search')
             print(search)
-            if search is not None and search.strip():
+            if search is not None and search.strip() != "":
                 results = company.objects.filter(company_name__icontains=search)
-                companies_data = []
+            else:
+                results = company.objects.all()
+    
+            companies_data = []
                 
-                for company_instance in results:
-                    posted_jobs = post_jobs.objects.filter(company_id=company_instance.id)
-                    applicant_count = apply_job.objects.filter(job_id__in=posted_jobs.values_list('id', flat=True)).count()
-                    posted_job_count = posted_jobs.count()
-                    company_data = {
-                        'company_name': company_instance.company_name,
-                        'applicants': applicant_count,
-                        'posted_jobs': posted_job_count,
-                        'company_status': company_instance.status,
-                        'company_logo': company_instance.company_logo.url,
-                        'company_id': company_instance.id
-                    }
-                    companies_data.append(company_data)
+            for company_instance in results:
+                posted_jobs = post_jobs.objects.filter(company_id=company_instance.id)
+                applicant_count = apply_job.objects.filter(job_id__in=posted_jobs.values_list('id', flat=True)).count()
+                posted_job_count = posted_jobs.count()
+                company_data = {
+                    'company_name': company_instance.company_name,
+                    'applicants': applicant_count,
+                    'posted_jobs': posted_job_count,
+                    'company_status': company_instance.status,
+                    'company_logo': company_instance.company_logo.url,
+                    'company_id': company_instance.id
+                }
+                companies_data.append(company_data)
 
-                return JsonResponse({'company': companies_data})
+            return JsonResponse({'company': companies_data})
         except json.JSONDecodeError:
             pass
 

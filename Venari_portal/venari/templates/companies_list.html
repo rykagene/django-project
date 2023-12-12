@@ -293,27 +293,27 @@
           
               const companyListingElement = document.getElementById('comp-list-table-card');
           
-                companyListingElement.innerHTML = '';
+                companyListingElement.innerHTML = `<table class="table align-middle table-hover" id="comp_list_table">
+                    <thead>
+                        <tr>
+                            <th scope="col"></th>
+                            <th scope="col">Name of Company</th>
+                            <th scope="col" class="text-center">Number of Applicants</th>
+                            <th scope="col" class="text-center">Number of Job Postings</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>`;
                 if (companyListing.length === 0) {
                 companyListingElement.innerHTML = '<p>No companies found</p>';
                 }
                 else {
+                    const tbody = companyListingElement.querySelector('tbody');
                     companyListing.forEach(company => {
                         if (company.company_status === 'Accepted'){
-                            companyListingElement.innerHTML += `
-                            <div class="card border-0 overflow-auto p-2 p-lg-4 flex-grow-1 comp-list-cards" style="height: 417px;"
-                            id="comp-list-table-card">
-                            <table class="table align-middle table-hover" id="comp_list_table">
-                                <thead>
-                                    <tr>
-                                        <th scope="col"></th>
-                                        <th scope="col">Name of Company</th>
-                                        <th scope="col" class="text-center">Number of Applicants</th>
-                                        <th scope="col" class="text-center">Number of Job Postings</th>
-                                        <th scope="col">Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
+                            tbody.innerHTML += `
                                     <tr>
                                         <th scope="row">
                                             <div id="complist-pic-container">
@@ -341,10 +341,8 @@
                                                 </div>
                                             </div>
                                         </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>`;
+                                    </tr>`
+                    ;
                     
                     }
               });
