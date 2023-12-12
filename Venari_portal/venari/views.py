@@ -1051,23 +1051,92 @@ def admin_dashboard(request):
     }
     return render(request, "admin_dashboard.html", context)
 def admin_generate_report(request):
-    data = job_seeker.objects.all()
-    wb = Workbook()
-    ws = wb.active
+    if request.method == "POST":
+        report = request.POST.get('report')
+        print(report)
+        if report == 'users':
+            data = job_seeker.objects.all()
+            wb = Workbook()
+            ws = wb.active
 
-    header = ['Field 1', 'Field 2']  
-    ws.append(header)
+            header = ['First Name', 'Last Name', 'Email', 'Gender', 'Address', 'Age', 'Skills']  
+            ws.append(header)
 
-    for item in data:
-        ws.append([item.email, item.password])  
+            for item in data:
+                ws.append([item.user.first_name, item.user.last_name, item.email, item.gender, item.address, item.age, item.skills])  
+            response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+            response['Content-Disposition'] = 'attachment; filename=report.xlsx'
+            wb.save(response)
+            return response
+        elif report == 'logs':
+            formatted_logs = []
+            with open('venari/admin_logs/logfile.log', 'r') as log_file:
+                for log in log_file:
+                    log_parts = log.split(' ', 5)
+                    if len(log_parts) == 6:
+                        timestamp = log_parts[0] + ' ' + log_parts[1]
+                        log_level = log_parts[2]
+                        admin_name = log_parts[3]
+                        action = log_parts[4]
+                        details = log_parts[5].strip()
+                        formatted_log = {
+                            'timestamp': timestamp,
+                            'log_level': log_level,
+                            'admin_name': admin_name,
+                            'action': action,
+                            'details': details,
+                        }
+                        formatted_logs.append(formatted_log)
 
-    response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
-    response['Content-Disposition'] = 'attachment; filename=report.xlsx'
+            # Create Excel file
+            wb = Workbook()
+            ws = wb.active
 
-    wb.save(response)
+            # Add headers
+            log_headers = ['Timestamp', 'Log Level', 'Admin Name', 'Action', 'Details']
+            ws.append(log_headers)
 
-    return response
+            # Add logs
+            for log in formatted_logs:
+                ws.append([log['timestamp'], log['log_level'], log['admin_name'], log['action'], log['details']])
 
+            # Prepare response
+            response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+            response['Content-Disposition'] = 'attachment; filename=logs_report.xlsx'
+            wb.save(response)
+
+            return response
+        
+        elif report == "company":
+            data = company.objects.all()
+            wb = Workbook()
+            ws = wb.active
+
+            header = ['Email', 'Gender', 'Company Name', 'Status', 'Company CEO', 'Company location', 'Phone Number']  
+            ws.append(header)
+
+            for item in data:
+                ws.append([item.user.email, item.gender, item.company_name, item.status, item.company_ceo, item.company_location, item.phone_number])  
+            response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+            response['Content-Disposition'] = 'attachment; filename=report.xlsx'
+            wb.save(response)
+            return response
+        
+        elif report == "jobs":
+            data = post_jobs.objects.all()
+            wb = Workbook()
+            ws = wb.active
+
+            header = ['Title', 'Jobtype', 'Salary', 'Description', 'Location', 'Status', 'Skills']  
+            ws.append(header)
+
+            for item in data:
+                ws.append([item.title, item.jobtype, item.salary, item.description, item.location, item.status, item.skills])  
+            response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+            response['Content-Disposition'] = 'attachment; filename=report.xlsx'
+            wb.save(response)
+            return response
+        return render(request, 'admin_dashboard.html') 
 def admin_edit_jobpost(request):
     if not request.user.is_authenticated:
         return redirect("/admin_login")

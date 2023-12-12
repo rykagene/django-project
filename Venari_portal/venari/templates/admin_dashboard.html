@@ -336,6 +336,8 @@
     <!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
     <div class="modal fade" id="dashboardPrint" tabindex="-1" role="dialog" aria-labelledby="dashboardPrintTitle"
         aria-hidden="true">
+        <form id="reportForm" method="POST" action="/admin_report/" id="reportForm">
+            {% csrf_token %}
         <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered " role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -345,56 +347,47 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-
                     <div class="card">
                         <div class="card-body">
                             <div>
-                                What do you want print?
+                                What do you want to print?
                             </div>
                             <div class="mb-1">
-                                <div class="btn-group btn-group-sm" role="group"
-                                    aria-label="Basic checkbox toggle button group">
-                                    <input type="radio" class="btn-check" name="btnradio" id="listUsers"
-                                        autocomplete="off" />
-                                    <label class="btn btn-outline-secondary" for="listUsers">List of Users</label>
-
-                                    <input type="radio" class="btn-check" name="btnradio" id="actLogs"
-                                        autocomplete="off" />
-                                    <label class="btn btn-outline-secondary" for="actLogs">Activity Logs</label>
-
-                                    <input type="radio" class="btn-check" name="btnradio" id="listJobs"
-                                        autocomplete="off" />
-                                    <label class="btn btn-outline-secondary" for="listJobs">List of Jobs</label>
-
-                                    <input type="radio" class="btn-check" name="btnradio" id="listcomp"
-                                        autocomplete="off" />
-                                    <label class="btn btn-outline-secondary" for="listcomp">List of Companies</label>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="report" id="users" value="users" autocomplete="off">
+                                    <label class="form-check-label" for="users">List of Users</label>
                                 </div>
-
+                        
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="report" id="logs" value="logs" autocomplete="off">
+                                    <label class="form-check-label" for="logs">Activity Logs</label>
+                                </div>
+                        
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="report" id="jobs" value="jobs" autocomplete="off">
+                                    <label class="form-check-label" for="jobs">List of Jobs</label>
+                                </div>
+                        
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="report" id="company" value="company" autocomplete="off">
+                                    <label class="form-check-label" for="company">List of Companies</label>
+                                </div>
                             </div>
                             <div class="text-end">
-                                <button type="button" class="btn btn-primary">
+                                <button type="submit" class="btn btn-primary" onclick="printSelected()">
                                     <i class="bi-printer-fill"></i>
                                     Print
                                 </button>
-
                             </div>
                         </div>
                     </div>
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                        Close
-                    </button>
                 </div>
             </div>
+        </form>
         </div>
     </div>
 
-
-    <!-- ========== End Section ========== -->
-
+                
 
 
     <!-- <script>
@@ -415,7 +408,6 @@
         }
     </script> -->
 
-    <!-- Add this script at the end of your HTML file, before the </body> tag -->
 
     <script>
         function getCookie(name) {
