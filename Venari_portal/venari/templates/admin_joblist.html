@@ -105,13 +105,14 @@
                                 <td>
                                     <div class="row justify-content-center align-items-center g-2">
                                         <div class="col">
-                                            <a href="/admin_edit_jobpost/{{job.id}}/" class="btn btn-primary"
-                                                title="Edit"><i class="bi-pencil-fill"></i>
+                                            <a href="/admin_edit_jobpost/{{job.id}}/" id="joblistEditButton" class="btn btn-primary"
+                                                title="Edit" data-bs-toggle="modal" data-bs-target="#editJobModal"><i
+                                                    class="bi-pencil-fill"></i>
                                             </a>
                                         </div>
                                         <div class="col">
-                                            <a href="/admin_delete_postjob/{{job.id}}/" class="btn btn-danger"
-                                                title="Delete"><i class="bi-trash-fill"></i>
+                                            <a class="btn btn-danger" title="Delete" id="joblistDeleteButton" data-bs-toggle="modal"
+                                                data-bs-target="#joblistDeleteModal"><i class="bi-trash-fill"></i>
                                             </a>
                                         </div>
                                     </div>
@@ -127,7 +128,7 @@
                                     <!-- ========== Start Activate/Deactivate Button ========== -->
                                     <div class="row justify-content-center align-items-center g-2">
                                         {% if job.status != 'Activate' %}
-                                        <div class="col-6" title="View">
+                                        <div class="col-md-6" title="View">
                                             <button id="activateButton"
                                                 class=" activateButton btn col-12 btn-primary btn-sm"
                                                 data-bs-toggle="modal" data-bs-target="#activateModal"
@@ -138,7 +139,7 @@
                                         </div>
                                         {% endif %}
                                         {% if job.status == 'Activate' %}
-                                        <div class="col-6" title="Deactivate">
+                                        <div class="col-md-6" title="Deactivate">
                                             <button id="deactivateButton" role="button"
                                                 class="btn col-12 btn-danger btn-sm" data-bs-toggle="modal"
                                                 data-bs-target="#deactivateModal" data-post-id="{{post.id}}"
@@ -287,8 +288,48 @@
     </div>
 
 
-        <!-- Activate modal -->
-        <div class="modal fade" id="activateModal" tabindex="-1" role="dialog" aria-labelledby="activateModalTitle"
+    <!-- ========== Start Section delete modal ========== -->
+    <!-- Modal trigger button -->
+
+    <!-- Modal Body -->
+    <!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
+    <div class="modal fade" id="joblistDeleteModal" tabindex="-1" role="dialog"
+        aria-labelledby="joblistDeleteModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="joblistDeleteModalTitle">
+                        Delete this Job
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Do you want to delete this Job?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        No
+                    </button>
+                    <a type="button" class="btn btn-primary">Yes</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Optional: Place to the bottom of scripts -->
+    <script>
+        const myModal = new bootstrap.Modal(
+            document.getElementById("joblistDeleteModal"),
+            options,
+        );
+    </script>
+
+    <!-- ========== End Section delete modal ========== -->
+
+
+
+    <!-- Activate modal -->
+    <div class="modal fade" id="activateModal" tabindex="-1" role="dialog" aria-labelledby="activateModalTitle"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
             <div class="modal-content">
@@ -335,6 +376,104 @@
         </div>
     </div>
 
+
+    <!-- ========== Start Section admin edit job post modal ========== -->
+
+    <!-- Modal Body -->
+    <!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
+    <div class="modal fade" id="editJobModal" tabindex="-1" role="dialog" aria-labelledby="editJobModalTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editJobModalTitle">
+                        Edit job
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                    <form class="container mt-3" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                <label>Job Title</label>
+                                <input type="text" class="form-control mt-1" name="job_title" id="job_title"
+                                    value="{{job.title}}" required>
+                            </div>
+                        </div>
+
+                        <div class="row mt-3">
+                            <div class="form-group col-md-6">
+                                <label>Start Date</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;({{job.start_date}})
+                                <input type="date" class="form-control mt-1" name="start_date" id="start_date">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>End Date</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;({{job.end_date}})
+                                <input type="date" class="form-control mt-1" name="end_date" id="end_date">
+                            </div>
+                        </div>
+
+                        <div class="row mt-3">
+                            <div class="form-group col-md-6">
+                                <label>Experience (in years)</label>
+                                <input type="text" class="form-control mt-1" name="experience" id="experience"
+                                    value="{{job.experience}}" required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Salary (per month)</label>
+                                <input type="tel" class="form-control mt-1" name="salary" id="salary"
+                                    value="{{job.salary}}" required>
+                            </div>
+                        </div>
+
+                        <div class="row mt-3">
+                            <div class="form-group col-md-6">
+                                <label>Skills Required</label>
+                                <input type="text" class="form-control" name="skills" id="skills"
+                                    placeholder="Enter the required skills for the job" value="{{job.skills}}" required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Job Type</label>
+                                <select name="jobtype" id="jobtype" class="form-control" required>
+                                    <option value="Part-Time">Part-Time Job</option>
+                                    <option value="Full-Time">Full-Time Job</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row mt-3">
+                            <div class="form-group col-md-12">
+                                <label>Company Location</label>
+                                <input type="text" class="form-control mt-1" name="location" id="location"
+                                    value="{{job.location}}" required>
+                            </div>
+                        </div>
+
+                        <div class="row mt-3">
+                            <div class="form-group col-md-12">
+                                <label>Job Description</label>
+                                <textarea name="description" id="description" class="form-control mt-1" cols="30"
+                                    rows="4" required>{{job.description}}</textarea>
+                            </div>
+                        </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        Close
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        Submit
+                    </button>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ========== End Section admin edit job post modal ========== -->
 
 
 
