@@ -8,7 +8,7 @@
 body{
   margin: 0; /* Remove default margin */
     height: 100vh; /* Set height to 100% of the viewport height */
-    background-image: url("images/blob1.jpg");
+    background-image: url("images/plain bg.jpg");
     background-size: cover;
     background-repeat: repeat;
     background-position: center;  
@@ -141,15 +141,17 @@ label {
 .custom-card {
   border-radius: 10px;
   transition: box-shadow 0.3s ease-in-out;
-  border: 1px solid #d7ddff !important;
+  border: 1px solid #e9e9ea !important;
   backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(50px);
     background: linear-gradient(70deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5));
-  box-shadow: 0 2px 5px #adc5e3;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    padding:5px;
+ 
 }
 
 .custom-card:hover {
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 5px #c6d7ea;
 }
 
 .custom-card-body {
@@ -157,10 +159,11 @@ label {
 }
 
 .custom-card-title {
+  color:#000000;
+    /* You may add additional styling as needed */
   font-size: 30px;
   margin-bottom: 2px;
   font-weight: bold;
-  color: #000000;
 }
 .custom-card-description{
   margin-bottom: 5px;
@@ -181,7 +184,7 @@ label {
 }
 
 .custom-description {
-  margin-top: 1rem;
+  margin-top: 0%;
 }
 
 .custom-card-description-justify-content-left {
@@ -197,14 +200,14 @@ label {
   border:none;
   width: 100%;
   border-radius: 10px;
-  margin-top: 10px;
+  margin-top: 5px;
 }
 .custom-bton {
   border-color:#fca475;
   color:#fca475;
   width: 100%;
   border-radius: 10px;
-  margin-top: 10px;
+  margin-top: 5px;
 }
 
 .custom-btn:hover {
@@ -215,14 +218,13 @@ label {
   border-color:#9c98cc;
   color:#9c98cc;
 }
-.bi-heart-half,
+/*.bi-heart-half,
 .bi-bookmark-plus{
   color: #fca475;
 }
 .bi-heart-half:hover,
 .bi-bookmark-plus:hover{
-  color: #56188d;
-}
+  color: #9c98cc;*/
 
 /*Tags*/
 .tags-card-body{
@@ -253,7 +255,7 @@ label {
 }
 .text-end{
   font-size: 15px;
-  color:#4e0b6b;
+  color:#000000;
 }
 
 /*
@@ -357,6 +359,7 @@ ul{
   background-size: cover;
     padding: 50px;
     border-radius: 20px;
+   
 }
 .footer-col{
    width: 25%;
@@ -364,7 +367,7 @@ ul{
 }
 .footer-col h4{
 	font-size: 18px;
-	color: #ffffff;
+	color: #464646;
 	text-transform: capitalize;
 	margin-bottom: 35px;
 	font-weight: 500;
@@ -386,15 +389,15 @@ ul{
 .footer-col ul li a{
 	font-size: 16px;
 	text-transform: capitalize;
-	color: #ffffff;
+	color: #464646;
 	text-decoration: none;
 	font-weight: 300;
-	color: #bbbbbb;
+	color: #464646;
 	display: block;
 	transition: all 0.3s ease;
 }
 .footer-col ul li a:hover{
-	color: #ffffff;
+	color: #464646;
 	padding-left: 8px;
 }
 .footer-col .social-links a{
@@ -406,12 +409,12 @@ ul{
 	text-align: center;
 	line-height: 40px;
 	border-radius: 50%;
-	color: #ffffff;
+	color: #464646;
 	transition: all 0.5s ease;
 }
 .footer-col .social-links a:hover{
-	color: #24262b;
-	background-color: #ffffff;
+	color: #ffffff;
+	background-color: #4e4e4e;
 }
 
 /*responsive*/
