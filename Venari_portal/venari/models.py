@@ -7,7 +7,7 @@ class job_seeker(models.Model):
     status = models.CharField(max_length=50, null = True)
     password = models.CharField(max_length=100, null= True)
     email = models.CharField(max_length=100, null=True)
-    phone_number = models.IntegerField(max_length=20)
+    phone_number = models.IntegerField()
     profile_image = models.ImageField(upload_to="")
     gender = models.CharField(max_length=10, null=True)
     address = models.CharField(max_length=100, null=True)
@@ -18,13 +18,20 @@ class job_seeker(models.Model):
     bookmarks = models.ManyToManyField('post_jobs', blank=True)
     resume = models.FileField(upload_to='', null=True)
     skills = models.CharField(max_length=100, null=True)
+    experience = models.CharField(max_length=15, null=True)
+    years_experience = models.CharField(max_length=15, null=True)
+    company_name = models.CharField(max_length=50, null = True)
+    company_address = models.CharField(max_length=50, null = True)
+    position = models.CharField(max_length=50, null = True)
+    start_date = models.DateField(null=True)
+    end_date = models.DateField(null=True)
     def __str__(self):
         return self.user_id.first_name
 
 #login and signup for company user
 class company(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    phone_number = models.IntegerField(max_length=20)
+    phone_number = models.IntegerField()
     email = models.CharField(max_length=100, null=True)
     password = models.CharField(max_length=100, null= True)
     company_logo = models.ImageField(upload_to="")

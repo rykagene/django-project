@@ -149,6 +149,27 @@ def jobseeker_profile(request):
     print(request.FILES)
     return render(request, "jobseeker_profile.html", {'applicant':applicant})
 
+def jobseeker_workexperience(request):
+    if not request.user.is_authenticated:
+        return redirect('/user_login/')
+    applicant = job_seeker.objects.get(user=request.user)
+    if request.method=="POST":   
+        company_name = request.POST['company_name']
+        company_address = request.POST['company_address']
+        position = request.POST['position']
+        start_date = request.POST['start_date']
+        end_date = request.POST['end_date']
+        applicant.company_name = company_name
+        applicant.company_address = company_address
+        applicant.position = position
+        applicant.start_date = start_date
+        applicant.end_date = end_date
+        applicant.save()
+        applicant.user.save()
+        return redirect("/jobseeker_profile/")
+        
+    print(request.FILES)
+    return render(request, "jobseeker_profile.html", {'applicant':applicant})
 def jobseeker_basicinformation(request):
     if not request.user.is_authenticated:
         return redirect('/user_login/')
@@ -156,6 +177,7 @@ def jobseeker_basicinformation(request):
     if request.method=="POST":   
         email = request.POST['email']
         age = request.POST['age']
+        experience = request.POST['experience']
         home_address = request.POST['home_address']
         phone_number = request.POST['phone_number']
         hidden_email = request.POST['hidden_email']
@@ -172,6 +194,7 @@ def jobseeker_basicinformation(request):
             applicant.phone_number = phone_number
             applicant.age = age
             applicant.address = home_address
+            applicant.years_experience = experience
             applicant.save()
             applicant.user.save()
             return redirect("/jobseeker_profile/")
@@ -359,6 +382,13 @@ def jobseeker_apply(request, myid):
 
     return render(request, "job_hiring.html", {'job': job})
 
+def jobseeker_delete_account(request, myid):
+    if not request.user.is_authenticated:
+        return redirect("/login")
+    applicant = job_seeker.objects.filter(id=myid)
+    applicant.delete()
+    messages.success(request, "Successfully deleted.")
+    return redirect("/login")
 
 
 #Company side

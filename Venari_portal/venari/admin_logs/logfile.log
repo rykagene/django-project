@@ -4368,3 +4368,14 @@
 2023-12-12 20:59:37,039 INFO Admin billy accessed /admin_delete_postjob/7/
 2023-12-12 20:59:37,068 INFO Company and job postings deleted successfully for company ID 7
 2023-12-12 20:59:38,287 INFO Admin billy accessed /companies_list/
+2023-12-12 21:23:55,905 INFO Admin billy accessed /
+2023-12-12 21:23:55,986 INFO Admin billy accessed /user1.jpg
+2023-12-12 21:23:55,989 INFO Admin billy accessed /user2.jpg
+2023-12-12 21:23:57,105 INFO Admin billy accessed /user1.jpg
+2023-12-12 21:23:57,110 INFO Admin billy accessed /user2.jpg
+2023-12-12 21:24:02,508 INFO Admin billy accessed /company_login
+2023-12-12 21:24:02,536 INFO Admin billy accessed /company_login/
+2023-12-12 21:25:05,073 INFO Admin billy accessed /companies_list/
+2023-12-12 21:25:05,281 INFO Admin billy accessed /media/pngegg_1.png
+2023-12-12 21:25:05,297 INFO Admin billy accessed /media/Coding_Horror_Stickers_and_T-shirts.png
+2023-12-12 21:25:19,982 INFO Admin billy accessed /company_login/

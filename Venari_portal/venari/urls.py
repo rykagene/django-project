@@ -13,6 +13,7 @@ urlpatterns = [
     path("job_hiring/", views.job_hiring, name="posted jobs"),
     path("jobseeker_profile/", views.jobseeker_profile, name="jobseeker_Edit_profile"),
     path("jobseeker_introduction/", views.jobseeker_introduction, name="jobseeker_introduction"),
+    path("jobseeker_workexperience/", views.jobseeker_workexperience, name="jobseeker_workexperience"),
     path("jobseeker_basicInformation/", views.jobseeker_basicinformation, name="jobseeker_basicInformation"),
     path("jobseeker_uploadresume/", views.jobseeker_uploadresume, name="jobseeker_uploadresume"),
     path("jobseeker_changeprofile/", views.jobseeker_changeprofile, name="jobseeker_changeprofile"),
@@ -21,6 +22,7 @@ urlpatterns = [
     path("jobseeker_apply/<int:myid>/", views.jobseeker_apply, name="jobseeker_apply"),
     path("search_job/", views.job_hiring, name="search_job"),
     path('logout/', views.Logout, name='logout'),
+    path("jobseeker_delete_account/<int:myid>/", views.jobseeker_delete_account, name="jobseeker_delete_account"),
 
 
     #admin
