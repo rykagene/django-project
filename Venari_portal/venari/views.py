@@ -173,6 +173,7 @@ def jobseeker_workexperience(request):
         
     print(request.FILES)
     return render(request, "jobseeker_profile.html", {'applicant':applicant})
+
 def jobseeker_basicinformation(request):
     if not request.user.is_authenticated:
         return redirect('/login/')
@@ -846,6 +847,27 @@ def get_job_data(request, job_id):
 
     return JsonResponse(data)
 
+def get_company_data(request, job_id):
+    try:
+        companies = company.objects.get(id=job_id)
+    except post_jobs.DoesNotExist:
+        raise Http404("Job does not exist")
+
+    data = {
+        'company_name': companies.company_name,
+        'company_id': companies.id,
+        'first_name': companies.user.first_name,
+        'last_name': companies.user.last_name,
+        'ceo': companies.company_ceo,
+        'gender': companies.gender,
+        'contact': companies.phone_number,
+        'location': companies.company_location,
+        'username': companies.user.username,
+        'year_established': str(companies.company_established),
+    }
+
+    return JsonResponse(data)
+
 def get_apply_data(request, job_id):
     try:
         apply = apply_job.objects.get(job_id=job_id)
@@ -943,6 +965,7 @@ def admin_changejob_status(request, myid):
             return JsonResponse({'success': False, 'error': 'Invalid JSON data'})
 
     return render(request, "admin_dashboard.html", {'job': job})
+
 def edit_job_admin(request, myid):
     if not request.user.is_authenticated:
         return redirect("/admin_login")
@@ -1139,6 +1162,7 @@ def admin_generate_report(request):
             wb.save(response)
             return response
         return render(request, 'admin_dashboard.html') 
+    
 def admin_edit_jobpost(request):
     if not request.user.is_authenticated:
         return redirect("/admin_login")
@@ -1194,3 +1218,32 @@ def admin_edit_applicant(request):
         return redirect("/jobseeker_list")
     
     return render(request, "jobseeker_list.html")
+
+def admin_edit_company(request):
+    if not request.user.is_authenticated:
+        return redirect("/admin_login")
+    if request.method == "POST":
+        company_id = request.POST['company_id']
+        first_name = request.POST['first_name']
+        last_name = request.POST['last_name']
+        gender = request.POST['gender']
+        username = request.POST['username']
+        ceo = request.POST['ceo']
+        year_established = request.POST['year_established']
+        contact = request.POST['contact']
+        location = request.POST['location']
+
+        applicant = company.objects.get(id=company_id)
+        applicant.user.first_name=first_name
+        applicant.user.last_name=last_name
+        applicant.gender=gender
+        applicant.user.username=username
+        applicant.company_ceo = ceo
+        applicant.phone_number=contact
+        applicant.company_location=location
+        applicant.company_established=year_established
+
+        applicant.save()
+        return redirect("/companies_list")
+    
+    return render(request, "companies_list.html")

@@ -36,6 +36,7 @@ urlpatterns = [
     path("get_job_data/<int:job_id>/", views.get_job_data, name="edit posted job"),
     path("get_applicant_data/<int:job_id>/", views.get_applicant_data, name="edit posted job"),
     path("get_apply_data/<int:job_id>/", views.get_apply_data, name="get_apply_data"),
+    path("get_company_data/<int:job_id>/", views.get_company_data, name="get_company_data"),
     path("admin_changejob_status/<int:myid>/", views.admin_changejob_status, name="changejob_status"),
     path("admin_delete_postjob/<int:myid>/", views.admin_delete_postjob, name="delete posted job status"),
     path("admin_reject_company/<int:myid>/", views.admin_reject_company, name="delete posted job status"),
@@ -46,7 +47,7 @@ urlpatterns = [
     path("change_status_jobseeker/<int:myid>/", views.change_status_jobseeker, name="change_status_jobseeker"),
     path("admin_report/", views.admin_generate_report, name="admin report"),
     path("admin_edit_jobseeker/", views.admin_edit_applicant, name="admin_edit_jobseeker"),
-
+    path("admin_edit_company/", views.admin_edit_company, name="admin_edit_company"),
 
     #company
     path("register-company/", views.company_signup, name="company signup"),
