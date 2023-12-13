@@ -324,7 +324,7 @@
                     ></button>
                 </div>
                 <div class="modal-body">
-                    <form class="container mt-3" method="POST" enctype="multipart/form-data">
+                    <form class="container mt-3"  Action="{% url 'company_post_job' %}" method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
                     
                         <div class="row">

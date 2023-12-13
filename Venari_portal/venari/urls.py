@@ -52,7 +52,7 @@ urlpatterns = [
     #company
     path("register-company/", views.company_signup, name="company signup"),
     path("company_login/", views.company_login, name="company login"),
-    path("company_post_job/", views.company_post_job, name="companies list"),
+    path("company_post_job/", views.company_post_job, name="company_post_job"),
     path("company_profile/", views.company_profile, name="company profile"),
     path("company_dashboard/", views.company_dashboard, name="company dashboard"),
     path("company_accept_applicant/<int:myid>/", views.company_accept_applicant, name="company_accept_applicant"),

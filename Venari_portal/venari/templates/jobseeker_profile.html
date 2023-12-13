@@ -217,10 +217,10 @@
                                     <div class="mb-3">
 
                                         <div class="btn-group" role="group" aria-label="Default button group">
-                                            <button type="button" class="btn btn-outline-primary btn-sm">Download Resume
+                                            <button type="button" class="btn btn-outline-primary btn-sm"  onclick="viewResume('{{ applicant.resume.url }}')" >Download Resume
                                                 &nbsp; <i class="bi bi-download"></i></button>
                                             <button type="button" class="btn btn-outline-primary btn-sm"
-                                                data-bs-toggle="modal" data-bs-target="#modalUploadResume"><i
+                                                data-bs-toggle="modal" data-bs-target="#modalUploadResume" ><i
                                                     class="bi bi-upload"></i></button>
                                         </div>
 
@@ -231,7 +231,11 @@
                             </div>
                         </div>
                     </div>
-
+                    <script>      
+                     function viewResume(resumeUrl) {    
+                        window.open(resumeUrl, '_blank');
+                    }
+                     </script>
 
                     <div class="col-12">
                         <div class="card profile-card border-0">
@@ -1308,7 +1312,8 @@
                 displaySuggestions(allSuggestions); // Sort and display suggestions
             }
         });
-    </script>
+
+     </script>
 
     <!-- ========== End Section Edit Skills Javascript ========== -->
 

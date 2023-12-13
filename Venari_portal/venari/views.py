@@ -560,8 +560,8 @@ def company_post_job(request):
                 [email],  # list of recipient email addresses
             )
         alert = True
-        return render(request, "company_post_job.html", {'alert':alert})
-    return render(request, "company_post_job.html")
+        return render(request, "company_dashboard.html", {'alert':alert})
+    return render(request, "company_dashboard.html")
 
 def company_accept_applicant(request, myid):
     

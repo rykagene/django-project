@@ -9,6 +9,13 @@
     <title>LOGIN</title>
 </head>
 <body>
+  {% if messages %}
+  <div id="alertContainer" class="alert-container">
+      {% for message in messages %}
+          <div class="alert alert-danger">{{ message }}</div>
+      {% endfor %}
+  </div>
+{% endif %}
     <h1 class="app-name">venari.</h1>
     <div id="form" class="form">
         <div id="heading" class="glass glass--gradient glass--heading">
@@ -38,5 +45,20 @@
 
     </div>
     <script src="login.js"></script>
+    <script>
+      // Display messages as alerts
+      var alertContainer = document.getElementById("alertContainer");
+      var alerts = alertContainer ? alertContainer.getElementsByClassName("alert") : [];
+  
+      for (var i = 0; i < alerts.length; i++) {
+          alert(alerts[i].innerText);
+      }
+  
+      // Clear messages after displaying alerts
+      var messagesContainer = document.getElementById("alertContainer");
+      if (messagesContainer) {
+          messagesContainer.innerHTML = '';
+      }
+  </script>
 </body>
 </html>
