@@ -132,8 +132,8 @@
                             <td>
                                 <div class="row justify-content-center align-items-center g-1">
                                     <div class="col">
-                                        <button type="button" class="btn btn-primary" id="comp-view-button"
-                                            data-bs-toggle="modal" data-bs-target="#editCompanyModal">
+                                        <button type="button" class="btn btn-primary" id="comp-view-button" name="edit"
+                                            data-bs-toggle="modal" data-bs-target="#editCompanyModal" data-post-id="{{ company.id }}">
                                             <i class="bi bi-pencil-fill"></i>
                                         </button>
 
@@ -302,19 +302,20 @@
                 </div>
                 <div class="modal-body">
 
-                    <form action="">
-
+                    <form method = "POST" action="{% url 'admin_edit_company' %}" id="editCompany">
+                        {% csrf_token %}
                         <div class="mb-3">
                             <label for="" class="form-label">Company Name</label>
-                            <input type="text" class="form-control" name="" id="" aria-describedby="helpId"
+                            <input type="text" class="form-control" name="company_name" id="company_name" aria-describedby="helpId"
                                 placeholder="" />
+                                <input type="hidden" class="form-control" name="company_id" id="company_id" value="">
                         </div>
 
                         <div class="row justify-content-center align-items-center g-2">
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="editFirstName" class="form-label">First Name</label>
-                                    <input type="text" class="form-control" name="editFirstName" id="editFirstName"
+                                    <input type="text" class="form-control" name="first_name" id="first_name"
                                         placeholder="Juan" />
 
                                 </div>
@@ -322,7 +323,7 @@
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="editFirstName" class="form-label">Last Name</label>
-                                    <input type="text" class="form-control" name="editLastName" id="editLastName"
+                                    <input type="text" class="form-control" name="last_name" id="last_name"
                                         placeholder="Dela Cruz" />
 
                                 </div>
@@ -331,70 +332,133 @@
 
                         <div class="mb-3">
                             <label for="editCeo" class="form-label">CEO/Founder</label>
-                            <input type="text" class="form-control" name="editCeo" id="editCeo" placeholder="" />
+                            <input type="text" class="form-control" name="ceo" id="ceo" placeholder="" />
                         </div>
 
 
                         <div class="mb-3">
                             Gender<br>
-                            <div class="btn-group btn-group-sm" role="group"
-                                aria-label="Basic checkbox toggle button group">
-                                <input type="radio" class="btn-check" name="btnradio" id="male" autocomplete="off" />
-                                <label class="btn btn-outline-primary" for="male">Male</label>
-
-                                <input type="radio" class="btn-check" name="btnradio" id="female" autocomplete="off" />
-                                <label class="btn btn-outline-primary" for="female">Female</label>
-
-                                <input type="radio" class="btn-check" name="btnradio" id="non-binary"
-                                    autocomplete="off" />
-                                <label class="btn btn-outline-primary" for="non-binary">Non-binary</label>
-
-                                <input type="radio" class="btn-check" name="btnradio" id="not-say" autocomplete="off" />
-                                <label class="btn btn-outline-primary" for="not-say">Prefer not to say</label>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="gender" id="male" value="Male">
+                                <label class="form-check-label" for="male">Male</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="gender" id="female" value="Female">
+                                <label class="form-check-label" for="female">Female</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="gender" id="non-binary" value="Non-binary">
+                                <label class="form-check-label" for="non-binary">Non-binary</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="gender" id="not-say" value="Prefer not to say">
+                                <label class="form-check-label" for="not-say">Prefer not to say</label>
                             </div>
                         </div>
 
                         <div class="mb-3">
                             <label for="editYearEstablished" class="form-label">Year Established</label>
-                            <input type="date" class="form-control" name="editYearEstablished" id="editYearEstablished"
+                            <input type="date" class="form-control" name="year_established" id="year_established"
                                 placeholder="" />
                         </div>
 
                         <div class="mb-3">
                             <label for="editMobileNumber" class="form-label">Mobile Number</label>
-                            <input type="number" class="form-control" name="editMobileNumber" id="editMobileNumber"
+                            <input type="number" class="form-control" name="contact" id="company_contact"
                                 placeholder="" />
                         </div>
 
                         <div class="mb-3">
                             <label for="editCompanyLocation" class="form-label">Company Location</label>
-                            <input type="text" class="form-control" name="editCompanyLocation" id="editCompanyLocation"
+                            <input type="text" class="form-control" name="location" id="company_location"
                                 placeholder="" />
                         </div>
 
                         <div class="mb-3">
                             <label for="editCompanyUsername" class="form-label">Company Username</label>
-                            <input type="text" class="form-control" name="editCompanyUsername" id="editCompanyUsername"
+                            <input type="text" class="form-control" name="username" id="company_username"
                                 placeholder="" />
                         </div>
 
 
-                    </form>
 
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                         Close
                     </button>
-                    <button type="button" class="btn btn-primary">Save</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
                 </div>
+            </form>
             </div>
         </div>
     </div>
 
     <!-- ========== End Section Edit Modal ========== -->
 
+         <script>
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        
+        document.addEventListener('DOMContentLoaded', function () {
+            var editButtons = document.querySelectorAll('[name="edit"]');
+            var editModal = new bootstrap.Modal(document.getElementById("editCompanyModal"));
+            editButtons.forEach(function (button) {
+                button.addEventListener('click', function () {
+                    var postId = button.getAttribute('data-post-id');
+                    document.getElementById('editCompany').setAttribute('data-post-id', postId);
+    
+                    fetch(`/get_company_data/${postId}/`)  
+                        .then(response => response.json())
 
+                        .then(data => {
+                            document.getElementById('company_contact').value = data.contact;
+                            document.getElementById('company_location').value = data.location;
+                            document.getElementById('company_username').value = data.username;
+                            document.getElementById('company_id').value = data.company_id;
+                            document.getElementById('company_name').value = data.company_name;
+                            document.getElementById('first_name').value = data.first_name;
+                            document.getElementById('last_name').value = data.last_name;
+                            document.getElementById('year_established').value = data.year_established ? data.year_established : '';
+                            document.getElementById('ceo').value = data.ceo;
+                            if (data.gender === 'Male') {
+                            document.getElementById('male').checked = true;
+                        } else if (data.gender === 'female') {
+                            document.getElementById('Female').checked = true;
+                        } else if (data.gender === 'Non-binary') {
+                            document.getElementById('non-binary').checked = true;
+                        } else if (data.gender === 'Prefer not to say') {
+                            document.getElementById('not-say').checked = true;
+                        } document.getElementById('btnradio').value = data.gender;
+                            editModal.show();
+                        })
+                        .catch(error => console.error('Error:', error));
+                });
+            });
+    
+            document.getElementById('submitEditJobForm').addEventListener('click', function () {
+                var postId = document.getElementById('editJobForm').getAttribute('data-post-id');
+                
+                console.log('Post ID:', postId);
+                
+
+                editModal.hide();
+            });
+        });
+        </script>
+    </script>
     <script>
         function getCookie(name) {
             var cookieValue = null;
@@ -479,7 +543,30 @@
 
                     const companyListingElement = document.getElementById('comp-list-table-card');
 
-                    companyListingElement.innerHTML = `<table class="table align-middle table-hover" id="comp_list_table">
+                    companyListingElement.innerHTML = `
+                    <div class="card border-0 overflow-auto p-2 p-lg-4 flex-grow-1 comp-list-cards" style="height: 500px;"
+                id="comp-list-table-card">
+
+                <div class="d-flex">
+                    <span class="flex-grow-1" id="acceptedLabel">Accepted Companies</span>
+                    <span class="flex-grow-1" id="pendingLabel">Pending Companies</span>
+
+                    <div class="dropdown flex-shrink-0 p-0 m-0">
+                        <a class="btn btn-primary dropdown-toggle btn-sm" href="#" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false" id="tableSelector">
+                            Tables
+                        </a>
+
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#" data-table="accepted">Accepted Companies</a></li>
+                            <li><a class="dropdown-item" href="#" data-table="pending">Pending Companies</a></li>
+                        </ul>
+
+                    </div>
+                </div>
+
+                <hr class="text-light">
+                    <table class="table align-middle table-hover" id="comp_list_table">
                     <thead>
                         <tr>
                             <th scope="col"></th>
@@ -513,16 +600,18 @@
                                         <td>
                                             <div class="row justify-content-center align-items-center g-1">
                                                 <div class="col">
-                                                    <button type="button" class="btn btn-primary btn-sm" id="comp-view-button">
-                                                        <i class="bi bi-eye-fill"></i>
-                                                    </button>
+                                                    <button type="button" class="btn btn-primary" id="comp-view-button"
+                                            data-bs-toggle="modal" data-bs-target="#editCompanyModal">
+                                            <i class="bi bi-pencil-fill"></i>
+                                        </button>
 
                                                 </div>
                                                 <div class="col">
-                                                    <button type="button" class="btn btn-danger btn-sm" name="delete" id="comp-archive-button" data-bs-toggle="modal" data-bs-target="#archiveModal"
-                                                    data-post-id="${company.company_id}">
-                                                        <i class="bi bi-trash-fill"></i>
-                                                    </button>
+                                                    <button type="button" class="btn btn-danger" name="delete"
+                                            id="comp-archive-button" data-bs-toggle="modal"
+                                            data-bs-target="#archiveModal" data-post-id="${ company.id }">
+                                            <i class="bi bi-trash-fill"></i>
+                                        </button>
                                                 </div>
                                             </div>
                                         </td>
