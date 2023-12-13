@@ -41,6 +41,117 @@
                 
             </div>
 
+            <div
+        class="modal fade"
+        id="createPost"
+        tabindex="-1"
+        
+        role="dialog"
+        aria-labelledby="createPostTitle"
+        aria-hidden="true"
+    >
+        <div
+            class="modal-dialog modal-dialog-scrollable modal-dialog-centered"
+            role="document"
+        >
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTitleId">
+                        Create Post
+                    </h5>
+                    <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                    ></button>
+                </div>
+                <div class="modal-body">
+                    <form class="container mt-3"  Action="{% url 'company_post_job' %}" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                    
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                <label>Job Title</label>
+                                <input type="text" class="form-control" name="job_title" id="job_title" placeholder="Job Title" required>
+                            </div>
+                        </div>
+                        
+                        <div class="row mt-3">
+                            <div class="form-group col-md-6">
+                                <label>Start Date</label>
+                                <input type="date" class="form-control" name="start_date" id="start_dates" placeholder="Start Date" required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>End Date</label>
+                                <input type="date" class="form-control" name="end_date" id="end_date" placeholder="End Date" required>
+                            </div>
+                        </div>
+                    
+                        <div class="row mt-3">
+                            <div class="form-group col-md-6">
+                                <label>Experience (in years)</label>
+                                <input type="text" class="form-control" name="experience" id="experience" placeholder="Experience required (in years)" required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Salary (per month)</label>
+                                <input type="tel" class="form-control" name="salary" id="salary" placeholder="Enter Salary (per month)" required>
+                            </div>
+                        </div>
+                    
+                        <div class="row mt-3">
+                            <div class="form-group col-md-6">
+                                <label>Skills Required</label>
+                                <input type="text" class="form-control" name="skills" id="skills" placeholder="Enter the required skills for the job" required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Job Type</label>
+                                <select name="jobtype" id="jobtype" class="form-control" required>
+                                    <option value="Part-Time">Part-Time Job</option>
+                                    <option value="Full-Time">Full-Time Job</option>
+                                </select>
+                            </div>
+                            </div>
+                        
+                        <div class="row mt-3">
+                            <div class="form-group col-md-12">
+                                <label>Company Location</label>
+                                <input type="text" class="form-control" name="location" id="location" placeholder="Enter exact location of the Company" required>
+                            </div>
+                        </div>
+                    
+                        <div class="row mt-3">
+                            <div class="form-group col-md-12">
+                                <label>Job Description</label>
+                               <textarea name="description" id="description" class="form-control" cols="30" rows="4" placeholder="Description of the exact job" required></textarea>
+                            </div>
+                        </div>
+                    <input type="submit" value="Submit" class="btn mt-3" style="background-color: #4f868c; color: white; font-size: larger; width: 8rem;">
+                    </form>
+                    
+                    
+                </div>
+                <div class="modal-footer">
+                    <button
+                        type="button"
+                        class="btn btn-secondary"
+                        data-bs-dismiss="modal"
+                    >
+                        Close
+                    </button>
+                    {% comment %} <button
+                        type="submit"
+                        class="btn btn-primary"
+                    >
+                        Submit
+                    </button> {% endcomment %}
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
 
             {% for job in jobs %}
             {% if job.status == "Activate" %} 
@@ -208,89 +319,6 @@
 
 
 
-
-
-
-
-                <script>
-                    // dropdown fnction in profile
-                    document.addEventListener('DOMContentLoaded', function() {
-                        // JavaScript to toggle the visibility of the dropdown
-                        document.addEventListener('click', function(event) {
-                            var dropdown = document.querySelector('.dropdown-content');
-                            var button = document.querySelector('.dropdown-button');
-
-                            if (button && dropdown && (button.contains(event.target) || dropdown.contains(event.target))) {
-                                dropdown.classList.toggle('hidden');
-                            } else if (dropdown && !dropdown.classList.contains('hidden')) {
-                                dropdown.classList.add('hidden');
-                            }
-                        });
-                    });
-
-                    // open and close function for the modal in see details button
-                    const seeDetailsBtns = document.querySelectorAll('.seeDetailsBtn');
-                    const closeBtn = document.getElementById('closeBtn');
-                    const modal = document.getElementById('myModal');
-
-                    seeDetailsBtns.forEach(btn => {
-                        btn.addEventListener('click', () => {
-                            modal.classList.remove('hidden');
-                        });
-                    });
-
-                    closeBtn.addEventListener('click', () => {
-                        modal.classList.add('hidden');
-                        // Show tab1Content and hide tab2Content when the modal is closed
-                        document.getElementById('tab1Content').classList.remove('hidden');
-                        document.getElementById('tab2Content').classList.add('hidden');
-                    });
-
-                        //adjust color for active tab title
-                        document.getElementById('tab1').addEventListener('click', function() {
-                            document.getElementById('tab1').classList.add('border-blue-500', 'text-blue-500');
-                            document.getElementById('tab1').classList.remove('border-transparent', 'text-gray-500');
-                            document.getElementById('tab2').classList.add('border-transparent', 'text-gray-500');
-                            document.getElementById('tab2').classList.remove('border-blue-500', 'text-blue-500');
-                        });
-                        
-                        document.getElementById('tab2').addEventListener('click', function() {
-                            document.getElementById('tab2').classList.add('border-blue-500', 'text-blue-500');
-                            document.getElementById('tab2').classList.remove('border-transparent', 'text-gray-500');
-                            document.getElementById('tab1').classList.add('border-transparent', 'text-gray-500');
-                            document.getElementById('tab1').classList.remove('border-blue-500', 'text-blue-500');
-                        });
-
-                        //for modification of presented tabs in modal
-                        document.getElementById('tab1').addEventListener('click', function() {
-                            document.getElementById('tab1Content').classList.remove('hidden');
-                            document.getElementById('tab2Content').classList.add('hidden');
-                        });
-                        
-                        document.getElementById('tab2').addEventListener('click', function() {
-                            document.getElementById('tab2Content').classList.remove('hidden');
-                            document.getElementById('tab1Content').classList.add('hidden');
-                        });
-
-                        function viewResume(resumeUrl) {                          
-                            window.open(resumeUrl, '_blank');
-                          }
-
-
-
-                        const openPostJob = document.getElementById('openPostJob');
-                        const closePostJob = document.getElementById('closePostJob');
-                        const postJobModal = document.getElementById('postJobModal');
-
-                        openPostJob.addEventListener('click', () => {
-                        postJobModal.classList.remove('hidden');
-                        });
-
-                        closePostJob.addEventListener('click', () => {
-                        postJobModal.classList.add('hidden');
-                        });
-                                    </script>
-            
         </div>
     </div>
 
@@ -298,123 +326,6 @@
     
     <!-- Modal Body -->
     <!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
-    <div
-        class="modal fade"
-        id="createPost"
-        tabindex="-1"
-        
-        role="dialog"
-        aria-labelledby="createPostTitle"
-        aria-hidden="true"
-    >
-        <div
-            class="modal-dialog modal-dialog-scrollable modal-dialog-centered"
-            role="document"
-        >
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalTitleId">
-                        Create Post
-                    </h5>
-                    <button
-                        type="button"
-                        class="btn-close"
-                        data-bs-dismiss="modal"
-                        aria-label="Close"
-                    ></button>
-                </div>
-                <div class="modal-body">
-                    <form class="container mt-3"  Action="{% url 'company_post_job' %}" method="POST" enctype="multipart/form-data">
-                        {% csrf_token %}
-                    
-                        <div class="row">
-                            <div class="form-group col-md-12">
-                                <label>Job Title</label>
-                                <input type="text" class="form-control" name="job_title" id="job_title" placeholder="Job Title" required>
-                            </div>
-                        </div>
-                        
-                        <div class="row mt-3">
-                            <div class="form-group col-md-6">
-                                <label>Start Date</label>
-                                <input type="date" class="form-control" name="start_date" id="start_dates" placeholder="Start Date" required>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label>End Date</label>
-                                <input type="date" class="form-control" name="end_date" id="end_date" placeholder="End Date" required>
-                            </div>
-                        </div>
-                    
-                        <div class="row mt-3">
-                            <div class="form-group col-md-6">
-                                <label>Experience (in years)</label>
-                                <input type="text" class="form-control" name="experience" id="experience" placeholder="Experience required (in years)" required>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label>Salary (per month)</label>
-                                <input type="tel" class="form-control" name="salary" id="salary" placeholder="Enter Salary (per month)" required>
-                            </div>
-                        </div>
-                    
-                        <div class="row mt-3">
-                            <div class="form-group col-md-6">
-                                <label>Skills Required</label>
-                                <input type="text" class="form-control" name="skills" id="skills" placeholder="Enter the required skills for the job" required>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label>Job Type</label>
-                                <select name="jobtype" id="jobtype" class="form-control" required>
-                                    <option value="Part-Time">Part-Time Job</option>
-                                    <option value="Full-Time">Full-Time Job</option>
-                                </select>
-                            </div>
-                            </div>
-                        
-                        <div class="row mt-3">
-                            <div class="form-group col-md-12">
-                                <label>Company Location</label>
-                                <input type="text" class="form-control" name="location" id="location" placeholder="Enter exact location of the Company" required>
-                            </div>
-                        </div>
-                    
-                        <div class="row mt-3">
-                            <div class="form-group col-md-12">
-                                <label>Job Description</label>
-                               <textarea name="description" id="description" class="form-control" cols="30" rows="4" placeholder="Description of the exact job" required></textarea>
-                            </div>
-                        </div>
-                    <input type="submit" value="Submit" class="btn mt-3" style="background-color: #4f868c; color: white; font-size: larger; width: 8rem;">
-                    </form>
-                    
-                    
-                </div>
-                <div class="modal-footer">
-                    <button
-                        type="button"
-                        class="btn btn-secondary"
-                        data-bs-dismiss="modal"
-                    >
-                        Close
-                    </button>
-                    {% comment %} <button
-                        type="submit"
-                        class="btn btn-primary"
-                    >
-                        Submit
-                    </button> {% endcomment %}
-                    
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Optional: Place to the bottom of scripts -->
-    <script>
-        const myModal = new bootstrap.Modal(
-            document.getElementById("createPost"),
-            options,
-        );
-    </script>
     
 
     </div>
