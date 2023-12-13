@@ -6,127 +6,39 @@
     <title>Your Website</title>
     <!-- Include the Tailwind CSS stylesheet -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="./../static/css/cdash.css">
 
     
 </head>
-<body class="bg-gray-100">
+<body>
 
-    <!-- Navigation Bar -->
-<nav class="bg-gray-700 p-3">
-    <div class="container mx-auto flex items-center justify-between">
 
-        <!-- Brand/logo -->
-        <div>
-            <a href="/company_profile/" class="text-white text-lg font-bold">{{company.company_logo}}</a>
-        </div>
-
-        <!-- Dropdown Trigger -->
-        <div class="relative">
-
-            <!-- Profile Image/Button -->
-            <button class="flex items-center text-white dropdown-button">
-                <img src="{{company.company_logo.url}}" alt="Profile Image" class="w-8 h-8 rounded-full mr-2">
-                <span class="hidden sm:inline-block font-semibold">{{company.user.username}}</span>
-                <svg class="w-4 h-4 fill-current ml-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/></svg>
-            </button>
-
-            <!-- Dropdown Content -->
-            <div class="absolute right-0 mt-2 bg-white border rounded-md shadow-md py-2 hidden dropdown-content">
-                <a href="/company_profile/" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">Profile</a>
-                <a href="/logout/" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">Sign Out</a>
-            </div>
-
-        </div>
-
+    <div>
+        {% include 'companiesSB_NB.html' %}
     </div>
-</nav>
-
 
     <!-- Content Goes Here -->
 
-    <div class="flex">
+    <div class=" flex" id="main">
 
-
-        <!-- Left Div (1/4 width) -->
-        <div class="bg-gray-800 p-4 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 flex flex-col">
-            <a href = "/company_post_job/"><button class="bg-blue-500 text-gray-800 px-5 sm:px-7 py-2 sm:py-2 rounded-lg font-semibold mx-auto text-sm sm:text-base">New Job Repository</button></a>
-
-
-            <!-- Shift -->
-            <p class="text-white font-bold mt-5 mb-2 ml-4">Shift</p>
-
-            <div class="flex items-center ml-4 mb-2">
-                <input type="checkbox" id="myCheckbox" class="form-checkbox h-5 w-5 rounded">
-                <label for="myCheckbox" class="ml-2 text-white font-semibold">Three-day shifts</label>
-            </div>
-
-            <div class="flex items-center ml-4 mb-2">
-                <input type="checkbox" id="myCheckbox" class="form-checkbox h-5 w-5 rounded">
-                <label for="myCheckbox" class="ml-2 text-white font-semibold">Three-night shifts</label>
-            </div>
-
-            <div class="flex items-center ml-4 mb-2">
-                <input type="checkbox" id="myCheckbox" class="form-checkbox h-5 w-5 rounded">
-                <label for="myCheckbox" class="ml-2 text-white font-semibold">Seven days shifts</label>
-            </div>
-
-
-
-            <!-- Courses -->
-            <p class="text-white font-bold mt-3 mb-2 ml-4">Courses</p>
-
-            <div class="flex items-center ml-4 mb-2">
-                <input type="checkbox" id="myCheckbox" class="form-checkbox h-5 w-5 rounded">
-                <label for="myCheckbox" class="ml-2 text-white font-semibold">BS Information Technology</label>
-            </div>
-
-            <div class="flex items-center ml-4 mb-2">
-                <input type="checkbox" id="myCheckbox" class="form-checkbox h-5 w-5 rounded">
-                <label for="myCheckbox" class="ml-2 text-white font-semibold">BS Computer Engineering</label>
-            </div>
-
-            <div class="flex items-center ml-4 mb-2">
-                <input type="checkbox" id="myCheckbox" class="form-checkbox h-5 w-5 rounded">
-                <label for="myCheckbox" class="ml-2 text-white font-semibold">BS Civil Engineering</label>
-            </div>
-            
-
-
-            <!-- Employment Type -->
-            <p class="text-white font-bold mt-3 mb-2 ml-4">Employment Type</p>
-
-            <div class="flex items-center ml-4 mb-2">
-                <input type="checkbox" id="myCheckbox" class="form-checkbox h-5 w-5 rounded">
-                <label for="myCheckbox" class="ml-2 text-white font-semibold">Part-time</label>
-            </div>
-
-            <div class="flex items-center ml-4 mb-2">
-                <input type="checkbox" id="myCheckbox" class="form-checkbox h-5 w-5 rounded">
-                <label for="myCheckbox" class="ml-2 text-white font-semibold">Internship</label>
-            </div>
-
-            <div class="flex items-center ml-4 mb-2">
-                <input type="checkbox" id="myCheckbox" class="form-checkbox h-5 w-5 rounded">
-                <label for="myCheckbox" class="ml-2 text-white font-semibold">Freelancer</label>
-            </div>
-            
-            
-            
-        </div>
-        
-        
-
-        
-
-        <!-- Right Div (3/4 width) -->
-        <div class="flex-1 p-4 w-3/4">
+        <div class="flex-1 p-4">
 
             <div class="flex items-center">
                 <div class="font-bold my-4 text-xl">List of Posted Jobs</div>
                 <div class="font-semibold my-4 ml-3 text-gray-400">{{ job_posted_count }}</div>
+                <button
+                    type="button"
+                    class="btn btn-primary ml-auto"
+                    
+        data-bs-toggle="modal"
+        data-bs-target="#createPost"
+                >
+                    Create Post
+                </button>
                 
-                <div class="font-bold my-4 ml-auto">Sort by</div>
-                <div class="font-semibold my-4 ml-1 text-blue-400">Last Posted</div>
+
+                
             </div>
 
 
@@ -271,12 +183,12 @@
                                             <button type="button" class="text-sm md:text-base rounded-md px-2 mb-2 md:mb-0" style="background-color: #898DFF;" 
                                             {% if applicant.resume %} onclick="viewResume('{{ applicant.resume.url }}')" 
                                             {% else %} disabled {% endif %}>
-                                                {% if applicant.resume %} View Resume {% else %} No Resume Available {% endif %}
+                                                {% if applicant.resume %} <i class="bi bi-file-earmark-person-fill"></i> {% else %} No Resume Available {% endif %}
                                             </button>                                            {% if applicant.status != 'hire' %}
                                             <button type="submit" class="text-sm md:text-base rounded-md ml-1 px-2 mb-2 md:mb-0" name="status" style="background-color: rgb(85, 245, 120);" value="hire">Accept</button>
                                             <button type="submit" class="text-sm md:text-base rounded-md ml-1 px-2 mb-2 md:mb-0" name="status" style="background-color: #f0473b;" value="reject">Reject</button>
                                             {% endif %}
-                                            <button type = "button" class="text-sm md:text-base rounded-md ml-1 px-2 mb-2 md:mb-0" style="background-color: #FB675F;">Archive Record</button>                                           
+                                            <button type = "button" class="text-sm md:text-base rounded-md ml-1 px-2 mb-2 md:mb-0" style="background-color: #FB675F;"><i class="bi bi-archive"></i></button>                                           
                                         </div>
                                     </form>
                                     </div>
@@ -363,11 +275,147 @@
                         function viewResume(resumeUrl) {                          
                             window.open(resumeUrl, '_blank');
                           }
-                </script>
+
+
+
+                        const openPostJob = document.getElementById('openPostJob');
+                        const closePostJob = document.getElementById('closePostJob');
+                        const postJobModal = document.getElementById('postJobModal');
+
+                        openPostJob.addEventListener('click', () => {
+                        postJobModal.classList.remove('hidden');
+                        });
+
+                        closePostJob.addEventListener('click', () => {
+                        postJobModal.classList.add('hidden');
+                        });
+                                    </script>
             
         </div>
     </div>
 
+    <!-- Modal trigger button -->
+    
+    <!-- Modal Body -->
+    <!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
+    <div
+        class="modal fade"
+        id="createPost"
+        tabindex="-1"
+        
+        role="dialog"
+        aria-labelledby="createPostTitle"
+        aria-hidden="true"
+    >
+        <div
+            class="modal-dialog modal-dialog-scrollable modal-dialog-centered"
+            role="document"
+        >
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTitleId">
+                        Create Post
+                    </h5>
+                    <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                    ></button>
+                </div>
+                <div class="modal-body">
+                    <form class="container mt-3" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                    
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                <label>Job Title</label>
+                                <input type="text" class="form-control" name="job_title" id="job_title" placeholder="Job Title" required>
+                            </div>
+                        </div>
+                        
+                        <div class="row mt-3">
+                            <div class="form-group col-md-6">
+                                <label>Start Date</label>
+                                <input type="date" class="form-control" name="start_date" id="start_dates" placeholder="Start Date" required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>End Date</label>
+                                <input type="date" class="form-control" name="end_date" id="end_date" placeholder="End Date" required>
+                            </div>
+                        </div>
+                    
+                        <div class="row mt-3">
+                            <div class="form-group col-md-6">
+                                <label>Experience (in years)</label>
+                                <input type="text" class="form-control" name="experience" id="experience" placeholder="Experience required (in years)" required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Salary (per month)</label>
+                                <input type="tel" class="form-control" name="salary" id="salary" placeholder="Enter Salary (per month)" required>
+                            </div>
+                        </div>
+                    
+                        <div class="row mt-3">
+                            <div class="form-group col-md-6">
+                                <label>Skills Required</label>
+                                <input type="text" class="form-control" name="skills" id="skills" placeholder="Enter the required skills for the job" required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Job Type</label>
+                                <select name="jobtype" id="jobtype" class="form-control" required>
+                                    <option value="Part-Time">Part-Time Job</option>
+                                    <option value="Full-Time">Full-Time Job</option>
+                                </select>
+                            </div>
+                            </div>
+                        
+                        <div class="row mt-3">
+                            <div class="form-group col-md-12">
+                                <label>Company Location</label>
+                                <input type="text" class="form-control" name="location" id="location" placeholder="Enter exact location of the Company" required>
+                            </div>
+                        </div>
+                    
+                        <div class="row mt-3">
+                            <div class="form-group col-md-12">
+                                <label>Job Description</label>
+                               <textarea name="description" id="description" class="form-control" cols="30" rows="4" placeholder="Description of the exact job" required></textarea>
+                            </div>
+                        </div>
+                    <input type="submit" value="Submit" class="btn mt-3" style="background-color: #4f868c; color: white; font-size: larger; width: 8rem;">
+                    </form>
+                    
+                    
+                </div>
+                <div class="modal-footer">
+                    <button
+                        type="button"
+                        class="btn btn-secondary"
+                        data-bs-dismiss="modal"
+                    >
+                        Close
+                    </button>
+                    {% comment %} <button
+                        type="submit"
+                        class="btn btn-primary"
+                    >
+                        Submit
+                    </button> {% endcomment %}
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Optional: Place to the bottom of scripts -->
+    <script>
+        const myModal = new bootstrap.Modal(
+            document.getElementById("createPost"),
+            options,
+        );
+    </script>
+    
 
     </div>
 

@@ -1,27 +1,33 @@
 /* General styles */
 
 body{
-    margin: 0; /* Remove default margin */
-      height: 100vh; /* Set height to 100% of the viewport height */
-      background-image: url("images/plain bg.jpg");
-      background-repeat: no-repeat;
-      background-size: cover;
-      background-position: center;
-      background-attachment: fixed;
+  background-image: url(./../css/images/blobBG.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+  
+  
+
+
+    color: #20272F;
+    min-height: 100vh;
+    font-family: 'Poppins', sans-serif;
     
   }
   
 
+
   #main {
     transition: margin-left .5s;
     margin-left: 275px;
-  }
-  
-  @media (max-width: 768px) {
+}
+
+@media (max-width: 768px) {
     #main {
         margin-left: 0px;
     }
-  }
+}
 .container {
     padding: 20px;
     border-radius: 10px;

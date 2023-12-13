@@ -509,7 +509,7 @@ def company_profile(request):
         elif uniqueuser and username != hidden_username:
             messages.error(request, "Username exists.")
             return redirect('/company_profile')
-        elif (job_seeker.objects.filter(phone=phone_number).exists() or company.objects.filter(phone=phone_number).exists()) and phone_number != hidden_phone:
+        elif (job_seeker.objects.filter(phone_number=phone_number).exists() or company.objects.filter(phone_number=phone_number).exists()) and phone_number != hidden_phone:
             messages.error(request, "Phone number exists.")
             return redirect('/company_profile')
         else:

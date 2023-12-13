@@ -9,7 +9,7 @@
 <body>
 
     <div>
-        {% include 'jobseekerSB_NB.html' %}
+        {% include 'companiesSB_NB.html' %}
     </div>
     <div id="main">
         <div class="container justify-content-center d-flex">
@@ -22,14 +22,14 @@
                             {{ message }}
                         </div>
                         {% endfor %}
-
+         <form class="container mt-4" method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
 
                         <div class="col-12 mt-5 text-center">
                             <img src="{{company.company_logo.url}}" id="pfp" alt="">
                         </div>
                         <div class="col-12 text-start">
-                            <form class="container mt-4" method="POST" enctype="multipart/form-data">
+                   
 
                                 <div class="card" id="child-card">
                                     <div class="card-body">
@@ -108,7 +108,7 @@
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <label>Contact Number</label>
-                                                <input type="text" class="form-control" name="phone" id="phone"
+                                                <input type="text" class="form-control" name="phone_number" id="phone"
                                                     value="{{company.phone_number}}" placeholder="Enter Contact Number"
                                                     minlength="11" maxlength="11" pattern="09[0-9]{9}"
                                                     title="09(Last 9 Digits)" required>
@@ -166,9 +166,9 @@
                                     </div>
                                 </div>
 
-                            </form>
+                            
 
-                        </div>
+                        </div></form>
                     </div>
 
                 </div>
