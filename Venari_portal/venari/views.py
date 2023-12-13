@@ -84,7 +84,7 @@ def user_signup(request):
         gender = request.POST['gender']
         skills = request.POST['skills']
         address = request.POST['home_address']
-        resume = request.POST['resume']
+        resume = request.FILES['resume']
         uniqueemail = User.objects.filter(email=email)
         uniqueuser = User.objects.filter(username=username)
         if uniqueemail:
